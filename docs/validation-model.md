@@ -42,8 +42,23 @@ The semantic validator checks:
 - option preconditions, expected effects, and review gates
 - trigger transitions and dependency closure
 - decision rendering dependencies
+- artifact identity evidence-hash coverage
+- decision criteria and tradeoff-surface references
+- temporal evidence validity windows
+- information-value entries for rendering-blocking unknowns
+- actor ownership for criteria and gates
+- hybrid/provisional lens coverage
+- council contention and review-log requirements
 
 Option `blocking_unknowns` values must reference `unknowns[].unknown_id`. Missing evidence should not remain loose prose once an artifact is schema-bound.
+
+## Mode-Aware Profiles
+
+The base schema defines portable object shapes. Profiles decide how much is required:
+
+- Micro requires the core map plus at least one criterion. Lifecycle, tradeoff, actor, temporal, lens, council, and review fields may be omitted unless the risk or evidence state demands them.
+- Map requires artifact identity, criteria, a tradeoff surface, temporal model, edges, loops, option moves, and the core graph. Semantic checks require actors for strategic/normative/hybrid maps, information value for rendering-blocking unknowns, and lens coverage for hybrid/provisional maps.
+- Audit requires the full decision-lifecycle layer, including actors, information value, lenses, council result, and review log. Approved gates require corresponding review entries.
 
 ## Regression Tests
 
@@ -52,12 +67,17 @@ Option `blocking_unknowns` values must reference `unknowns[].unknown_id`. Missin
 Negative coverage includes:
 
 - missing evidence hash
+- artifact identity evidence-hash mismatch
 - illegal edge relation
 - disputed-claim option dependency without a review gate
-- missing rendering dependency for a blocking unknown
+- missing decision-surface dependency from the rendering
+- rendering-blocking unknown without information value
+- hybrid map with insufficient lens-axis coverage
+- criterion owned by a missing actor
 - high-risk artifact without gate
 - adapter mismatch
 - unresolved unknown with no blocked object
+- approved Audit gate without review log
 
 ## Relation Legality
 
@@ -73,6 +93,7 @@ Edges are not only strings. Relation legality is checked against endpoint object
 ## Rendering Closure
 
 `decision_rendering.rendering_id` is a graph node. Any object in `decision_rendering.depends_on` gets a reverse dependency to that rendering node, so trigger closure can show whether the final answer must be patched.
+Artifact identity, temporal model, information-value objects, tradeoff surfaces, lenses/council result, and review-log entries also participate in reverse dependency closure when present.
 
 ## Nested Scenes And Unknowns
 

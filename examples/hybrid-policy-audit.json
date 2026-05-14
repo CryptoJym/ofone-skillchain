@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.3.2",
+  "ofone_version": "0.4.0",
   "mode": "Audit",
   "charter": {
     "objective": "Assess a proposed AI policy for deployment in a public-sector workflow.",
@@ -519,7 +519,9 @@
       "C2",
       "C3",
       "O1",
-      "U1"
+      "U1",
+      "TS1",
+      "COUNCIL"
     ],
     "movement_jobs": [
       "EVALUATE",
@@ -549,12 +551,12 @@
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T1: C2, KT1, L2, O1, R1, T1, X2, X3 [includes rendering]"
+        "notes": "trigger T1: C2, COUNCIL, KT1, L2, LENS2, O1, R1, T1, TS1, X2, X3 [includes rendering]"
       },
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T2: C2, C3, KT1, L1, L2, O1, R1, T1, T2, X1, X2, X3 [includes rendering]"
+        "notes": "trigger T2: C2, C3, COUNCIL, KT1, L1, L2, LENS2, LENS3, O1, OFONE-hybrid-policy-audit-001, R1, T1, T2, TEMPORAL, TS1, X1, X2, X3 [includes rendering]"
       },
       {
         "check": "semantic_validation",
@@ -595,5 +597,258 @@
         "WARN"
       ]
     }
-  ]
+  ],
+  "artifact_identity": {
+    "artifact_id": "OFONE-hybrid-policy-audit-001",
+    "case_id": "case-hybrid-policy-audit-001",
+    "objective_head": "Assess a proposed AI policy for deployment in a public-sector workflow.",
+    "scope_hash": "sha256:13d1c0e3178eea2f3e9782f63a284255c9239f352db614f83ab0fbf5452cb9ee",
+    "config_hash": "sha256:df6a3643ccf5fc6ae4a4be721748348248805c2fc08a6b2fa898bee02994f26e",
+    "active_evidence_hashes": [
+      "sha256:aa4449c00470ade25b0635ffdd9eeef354c259310c8a1db6e4b40cd0d40b1776",
+      "sha256:bb5dcb378df5550855e2a11aa0e5ef124119a36bd7b15cef594e13710fd0410f"
+    ],
+    "created_at": "2026-05-14T00:00:00Z",
+    "status": "review_pending",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "human review owner",
+      "role": "reviewer",
+      "incentives": [
+        "avoid invalid release"
+      ],
+      "exposures": [
+        "rights",
+        "public trust",
+        "operational safety",
+        "legal exposure"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "assigned review authority for the decision",
+      "movement_jobs": [
+        "BOUND",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "affected party",
+      "role": "affected_party",
+      "incentives": [
+        "avoid harm from incorrect decision"
+      ],
+      "exposures": [
+        "rights",
+        "public trust",
+        "operational safety",
+        "legal exposure"
+      ],
+      "authority": "observe",
+      "legitimacy_basis": "directly exposed to the decision outcome",
+      "movement_jobs": [
+        "BOUND",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Gate safety",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not release or launch while required gate remains open.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Unknown resolution value",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Prefer moves that resolve rendering-blocking unknowns before irreversible action.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "TEST"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Affected-party exposure",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "Do not hide material exposure to affected parties.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "one policy cycle",
+    "decision_deadline": "one policy cycle",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "source is superseded, contradicted, or made stale by new evidence"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "source is superseded, contradicted, or made stale by new evidence"
+      }
+    ],
+    "update_cadence": "before release and on any new evidence",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "1 to 4 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Run subgroup audit, appeal-access review, and override-monitoring review.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "strategic agentic lens",
+      "adapter_axis": "strategic-agentic",
+      "questions": [
+        "What does the strategic-agentic frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "Subgroup error, appeal access, and override monitoring are not yet evidenced."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "scientific explanatory lens",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "What does the scientific-explanatory frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C2"
+      ],
+      "blind_spots": [
+        "Subgroup error, appeal access, and override monitoring are not yet evidenced."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS3",
+      "name": "formal lens",
+      "adapter_axis": "formal",
+      "questions": [
+        "What does the formal frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C3"
+      ],
+      "blind_spots": [
+        "Subgroup error, appeal access, and override monitoring are not yet evidenced."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "strategic-agentic",
+      "scientific-explanatory",
+      "formal"
+    ],
+    "missing_lenses": [
+      "legal-specific counsel remains external to this example artifact"
+    ],
+    "major_dissent": [
+      "U1 blocks O1, R1"
+    ],
+    "decision_effect": "Defer deployment and run an audit-mode evidence pass focused on subgroup performance, appeal access, and override monitoring.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "review_log": []
 }

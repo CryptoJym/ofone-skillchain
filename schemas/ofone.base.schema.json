@@ -28,6 +28,9 @@
     "charter": {
       "$ref": "#/$defs/charter"
     },
+    "artifact_identity": {
+      "$ref": "#/$defs/artifactIdentity"
+    },
     "adapter_projection": {
       "$ref": "#/$defs/adapterProjection"
     },
@@ -56,6 +59,45 @@
       "type": "array",
       "items": {
         "$ref": "#/$defs/killTest"
+      }
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/criterion"
+      }
+    },
+    "tradeoff_surface": {
+      "$ref": "#/$defs/tradeoffSurface"
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/actor"
+      }
+    },
+    "temporal_model": {
+      "$ref": "#/$defs/temporalModel"
+    },
+    "information_value": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/informationValue"
+      }
+    },
+    "lenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lens"
+      }
+    },
+    "council_result": {
+      "$ref": "#/$defs/councilResult"
+    },
+    "review_log": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reviewLogEntry"
       }
     },
     "edges": {
@@ -136,6 +178,44 @@
         },
         "risk_tier": {
           "$ref": "#/$defs/ordinal"
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "artifactIdentity": {
+      "type": "object",
+      "required": ["artifact_id", "case_id", "objective_head", "scope_hash", "config_hash", "active_evidence_hashes", "created_at", "status", "movement_jobs"],
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "objective_head": {
+          "type": "string"
+        },
+        "scope_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-fA-F0-9]{64}$|^unknown$"
+        },
+        "config_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-fA-F0-9]{64}$|^unknown$"
+        },
+        "active_evidence_hashes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "status": {
+          "enum": ["draft", "validated", "rendered", "review_pending", "released", "superseded"]
         },
         "movement_jobs": {
           "$ref": "#/$defs/movementJobs"
@@ -463,6 +543,276 @@
           "items": {
             "type": "string"
           }
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "criterion": {
+      "type": "object",
+      "required": ["criterion_id", "name", "kind", "priority", "threshold", "owned_by", "movement_jobs"],
+      "properties": {
+        "criterion_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["constraint", "preference", "objective", "threshold"]
+        },
+        "priority": {
+          "enum": ["must", "should", "could"]
+        },
+        "threshold": {
+          "type": "string"
+        },
+        "owned_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "tradeoffSurface": {
+      "type": "object",
+      "required": ["surface_id", "options", "criteria", "dominant_option", "why", "reversal_conditions", "movement_jobs"],
+      "properties": {
+        "surface_id": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dominant_option": {
+          "type": "string"
+        },
+        "why": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reversal_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "required": ["actor_id", "label", "role", "incentives", "exposures", "authority", "legitimacy_basis", "movement_jobs"],
+      "properties": {
+        "actor_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "role": {
+          "enum": ["reviewer", "beneficiary", "operator", "adversary", "decision_owner", "affected_party"]
+        },
+        "incentives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exposures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authority": {
+          "enum": ["approve", "block", "advise", "observe"]
+        },
+        "legitimacy_basis": {
+          "type": "string"
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "temporalModel": {
+      "type": "object",
+      "required": ["time_horizon", "decision_deadline", "evidence_validity_windows", "update_cadence", "movement_jobs"],
+      "properties": {
+        "time_horizon": {
+          "type": "string"
+        },
+        "decision_deadline": {
+          "type": "string"
+        },
+        "evidence_validity_windows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceValidityWindow"
+          }
+        },
+        "update_cadence": {
+          "type": "string"
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "evidenceValidityWindow": {
+      "type": "object",
+      "required": ["evidence_id", "valid_until", "staleness_trigger"],
+      "properties": {
+        "evidence_id": {
+          "type": "string"
+        },
+        "valid_until": {
+          "type": "string"
+        },
+        "staleness_trigger": {
+          "type": "string"
+        }
+      }
+    },
+    "informationValue": {
+      "type": "object",
+      "required": ["unknown_id", "decision_impact", "resolution_cost", "time_to_resolve", "risk_reduction", "recommended_next_query", "movement_jobs"],
+      "properties": {
+        "unknown_id": {
+          "type": "string"
+        },
+        "decision_impact": {
+          "$ref": "#/$defs/ordinal"
+        },
+        "resolution_cost": {
+          "$ref": "#/$defs/ordinal"
+        },
+        "time_to_resolve": {
+          "type": "string"
+        },
+        "risk_reduction": {
+          "$ref": "#/$defs/ordinal"
+        },
+        "recommended_next_query": {
+          "type": "string"
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "lens": {
+      "type": "object",
+      "required": ["lens_id", "name", "adapter_axis", "questions", "claims_examined", "blind_spots", "contention", "movement_jobs"],
+      "properties": {
+        "lens_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "adapter_axis": {
+          "enum": ["strategic-agentic", "scientific-explanatory", "formal", "normative-evaluative", "hybrid", "provisional"]
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "claims_examined": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blind_spots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contention": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "councilResult": {
+      "type": "object",
+      "required": ["coverage", "missing_lenses", "major_dissent", "decision_effect", "movement_jobs"],
+      "properties": {
+        "coverage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "missing_lenses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "major_dissent": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decision_effect": {
+          "type": "string"
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "reviewLogEntry": {
+      "type": "object",
+      "required": ["review_id", "gate_id", "actor_id", "decision", "timestamp", "notes", "movement_jobs"],
+      "properties": {
+        "review_id": {
+          "type": "string"
+        },
+        "gate_id": {
+          "type": "string"
+        },
+        "actor_id": {
+          "type": "string"
+        },
+        "decision": {
+          "enum": ["approved", "blocked", "returned_for_evidence", "not_required"]
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
         },
         "movement_jobs": {
           "$ref": "#/$defs/movementJobs"

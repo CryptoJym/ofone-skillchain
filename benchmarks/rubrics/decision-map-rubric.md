@@ -14,8 +14,12 @@ Score each dimension from 1 to 5.
 ## Decision Utility
 
 - option reversibility
-- tradeoff visibility
+- criteria and tradeoff-surface visibility
+- dominant option and reversal conditions
+- information value for blocking unknowns
 - gate correctness
+- actor/stakeholder exposure
+- temporal validity and staleness handling
 - update-trigger usefulness
 - rendering clarity
 
@@ -26,6 +30,8 @@ Score each dimension from 1 to 5.
 - relation legality
 - adapter-contract fit
 - dependency closure reaches affected renderings
+- artifact identity hash coverage
+- review-log coverage for approved gates
 
 ## Calibration
 
@@ -33,4 +39,3 @@ Score each dimension from 1 to 5.
 - low-provenance or missing evidence stays visible
 - dissent or contradiction is not hidden
 - empirical superiority is not overstated
-

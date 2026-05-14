@@ -16,6 +16,7 @@
         "claims",
         "unknowns",
         "kill_tests",
+        "criteria",
         "triggers",
         "gates",
         "confidence_model",
@@ -25,6 +26,7 @@
         "mode": { "const": "Micro" },
         "evidence": { "type": "array", "minItems": 1 },
         "claims": { "type": "array", "minItems": 1 },
+        "criteria": { "type": "array", "minItems": 1 },
         "decision_rendering": {
           "type": "object",
           "required": ["rendering_id", "summary", "recommendation", "confidence", "depends_on", "movement_jobs"]

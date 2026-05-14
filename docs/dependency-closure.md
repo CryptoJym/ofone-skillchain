@@ -8,11 +8,12 @@ new evidence
 -> affected edges
 -> affected loops
 -> affected options
+-> affected identity / temporal / tradeoff / lens / review objects
 -> affected decision rendering (`rendering_id`)
 ```
 
 The validator builds reverse dependencies from evidence support, claim dependencies and contradictions, edge endpoints, loop edge membership, option preconditions/effects, trigger affected objects, gate references, and `decision_rendering.depends_on`.
-It also includes subscene membership, explicit unknown/null objects that block options or renderings, and kill tests that falsify claims.
+It also includes subscene membership, explicit unknown/null objects that block options or renderings, kill tests that falsify claims, artifact identity, temporal evidence windows, information-value entries, tradeoff surfaces, lens/council review, and review-log entries.
 
 Transition classes:
 

@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.3.2",
+  "ofone_version": "0.4.0",
   "mode": "Map",
   "charter": {
     "objective": "Decide whether a wastewater-market-entry team should move beyond early diligence under a US NPDES-regulated discharge assumption.",
@@ -566,7 +566,9 @@
       "C2",
       "C3",
       "O1",
-      "U1"
+      "U1",
+      "TS1",
+      "COUNCIL"
     ],
     "movement_jobs": [
       "EVALUATE",
@@ -595,12 +597,12 @@
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T1: O1, R1, T1 [includes rendering]"
+        "notes": "trigger T1: IV:U1, O1, R1, T1, TS1 [includes rendering]"
       },
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T2: C3, KT1, L1, O1, R1, T2, X1, X2, X3, X4 [includes rendering]"
+        "notes": "trigger T2: C3, COUNCIL, KT1, L1, LENS2, LENS3, O1, R1, T2, TS1, X1, X2, X3, X4 [includes rendering]"
       },
       {
         "check": "semantic_validation",
@@ -608,5 +610,262 @@
         "notes": "semantic graph checks completed"
       }
     ]
-  }
+  },
+  "artifact_identity": {
+    "artifact_id": "OFONE-source-backed-wastewater-map-001",
+    "case_id": "case-regulated-wastewater-market-entry-001",
+    "objective_head": "Decide whether a wastewater-market-entry team should move beyond early diligence under a US NPDES-regulated discharge assumption.",
+    "scope_hash": "sha256:f4e8b38b1a52738860cb7d718d5f3291a579450fb38f5eff1b9a8ca4159f1aa9",
+    "config_hash": "sha256:58c40473feba6d5a3c4ff27f26546eb58f10bcd0000f130b126db6b6ba7deda5",
+    "active_evidence_hashes": [
+      "sha256:c7fd750ee9060a3267cfc286f2244b75c7119ce2f8389f2f82f1618b51a9aba0",
+      "sha256:504fcaa0e637fa14bf840ceb5a4ab4f7d7487989ccd0b03e4ee9bcd3574aedbe",
+      "sha256:de73970b06ef29c9dda1c6f1ffd04c97e2ca665849fe6cbfe161b3ccbd86a6c4"
+    ],
+    "created_at": "2026-05-14T00:00:00Z",
+    "status": "review_pending",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "human review owner",
+      "role": "reviewer",
+      "incentives": [
+        "avoid invalid release"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation exposure",
+        "environmental consequence"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "assigned review authority for the decision",
+      "movement_jobs": [
+        "BOUND",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "affected party",
+      "role": "affected_party",
+      "incentives": [
+        "avoid harm from incorrect decision"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation exposure",
+        "environmental consequence"
+      ],
+      "authority": "observe",
+      "legitimacy_basis": "directly exposed to the decision outcome",
+      "movement_jobs": [
+        "BOUND",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Gate safety",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not release or launch while required gate remains open.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Unknown resolution value",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Prefer moves that resolve rendering-blocking unknowns before irreversible action.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "TEST"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Affected-party exposure",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "Do not hide material exposure to affected parties.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "90 days",
+    "decision_deadline": "90 days",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "source page changes, regulator updates guidance, or source is superseded"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "source page changes, regulator updates guidance, or source is superseded"
+      },
+      {
+        "evidence_id": "E3",
+        "valid_until": "unknown",
+        "staleness_trigger": "source page changes, regulator updates guidance, or source is superseded"
+      }
+    ],
+    "update_cadence": "weekly until open unknowns resolve",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "low",
+      "time_to_resolve": "1 to 4 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Collect site, discharge, jurisdiction, and permit-authority evidence before launch or customer commitment.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "strategic agentic lens",
+      "adapter_axis": "strategic-agentic",
+      "questions": [
+        "What does the strategic-agentic frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "Jurisdiction, discharge category, receiving water, pollutant parameters, and permit authority are not yet source-backed for the specific opportunity."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "scientific explanatory lens",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "What does the scientific-explanatory frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C2"
+      ],
+      "blind_spots": [
+        "Jurisdiction, discharge category, receiving water, pollutant parameters, and permit authority are not yet source-backed for the specific opportunity."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS3",
+      "name": "normative evaluative lens",
+      "adapter_axis": "normative-evaluative",
+      "questions": [
+        "What does the normative-evaluative frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C3"
+      ],
+      "blind_spots": [
+        "Jurisdiction, discharge category, receiving water, pollutant parameters, and permit authority are not yet source-backed for the specific opportunity."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "strategic-agentic",
+      "scientific-explanatory",
+      "normative-evaluative"
+    ],
+    "missing_lenses": [],
+    "major_dissent": [
+      "U1 blocks O1, R1"
+    ],
+    "decision_effect": "Proceed with source-backed regulatory diligence; do not commit to operational launch until U1 is resolved and G1 is approved.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "review_log": []
 }

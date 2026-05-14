@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.3.2",
+  "ofone_version": "0.4.0",
   "mode": "Map",
   "charter": {
     "objective": "Determine whether theorem T is provable from axiom set A under inference system R.",
@@ -401,7 +401,9 @@
       "C2",
       "O1",
       "O2",
-      "U1"
+      "U1",
+      "TS1",
+      "COUNCIL"
     ],
     "movement_jobs": [
       "EVALUATE",
@@ -425,7 +427,7 @@
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T1: C2, L2, O2, R1, T1, X2 [includes rendering]"
+        "notes": "trigger T1: C2, L2, O2, OFONE-formal-proof-map-001, R1, T1, TEMPORAL, TS1, X2 [includes rendering]"
       },
       {
         "check": "semantic_validation",
@@ -467,5 +469,172 @@
         "WARN"
       ]
     }
-  ]
+  ],
+  "artifact_identity": {
+    "artifact_id": "OFONE-formal-proof-map-001",
+    "case_id": "case-formal-proof-map-001",
+    "objective_head": "Determine whether theorem T is provable from axiom set A under inference system R.",
+    "scope_hash": "sha256:f7b1db72810ebe96ff34ca5cdadbf702bbb25ac5d04f5b756ac31cd8a38fb8a6",
+    "config_hash": "sha256:38717dc27d7cbffe67585525cfea689cf758c8473930b5a260ea540bd6a7d755",
+    "active_evidence_hashes": [
+      "sha256:fef4169b9123410a204d5d032c40f4d683b65afee1511cdcf5ff91a844e167c4",
+      "sha256:ac79bec8391aad08200da2347c16da5d1640cf965930540af544bea0f7289419"
+    ],
+    "created_at": "2026-05-14T00:00:00Z",
+    "status": "validated",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "proof reviewer",
+      "role": "reviewer",
+      "incentives": [
+        "avoid false proof acceptance"
+      ],
+      "exposures": [
+        "formal error"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "responsibility for proof certificate review",
+      "movement_jobs": [
+        "BOUND",
+        "GATE"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Proof validity",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not render provable without a checked certificate or valid proof path.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Countermodel pressure",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "Countermodel evidence blocks proof acceptance.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1",
+      "O2"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "bounded compute run",
+    "decision_deadline": "bounded compute run",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "tool output is regenerated or checker version changes"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "tool output is regenerated or checker version changes"
+      }
+    ],
+    "update_cadence": "weekly until open unknowns resolve",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "low",
+      "time_to_resolve": "1 to 4 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Run proof checker and countermodel search with recorded artifacts.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "formal lens",
+      "adapter_axis": "formal",
+      "questions": [
+        "What does the formal frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "No checked proof certificate or countermodel artifact is present yet."
+      ],
+      "contention": [
+        "U1 blocks O1, O2, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "formal"
+    ],
+    "missing_lenses": [],
+    "major_dissent": [
+      "U1 blocks O1, O2, R1"
+    ],
+    "decision_effect": "Return provable only with a checked certificate, not from search confidence.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "review_log": []
 }

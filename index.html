@@ -225,13 +225,14 @@
       <nav aria-label="Primary">
         <a href="#framing">Framing</a>
         <a href="#kernel">Kernel</a>
+        <a href="#lifecycle">Lifecycle</a>
         <a href="#artifacts">Artifacts</a>
       </nav>
     </header>
 
     <div class="hero">
       <h1>OfOne</h1>
-      <p>A typed causal-geometry compiler for turning bounded objectives into auditable decision maps.</p>
+      <p>A typed causal-geometry compiler for turning bounded objectives into auditable, patchable decision states.</p>
       <div class="chain" aria-label="OfOne skillchain">
         <div class="node"><span>00</span><strong>Charter</strong></div>
         <div class="node"><span>01</span><strong>Geometry</strong></div>
@@ -253,8 +254,8 @@
     <main>
       <section id="framing">
         <h2>Architecture</h2>
-        <p class="lead">OfOne compiles domain language into scenes, frames, tokens, moves, edges, loops, invariants, and gates. Adapters project domain semantics onto that geometry.</p>
-        <code class="rule">bounded objective + geometry primitives + adapter projection + scene map + evidence ledger + claim graph + causal graph + loop map + option moves + update triggers + gates
+        <p class="lead">OfOne compiles domain language into scenes, frames, tokens, moves, edges, loops, invariants, gates, criteria, tradeoff surfaces, and reviewable renderings. Adapters project domain semantics onto that geometry.</p>
+        <code class="rule">bounded objective + geometry primitives + adapter projection + scene map + evidence ledger + claim graph + causal graph + loop map + option moves + decision surface + update triggers + gates
 = decision rendering</code>
       </section>
 
@@ -273,9 +274,22 @@
         </div>
       </section>
 
+      <section id="lifecycle">
+        <h2>Decision Lifecycle</h2>
+        <p class="lead">v0.4 freezes the core inquiry IR and adds the missing decision surface: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, and review logs.</p>
+        <div class="grid">
+          <div class="item"><h3>Identity</h3><p>Objective head, scope hash, config hash, active evidence hashes, created-at marker, and lifecycle status.</p></div>
+          <div class="item"><h3>Criteria</h3><p>Decision standards with priority, threshold, owner, and review implications.</p></div>
+          <div class="item"><h3>Tradeoff Surface</h3><p>Comparable options, dominant option, why it wins, and reversal conditions.</p></div>
+          <div class="item"><h3>Actors</h3><p>Decision owners, reviewers, affected parties, authority, incentives, exposures, and legitimacy basis.</p></div>
+          <div class="item"><h3>Time</h3><p>Decision horizon, deadline, evidence validity windows, staleness triggers, and update cadence.</p></div>
+          <div class="item"><h3>Information Value</h3><p>Which unknowns are worth resolving next, with impact, cost, time, and risk reduction.</p></div>
+        </div>
+      </section>
+
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, validator regression tests, nested scenes, explicit unknown objects, decision-native renderer, patch report helper, examples, and benchmark scaffold.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, decision-native renderer, patch report helper, examples, and benchmark scaffold.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -301,7 +315,7 @@
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, gates, rendering dependencies, and closure. Negative fixtures prove the validator rejects malformed maps.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Negative fixtures prove the validator rejects malformed maps.</p>
         <code class="rule">npm run validate
 npm test
 npm run render -- examples/strategy-micro.json Micro

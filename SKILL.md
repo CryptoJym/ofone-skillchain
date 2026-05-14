@@ -7,7 +7,7 @@ description: Use when mapping a bounded domain, uncovering decision-relevant str
 
 ## Overview
 
-OfOne is a typed causal-geometry compiler for decision maps. It turns a bounded objective into structured objects: scenes, frames, tokens, edges, loops, claims, options, triggers, and gates.
+OfOne is a typed causal-geometry compiler for decision maps. It turns a bounded objective into structured objects: scenes, frames, tokens, edges, loops, claims, options, criteria, tradeoff surfaces, triggers, gates, and renderings.
 
 Core principle: abstract geometry is primary. Adapters project domain language onto geometry. Answers are renderings of the map, not the map itself.
 
@@ -29,8 +29,8 @@ Pick the smallest mode that preserves safety:
 | Mode | Use When | Required Output |
 |---|---|---|
 | Micro | quick answer, low-to-medium stakes | charter, adapter, top claims, decisive uncertainty, recommendation or gate |
-| Map | normal OfOne use | geometry chain, evidence, claims, graph, options, triggers |
-| Audit | high stakes, research pack, handoff | full schemas, evidence ledger, dependencies, dissent, validators, review log |
+| Map | normal OfOne use | geometry chain, evidence, claims, graph, decision surface, options, triggers |
+| Audit | high stakes, research pack, handoff | full schemas, evidence ledger, dependencies, dissent, lifecycle state, validators, review log |
 
 Even in Micro mode, include adapter, evidence status, claim basis, update trigger, and human gate if relevant.
 
@@ -141,6 +141,21 @@ Ask only at the resolution needed for the chosen mode.
 11. Evaluation criteria and stakes: what surfaces define better or worse?
 12. Alternatives, tradeoffs, update triggers: what options, objections, kill tests, and triggers force revision?
 
+## Decision Lifecycle Layer
+
+Freeze the primitive geometry before adding domain-specific objects. In v0.4, the portable decision layer is:
+
+- `artifact_identity`: case identity, objective head, scope hash, config hash, active evidence hashes, lifecycle status.
+- `criteria`: explicit decision standards with priority, threshold, and owner.
+- `tradeoff_surface`: option comparison, dominant option, criteria basis, and reversal conditions.
+- `actors`: decision owners, reviewers, affected parties, incentives, exposures, authority, and legitimacy basis.
+- `temporal_model`: decision horizon, deadline, evidence validity windows, staleness triggers, and update cadence.
+- `information_value`: which unknowns are worth resolving next, with impact, cost, time, and risk reduction.
+- `lenses` and `council_result`: adapter-axis review, coverage, blind spots, contention, and decision effect.
+- `review_log`: auditable gate decisions for Audit artifacts.
+
+Keep domain-specific concepts in adapter extensions unless they improve almost every serious decision map.
+
 ## Minimal Schemas
 
 Use stable IDs. Keep evidence, claims, graph objects, and renderings separate.
@@ -152,6 +167,20 @@ npm run validate
 ```
 
 The executable schemas live at `schemas/ofone.*.schema.json`; `schemas/ofone.schema.json` dispatches to Micro, Map, or Audit profiles. The validator runs JSON Schema first, then semantic graph validation in `scripts/ofone-validate.mjs`.
+
+```json
+{
+  "artifact_id": "OFONE-2026-05-14-001",
+  "case_id": "case-id",
+  "objective_head": "bounded objective head",
+  "scope_hash": "sha256:...",
+  "config_hash": "sha256:...",
+  "active_evidence_hashes": ["sha256:..."],
+  "created_at": "2026-05-14T00:00:00Z",
+  "status": "draft|validated|rendered|review_pending|released|superseded",
+  "movement_jobs": ["BOUND", "TRIGGER"]
+}
+```
 
 ```json
 {
@@ -262,6 +291,84 @@ The executable schemas live at `schemas/ofone.*.schema.json`; `schemas/ofone.sch
 
 ```json
 {
+  "criterion_id": "CR1",
+  "name": "Compliance risk",
+  "kind": "constraint|preference|objective|threshold",
+  "priority": "must|should|could",
+  "threshold": "No operational launch before permit path is identified.",
+  "owned_by": ["A1"],
+  "movement_jobs": ["EVALUATE", "GATE"]
+}
+```
+
+```json
+{
+  "surface_id": "TS1",
+  "options": ["O1", "O2"],
+  "criteria": ["CR1", "CR2"],
+  "dominant_option": "O1",
+  "why": ["CR1"],
+  "reversal_conditions": ["U1", "T1"],
+  "movement_jobs": ["EVALUATE", "TRIGGER"]
+}
+```
+
+```json
+{
+  "actor_id": "A1",
+  "label": "regulatory owner",
+  "role": "reviewer|beneficiary|operator|adversary|decision_owner|affected_party",
+  "incentives": ["avoid compliance exposure"],
+  "exposures": ["legal", "operational"],
+  "authority": "approve|block|advise|observe",
+  "legitimacy_basis": "assigned review responsibility",
+  "movement_jobs": ["BOUND", "WARN", "GATE"]
+}
+```
+
+```json
+{
+  "time_horizon": "90 days",
+  "decision_deadline": "2026-08-14",
+  "evidence_validity_windows": [
+    {
+      "evidence_id": "E1",
+      "valid_until": "unknown",
+      "staleness_trigger": "source changes or regime shifts"
+    }
+  ],
+  "update_cadence": "weekly until blocking unknowns resolve",
+  "movement_jobs": ["BOUND", "TRIGGER", "WARN"]
+}
+```
+
+```json
+{
+  "unknown_id": "U1",
+  "decision_impact": "high",
+  "resolution_cost": "medium",
+  "time_to_resolve": "2 weeks",
+  "risk_reduction": "high",
+  "recommended_next_query": "identify jurisdiction, discharge class, receiving water, and permit authority",
+  "movement_jobs": ["TEST", "MOVE", "EVALUATE"]
+}
+```
+
+```json
+{
+  "lens_id": "LENS1",
+  "name": "regulatory feasibility",
+  "adapter_axis": "scientific-explanatory",
+  "questions": ["What evidence would permit operational launch?"],
+  "claims_examined": ["C1"],
+  "blind_spots": ["site-specific discharge facts"],
+  "contention": ["jurisdiction-specific gap blocks launch"],
+  "movement_jobs": ["WARN", "TEST", "EVALUATE"]
+}
+```
+
+```json
+{
   "rendering_id": "R1",
   "summary": "short current map state",
   "recommendation": "decision rendering, not the internal map",
@@ -305,9 +412,10 @@ Before recommending action:
 5. Build causal / constraint graph and loop map.
 6. Select only lenses that add axis coverage or reduce named uncertainty.
 7. Preserve dissent and minority reports.
-8. Produce option moves with tradeoffs, preconditions, reversibility, and blocking unknowns.
-9. Classify future changes as no-op, patch, scoped rerun, trunk rewrite, or human review.
-10. Render the decision pack from the internal map.
+8. Define criteria, tradeoff surface, actor exposure, temporal validity, and information value for blocking unknowns.
+9. Produce option moves with tradeoffs, preconditions, reversibility, and blocking unknowns.
+10. Classify future changes as no-op, patch, scoped rerun, trunk rewrite, or human review.
+11. Render the decision pack from the internal map.
 
 ## Idempotency Rule
 
@@ -332,6 +440,10 @@ Before final output, run the validator or answer these checks. The artifact may 
 - Do evidence objects carry stable identity fields and source custody?
 - Does each strong claim list support, contradiction or gaps, confidence basis, and failure mode?
 - Are causal edges, hidden variables, loop physics, and regime assumptions explicit enough for the chosen mode?
+- Does every recommendation depend on criteria or a tradeoff surface appropriate to the mode?
+- Do Map and Audit artifacts identify temporal validity and high-value unknown resolution?
+- Do strategic, normative, hybrid, or provisional maps include actor and lens coverage when needed?
+- Do approved Audit gates have review log entries?
 - Does any option depend on a disputed claim?
 - Did adapter projection distort the domain language?
 - Are update triggers and human gates present?
@@ -346,6 +458,9 @@ Before final output, run the validator or answer these checks. The artifact may 
 ## Mode And Charter
 Mode, objective, scope, horizon, stakes, review gates.
 
+## Lifecycle
+Artifact identity, version, objective head, hashes, lifecycle status.
+
 ## Geometry And Adapter Projection
 Scene, frames, tokens, adapter mix, translated domain semantics.
 
@@ -358,8 +473,11 @@ Edges, constraints, hidden variables, feedback loops, regime assumptions.
 ## Hypotheses And Kill Tests
 Competing hypotheses, falsifiers, counterfactuals, blocking unknowns.
 
-## Option Moves And Tradeoff Surface
-Moves, preconditions, reversibility, risks, criteria, stakeholder exposure.
+## Decision Surface
+Criteria, tradeoff surface, dominant option, reversal conditions, information value.
+
+## Option Moves, Actors, And Time
+Moves, preconditions, reversibility, risks, stakeholders, temporal validity.
 
 ## Update / Patch Logic
 No-op, patch, scoped rerun, trunk rewrite, human-review triggers.

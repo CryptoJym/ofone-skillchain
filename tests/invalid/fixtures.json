@@ -8,6 +8,14 @@
     ]
   },
   {
+    "name": "artifact-identity-hash-mismatch",
+    "base": "examples/strategy-micro.json",
+    "expect": ["identity", "active_evidence_hashes"],
+    "mutations": [
+      { "op": "set", "path": ["artifact_identity", "active_evidence_hashes"], "value": [] }
+    ]
+  },
+  {
     "name": "illegal-edge-relation",
     "base": "examples/strategy-micro.json",
     "expect": ["relation_legality"],
@@ -27,9 +35,44 @@
   {
     "name": "missing-rendering-dependency",
     "base": "examples/strategy-micro.json",
-    "expect": ["decision_rendering", "U1"],
+    "expect": ["decision_surface", "TS1"],
     "mutations": [
       { "op": "set", "path": ["decision_rendering", "depends_on"], "value": ["C1", "C2", "O1"] }
+    ]
+  },
+  {
+    "name": "rendering-blocking-unknown-without-information-value",
+    "base": "examples/source-backed-wastewater-map.json",
+    "expect": ["unknown_value", "U1"],
+    "mutations": [
+      { "op": "set", "path": ["information_value"], "value": [] }
+    ]
+  },
+  {
+    "name": "hybrid-map-with-single-lens-axis",
+    "base": "examples/source-backed-wastewater-map.json",
+    "expect": ["lens_coverage", "requires lenses covering at least two adapter axes"],
+    "mutations": [
+      { "op": "set", "path": ["lenses"], "value": [
+        {
+          "lens_id": "LENS1",
+          "name": "strategy-only review",
+          "adapter_axis": "strategic-agentic",
+          "questions": ["Does the option fit the market entry objective?"],
+          "claims_examined": ["C1"],
+          "blind_spots": ["regulatory path"],
+          "contention": ["single-axis review is insufficient"],
+          "movement_jobs": ["WARN", "EVALUATE"]
+        }
+      ] }
+    ]
+  },
+  {
+    "name": "criterion-owned-by-missing-actor",
+    "base": "examples/source-backed-wastewater-map.json",
+    "expect": ["criteria", "owned_by missing actor"],
+    "mutations": [
+      { "op": "set", "path": ["criteria", 0, "owned_by"], "value": ["A404"] }
     ]
   },
   {
@@ -54,6 +97,15 @@
     "expect": ["unknown", "U1"],
     "mutations": [
       { "op": "set", "path": ["unknowns", 0, "blocks"], "value": [] }
+    ]
+  },
+  {
+    "name": "approved-audit-gate-without-review-log",
+    "base": "examples/hybrid-policy-audit.json",
+    "expect": ["review_log", "approved gate"],
+    "mutations": [
+      { "op": "set", "path": ["gates", 0, "status"], "value": "approved" },
+      { "op": "set", "path": ["review_log"], "value": [] }
     ]
   }
 ]

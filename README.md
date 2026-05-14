@@ -3,6 +3,7 @@
 OfOne is a typed causal-geometry compiler for turning bounded objectives into auditable decision maps.
 
 Abstract geometry is primary. Adapters project domain language onto geometry.
+The v0.4 line freezes the core inquiry IR and adds decision-lifecycle objects for identity, criteria, tradeoffs, actors, time, information value, lens review, council review, and gate review logs.
 
 ## What Is Included
 
@@ -28,7 +29,7 @@ Abstract geometry is primary. Adapters project domain language onto geometry.
 ## Skillchain
 
 ```text
-Charter -> Geometry Kernel -> Adapter Projection -> Scene Map -> Evidence Ledger -> Claim Graph -> Causal Graph -> Loop Map -> Option Moves -> Update Logic -> Human Gates -> Decision Pack
+Charter -> Geometry Kernel -> Adapter Projection -> Scene Map -> Evidence Ledger -> Claim Graph -> Causal Graph -> Loop Map -> Option Moves -> Decision Surface -> Update Logic -> Human Gates -> Decision Pack
 ```
 
 ## Install Locally For Codex
@@ -50,7 +51,7 @@ npm test
 ```
 
 The validator executes JSON Schema first, then semantic graph checks for IDs, references, edge legality, adapter contracts, loop physics, gates, trigger transitions, and dependency closure.
-It also checks nested subscenes, explicit unknown/null objects, and kill-test references.
+It also checks nested subscenes, explicit unknown/null objects, kill-test references, artifact identity hashes, criterion ownership, tradeoff-surface dependencies, temporal evidence windows, information value for blocking unknowns, lens coverage, and Audit review logs.
 
 To compute and write `validator_result` into the examples:
 

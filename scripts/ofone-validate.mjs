@@ -110,8 +110,12 @@ function validateSemantic(data, { fail, warn, pass }) {
   if (!enums.modes.has(data.mode)) fail("mode", `mode must be one of ${join(enums.modes)}`);
 
   validateMovementJobs(data.charter, "charter", fail);
+  validateOptionalMovementJobs(data.artifact_identity, "artifact_identity", fail);
   validateMovementJobs(data.adapter_projection, "adapter_projection", fail);
   validateMovementJobs(data.scene, "scene", fail);
+  validateOptionalMovementJobs(data.temporal_model, "temporal_model", fail);
+  validateOptionalMovementJobs(data.tradeoff_surface, "tradeoff_surface", fail);
+  validateOptionalMovementJobs(data.council_result, "council_result", fail);
   validateMovementJobs(data.confidence_model, "confidence_model", fail);
   validateMovementJobs(data.decision_rendering, "decision_rendering", fail);
 
@@ -148,20 +152,33 @@ function validateSemantic(data, { fail, warn, pass }) {
   const evidenceIds = new Set(array(data.evidence).map((item) => item.evidence_id));
   const claimIds = new Set(array(data.claims).map((item) => item.claim_id));
   const unknownIds = new Set(array(data.unknowns).map((item) => item.unknown_id));
+  const criterionIds = new Set(array(data.criteria).map((item) => item.criterion_id));
+  const actorIds = new Set(array(data.actors).map((item) => item.actor_id));
   const edgeIds = new Set(array(data.edges).map((item) => item.edge_id));
   const gateIds = new Set(array(data.gates).map((item) => item.gate_id));
 
+  if (data.artifact_identity) validateArtifactIdentity(data, { fail });
   validateSubscenes(data, index, { fail });
   validateEvidence(data, contract, claimIds, { fail, warn });
   validateClaims(data, contract, evidenceIds, claimIds, index, { fail, warn });
   validateUnknowns(data, index, { fail });
   validateKillTests(data, contract, index, { fail, warn });
+  validateActors(data, { fail });
+  validateCriteria(data, actorIds, { fail });
+  validateTradeoffSurface(data, criterionIds, { fail });
+  if (data.temporal_model) validateTemporalModel(data, evidenceIds, { fail });
+  validateInformationValue(data, unknownIds, { fail });
+  validateLenses(data, claimIds, { fail });
+  if (data.council_result) validateCouncilResult(data, { fail });
+  validateReviewLog(data, gateIds, actorIds, { fail });
   validateEdges(data, evidenceIds, index, { fail });
   validateLoops(data, edgeIds, { fail });
   validateOptions(data, claimIds, unknownIds, edgeIds, gateIds, data, { fail, warn });
   validateTriggers(data, index, { fail, pass });
   validateConfidenceModel(data.confidence_model, { fail });
   validateRendering(data, index, { fail });
+  validateDecisionSurface(data, { fail, warn });
+  validateProfileExpectations(data, { fail, warn });
 
   if (data.mode === "Micro" && array(data.decision_rendering?.depends_on).length > 6) {
     warn("mode_profile", "Micro rendering has more than six dependencies; consider Map mode");
@@ -191,6 +208,16 @@ function validateAdapterGateCoverage(data, contract, { warn, pass }) {
   }
 }
 
+function validateArtifactIdentity(data, { fail }) {
+  const identity = data.artifact_identity;
+  const evidenceHashes = new Set(array(data.evidence).map((evidence) => evidence.content_hash));
+  const activeHashes = new Set(array(identity?.active_evidence_hashes));
+
+  for (const hash of evidenceHashes) {
+    if (!activeHashes.has(hash)) fail("identity", `artifact_identity.active_evidence_hashes missing evidence hash ${hash}`);
+  }
+}
+
 function validateSubscenes(data, index, { fail }) {
   for (const subscene of array(data.scene?.subscenes)) {
     validateMovementJobs(subscene, `subscene ${subscene.subscene_id}`, fail);
@@ -201,6 +228,89 @@ function validateSubscenes(data, index, { fail }) {
     for (const tokenId of array(subscene.tokens)) {
       if (!index.ids.has(tokenId)) fail("references", `subscene ${subscene.subscene_id} token missing ${tokenId}`);
     }
+  }
+}
+
+function validateActors(data, { fail }) {
+  for (const actor of array(data.actors)) {
+    validateMovementJobs(actor, `actor ${actor.actor_id}`, fail);
+  }
+}
+
+function validateCriteria(data, actorIds, { fail }) {
+  for (const criterion of array(data.criteria)) {
+    validateMovementJobs(criterion, `criterion ${criterion.criterion_id}`, fail);
+    for (const actorId of array(criterion.owned_by)) {
+      if (!actorIds.has(actorId)) fail("criteria", `criterion ${criterion.criterion_id} owned_by missing actor ${actorId}`);
+    }
+  }
+}
+
+function validateTradeoffSurface(data, criterionIds, { fail }) {
+  const surface = data.tradeoff_surface;
+  const optionIds = new Set(array(data.option_moves).map((option) => option.option_id));
+  const unknownIds = new Set(array(data.unknowns).map((unknown) => unknown.unknown_id));
+  const triggerIds = new Set(array(data.triggers).map((trigger) => trigger.trigger_id));
+
+  for (const optionId of array(surface?.options)) {
+    if (!optionIds.has(optionId)) fail("decision_surface", `tradeoff_surface option missing ${optionId}`);
+  }
+  for (const criterionId of array(surface?.criteria)) {
+    if (!criterionIds.has(criterionId)) fail("decision_surface", `tradeoff_surface criterion missing ${criterionId}`);
+  }
+  if (surface?.dominant_option && !optionIds.has(surface.dominant_option)) {
+    fail("decision_surface", `tradeoff_surface dominant_option missing ${surface.dominant_option}`);
+  }
+  for (const reasonId of array(surface?.why)) {
+    if (!criterionIds.has(reasonId)) fail("decision_surface", `tradeoff_surface why missing criterion ${reasonId}`);
+  }
+  for (const reversalId of array(surface?.reversal_conditions)) {
+    if (!unknownIds.has(reversalId) && !triggerIds.has(reversalId)) {
+      fail("decision_surface", `tradeoff_surface reversal condition missing unknown or trigger ${reversalId}`);
+    }
+  }
+}
+
+function validateTemporalModel(data, evidenceIds, { fail }) {
+  const windows = array(data.temporal_model?.evidence_validity_windows);
+  const windowIds = new Set(windows.map((window) => window.evidence_id));
+
+  for (const evidenceId of evidenceIds) {
+    if (!windowIds.has(evidenceId)) fail("temporal_validity", `temporal_model missing evidence validity window for ${evidenceId}`);
+  }
+  for (const window of windows) {
+    if (!evidenceIds.has(window.evidence_id)) fail("temporal_validity", `temporal_model references missing evidence ${window.evidence_id}`);
+    if (!window.valid_until && !window.staleness_trigger) {
+      fail("temporal_validity", `temporal_model evidence window ${window.evidence_id} needs valid_until or staleness_trigger`);
+    }
+  }
+}
+
+function validateInformationValue(data, unknownIds, { fail }) {
+  for (const item of array(data.information_value)) {
+    validateMovementJobs(item, `information_value ${item.unknown_id}`, fail);
+    if (!unknownIds.has(item.unknown_id)) fail("unknown_value", `information_value references missing unknown ${item.unknown_id}`);
+  }
+}
+
+function validateLenses(data, claimIds, { fail }) {
+  for (const lens of array(data.lenses)) {
+    validateMovementJobs(lens, `lens ${lens.lens_id}`, fail);
+    for (const claimId of array(lens.claims_examined)) {
+      if (!claimIds.has(claimId)) fail("lens_coverage", `lens ${lens.lens_id} examines missing claim ${claimId}`);
+    }
+  }
+}
+
+function validateCouncilResult(data, { fail }) {
+  validateMovementJobs(data.council_result, "council_result", fail);
+}
+
+function validateReviewLog(data, gateIds, actorIds, { fail }) {
+  for (const review of array(data.review_log)) {
+    validateMovementJobs(review, `review_log ${review.review_id}`, fail);
+    if (!gateIds.has(review.gate_id)) fail("review_log", `review_log ${review.review_id} references missing gate ${review.gate_id}`);
+    if (!actorIds.has(review.actor_id)) fail("review_log", `review_log ${review.review_id} references missing actor ${review.actor_id}`);
   }
 }
 
@@ -381,8 +491,74 @@ function validateRendering(data, index, { fail }) {
   }
 }
 
+function validateDecisionSurface(data, { fail, warn }) {
+  const renderingDeps = new Set(array(data.decision_rendering?.depends_on));
+  const requiresFullSurface = data.mode === "Map" || data.mode === "Audit";
+
+  if (array(data.criteria).length === 0) fail("decision_surface", "decision rendering requires at least one criterion");
+  if (requiresFullSurface && !data.tradeoff_surface?.surface_id) fail("decision_surface", `${data.mode} decision rendering requires tradeoff_surface`);
+  if (data.tradeoff_surface?.surface_id && !renderingDeps.has(data.tradeoff_surface.surface_id)) {
+    fail("decision_surface", `decision_rendering must depend_on tradeoff_surface ${data.tradeoff_surface.surface_id}`);
+  }
+
+  if (data.decision_rendering?.confidence === "high" && data.confidence_model?.hidden_variable_risk === "high") {
+    warn("confidence_consistency", "high decision confidence with high hidden_variable_risk");
+  }
+  if (data.decision_rendering?.confidence === "high" && data.confidence_model?.contradiction_load === "high") {
+    warn("confidence_consistency", "high decision confidence with high contradiction_load");
+  }
+  if (data.decision_rendering?.confidence === "high") {
+    for (const unknown of array(data.unknowns)) {
+      if (unknown.status === "open" && array(unknown.blocks).includes(data.decision_rendering.rendering_id)) {
+        warn("confidence_consistency", `high decision confidence while open unknown ${unknown.unknown_id} blocks rendering`);
+      }
+    }
+  }
+}
+
+function validateProfileExpectations(data, { fail, warn }) {
+  const primaryAdapter = data.adapter_projection?.primary;
+  const isHybridOrProvisional = primaryAdapter === "hybrid" || primaryAdapter === "provisional";
+  const hasStrategicOrNormative = primaryAdapter === "strategic-agentic" || primaryAdapter === "normative-evaluative" || primaryAdapter === "hybrid";
+
+  if ((data.mode === "Map" || data.mode === "Audit") && data.artifact_identity?.status === "released") {
+    warn("lifecycle", "released artifacts should usually have an immutable release tag outside the mutable map");
+  }
+
+  if ((data.mode === "Map" || data.mode === "Audit") && hasStrategicOrNormative && array(data.actors).length === 0) {
+    fail("actor_gate_alignment", `${data.mode} ${primaryAdapter} artifact requires actors`);
+  }
+
+  if ((data.mode === "Map" || data.mode === "Audit") && array(data.unknowns).some((unknown) => unknown.status === "open" && array(unknown.blocks).includes(data.decision_rendering?.rendering_id))) {
+    const ivUnknowns = new Set(array(data.information_value).map((item) => item.unknown_id));
+    for (const unknown of array(data.unknowns)) {
+      if (unknown.status === "open" && array(unknown.blocks).includes(data.decision_rendering?.rendering_id) && !ivUnknowns.has(unknown.unknown_id)) {
+        fail("unknown_value", `open unknown ${unknown.unknown_id} blocks rendering without information_value entry`);
+      }
+    }
+  }
+
+  if ((data.mode === "Map" || data.mode === "Audit") && isHybridOrProvisional) {
+    const lensAxes = new Set(array(data.lenses).map((lens) => lens.adapter_axis));
+    if (lensAxes.size < 2) fail("lens_coverage", `${data.mode} ${primaryAdapter} artifact requires lenses covering at least two adapter axes`);
+  }
+
+  if (data.mode === "Audit" && !data.council_result?.decision_effect) {
+    fail("council_contention", "Audit artifact requires council_result.decision_effect");
+  }
+
+  if (data.mode === "Audit") {
+    const reviewByGate = new Set(array(data.review_log).map((review) => review.gate_id));
+    for (const gate of array(data.gates)) {
+      if (gate.status === "approved" && !reviewByGate.has(gate.gate_id)) {
+        fail("review_log", `approved gate ${gate.gate_id} requires review_log entry`);
+      }
+    }
+  }
+}
+
 function collectIdEntries(data) {
-  return [
+  const entries = [
     { label: "scene", id: data.scene?.scene_id },
     ...array(data.scene?.frames).map((item) => ({ label: "frame", id: item.frame_id })),
     ...array(data.scene?.tokens).map((item) => ({ label: "token", id: item.token_id })),
@@ -391,6 +567,11 @@ function collectIdEntries(data) {
     ...array(data.claims).map((item) => ({ label: "claim", id: item.claim_id })),
     ...array(data.unknowns).map((item) => ({ label: "unknown", id: item.unknown_id })),
     ...array(data.kill_tests).map((item) => ({ label: "kill_test", id: item.test_id })),
+    ...array(data.criteria).map((item) => ({ label: "criterion", id: item.criterion_id })),
+    ...array(data.actors).map((item) => ({ label: "actor", id: item.actor_id })),
+    ...array(data.information_value).map((item) => ({ label: "information_value", id: `IV:${item.unknown_id}` })),
+    ...array(data.lenses).map((item) => ({ label: "lens", id: item.lens_id })),
+    ...array(data.review_log).map((item) => ({ label: "review_log", id: item.review_id })),
     ...array(data.edges).map((item) => ({ label: "edge", id: item.edge_id })),
     ...array(data.loops).map((item) => ({ label: "loop", id: item.loop_id })),
     ...array(data.option_moves).map((item) => ({ label: "option_move", id: item.option_id })),
@@ -398,6 +579,10 @@ function collectIdEntries(data) {
     ...array(data.gates).map((item) => ({ label: "gate", id: item.gate_id })),
     { label: "decision_rendering", id: data.decision_rendering?.rendering_id }
   ];
+
+  if (data.artifact_identity) entries.unshift({ label: "artifact_identity", id: data.artifact_identity.artifact_id });
+  if (data.tradeoff_surface) entries.push({ label: "tradeoff_surface", id: data.tradeoff_surface.surface_id });
+  return entries;
 }
 
 function isLegalRelation(relation, fromType, toType) {
@@ -405,16 +590,16 @@ function isLegalRelation(relation, fromType, toType) {
   const to = normalizeType(toType);
 
   const rules = {
-    supports: () => ["evidence", "claim", "edge"].includes(from.base) && ["claim", "edge", "rendering"].includes(to.base),
+    supports: () => ["evidence", "claim", "edge", "criterion", "tradeoff_surface"].includes(from.base) && ["claim", "edge", "rendering", "tradeoff_surface"].includes(to.base),
     contradicts: () => from.base === "claim" && to.base === "claim",
     causes: () => ["token:entity", "token:variable", "claim"].includes(from.raw) && ["token:variable", "claim"].includes(to.raw),
-    constrains: () => ["token:constraint", "claim", "gate"].includes(from.raw) && ["claim", "option_move", "edge", "loop", "rendering"].includes(to.base),
-    enables: () => ["claim", "token:entity", "token:variable", "option_move"].includes(from.raw) && ["option_move", "claim"].includes(to.base),
+    constrains: () => (["token:constraint", "claim", "gate"].includes(from.raw) || from.base === "criterion") && ["claim", "option_move", "edge", "loop", "rendering", "tradeoff_surface"].includes(to.base),
+    enables: () => ["claim", "token:entity", "token:variable", "option_move", "actor"].includes(from.raw) && ["option_move", "claim"].includes(to.base),
     observes: () => ["evidence", "token:evidence", "token:variable"].includes(from.raw) && ["claim", "token:variable"].includes(to.raw),
-    evaluates: () => ["claim", "option_move", "token:entity", "token:variable"].includes(from.raw) && ["option_move", "claim", "rendering"].includes(to.base),
-    updates: () => ["trigger", "evidence", "claim"].includes(from.base) && ["claim", "edge", "loop", "option_move", "rendering"].includes(to.base),
+    evaluates: () => (["claim", "option_move", "token:entity", "token:variable"].includes(from.raw) || ["criterion", "tradeoff_surface", "lens", "council_result"].includes(from.base)) && ["option_move", "claim", "rendering", "tradeoff_surface"].includes(to.base),
+    updates: () => ["trigger", "evidence", "claim", "review_log"].includes(from.base) && ["claim", "edge", "loop", "option_move", "rendering", "tradeoff_surface"].includes(to.base),
     blocks: () => ["gate", "claim", "unknown"].includes(from.base) && ["option_move", "rendering"].includes(to.base),
-    depends_on: () => ["option_move", "claim", "rendering"].includes(from.base) && ["claim", "edge", "evidence", "loop", "gate"].includes(to.base)
+    depends_on: () => ["option_move", "claim", "rendering", "tradeoff_surface"].includes(from.base) && ["claim", "edge", "evidence", "loop", "gate", "criterion", "unknown"].includes(to.base)
   };
 
   return rules[relation]?.() ?? false;
@@ -441,6 +626,11 @@ function validateMovementJobs(object, label, fail) {
   for (const job of jobs) {
     if (!enums.movementJobs.has(job)) fail("movement_jobs", `${label} has invalid movement job ${job}`);
   }
+}
+
+function validateOptionalMovementJobs(object, label, fail) {
+  if (object === undefined || object === null) return;
+  validateMovementJobs(object, label, fail);
 }
 
 function containsNormalized(haystack, needle) {

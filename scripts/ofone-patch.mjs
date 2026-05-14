@@ -24,9 +24,14 @@ const affectedObjects = closure.map((id) => describeObject(id));
 const changedObjects = changedIds.map((id) => describeObject(id));
 const renderingAffected = data.decision_rendering?.rendering_id ? closure.includes(data.decision_rendering.rendering_id) : false;
 const invalidatedClaims = affectedObjects.filter((object) => object.type === "claim").map((object) => object.id);
+const validationScope = [...changedObjects, ...affectedObjects];
 const requiredRevalidation = [
   "json_schema",
   "semantic_validation",
+  requiresTypeCheck(validationScope, ["criterion", "tradeoff_surface", "option_move"]) ? "decision_surface_check" : null,
+  requiresTypeCheck(validationScope, ["evidence", "temporal_model"]) ? "temporal_validity_check" : null,
+  requiresTypeCheck(validationScope, ["lens", "council_result"]) ? "council_review_check" : null,
+  requiresTypeCheck(validationScope, ["gate", "review_log"]) ? "review_log_check" : null,
   renderingAffected ? "rendering_regeneration" : "rendering_check",
   transition === "human_review" ? "human_gate_review" : null
 ].filter(Boolean);
@@ -71,7 +76,7 @@ function describeObject(id) {
 
 function labelFor(entry) {
   const object = entry?.object || {};
-  return object.text || object.description || object.label || object.condition || object.recommendation || object.summary || "";
+  return object.text || object.description || object.name || object.label || object.condition || object.decision_effect || object.recommended_next_query || object.recommendation || object.summary || object.source || object.move_type || object.objective_head || object.time_horizon || object.surface_id || "";
 }
 
 function groupByType(objects) {
@@ -93,4 +98,8 @@ function nextSteps(transition, renderingAffected, invalidatedClaims) {
   if (transition === "human_review") steps.push("route through the required human gate before release");
   if (transition === "trunk_rewrite") steps.push("recompute charter, adapter projection, and dependent graph");
   return steps;
+}
+
+function requiresTypeCheck(objects, types) {
+  return objects.some((object) => types.includes(object.type));
 }

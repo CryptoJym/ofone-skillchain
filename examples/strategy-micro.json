@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.3.2",
+  "ofone_version": "0.4.0",
   "mode": "Micro",
   "charter": {
     "objective": "Decide whether to enter a regulated wastewater treatment market.",
@@ -386,7 +386,9 @@
       "C1",
       "C2",
       "O1",
-      "U1"
+      "U1",
+      "TS1",
+      "COUNCIL"
     ],
     "movement_jobs": [
       "EVALUATE",
@@ -416,7 +418,7 @@
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T1: C1, C2, KT1, L1, O1, R1, T1, X1, X2 [includes rendering]"
+        "notes": "trigger T1: C1, C2, COUNCIL, KT1, L1, LENS1, LENS2, LENS3, O1, OFONE-strategy-micro-001, R1, T1, TEMPORAL, TS1, X1, X2 [includes rendering]"
       },
       {
         "check": "semantic_validation",
@@ -457,5 +459,254 @@
         "WARN"
       ]
     }
-  ]
+  ],
+  "artifact_identity": {
+    "artifact_id": "OFONE-strategy-micro-001",
+    "case_id": "case-strategy-micro-001",
+    "objective_head": "Decide whether to enter a regulated wastewater treatment market.",
+    "scope_hash": "sha256:1e3e88c64f9e6379801ab33950efbac5c38eb2472a2b8663cf8c189a15140dc5",
+    "config_hash": "sha256:4e06a380a458a5f0e4f40d556fce17df6c6146185209f075fbc56b97a314790b",
+    "active_evidence_hashes": [
+      "sha256:5afd10e838f35e38419087bbe0fb06796972f59f0419eb246fb331f61db76542",
+      "sha256:2714646fa5ba5264bc0b561c45a65499502c6b630d5fe05627784443bc093d52"
+    ],
+    "created_at": "2026-05-14T00:00:00Z",
+    "status": "review_pending",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "human review owner",
+      "role": "reviewer",
+      "incentives": [
+        "avoid invalid release"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "assigned review authority for the decision",
+      "movement_jobs": [
+        "BOUND",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "affected party",
+      "role": "affected_party",
+      "incentives": [
+        "avoid harm from incorrect decision"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation"
+      ],
+      "authority": "observe",
+      "legitimacy_basis": "directly exposed to the decision outcome",
+      "movement_jobs": [
+        "BOUND",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Gate safety",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not release or launch while required gate remains open.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Unknown resolution value",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Prefer moves that resolve rendering-blocking unknowns before irreversible action.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "TEST"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Affected-party exposure",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "Do not hide material exposure to affected parties.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "60 days",
+    "decision_deadline": "60 days",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "source is superseded, contradicted, or made stale by new evidence"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "source is superseded, contradicted, or made stale by new evidence"
+      }
+    ],
+    "update_cadence": "weekly until open unknowns resolve",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "low",
+      "time_to_resolve": "days to 2 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Collect segment, jurisdiction, and pilot-performance evidence before operational entry.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "strategic agentic lens",
+      "adapter_axis": "strategic-agentic",
+      "questions": [
+        "What does the strategic-agentic frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "Target segment, jurisdiction, and pilot-performance evidence are not yet specified."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "scientific explanatory lens",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "What does the scientific-explanatory frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C2"
+      ],
+      "blind_spots": [
+        "Target segment, jurisdiction, and pilot-performance evidence are not yet specified."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS3",
+      "name": "normative evaluative lens",
+      "adapter_axis": "normative-evaluative",
+      "questions": [
+        "What does the normative-evaluative frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "Target segment, jurisdiction, and pilot-performance evidence are not yet specified."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "strategic-agentic",
+      "scientific-explanatory",
+      "normative-evaluative"
+    ],
+    "missing_lenses": [],
+    "major_dissent": [
+      "U1 blocks O1, R1"
+    ],
+    "decision_effect": "Approve a reversible diligence move, not full entry.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "review_log": []
 }

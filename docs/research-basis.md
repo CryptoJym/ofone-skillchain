@@ -18,6 +18,7 @@ bounded objective
 + hypotheses and kill tests
 + option moves
 + tradeoff surface
++ lifecycle identity, criteria, actors, temporal model, information value, and review log
 + update / patch logic
 + human gates
 = decision pack
@@ -37,12 +38,15 @@ bounded objective
 - A loop map for feedback, incentives, measurement, contradiction, and review.
 - Council Geometry as constrained lens selection with contracts, coverage, and contention tracking.
 - Hypotheses, kill tests, option moves, tradeoff surfaces, and update triggers.
+- Decision-surface geometry: explicit criteria, dominant option, reversal conditions, and value-of-information for blocking unknowns.
+- Lifecycle geometry: artifact identity, objective/scope/config/evidence hashes, temporal validity windows, status, review logs, and release state.
+- Actor/stakeholder geometry for decision authority, affected-party exposure, incentives, and legitimacy basis.
 - Human-review gates for high-stakes, low-provenance, contested, or external-facing decisions.
 - Idempotency rules for no-op, patch, scoped rerun, trunk rewrite, and human-review transitions.
 - Movement economy: every emitted object must bound, ground, claim, link, test, move, evaluate, warn, trigger, or gate.
 - Output modes: Micro, Map, and Audit.
 - Executable Micro, Map, and Audit schemas plus semantic validator scripts for OfOne artifacts.
-- Renderer and patch helper scripts that separate internal state from human output and expose dependency closure.
+- Renderer and patch helper scripts that separate internal state from human output and expose dependency closure through artifact identity, temporal validity, decision surfaces, lens/council objects, and review logs.
 - Worked examples across strategy, formal proof-search, and hybrid policy.
 - Dependency closure reporting for update triggers.
 

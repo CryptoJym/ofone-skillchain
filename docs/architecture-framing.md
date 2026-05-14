@@ -22,6 +22,7 @@ bounded objective
 + causal / constraint graph
 + loop map
 + option moves
++ decision surface
 + update triggers
 + human gates
 = decision rendering
@@ -112,6 +113,18 @@ The compression rule is simple: delete content that does none of these.
 
 ---
 
+## Layer Boundaries
+
+OfOne separates three layers:
+
+1. **Core IR:** charter, adapter projection, scene, evidence, claims, unknowns, kill tests, edges, loops, option moves, triggers, gates, confidence model, and decision rendering.
+2. **Decision lifecycle:** artifact identity, criteria, tradeoff surface, actors, temporal model, information value, lenses, council result, and review log.
+3. **Domain extensions:** adapter-specific structures such as proof certificates, measurement protocols, competitor maps, rights-impact records, or failure-mode tables.
+
+A new object belongs in core only if it improves almost every serious decision map. Otherwise it belongs in the decision lifecycle or in an adapter extension.
+
+---
+
 ## Adapter Algebra
 
 Adapters are composable. Hybrid domains assign axes to adapters rather than pretending one adapter controls everything.
@@ -133,6 +146,7 @@ Do not fake numeric precision. State which adapter controls which axes.
 
 Minimum object families:
 
+- `ArtifactIdentity`: case ID, objective head, scope hash, config hash, active evidence hashes, created-at marker, lifecycle status.
 - `Scene`: scope, state variables, observed variables, hidden variables, horizon.
 - `Subscene`: local decomposition of a scene for evidence acquisition, causal mechanism work, option decisions, proof steps, stakeholder context, or review gates.
 - `Frame`: frame type, semantics, adapter ownership, assumptions.
@@ -141,6 +155,14 @@ Minimum object families:
 - `Claim`: atomic proposition, type, support, contradiction, dependencies, confidence, status.
 - `Unknown`: addressable null object for missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable.
 - `KillTest`: falsifier, countermodel, measurement test, stakeholder objection, or constraint violation tied to a target object.
+- `Criterion`: explicit decision standard, priority, threshold, owner, and movement jobs.
+- `TradeoffSurface`: option comparison, criteria basis, dominant option, and reversal conditions.
+- `Actor`: decision owner, reviewer, affected party, adversary, authority, incentives, exposure, legitimacy basis.
+- `TemporalModel`: decision horizon, deadline, evidence validity windows, staleness triggers, and update cadence.
+- `InformationValue`: impact/cost/time/risk-reduction view of which unknown to resolve next.
+- `Lens`: constrained review axis with questions, examined claims, blind spots, and contention.
+- `CouncilResult`: coverage, missing lenses, dissent, and decision effect.
+- `ReviewLog`: auditable gate decision linked to a reviewer actor.
 - `Edge`: typed relation between tokens or claims with evidence and confidence.
 - `Loop`: recurrent dependency, polarity, delay, gain, control points, observable cues, risk.
 - `OptionMove`: action/query/proof/intervention, preconditions, reversibility, risks.
@@ -217,6 +239,7 @@ new evidence
 -> affected edges
 -> affected loops
 -> affected options
+-> affected criteria / tradeoff / temporal / lens / review objects
 -> affected decision rendering node
 ```
 
@@ -258,6 +281,8 @@ Human review is required for legal, medical, financial, safety, compliance, publ
 ## Validator
 
 Before a decision rendering is final, OfOne runs JSON Schema validation, then semantic graph validation. The artifact may include `validator_result`, but the validator computes pass/fail and can write the computed result back into the artifact.
+
+v0.4 validation also checks artifact identity hashes, criterion ownership, tradeoff-surface references, temporal validity windows, information-value coverage for rendering-blocking unknowns, lens-axis coverage, council contention, review-log coverage for approved Audit gates, and confidence consistency against hidden-variable or contradiction load.
 
 - every emitted item performs a movement-economy job
 - evidence, claims, graph, and rendering stay separate
