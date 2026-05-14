@@ -26,11 +26,13 @@ bounded objective
 ## Stable Components
 
 - A primitive geometry layer: scene, frame, token, move, edge, loop, invariant, gate.
+- Nested scenes for decomposing local evidence, mechanism, option, proof, stakeholder, and review contexts.
 - A twelve-axis kernel for mapping bounded domains.
 - Domain adapters for strategic-agentic, scientific-explanatory, formal, and normative-evaluative cases.
 - Adapter algebra for hybrid domains.
 - Immutable evidence objects with provenance, reliability, freshness, extraction spans, permission tags, content hashes, retrieval markers, source owner, and chain of custody.
 - Atomic claim objects with support, contradiction, supersession, confidence, and dependency closure.
+- Explicit unknown/null objects for missing evidence, missing measurement, unresolved conflict, and unobserved variables.
 - A causal / constraint graph that stays separate from the claim graph.
 - A loop map for feedback, incentives, measurement, contradiction, and review.
 - Council Geometry as constrained lens selection with contracts, coverage, and contention tracking.

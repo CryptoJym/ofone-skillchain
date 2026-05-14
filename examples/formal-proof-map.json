@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.3.0",
+  "ofone_version": "0.3.1",
   "mode": "Map",
   "charter": {
     "objective": "Determine whether theorem T is provable from axiom set A under inference system R.",
@@ -85,6 +85,52 @@
     "movement_jobs": [
       "BOUND",
       "WARN"
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "purpose": "proof_step",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K1",
+          "K2"
+        ],
+        "entry_conditions": [
+          "formal target has an explicit conjecture and inference system"
+        ],
+        "exit_conditions": [
+          "certificate path or failed obligation is identified"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K3",
+          "K4"
+        ],
+        "entry_conditions": [
+          "proof confidence depends on checker or countermodel output"
+        ],
+        "exit_conditions": [
+          "proof artifact or countermodel evidence is available"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      }
     ]
   },
   "evidence": [
@@ -286,8 +332,7 @@
         "high confidence if certificate verifies"
       ],
       "blocking_unknowns": [
-        "lemma path",
-        "decidability class"
+        "U1"
       ],
       "review_gate": "none",
       "movement_jobs": [
@@ -309,7 +354,7 @@
         "fast disproof if found"
       ],
       "blocking_unknowns": [
-        "model domain size"
+        "U1"
       ],
       "review_gate": "none",
       "movement_jobs": [
@@ -355,7 +400,8 @@
       "C1",
       "C2",
       "O1",
-      "O2"
+      "O2",
+      "U1"
     ],
     "movement_jobs": [
       "EVALUATE",
@@ -387,5 +433,39 @@
         "notes": "semantic graph checks completed"
       }
     ]
-  }
+  },
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_evidence",
+      "description": "No checked proof certificate or countermodel artifact is present yet.",
+      "blocks": [
+        "O1",
+        "O2",
+        "R1"
+      ],
+      "resolution_move": "Run proof checker and countermodel search with recorded artifacts.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C1",
+      "test_type": "countermodel",
+      "condition": "A countermodel exists for the conjecture under the declared axioms.",
+      "falsifies": [
+        "C1"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ]
 }

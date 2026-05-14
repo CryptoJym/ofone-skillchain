@@ -263,8 +263,10 @@
         <p class="lead">The system is a typed graph with loops. The visible chain is a traversal order, not a one-way checklist.</p>
         <div class="grid">
           <div class="item"><h3>Scene</h3><p>Bounded state-space snapshot: what exists, changes, and can be observed.</p></div>
+          <div class="item"><h3>Subscene</h3><p>Local scene for evidence acquisition, causal mechanism work, option decisions, proof steps, stakeholder context, or review gates.</p></div>
           <div class="item"><h3>Frame</h3><p>Causal, logical, strategic, normative, temporal, or evidential coordinate system.</p></div>
           <div class="item"><h3>Token</h3><p>Entity, variable, evidence item, claim, uncertainty, constraint, option, or trigger.</p></div>
+          <div class="item"><h3>Unknown</h3><p>Addressable absence: missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable.</p></div>
           <div class="item"><h3>Move</h3><p>Infer, observe, test, intervene, decide, or revise.</p></div>
           <div class="item"><h3>Edge</h3><p>Cause, constrain, support, contradict, enable, observe, evaluate, or update.</p></div>
           <div class="item"><h3>Loop</h3><p>Feedback, control, learning, incentive, measurement, contradiction, or review.</p></div>
@@ -273,7 +275,7 @@
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, renderer, patch helper, examples, and benchmark scaffold.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, nested scenes, explicit unknown objects, renderer, patch helper, examples, and benchmark scaffold.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -291,12 +293,14 @@
           <a class="button" href="./examples/formal-proof-map.json">Formal Example</a>
           <a class="button" href="./examples/hybrid-policy-audit.json">Hybrid Example</a>
           <a class="button" href="./benchmarks/README.md">Benchmarks</a>
+          <a class="button" href="./benchmarks/cases/regulated-wastewater-market-entry.md">Starter Case</a>
+          <a class="button" href="./benchmarks/rubrics/decision-map-rubric.md">Rubric</a>
         </div>
       </section>
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, references, relation legality, adapter contracts, loop physics, gates, rendering dependencies, and closure.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, gates, rendering dependencies, and closure.</p>
         <code class="rule">npm run validate
 npm run render -- examples/strategy-micro.json Micro
 npm run patch -- examples/strategy-micro.json E1</code>

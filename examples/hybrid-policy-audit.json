@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.3.0",
+  "ofone_version": "0.3.1",
   "mode": "Audit",
   "charter": {
     "objective": "Assess a proposed AI policy for deployment in a public-sector workflow.",
@@ -123,6 +123,75 @@
       "BOUND",
       "WARN",
       "GATE"
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "purpose": "stakeholder_context",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K1",
+          "K2",
+          "K4"
+        ],
+        "entry_conditions": [
+          "public deployment affects residents and due-process exposure"
+        ],
+        "exit_conditions": [
+          "rights and appeal implications are reviewed"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "purpose": "causal_mechanism",
+        "frames": [
+          "F2",
+          "F3"
+        ],
+        "tokens": [
+          "K3",
+          "K5"
+        ],
+        "entry_conditions": [
+          "model error and distributional impact determine deployment risk"
+        ],
+        "exit_conditions": [
+          "subgroup performance and override monitoring evidence are sufficient"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      },
+      {
+        "subscene_id": "SS3",
+        "purpose": "review_gate",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K4"
+        ],
+        "entry_conditions": [
+          "deployment is rights-impacting"
+        ],
+        "exit_conditions": [
+          "human review approves, blocks, or narrows release"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      }
     ]
   },
   "evidence": [
@@ -379,9 +448,7 @@
         "requires more evidence"
       ],
       "blocking_unknowns": [
-        "subgroup error",
-        "appeal access",
-        "override monitoring"
+        "U1"
       ],
       "review_gate": "G1",
       "movement_jobs": [
@@ -451,7 +518,8 @@
       "C1",
       "C2",
       "C3",
-      "O1"
+      "O1",
+      "U1"
     ],
     "movement_jobs": [
       "EVALUATE",
@@ -474,14 +542,19 @@
         "notes": "hybrid adapter contract loaded"
       },
       {
-        "check": "dependency_closure",
+        "check": "adapter_gate_coverage",
         "passed": true,
-        "notes": "trigger T1: L2, O1, R1, T1, X2, X3 [includes rendering]"
+        "notes": "gate coverage present for legal, safety, rights"
       },
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T2: C2, C3, L1, L2, O1, R1, T1, T2, X1, X2, X3 [includes rendering]"
+        "notes": "trigger T1: C2, KT1, L2, O1, R1, T1, X2, X3 [includes rendering]"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T2: C2, C3, KT1, L1, L2, O1, R1, T1, T2, X1, X2, X3 [includes rendering]"
       },
       {
         "check": "semantic_validation",
@@ -489,5 +562,38 @@
         "notes": "semantic graph checks completed"
       }
     ]
-  }
+  },
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_measurement",
+      "description": "Subgroup error, appeal access, and override monitoring are not yet evidenced.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Run subgroup audit, appeal-access review, and override-monitoring review.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C2",
+      "test_type": "constraint_violation",
+      "condition": "Gate escalation or source contradiction shows due-process protection is inadequate.",
+      "falsifies": [
+        "C2"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ]
 }

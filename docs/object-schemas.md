@@ -29,6 +29,21 @@ npm run validate
 }
 ```
 
+## Subscene
+
+```json
+{
+  "subscene_id": "SS1",
+  "parent_scene": "S1",
+  "purpose": "evidence_acquisition|causal_mechanism|option_decision|review_gate|proof_step|stakeholder_context|other",
+  "frames": ["F1"],
+  "tokens": ["K1", "K2"],
+  "entry_conditions": ["what must be true to enter this local scene"],
+  "exit_conditions": ["what resolves or exits this local scene"],
+  "movement_jobs": ["BOUND", "LINK"]
+}
+```
+
 ## Claim
 
 ```json
@@ -46,6 +61,33 @@ npm run validate
   },
   "status": "active|disputed|superseded|killed",
   "review_gate": false
+}
+```
+
+## Unknown
+
+```json
+{
+  "unknown_id": "U1",
+  "kind": "missing_evidence|missing_measurement|missing_claim|missing_adapter|unresolved_conflict|unobserved_variable",
+  "description": "No subgroup performance data available.",
+  "blocks": ["O1", "R1"],
+  "resolution_move": "Collect subgroup audit data.",
+  "status": "open|resolved|accepted_risk",
+  "movement_jobs": ["WARN", "GATE", "TEST"]
+}
+```
+
+## Kill Test
+
+```json
+{
+  "test_id": "KT1",
+  "target": "C1",
+  "test_type": "counterexample|measurement|replication|countermodel|stakeholder_objection|constraint_violation|adapter_conflict",
+  "condition": "What observation, proof artifact, stakeholder objection, or constraint violation kills the target claim.",
+  "falsifies": ["C1"],
+  "movement_jobs": ["TEST", "WARN"]
 }
 ```
 

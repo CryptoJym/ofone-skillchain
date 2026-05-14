@@ -44,8 +44,10 @@ This makes OfOne portable across domains without forcing a single domain vocabul
 | Primitive | Meaning |
 |---|---|
 | Scene | A bounded state-space snapshot: what exists, what changes, what can be observed. |
+| Subscene | A local decomposition of a scene for evidence acquisition, causal mechanism work, option decisions, proof steps, stakeholder context, or review gates. |
 | Frame | A coordinate system for interpreting the scene: causal, logical, strategic, normative, temporal, evidential. |
 | Token | The smallest typed unit: entity, variable, claim, evidence item, uncertainty, constraint, option, trigger. |
+| Unknown | An addressable null object for missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable. |
 | Move | A transformation: infer, observe, test, intervene, decide, revise. |
 | Edge | A typed relation: causes, constrains, supports, contradicts, enables, observes, evaluates, updates. |
 | Loop | A recurrent dependency: feedback, control, learning, incentive, measurement, contradiction, review. |
@@ -132,10 +134,13 @@ Do not fake numeric precision. State which adapter controls which axes.
 Minimum object families:
 
 - `Scene`: scope, state variables, observed variables, hidden variables, horizon.
+- `Subscene`: local decomposition of a scene for evidence acquisition, causal mechanism work, option decisions, proof steps, stakeholder context, or review gates.
 - `Frame`: frame type, semantics, adapter ownership, assumptions.
 - `Token`: entity, variable, evidence, claim, constraint, uncertainty, option, trigger, gate.
 - `Evidence`: source, span, provenance, reliability, recency, permission, content hash, retrieval marker, source owner, chain of custody, risks.
 - `Claim`: atomic proposition, type, support, contradiction, dependencies, confidence, status.
+- `Unknown`: addressable null object for missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable.
+- `KillTest`: falsifier, countermodel, measurement test, stakeholder objection, or constraint violation tied to a target object.
 - `Edge`: typed relation between tokens or claims with evidence and confidence.
 - `Loop`: recurrent dependency, polarity, delay, gain, control points, observable cues, risk.
 - `OptionMove`: action/query/proof/intervention, preconditions, reversibility, risks.
@@ -214,6 +219,8 @@ new evidence
 -> affected decision rendering node
 ```
 
+Unknowns participate in closure. If `U1` blocks `O1` and `R1`, resolving `U1` is a patch event for the option and the visible rendering.
+
 Boundary, objective, criteria, adapter projection, ontology mapping, or regime changes bypass patching and become scoped reruns or trunk rewrites.
 
 ---
@@ -255,6 +262,9 @@ Before a decision rendering is final, OfOne runs JSON Schema validation, then se
 - evidence, claims, graph, and rendering stay separate
 - edge relations are legal for their endpoint object types
 - evidence carries stable source identity and custody fields
+- subscenes reference valid scene, frame, and token IDs
+- unknowns are explicit objects when missing evidence or measurement blocks movement
+- kill tests target and falsify existing objects
 - strong claims list support, contradiction or gap, confidence basis, and failure mode
 - causal edges, hidden variables, loop physics, and regime assumptions are explicit enough for the chosen mode
 - options do not hide dependence on disputed claims

@@ -14,6 +14,8 @@
         "scene",
         "evidence",
         "claims",
+        "unknowns",
+        "kill_tests",
         "triggers",
         "gates",
         "confidence_model",

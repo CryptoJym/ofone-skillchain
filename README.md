@@ -47,6 +47,7 @@ npm run validate
 ```
 
 The validator executes JSON Schema first, then semantic graph checks for IDs, references, edge legality, adapter contracts, loop physics, gates, trigger transitions, and dependency closure.
+It also checks nested subscenes, explicit unknown/null objects, and kill-test references.
 
 To compute and write `validator_result` into the examples:
 

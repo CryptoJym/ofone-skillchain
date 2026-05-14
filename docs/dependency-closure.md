@@ -12,6 +12,7 @@ new evidence
 ```
 
 The validator builds reverse dependencies from evidence support, claim dependencies and contradictions, edge endpoints, loop edge membership, option preconditions/effects, trigger affected objects, gate references, and `decision_rendering.depends_on`.
+It also includes subscene membership, explicit unknown/null objects that block options or renderings, and kill tests that falsify claims.
 
 Transition classes:
 
@@ -25,4 +26,5 @@ The validator reports dependency closure for each trigger in an artifact and mar
 
 ```bash
 npm run patch -- examples/strategy-micro.json E1
+npm run patch -- examples/strategy-micro.json U1
 ```

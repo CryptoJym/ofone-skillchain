@@ -62,6 +62,8 @@ Map all domains through these primitives before rendering domain language:
 | Scene | bounded state-space snapshot: what exists, changes, and can be observed |
 | Frame | coordinate system for interpreting the scene: causal, logical, strategic, normative, temporal, evidential |
 | Token | smallest typed unit: entity, variable, claim, evidence item, uncertainty, constraint, option, trigger |
+| Subscene | local scene decomposition for evidence acquisition, causal mechanism, option decision, proof step, stakeholder context, or review gate |
+| Unknown | addressable null object for missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable |
 | Move | transformation: infer, observe, test, intervene, decide, revise |
 | Edge | typed relation: causes, constrains, supports, contradicts, enables, observes, evaluates, updates |
 | Loop | recurrent dependency: feedback, control, learning, incentive, measurement, contradiction, review |
@@ -172,6 +174,19 @@ The executable schemas live at `schemas/ofone.*.schema.json`; `schemas/ofone.sch
 
 ```json
 {
+  "subscene_id": "SS1",
+  "parent_scene": "S1",
+  "purpose": "evidence_acquisition|causal_mechanism|option_decision|review_gate|proof_step|stakeholder_context|other",
+  "frames": ["F1"],
+  "tokens": ["K1"],
+  "entry_conditions": ["what enters this local scene"],
+  "exit_conditions": ["what resolves this local scene"],
+  "movement_jobs": ["BOUND", "LINK"]
+}
+```
+
+```json
+{
   "claim_id": "C1",
   "text": "atomic proposition",
   "type": "descriptive|causal|predictive|normative|formal|operational",
@@ -185,6 +200,29 @@ The executable schemas live at `schemas/ofone.*.schema.json`; `schemas/ofone.sch
   },
   "status": "active|disputed|superseded|killed",
   "review_gate": false
+}
+```
+
+```json
+{
+  "unknown_id": "U1",
+  "kind": "missing_evidence|missing_measurement|missing_claim|missing_adapter|unresolved_conflict|unobserved_variable",
+  "description": "No subgroup performance data available.",
+  "blocks": ["O1", "R1"],
+  "resolution_move": "Collect subgroup audit data.",
+  "status": "open|resolved|accepted_risk",
+  "movement_jobs": ["WARN", "GATE", "TEST"]
+}
+```
+
+```json
+{
+  "test_id": "KT1",
+  "target": "C1",
+  "test_type": "counterexample|measurement|replication|countermodel|stakeholder_objection|constraint_violation|adapter_conflict",
+  "condition": "What kills the target claim.",
+  "falsifies": ["C1"],
+  "movement_jobs": ["TEST", "WARN"]
 }
 ```
 
@@ -238,8 +276,10 @@ The executable schemas live at `schemas/ofone.*.schema.json`; `schemas/ofone.sch
 Every Map or Audit output should include:
 
 - state variables
+- nested subscenes when the inquiry decomposes into local scenes
 - observed variables
 - hidden variables
+- explicit unknown/null objects for missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variables
 - causal or logical edges
 - constraints and invariants
 - feedback loops

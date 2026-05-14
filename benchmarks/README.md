@@ -19,3 +19,8 @@ OfOne should not claim empirical superiority without benchmark evidence. This sc
 - full artifact release or redacted release notes when source permission blocks publication
 
 Benchmarks should compare the validated OfOne artifact and its rendering against direct-answer baselines and simpler structured-prompt baselines.
+
+## Starter Assets
+
+- `cases/regulated-wastewater-market-entry.md`
+- `rubrics/decision-map-rubric.md`

@@ -1,6 +1,6 @@
 {
   "name": "ofone-skillchain",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "OfOne typed causal-geometry compiler skillchain",
   "type": "module",
   "scripts": {

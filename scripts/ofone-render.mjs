@@ -25,6 +25,7 @@ function renderMicro(data) {
   line(`**Decision:** ${data.decision_rendering?.recommendation || "(missing recommendation)"}`);
   line(`**Confidence:** ${data.decision_rendering?.confidence || "(missing confidence)"}`);
   line(`**Why:** ${data.decision_rendering?.summary || "(missing summary)"}`);
+  line(`**Blocking Unknowns:** ${unknownSummary(data)}`);
   line(`**Update Trigger:** ${array(data.triggers)[0]?.condition || "(none recorded)"}`);
   line(`**Gate:** ${gateSummary(data)}`);
 }
@@ -41,7 +42,8 @@ function renderMap(data, index) {
   section("Geometry And Adapter", [
     `Adapter: ${data.adapter_projection?.primary}`,
     `Frames: ${array(data.scene?.frames).map((frame) => `${frame.frame_id}:${frame.type}`).join(", ")}`,
-    `Tokens: ${array(data.scene?.tokens).map((token) => `${token.token_id}:${token.label}`).join(", ")}`
+    `Tokens: ${array(data.scene?.tokens).map((token) => `${token.token_id}:${token.label}`).join(", ")}`,
+    `Subscenes: ${array(data.scene?.subscenes).map((subscene) => `${subscene.subscene_id}:${subscene.purpose}`).join(", ")}`
   ]);
   section("Evidence And Claims", [
     `Evidence: ${array(data.evidence).map((evidence) => `${evidence.evidence_id}:${evidence.reliability}`).join(", ")}`,
@@ -53,6 +55,8 @@ function renderMap(data, index) {
   ]);
   section("Options And Gates", [
     `Options: ${array(data.option_moves).map((option) => `${option.option_id}:${option.move_type}`).join(", ")}`,
+    `Unknowns: ${unknownSummary(data)}`,
+    `Kill tests: ${array(data.kill_tests).map((test) => `${test.test_id}:${test.test_type}->${test.target}`).join(", ")}`,
     `Gates: ${gateSummary(data)}`
   ]);
   renderDecisionAndTriggers(data, index);
@@ -85,6 +89,12 @@ function gateSummary(data) {
   const gates = array(data.gates);
   if (gates.length === 0) return "none recorded";
   return gates.map((gate) => `${gate.gate_id}:${gate.status}:${gate.condition}`).join("; ");
+}
+
+function unknownSummary(data) {
+  const unknowns = array(data.unknowns);
+  if (unknowns.length === 0) return "none recorded";
+  return unknowns.map((unknown) => `${unknown.unknown_id}:${unknown.status}:${unknown.description}`).join("; ");
 }
 
 function section(title, items) {

@@ -11,6 +11,8 @@
     "scene",
     "evidence",
     "claims",
+    "unknowns",
+    "kill_tests",
     "triggers",
     "gates",
     "confidence_model",
@@ -42,6 +44,18 @@
       "type": "array",
       "items": {
         "$ref": "#/$defs/claim"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unknown"
+      }
+    },
+    "kill_tests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/killTest"
       }
     },
     "edges": {
@@ -151,7 +165,7 @@
     },
     "scene": {
       "type": "object",
-      "required": ["scene_id", "frames", "tokens", "state_variables", "observed_variables", "hidden_variables", "movement_jobs"],
+      "required": ["scene_id", "frames", "tokens", "subscenes", "state_variables", "observed_variables", "hidden_variables", "movement_jobs"],
       "properties": {
         "scene_id": {
           "type": "string"
@@ -166,6 +180,12 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/token"
+          }
+        },
+        "subscenes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/subscene"
           }
         },
         "state_variables": {
@@ -209,6 +229,48 @@
         }
       }
     },
+    "subscene": {
+      "type": "object",
+      "required": ["subscene_id", "parent_scene", "purpose", "frames", "tokens", "entry_conditions", "exit_conditions", "movement_jobs"],
+      "properties": {
+        "subscene_id": {
+          "type": "string"
+        },
+        "parent_scene": {
+          "type": "string"
+        },
+        "purpose": {
+          "enum": ["evidence_acquisition", "causal_mechanism", "option_decision", "review_gate", "proof_step", "stakeholder_context", "other"]
+        },
+        "frames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "entry_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exit_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
     "token": {
       "type": "object",
       "required": ["token_id", "kind", "label"],
@@ -217,7 +279,7 @@
           "type": "string"
         },
         "kind": {
-          "enum": ["entity", "variable", "claim", "evidence", "uncertainty", "constraint", "option", "trigger", "gate"]
+          "enum": ["entity", "variable", "claim", "evidence", "uncertainty", "constraint", "option", "trigger", "gate", "unknown"]
         },
         "label": {
           "type": "string"
@@ -347,6 +409,63 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "unknown": {
+      "type": "object",
+      "required": ["unknown_id", "kind", "description", "blocks", "resolution_move", "status", "movement_jobs"],
+      "properties": {
+        "unknown_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["missing_evidence", "missing_measurement", "missing_claim", "missing_adapter", "unresolved_conflict", "unobserved_variable"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resolution_move": {
+          "type": "string"
+        },
+        "status": {
+          "enum": ["open", "resolved", "accepted_risk"]
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "killTest": {
+      "type": "object",
+      "required": ["test_id", "target", "test_type", "condition", "falsifies", "movement_jobs"],
+      "properties": {
+        "test_id": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "test_type": {
+          "enum": ["counterexample", "measurement", "replication", "countermodel", "stakeholder_objection", "constraint_violation", "adapter_conflict"]
+        },
+        "condition": {
+          "type": "string"
+        },
+        "falsifies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
         }
       }
     },

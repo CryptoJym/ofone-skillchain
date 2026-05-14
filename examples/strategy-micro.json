@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.3.0",
+  "ofone_version": "0.3.1",
   "mode": "Micro",
   "charter": {
     "objective": "Decide whether to enter a regulated wastewater treatment market.",
@@ -102,6 +102,52 @@
     "movement_jobs": [
       "BOUND",
       "WARN"
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "K3",
+          "K4"
+        ],
+        "entry_conditions": [
+          "market entry question requires segment, jurisdiction, and pilot evidence"
+        ],
+        "exit_conditions": [
+          "minimum diligence evidence is collected or the move remains gated"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "purpose": "option_decision",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K1",
+          "K2"
+        ],
+        "entry_conditions": [
+          "launch and diligence options are distinguishable"
+        ],
+        "exit_conditions": [
+          "option move is selected or blocked"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      }
     ]
   },
   "evidence": [
@@ -282,9 +328,7 @@
         "more reversible spend"
       ],
       "blocking_unknowns": [
-        "target segment",
-        "jurisdiction",
-        "pilot performance"
+        "U1"
       ],
       "review_gate": "G1",
       "movement_jobs": [
@@ -310,7 +354,7 @@
   "gates": [
     {
       "gate_id": "G1",
-      "condition": "customer commitment, permit filing, or operational launch",
+      "condition": "customer commitment, permit filing, compliance exposure, reputation exposure, or operational launch",
       "reviewer": "human regulatory and business owner",
       "required_decision": "approve, block, or narrow the diligence move",
       "status": "open",
@@ -341,7 +385,8 @@
     "depends_on": [
       "C1",
       "C2",
-      "O1"
+      "O1",
+      "U1"
     ],
     "movement_jobs": [
       "EVALUATE",
@@ -364,9 +409,14 @@
         "notes": "hybrid adapter contract loaded"
       },
       {
+        "check": "adapter_gate_coverage",
+        "passed": true,
+        "notes": "gate coverage present for compliance, reputation"
+      },
+      {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T1: C1, C2, L1, O1, R1, T1, X1, X2 [includes rendering]"
+        "notes": "trigger T1: C1, C2, KT1, L1, O1, R1, T1, X1, X2 [includes rendering]"
       },
       {
         "check": "semantic_validation",
@@ -374,5 +424,38 @@
         "notes": "semantic graph checks completed"
       }
     ]
-  }
+  },
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_evidence",
+      "description": "Target segment, jurisdiction, and pilot-performance evidence are not yet specified.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Collect segment, jurisdiction, and pilot-performance evidence before operational entry.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C2",
+      "test_type": "adapter_conflict",
+      "condition": "Source contradiction or regime shift shows diligence is not more reversible than launch.",
+      "falsifies": [
+        "C2"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ]
 }

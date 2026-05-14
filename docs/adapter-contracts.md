@@ -11,6 +11,8 @@ Each contract defines:
 - typical hidden-variable prompts
 - valid kill tests
 
+The validator enforces evidence-source, claim-type, and confidence-basis compatibility. It also checks kill tests against adapter kill-test cues and reports weak matches as warnings.
+
 ## Adapter Families
 
 | Adapter | Use For | Common Hidden Variables |

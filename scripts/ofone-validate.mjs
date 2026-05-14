@@ -131,6 +131,7 @@ function validateSemantic(data, { fail, warn, pass }) {
   if (data.charter?.risk_tier === "high" && array(data.gates).length === 0) {
     fail("human_gate", "high-risk charter requires at least one gate");
   }
+  validateAdapterGateCoverage(data, contract, { warn, pass });
 
   const idEntries = collectIdEntries(data);
   const ids = new Set();
@@ -146,14 +147,18 @@ function validateSemantic(data, { fail, warn, pass }) {
   const index = buildObjectIndex(data);
   const evidenceIds = new Set(array(data.evidence).map((item) => item.evidence_id));
   const claimIds = new Set(array(data.claims).map((item) => item.claim_id));
+  const unknownIds = new Set(array(data.unknowns).map((item) => item.unknown_id));
   const edgeIds = new Set(array(data.edges).map((item) => item.edge_id));
   const gateIds = new Set(array(data.gates).map((item) => item.gate_id));
 
+  validateSubscenes(data, index, { fail });
   validateEvidence(data, contract, claimIds, { fail, warn });
   validateClaims(data, contract, evidenceIds, claimIds, index, { fail, warn });
+  validateUnknowns(data, index, { fail });
+  validateKillTests(data, contract, index, { fail, warn });
   validateEdges(data, evidenceIds, index, { fail });
   validateLoops(data, edgeIds, { fail });
-  validateOptions(data, claimIds, edgeIds, gateIds, data, { fail, warn });
+  validateOptions(data, claimIds, unknownIds, edgeIds, gateIds, data, { fail, warn });
   validateTriggers(data, index, { fail, pass });
   validateConfidenceModel(data.confidence_model, { fail });
   validateRendering(data, index, { fail });
@@ -165,11 +170,45 @@ function validateSemantic(data, { fail, warn, pass }) {
   pass("semantic_validation", "semantic graph checks completed");
 }
 
+function validateAdapterGateCoverage(data, contract, { warn, pass }) {
+  if (!contract) return;
+  const artifactText = JSON.stringify({
+    objective: data.charter?.objective,
+    scope: data.charter?.scope,
+    stakes: data.charter?.stakes,
+    claims: array(data.claims).map((claim) => claim.text),
+    recommendation: data.decision_rendering?.recommendation
+  });
+  const expected = contract.requiredGateTriggers.filter((term) => containsNormalized(artifactText, term));
+  if (expected.length === 0) return;
+
+  const gateText = JSON.stringify(array(data.gates).map((gate) => [gate.condition, gate.reviewer, gate.required_decision]));
+  const covered = expected.some((term) => containsNormalized(gateText, term)) || containsNormalized(gateText, "review");
+  if (covered) {
+    pass("adapter_gate_coverage", `gate coverage present for ${expected.join(", ")}`);
+  } else {
+    warn("adapter_gate_coverage", `artifact implies ${expected.join(", ")} exposure but gate text does not name the exposure`);
+  }
+}
+
+function validateSubscenes(data, index, { fail }) {
+  for (const subscene of array(data.scene?.subscenes)) {
+    validateMovementJobs(subscene, `subscene ${subscene.subscene_id}`, fail);
+    if (!index.ids.has(subscene.parent_scene)) fail("references", `subscene ${subscene.subscene_id} parent_scene missing ${subscene.parent_scene}`);
+    for (const frameId of array(subscene.frames)) {
+      if (!index.ids.has(frameId)) fail("references", `subscene ${subscene.subscene_id} frame missing ${frameId}`);
+    }
+    for (const tokenId of array(subscene.tokens)) {
+      if (!index.ids.has(tokenId)) fail("references", `subscene ${subscene.subscene_id} token missing ${tokenId}`);
+    }
+  }
+}
+
 function validateEvidence(data, contract, claimIds, { fail, warn }) {
   for (const evidence of array(data.evidence)) {
     validateMovementJobs(evidence, `evidence ${evidence.evidence_id}`, fail);
     if (contract && !contract.allowedEvidenceSources.includes(evidence.source)) {
-      warn("adapter_contract", `evidence ${evidence.evidence_id} source ${evidence.source} is unusual for ${data.adapter_projection.primary}`);
+      fail("adapter_contract", `evidence ${evidence.evidence_id} source ${evidence.source} is not allowed for ${data.adapter_projection.primary}`);
     }
     if (evidence.content_hash === "unknown" && data.mode === "Audit") {
       fail("evidence_identity", `audit evidence ${evidence.evidence_id} requires stable content_hash`);
@@ -184,7 +223,7 @@ function validateClaims(data, contract, evidenceIds, claimIds, index, { fail, wa
   for (const claim of array(data.claims)) {
     validateMovementJobs(claim, `claim ${claim.claim_id}`, fail);
     if (contract && !contract.allowedClaimTypes.includes(claim.type)) {
-      warn("adapter_contract", `claim ${claim.claim_id} type ${claim.type} is unusual for ${data.adapter_projection.primary}`);
+      fail("adapter_contract", `claim ${claim.claim_id} type ${claim.type} is not allowed for ${data.adapter_projection.primary}`);
     }
     if (array(claim.supports).length === 0 && claim.status === "active") {
       fail("claim_support", `active claim ${claim.claim_id} has no evidence support`);
@@ -202,7 +241,44 @@ function validateClaims(data, contract, evidenceIds, claimIds, index, { fail, wa
       fail("confidence", `claim ${claim.claim_id} confidence.level must be low|medium|high`);
     }
     if (array(claim.confidence?.basis).length === 0) fail("confidence", `claim ${claim.claim_id} confidence basis is empty`);
+    for (const basis of array(claim.confidence?.basis)) {
+      if (contract && !contract.confidenceBasis.includes(basis)) {
+        fail("adapter_contract", `claim ${claim.claim_id} confidence basis ${basis} is not allowed for ${data.adapter_projection.primary}`);
+      }
+    }
     if (array(claim.confidence?.failure_modes).length === 0) fail("confidence", `claim ${claim.claim_id} failure_modes is empty`);
+  }
+}
+
+function validateUnknowns(data, index, { fail }) {
+  for (const unknown of array(data.unknowns)) {
+    validateMovementJobs(unknown, `unknown ${unknown.unknown_id}`, fail);
+    const jobs = array(unknown.movement_jobs);
+    if (!jobs.includes("WARN")) fail("unknown", `unknown ${unknown.unknown_id} must carry WARN movement job`);
+    if (array(unknown.blocks).length === 0 && unknown.status === "open") {
+      fail("unknown", `open unknown ${unknown.unknown_id} must block at least one object`);
+    }
+    for (const blockedId of array(unknown.blocks)) {
+      if (!index.ids.has(blockedId)) fail("references", `unknown ${unknown.unknown_id} blocks missing object ${blockedId}`);
+    }
+    const blocksRendering = data.decision_rendering?.rendering_id && array(unknown.blocks).includes(data.decision_rendering.rendering_id);
+    if (blocksRendering && data.charter?.risk_tier === "high" && array(data.gates).length === 0) {
+      fail("human_gate", `high-risk unknown ${unknown.unknown_id} blocks rendering without a human gate`);
+    }
+  }
+}
+
+function validateKillTests(data, contract, index, { fail, warn }) {
+  for (const test of array(data.kill_tests)) {
+    validateMovementJobs(test, `kill_test ${test.test_id}`, fail);
+    if (!array(test.movement_jobs).includes("TEST")) fail("kill_test", `kill_test ${test.test_id} must carry TEST movement job`);
+    if (!index.ids.has(test.target)) fail("references", `kill_test ${test.test_id} target missing ${test.target}`);
+    for (const claimId of array(test.falsifies)) {
+      if (!index.ids.has(claimId)) fail("references", `kill_test ${test.test_id} falsifies missing object ${claimId}`);
+    }
+    if (contract && !contract.validKillTests.some((cue) => containsNormalized(test.condition, cue) || containsNormalized(test.test_type, cue))) {
+      warn("adapter_contract", `kill_test ${test.test_id} does not obviously match ${data.adapter_projection.primary} contract kill-test cues`);
+    }
   }
 }
 
@@ -234,7 +310,7 @@ function validateLoops(data, edgeIds, { fail }) {
   }
 }
 
-function validateOptions(data, claimIds, edgeIds, gateIds, artifact, { fail, warn }) {
+function validateOptions(data, claimIds, unknownIds, edgeIds, gateIds, artifact, { fail, warn }) {
   const claims = array(artifact.claims);
   for (const option of array(data.option_moves)) {
     validateMovementJobs(option, `option ${option.option_id}`, fail);
@@ -242,6 +318,9 @@ function validateOptions(data, claimIds, edgeIds, gateIds, artifact, { fail, war
       if (!claimIds.has(claimId)) fail("references", `option ${option.option_id} precondition missing claim ${claimId}`);
       const claim = claims.find((item) => item.claim_id === claimId);
       if (claim?.status === "disputed") warn("option_dependency", `option ${option.option_id} depends on disputed claim ${claimId}`);
+    }
+    for (const unknownId of array(option.blocking_unknowns)) {
+      if (!unknownIds.has(unknownId)) fail("references", `option ${option.option_id} blocking_unknown missing unknown ${unknownId}`);
     }
     for (const edgeId of array(option.expected_effects)) {
       if (!edgeIds.has(edgeId)) fail("references", `option ${option.option_id} expected_effect missing edge ${edgeId}`);
@@ -297,8 +376,11 @@ function collectIdEntries(data) {
     { label: "scene", id: data.scene?.scene_id },
     ...array(data.scene?.frames).map((item) => ({ label: "frame", id: item.frame_id })),
     ...array(data.scene?.tokens).map((item) => ({ label: "token", id: item.token_id })),
+    ...array(data.scene?.subscenes).map((item) => ({ label: "subscene", id: item.subscene_id })),
     ...array(data.evidence).map((item) => ({ label: "evidence", id: item.evidence_id })),
     ...array(data.claims).map((item) => ({ label: "claim", id: item.claim_id })),
+    ...array(data.unknowns).map((item) => ({ label: "unknown", id: item.unknown_id })),
+    ...array(data.kill_tests).map((item) => ({ label: "kill_test", id: item.test_id })),
     ...array(data.edges).map((item) => ({ label: "edge", id: item.edge_id })),
     ...array(data.loops).map((item) => ({ label: "loop", id: item.loop_id })),
     ...array(data.option_moves).map((item) => ({ label: "option_move", id: item.option_id })),
@@ -321,7 +403,7 @@ function isLegalRelation(relation, fromType, toType) {
     observes: () => ["evidence", "token:evidence", "token:variable"].includes(from.raw) && ["claim", "token:variable"].includes(to.raw),
     evaluates: () => ["claim", "option_move", "token:entity", "token:variable"].includes(from.raw) && ["option_move", "claim", "rendering"].includes(to.base),
     updates: () => ["trigger", "evidence", "claim"].includes(from.base) && ["claim", "edge", "loop", "option_move", "rendering"].includes(to.base),
-    blocks: () => ["gate", "claim"].includes(from.base) && ["option_move", "rendering"].includes(to.base),
+    blocks: () => ["gate", "claim", "unknown"].includes(from.base) && ["option_move", "rendering"].includes(to.base),
     depends_on: () => ["option_move", "claim", "rendering"].includes(from.base) && ["claim", "edge", "evidence", "loop", "gate"].includes(to.base)
   };
 
@@ -349,6 +431,11 @@ function validateMovementJobs(object, label, fail) {
   for (const job of jobs) {
     if (!enums.movementJobs.has(job)) fail("movement_jobs", `${label} has invalid movement job ${job}`);
   }
+}
+
+function containsNormalized(haystack, needle) {
+  const normalize = (value) => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  return normalize(haystack).includes(normalize(needle));
 }
 
 function join(set) {
