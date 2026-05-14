@@ -1,20 +1,21 @@
 # OfOne Skillchain
 
-OfOne is a domain-adaptive inquiry compiler for turning bounded objectives into auditable decision maps.
+OfOne is a typed causal-geometry compiler for turning bounded objectives into auditable decision maps.
 
-The inquiry geometry is portable; domain meaning comes from adapters.
+Abstract geometry is primary. Adapters project domain language onto geometry.
 
 ## What Is Included
 
 - [`SKILL.md`](./SKILL.md) - the Codex skillchain.
 - [`docs/architecture-framing.md`](./docs/architecture-framing.md) - the architecture framing.
 - [`docs/research-basis.md`](./docs/research-basis.md) - research-backed architecture basis.
+- [`docs/object-schemas.md`](./docs/object-schemas.md) - minimum object schemas.
 - [`index.html`](./index.html) - GitHub Pages site.
 
 ## Skillchain
 
 ```text
-Charter -> Adapter -> Kernel Map -> Evidence Ledger -> Claim Graph -> Domain Graph -> Council Geometry -> Hypotheses -> Options -> Update Logic -> Decision Pack
+Charter -> Geometry Kernel -> Adapter Projection -> Scene Map -> Evidence Ledger -> Claim Graph -> Causal Graph -> Loop Map -> Option Moves -> Update Logic -> Human Gates -> Decision Pack
 ```
 
 ## Install Locally For Codex

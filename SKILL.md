@@ -7,179 +7,276 @@ description: Use when mapping a bounded domain, uncovering decision-relevant str
 
 ## Overview
 
-OfOne is a domain-adaptive inquiry compiler. It turns a bounded objective into an auditable decision map through adapters, evidence, claims, analytic lenses, options, triggers, and human review gates.
+OfOne is a typed causal-geometry compiler for decision maps. It turns a bounded objective into structured objects: scenes, frames, tokens, edges, loops, claims, options, triggers, and gates.
 
-Core principle: inquiry geometry is portable; domain semantics come from adapters.
+Core principle: abstract geometry is primary. Adapters project domain language onto geometry. Answers are renderings of the map, not the map itself.
 
 ## When To Use
 
 Use for:
 
-- unfamiliar domains where the agent must reveal structure before recommending action
-- strategy, research, diagnosis, proof-search, policy, product, operational, or creative domains
-- decisions needing evidence, uncertainty, dissent, and update conditions
-- reruns where new evidence may require no-op, patch, scoped rerun, or trunk rewrite
+- complex or unfamiliar domains where structure must be revealed before action
+- strategy, research, diagnosis, proof-search, policy, product, operational, scientific, formal, or creative domains
+- decisions needing evidence, uncertainty, dissent, causal loops, update conditions, and human gates
+- reruns where new evidence may require no-op, patch, scoped rerun, trunk rewrite, or review
 
-Do not use for:
+Do not use for casual explanations, low-stakes direct answers, or high-stakes advice without human review.
 
-- casual explanations where no decision, map, or audit trail is needed
-- high-stakes advice without human review
-- claims of full domain understanding without evidence
+## Output Modes
 
-## Pressure Mode
+Pick the smallest mode that preserves safety:
 
-If the user asks for a quick, compact, or "just give me the answer" result, still keep the chain intact. Use one or two bullets per stage, but do not omit adapter, evidence, claims, update logic, or human gates.
+| Mode | Use When | Required Output |
+|---|---|---|
+| Micro | quick answer, low-to-medium stakes | charter, adapter, top claims, decisive uncertainty, recommendation or gate |
+| Map | normal OfOne use | geometry chain, evidence, claims, graph, options, triggers |
+| Audit | high stakes, research pack, handoff | full schemas, evidence ledger, dependencies, dissent, validators, review log |
 
-If the user gives a preferred vocabulary, translate it into adapter-native terms before mapping.
+Even in Micro mode, include adapter, evidence status, claim basis, update trigger, and human gate if relevant.
 
-Do not start external research just to apply the skill unless the user asks for live/current due diligence or the host system requires verification. Use provided evidence, mark missing evidence explicitly, and keep moving.
+## Movement Economy
 
-## Skillchain Geometry
+Every emitted sentence or object must earn its place by doing at least one job:
 
-Run the chain in order:
+| Job | Meaning |
+|---|---|
+| BOUND | define objective, scope, horizon, stake, or exclusion |
+| GROUND | cite evidence, provenance, reliability, or explicit gap |
+| CLAIM | state an atomic proposition |
+| LINK | connect objects with support, contradiction, causality, dependency, or evaluation |
+| TEST | define hypothesis, kill test, counterfactual, or falsifier |
+| MOVE | define intervention, query, proof step, experiment, or reversible action |
+| EVALUATE | compare criteria, tradeoffs, costs, stakes, or reversibility |
+| WARN | surface uncertainty, dissent, failure mode, adversarial risk, or hidden variable |
+| TRIGGER | define no-op, patch, rerun, trunk rewrite, or monitoring condition |
+| GATE | require human review, permission, redaction, or approval |
+
+Delete sentences that do none of these.
+
+## Primitive Geometry
+
+Map all domains through these primitives before rendering domain language:
+
+| Primitive | Meaning |
+|---|---|
+| Scene | bounded state-space snapshot: what exists, changes, and can be observed |
+| Frame | coordinate system for interpreting the scene: causal, logical, strategic, normative, temporal, evidential |
+| Token | smallest typed unit: entity, variable, claim, evidence item, uncertainty, constraint, option, trigger |
+| Move | transformation: infer, observe, test, intervene, decide, revise |
+| Edge | typed relation: causes, constrains, supports, contradicts, enables, observes, evaluates, updates |
+| Loop | recurrent dependency: feedback, control, learning, incentive, measurement, contradiction, review |
+| Invariant | constraint or symmetry that survives across frames or reruns |
+| Gate | condition that blocks movement until evidence, review, permission, or redaction exists |
+
+Adapters translate domain terms into these primitives.
+
+## Traversal Order
+
+Use this as the default traversal, while allowing loops and reverse edges when evidence changes the map:
 
 ```text
 0 Charter
--> 1 Adapter
--> 2 Kernel Map
--> 3 Evidence Ledger
--> 4 Claim Graph
--> 5 Domain Graph
--> 6 Council Geometry
--> 7 Hypotheses And Kill Tests
--> 8 Options And Tradeoffs
--> 9 Update Logic
--> 10 Decision Pack
+-> 1 Geometry Kernel
+-> 2 Adapter Projection
+-> 3 Scene Map
+-> 4 Evidence Ledger
+-> 5 Claim Graph
+-> 6 Causal / Constraint Graph
+-> 7 Loop Map
+-> 8 Hypotheses And Kill Tests
+-> 9 Option Moves
+-> 10 Tradeoff Surface
+-> 11 Update / Patch Logic
+-> 12 Human Gates
+-> 13 Decision Pack
 ```
 
-Every stage emits: object state, evidence refs or gaps, uncertainty, dissent, next dependency, and human-review flag.
+Reverse edges are mandatory when:
 
-## Quick Reference
+- evidence contradicts a claim
+- claim conflict changes an option
+- missing observables weaken the scene map
+- adapter mismatch changes semantics
+- loop behavior changes causal interpretation
+- high-stakes exposure triggers review
+- regime change rewrites scope or assumptions
 
-| Stage | Purpose | Output |
+## Adapter Projection
+
+Pick or compose adapters before rendering claims.
+
+| Adapter | Use For | Defines |
 |---|---|---|
-| Charter | Bound the objective | task, decision question, scope, horizon, stakes |
-| Adapter | Translate semantics | domain family, evidence rules, proof rules, forbidden vocabulary |
-| Kernel Map | Ask the invariant questions | twelve-axis domain map |
-| Evidence Ledger | Ground the map | sources, spans, reliability, freshness, permissions |
-| Claim Graph | Atomize what is known | claims, support, contradiction, confidence |
-| Domain Graph | Model the domain | units, states, relations, constraints, mechanisms, regimes |
-| Council Geometry | Select analytic lenses | lens memos, objections, minority reports, contention |
-| Hypotheses | Test explanations | competing hypotheses, kill tests, blocking unknowns |
-| Options | Support decisions | tradeoffs, preconditions, reversibility, risks |
-| Update Logic | Control reruns | no-op, patch, scoped rerun, trunk rewrite, human review |
-| Decision Pack | Export result | map, evidence, claims, options, dissent, triggers, audit notes |
-
-## Adapter Families
-
-Pick the closest adapter before asking kernel questions.
-
-| Adapter | Use For | Semantics To Define |
-|---|---|---|
-| Strategic-agentic | markets, organizations, operations, policy execution | incentives, actors, leverage, constraints, risk |
+| Strategic-agentic | markets, organizations, operations, policy execution | incentives, agency, leverage, constraints, risk |
 | Scientific-explanatory | biology, climate, physics, medicine, engineering | measurement, mechanism, causality, uncertainty |
 | Formal | math, logic, proof search, formal systems | axioms, inference, proof, countermodel, decidability |
-| Normative-evaluative | ethics, legitimacy, art, contested values | value pluralism, stakes, dissent, review threshold |
+| Normative-evaluative | ethics, legitimacy, art, contested values | plural criteria, stakes, dissent, review threshold |
 
-If no adapter fits, state the mismatch and create a provisional adapter before continuing.
+Hybrid domains use adapter algebra:
+
+```text
+adapter_mix = {strategic: axes, scientific: axes, formal: axes, normative: axes}
+```
+
+Do not fake numeric precision. State which adapter controls which axes.
 
 ## Kernel Questions
 
-Ask all twelve. Keep domain-native wording from the adapter.
+Ask only at the resolution needed for the chosen mode.
 
 1. Task and frame: explain, predict, prove, diagnose, decide, intervene, critique, or synthesize?
 2. Boundary, resolution, horizon: what is in scope, out of scope, too coarse, too fine, current, stale, or future-facing?
-3. Units, variables, participants: what entities, variables, actors, artifacts, states, or abstractions matter?
-4. State space and observables: what can the domain be like, and what can be observed or measured?
-5. Relations, rules, generators: what causal links, logical rules, mechanisms, or generative processes shape it?
-6. Constraints, invariants, symmetries: what limits the feasible region or remains stable?
-7. Interventions, queries, control channels: where can action, inquiry, experimentation, or proof search enter?
-8. Dynamics, path dependence, regimes: how does it evolve, and what regime shifts invalidate the map?
-9. Observation, proof, measurement, provenance: what evidence exists, where did it come from, and what does it support?
+3. Units, variables, participants: what tokens matter?
+4. State space and observables: what can the scene be like, and what can be observed?
+5. Relations, rules, generators: what edges shape the scene?
+6. Constraints, invariants, symmetries: what limits movement or survives reruns?
+7. Interventions, queries, control channels: what moves are possible?
+8. Dynamics, path dependence, regimes: what loops or regime shifts matter?
+9. Observation, proof, measurement, provenance: what grounds each claim?
 10. Uncertainty, identifiability, deception: what is unknown, confounded, stale, adversarial, or misleading?
-11. Evaluation criteria and stakes: what standards decide better or worse, and who bears consequences?
-12. Alternatives, tradeoffs, update triggers: what rival maps, options, objections, kill tests, or feedback events force revision?
+11. Evaluation criteria and stakes: what surfaces define better or worse?
+12. Alternatives, tradeoffs, update triggers: what options, objections, kill tests, and triggers force revision?
+
+## Minimal Schemas
+
+Use stable IDs. Keep evidence, claims, graph objects, and renderings separate.
+
+```json
+{
+  "evidence_id": "E1",
+  "source": "file|url|observation|testimony|simulation|tool",
+  "span_or_locator": "string",
+  "provenance": "string",
+  "recency": "current|dated|unknown",
+  "reliability": "low|medium|high",
+  "permission": "internal|public|restricted",
+  "supports": ["C1"],
+  "risks": ["stale", "selection_bias"]
+}
+```
+
+```json
+{
+  "claim_id": "C1",
+  "text": "atomic proposition",
+  "type": "descriptive|causal|predictive|normative|formal|operational",
+  "supports": ["E1"],
+  "contradicts": ["C2"],
+  "depends_on": ["A1"],
+  "confidence": {
+    "level": "low|medium|high",
+    "basis": ["provenance", "independence", "recency", "mechanism_fit"],
+    "failure_modes": ["confounding", "staleness"]
+  },
+  "status": "active|disputed|superseded|killed",
+  "review_gate": false
+}
+```
+
+```json
+{
+  "edge_id": "X1",
+  "from": "token_or_claim_id",
+  "to": "token_or_claim_id",
+  "relation": "causes|constrains|supports|contradicts|enables|observes|evaluates|updates",
+  "evidence_refs": ["E1"],
+  "confidence": "low|medium|high"
+}
+```
+
+```json
+{
+  "trigger_id": "T1",
+  "condition": "new_evidence|claim_conflict|regime_shift|scope_change|review_required",
+  "affected_objects": ["C1", "O1"],
+  "transition": "no_op|patch|scoped_rerun|trunk_rewrite|human_review"
+}
+```
+
+## Causal Frame Mechanics
+
+Every Map or Audit output should include:
+
+- state variables
+- observed variables
+- hidden variables
+- causal or logical edges
+- constraints and invariants
+- feedback loops
+- control or query channels
+- regime assumptions
+- failure modes
+- counterfactuals or kill tests
 
 ## Execution Contract
 
 Before recommending action:
 
-1. State the charter and adapter.
-2. Produce the twelve-axis kernel map.
-3. Separate evidence from assumptions.
+1. State mode, charter, and adapter projection.
+2. Build the scene map using geometry primitives.
+3. Separate evidence, claims, graph, and rendering.
 4. Convert important findings into atomic claims.
-5. Build a domain graph separate from the claim graph.
-6. Select only lenses that add axis coverage or reduce a named uncertainty.
+5. Build causal / constraint graph and loop map.
+6. Select only lenses that add axis coverage or reduce named uncertainty.
 7. Preserve dissent and minority reports.
-8. Produce options with tradeoffs, preconditions, reversibility, and blocking unknowns.
+8. Produce option moves with tradeoffs, preconditions, reversibility, and blocking unknowns.
 9. Classify future changes as no-op, patch, scoped rerun, trunk rewrite, or human review.
-10. Export a decision pack with evidence, uncertainty, dissent, and update triggers.
+10. Render the decision pack from the internal map.
 
 ## Idempotency Rule
-
-Use this no-op test:
 
 ```text
 same objective head + same scope hash + same config hash + same active evidence hashes + same active trigger state = no-op
 ```
 
-New evidence should patch only the affected dependency closure. Boundary, objective, criteria, ontology, adapter, or regime changes require scoped rerun or trunk rewrite.
+New evidence patches only the affected dependency closure. Boundary, objective, criteria, ontology mapping, adapter projection, or regime changes require scoped rerun or trunk rewrite.
 
-## Human Review Gates
+## Human Gates
 
-Stop and require human review for:
+Require human review for legal, medical, financial, safety, compliance, public-policy, rights, employment, education, health, money, physical safety, reputation, trunk rewrites, external research-pack release, high-severity dissent, low-provenance evidence in high-consequence claims, adapter override, or audit deletion/backfill.
 
-- legal, medical, financial, safety, compliance, or public-policy recommendations
-- effects on rights, employment, education, health, money, physical safety, or reputation
-- trunk rewrites
-- external research-pack release
-- high-severity dissent or unresolved expert disagreement
-- low-provenance evidence used in a high-consequence claim
-- adapter overrides in formal or normative domains
-- deletion or backfill of audit records
+## Validator
+
+Before final output, answer these checks:
+
+- Did every sentence or object perform BOUND, GROUND, CLAIM, LINK, TEST, MOVE, EVALUATE, WARN, TRIGGER, or GATE?
+- Are evidence, claims, domain graph, and final rendering separate?
+- Does each strong claim list support, contradiction or gaps, confidence basis, and failure mode?
+- Are causal edges, hidden variables, loops, and regime assumptions explicit enough for the chosen mode?
+- Does any option depend on a disputed claim?
+- Did adapter projection distort the domain language?
+- Are update triggers and human gates present?
+- Is the answer smaller than the map when the user only needs a rendering?
 
 ## Output Template
 
 ```markdown
 # OfOne Decision Map
 
-## Charter
-Objective, scope, horizon, stakes, review gates.
+## Mode And Charter
+Mode, objective, scope, horizon, stakes, review gates.
 
-## Adapter
-Domain family, semantic rules, forbidden vocabulary.
+## Geometry And Adapter Projection
+Scene, frames, tokens, adapter mix, translated domain semantics.
 
-## Kernel Map
-Twelve dimensions with evidence or gaps.
+## Evidence And Claims
+Evidence ledger summary, atomic claims, confidence, contradictions, gaps.
 
-## Evidence Ledger
-Sources, spans, reliability, freshness, permission limits.
+## Causal / Constraint / Loop Map
+Edges, constraints, hidden variables, feedback loops, regime assumptions.
 
-## Claim Graph
-Atomic claims, support, contradiction, confidence, open disputes.
+## Hypotheses And Kill Tests
+Competing hypotheses, falsifiers, counterfactuals, blocking unknowns.
 
-## Domain Graph
-Units, states, relations, mechanisms, constraints, regimes.
+## Option Moves And Tradeoff Surface
+Moves, preconditions, reversibility, risks, criteria, stakeholder exposure.
 
-## Council Geometry
-Selected lenses, why each was selected, dissent, minority reports.
+## Update / Patch Logic
+No-op, patch, scoped rerun, trunk rewrite, human-review triggers.
 
-## Options
-Tradeoffs, preconditions, reversibility, risks, blocking unknowns.
+## Decision Rendering
+Recommendation if justified, confidence, dissent, gates, next evidence.
 
-## Update Logic
-No-op/patch/rerun/trunk-rewrite triggers.
-
-## Decision Pack
-Recommendation if justified, confidence, human gates, next evidence.
+## Validator
+Pass/fail checks with fixes or caveats.
 ```
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---|---|
-| Forcing actor/goal language into formal or scientific domains | Use units, variables, proof objects, mechanisms, or observables. |
-| Producing a fluent recommendation before evidence | Build the evidence ledger and claim graph first. |
-| Treating council lenses as expert role-play | Use lens contracts, axis coverage, redundancy checks, and contention. |
-| Hiding uncertainty in prose | Surface uncertainty, dissent, and blocking unknowns explicitly. |
-| Rerunning everything on small changes | Use no-op and patch rules before scoped reruns or trunk rewrites. |

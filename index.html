@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OfOne Skillchain</title>
-    <meta name="description" content="A domain-adaptive inquiry compiler for high-fidelity decision maps.">
+    <meta name="description" content="A typed causal-geometry compiler for high-fidelity decision maps.">
     <style>
       :root {
         color-scheme: light;
@@ -87,7 +87,7 @@
 
       .chain {
         display: grid;
-        grid-template-columns: repeat(11, minmax(86px, 1fr));
+        grid-template-columns: repeat(14, minmax(86px, 1fr));
         gap: 10px;
         overflow-x: auto;
         padding: 6px 2px 14px;
@@ -214,7 +214,7 @@
         }
 
         .chain {
-          grid-template-columns: repeat(11, 128px);
+          grid-template-columns: repeat(14, 128px);
         }
       }
     </style>
@@ -231,40 +231,43 @@
 
     <div class="hero">
       <h1>OfOne</h1>
-      <p>A domain-adaptive inquiry compiler for turning bounded objectives into auditable decision maps.</p>
+      <p>A typed causal-geometry compiler for turning bounded objectives into auditable decision maps.</p>
       <div class="chain" aria-label="OfOne skillchain">
         <div class="node"><span>00</span><strong>Charter</strong></div>
-        <div class="node"><span>01</span><strong>Adapter</strong></div>
-        <div class="node"><span>02</span><strong>Kernel Map</strong></div>
-        <div class="node"><span>03</span><strong>Evidence</strong></div>
-        <div class="node"><span>04</span><strong>Claims</strong></div>
-        <div class="node"><span>05</span><strong>Domain</strong></div>
-        <div class="node"><span>06</span><strong>Council</strong></div>
-        <div class="node"><span>07</span><strong>Tests</strong></div>
-        <div class="node"><span>08</span><strong>Options</strong></div>
-        <div class="node"><span>09</span><strong>Update</strong></div>
-        <div class="node"><span>10</span><strong>Pack</strong></div>
+        <div class="node"><span>01</span><strong>Geometry</strong></div>
+        <div class="node"><span>02</span><strong>Adapter</strong></div>
+        <div class="node"><span>03</span><strong>Scene</strong></div>
+        <div class="node"><span>04</span><strong>Evidence</strong></div>
+        <div class="node"><span>05</span><strong>Claims</strong></div>
+        <div class="node"><span>06</span><strong>Causal</strong></div>
+        <div class="node"><span>07</span><strong>Loops</strong></div>
+        <div class="node"><span>08</span><strong>Tests</strong></div>
+        <div class="node"><span>09</span><strong>Moves</strong></div>
+        <div class="node"><span>10</span><strong>Tradeoffs</strong></div>
+        <div class="node"><span>11</span><strong>Update</strong></div>
+        <div class="node"><span>12</span><strong>Gates</strong></div>
+        <div class="node"><span>13</span><strong>Pack</strong></div>
       </div>
     </div>
 
     <main>
       <section id="framing">
         <h2>Architecture</h2>
-        <p class="lead">OfOne uses portable inquiry geometry with domain adapters that define evidence, mechanism, intervention, value, uncertainty, proof, and review thresholds.</p>
-        <code class="rule">bounded objective + domain adapter + inquiry kernel + evidence ledger + claim graph + analytic lenses + options + update triggers
-= auditable domain map and decision support package</code>
+        <p class="lead">OfOne compiles domain language into scenes, frames, tokens, moves, edges, loops, invariants, and gates. Adapters project domain semantics onto that geometry.</p>
+        <code class="rule">bounded objective + geometry primitives + adapter projection + scene map + evidence ledger + claim graph + causal graph + loop map + option moves + update triggers + gates
+= decision rendering</code>
       </section>
 
       <section id="kernel">
-        <h2>Kernel Axes</h2>
-        <p class="lead">The skillchain uses a twelve-axis kernel for bounded domain mapping and decision support.</p>
+        <h2>Primitive Geometry</h2>
+        <p class="lead">The system is a typed graph with loops. The visible chain is a traversal order, not a one-way checklist.</p>
         <div class="grid">
-          <div class="item"><h3>Task</h3><p>Explain, predict, prove, diagnose, decide, intervene, critique, or synthesize.</p></div>
-          <div class="item"><h3>Boundary</h3><p>Scope, resolution, horizon, stale assumptions, and exclusions.</p></div>
-          <div class="item"><h3>Units</h3><p>Entities, variables, actors, artifacts, institutions, states, or abstractions.</p></div>
-          <div class="item"><h3>Evidence</h3><p>Observation, proof, measurement, provenance, reliability, and gaps.</p></div>
-          <div class="item"><h3>Uncertainty</h3><p>Ambiguity, deception, identifiability, disagreement, and missing data.</p></div>
-          <div class="item"><h3>Triggers</h3><p>No-op, patch, scoped rerun, trunk rewrite, or human review.</p></div>
+          <div class="item"><h3>Scene</h3><p>Bounded state-space snapshot: what exists, changes, and can be observed.</p></div>
+          <div class="item"><h3>Frame</h3><p>Causal, logical, strategic, normative, temporal, or evidential coordinate system.</p></div>
+          <div class="item"><h3>Token</h3><p>Entity, variable, evidence item, claim, uncertainty, constraint, option, or trigger.</p></div>
+          <div class="item"><h3>Move</h3><p>Infer, observe, test, intervene, decide, or revise.</p></div>
+          <div class="item"><h3>Edge</h3><p>Cause, constrain, support, contradict, enable, observe, evaluate, or update.</p></div>
+          <div class="item"><h3>Loop</h3><p>Feedback, control, learning, incentive, measurement, contradiction, or review.</p></div>
         </div>
       </section>
 
@@ -275,6 +278,7 @@
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
           <a class="button" href="./docs/research-basis.md">Research Basis</a>
+          <a class="button" href="./docs/object-schemas.md">Object Schemas</a>
         </div>
       </section>
     </main>
