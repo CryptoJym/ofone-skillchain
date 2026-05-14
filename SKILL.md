@@ -120,6 +120,8 @@ adapter_mix = {strategic: axes, scientific: axes, formal: axes, normative: axes}
 
 Do not fake numeric precision. State which adapter controls which axes.
 
+Each adapter is an executable contract. It defines allowed evidence sources, allowed claim types, confidence-basis expectations, typical hidden variables, required gate triggers, relation constraints, and valid kill tests. If a domain does not fit an adapter cleanly, use `provisional` and add a human gate for adapter override.
+
 ## Kernel Questions
 
 Ask only at the resolution needed for the chosen mode.
@@ -147,7 +149,7 @@ In the repo, validate Map and Audit artifacts with:
 npm run validate
 ```
 
-The executable schema lives at `schemas/ofone.schema.json`; the dependency-aware runner is `scripts/ofone-validate.mjs`.
+The executable schemas live at `schemas/ofone.*.schema.json`; `schemas/ofone.schema.json` dispatches to Micro, Map, or Audit profiles. The validator runs JSON Schema first, then semantic graph validation in `scripts/ofone-validate.mjs`.
 
 ```json
 {
@@ -158,6 +160,11 @@ The executable schema lives at `schemas/ofone.schema.json`; the dependency-aware
   "recency": "current|dated|unknown",
   "reliability": "low|medium|high",
   "permission": "internal|public|restricted",
+  "content_hash": "sha256:...",
+  "retrieved_at": "ISO-like timestamp or retrieval marker",
+  "extract": "short source span or summary",
+  "source_owner": "publisher, local owner, tool, or witness",
+  "chain_of_custody": "how the source entered the artifact",
   "supports": ["C1"],
   "risks": ["stale", "selection_bias"]
 }
@@ -186,9 +193,23 @@ The executable schema lives at `schemas/ofone.schema.json`; the dependency-aware
   "edge_id": "X1",
   "from": "token_or_claim_id",
   "to": "token_or_claim_id",
-  "relation": "causes|constrains|supports|contradicts|enables|observes|evaluates|updates",
+  "relation": "causes|constrains|supports|contradicts|enables|observes|evaluates|updates|blocks|depends_on",
   "evidence_refs": ["E1"],
   "confidence": "low|medium|high"
+}
+```
+
+```json
+{
+  "loop_id": "L1",
+  "type": "reinforcing|balancing|measurement|incentive|learning|contradiction|review|deception|regime",
+  "edges": ["X1"],
+  "polarity": "reinforcing|balancing|mixed|unknown",
+  "delay": "short|medium|long|unknown",
+  "gain": "low|medium|high|unknown",
+  "control_points": ["decision gate, test, metric, or intervention"],
+  "observable_cues": ["what would show the loop is active"],
+  "failure_mode": "how the loop misleads or fails"
 }
 ```
 
@@ -198,6 +219,17 @@ The executable schema lives at `schemas/ofone.schema.json`; the dependency-aware
   "condition": "new_evidence|claim_conflict|regime_shift|scope_change|review_required",
   "affected_objects": ["C1", "O1"],
   "transition": "no_op|patch|scoped_rerun|trunk_rewrite|human_review"
+}
+```
+
+```json
+{
+  "rendering_id": "R1",
+  "summary": "short current map state",
+  "recommendation": "decision rendering, not the internal map",
+  "confidence": "low|medium|high",
+  "depends_on": ["C1", "O1"],
+  "movement_jobs": ["EVALUATE", "MOVE", "GATE"]
 }
 ```
 
@@ -216,11 +248,11 @@ Every Map or Audit output should include:
 - failure modes
 - counterfactuals or kill tests
 
-Loop types: reinforcing, balancing, measurement, incentive, learning, contradiction, review, deception, regime. Every loop needs a cue and a failure mode.
+Loop types: reinforcing, balancing, measurement, incentive, learning, contradiction, review, deception, regime. Every loop needs polarity, delay, gain, control points, observable cues, and a failure mode.
 
 Confidence is ordinal, not fake-precise. State the basis across provenance strength, source independence, recency, mechanism fit, contradiction load, hidden-variable risk, adversarial risk, and adapter fit.
 
-Dependency closure must be computable: new evidence points to affected claims, affected claims point to affected edges and loops, and affected loops/options point to the decision rendering.
+Dependency closure must be computable: new evidence points to affected claims, affected claims point to affected edges and loops, and affected loops/options point to the addressable decision rendering node.
 
 ## Execution Contract
 
@@ -251,15 +283,19 @@ Require human review for legal, medical, financial, safety, compliance, public-p
 
 ## Validator
 
-Before final output, answer these checks:
+Before final output, run the validator or answer these checks. The artifact may carry `validator_result`, but the validator computes pass/fail rather than trusting self-attestation.
 
+- Did JSON Schema validation pass for the selected Micro, Map, or Audit profile?
 - Did every sentence or object perform BOUND, GROUND, CLAIM, LINK, TEST, MOVE, EVALUATE, WARN, TRIGGER, or GATE?
 - Are evidence, claims, domain graph, and final rendering separate?
+- Are edge relations legal for their endpoint object types?
+- Do evidence objects carry stable identity fields and source custody?
 - Does each strong claim list support, contradiction or gaps, confidence basis, and failure mode?
-- Are causal edges, hidden variables, loops, and regime assumptions explicit enough for the chosen mode?
+- Are causal edges, hidden variables, loop physics, and regime assumptions explicit enough for the chosen mode?
 - Does any option depend on a disputed claim?
 - Did adapter projection distort the domain language?
 - Are update triggers and human gates present?
+- Does trigger dependency closure reach the rendering when the final answer depends on the changed object?
 - Is the answer smaller than the map when the user only needs a rendering?
 
 ## Output Template

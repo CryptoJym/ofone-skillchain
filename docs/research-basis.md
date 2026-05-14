@@ -29,7 +29,7 @@ bounded objective
 - A twelve-axis kernel for mapping bounded domains.
 - Domain adapters for strategic-agentic, scientific-explanatory, formal, and normative-evaluative cases.
 - Adapter algebra for hybrid domains.
-- Immutable evidence objects with provenance, reliability, freshness, extraction spans, and permission tags.
+- Immutable evidence objects with provenance, reliability, freshness, extraction spans, permission tags, content hashes, retrieval markers, source owner, and chain of custody.
 - Atomic claim objects with support, contradiction, supersession, confidence, and dependency closure.
 - A causal / constraint graph that stays separate from the claim graph.
 - A loop map for feedback, incentives, measurement, contradiction, and review.
@@ -39,7 +39,8 @@ bounded objective
 - Idempotency rules for no-op, patch, scoped rerun, trunk rewrite, and human-review transitions.
 - Movement economy: every emitted object must bound, ground, claim, link, test, move, evaluate, warn, trigger, or gate.
 - Output modes: Micro, Map, and Audit.
-- Executable schemas and validator scripts for OfOne artifacts.
+- Executable Micro, Map, and Audit schemas plus semantic validator scripts for OfOne artifacts.
+- Renderer and patch helper scripts that separate internal state from human output and expose dependency closure.
 - Worked examples across strategy, formal proof-search, and hybrid policy.
 - Dependency closure reporting for update triggers.
 
@@ -55,6 +56,8 @@ OfOne earns superiority claims through predeclared benchmarks:
 - blinded expert review
 - full artifact release for audit
 
+The repository scaffold lives under `benchmarks/` with cases, rubrics, runs, reviews, and results folders.
+
 Primary score groups:
 
 - Map Fidelity: completeness, causal accuracy, blind-spot detection.
@@ -67,4 +70,4 @@ Guardrails:
 
 ## Product Rule
 
-Build OfOne as a typed causal-geometry compiler with explicit adapter projection, immutable evidence, atomic claims, causal loops, schema-bounded objects, auditable patches, compression modes, validators, and enforceable human gates.
+Build OfOne as a typed causal-geometry compiler with explicit adapter projection, immutable evidence, atomic claims, causal loops, schema-bounded objects, executable relation legality, auditable patches, compression modes, renderers, validators, and enforceable human gates.

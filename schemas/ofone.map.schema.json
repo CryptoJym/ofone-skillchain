@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.map.schema.json",
+  "title": "OfOne Map Decision Map",
+  "allOf": [
+    { "$ref": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.base.schema.json" },
+    {
+      "type": "object",
+      "required": [
+        "ofone_version",
+        "mode",
+        "charter",
+        "adapter_projection",
+        "scene",
+        "evidence",
+        "claims",
+        "edges",
+        "loops",
+        "option_moves",
+        "triggers",
+        "gates",
+        "confidence_model",
+        "decision_rendering"
+      ],
+      "properties": {
+        "mode": { "const": "Map" },
+        "edges": { "type": "array", "minItems": 1 },
+        "loops": { "type": "array", "minItems": 1 },
+        "option_moves": { "type": "array", "minItems": 1 }
+      }
+    }
+  ]
+}

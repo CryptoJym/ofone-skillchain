@@ -273,26 +273,33 @@
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable schemas, validator, examples, and research-backed architecture notes.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, renderer, patch helper, examples, and benchmark scaffold.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
           <a class="button" href="./docs/research-basis.md">Research Basis</a>
           <a class="button" href="./docs/object-schemas.md">Object Schemas</a>
+          <a class="button" href="./docs/validation-model.md">Validation Model</a>
+          <a class="button" href="./docs/adapter-contracts.md">Adapter Contracts</a>
           <a class="button" href="./docs/dependency-closure.md">Dependency Closure</a>
           <a class="button" href="./docs/loop-taxonomy.md">Loop Taxonomy</a>
           <a class="button" href="./docs/confidence-model.md">Confidence Model</a>
           <a class="button" href="./schemas/ofone.schema.json">JSON Schema</a>
+          <a class="button" href="./schemas/ofone.base.schema.json">Base Schema</a>
+          <a class="button" href="./schemas/ofone.audit.schema.json">Audit Schema</a>
           <a class="button" href="./examples/strategy-micro.json">Strategy Example</a>
           <a class="button" href="./examples/formal-proof-map.json">Formal Example</a>
           <a class="button" href="./examples/hybrid-policy-audit.json">Hybrid Example</a>
+          <a class="button" href="./benchmarks/README.md">Benchmarks</a>
         </div>
       </section>
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts can be checked for required object families, movement jobs, references, loop classes, confidence basis, human gates, and dependency closure.</p>
-        <code class="rule">npm run validate</code>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, references, relation legality, adapter contracts, loop physics, gates, rendering dependencies, and closure.</p>
+        <code class="rule">npm run validate
+npm run render -- examples/strategy-micro.json Micro
+npm run patch -- examples/strategy-micro.json E1</code>
       </section>
     </main>
 

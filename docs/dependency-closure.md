@@ -1,6 +1,6 @@
 # Dependency Closure
 
-OfOne updates propagate through typed object references.
+OfOne updates propagate through typed object references. The decision rendering is an addressable graph node, not just prose, so closure can prove when the visible answer is affected.
 
 ```text
 new evidence
@@ -8,8 +8,10 @@ new evidence
 -> affected edges
 -> affected loops
 -> affected options
--> affected decision rendering
+-> affected decision rendering (`rendering_id`)
 ```
+
+The validator builds reverse dependencies from evidence support, claim dependencies and contradictions, edge endpoints, loop edge membership, option preconditions/effects, trigger affected objects, gate references, and `decision_rendering.depends_on`.
 
 Transition classes:
 
@@ -19,4 +21,8 @@ Transition classes:
 - `trunk_rewrite`: boundary, objective, criteria, adapter projection, ontology mapping, or regime assumption changed.
 - `human_review`: risk, dissent, provenance, or consequence threshold requires approval.
 
-The validator reports dependency closure for each trigger in an artifact.
+The validator reports dependency closure for each trigger in an artifact and marks whether closure reaches the rendering node. The patch helper exposes the same operation:
+
+```bash
+npm run patch -- examples/strategy-micro.json E1
+```

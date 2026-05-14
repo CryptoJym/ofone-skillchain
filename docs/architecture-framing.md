@@ -2,7 +2,7 @@
 
 **Status:** Active architecture
 **Category:** Research Methodology + Knowledge Architecture + Decision Compiler
-**Last Updated:** 2026-05-13
+**Last Updated:** 2026-05-14
 
 ---
 
@@ -27,7 +27,7 @@ bounded objective
 = decision rendering
 ```
 
-The internal map is structured state. The final answer is a rendering of that state.
+The internal map is structured state. The final answer is an addressable rendering node derived from that state.
 
 ---
 
@@ -134,18 +134,21 @@ Minimum object families:
 - `Scene`: scope, state variables, observed variables, hidden variables, horizon.
 - `Frame`: frame type, semantics, adapter ownership, assumptions.
 - `Token`: entity, variable, evidence, claim, constraint, uncertainty, option, trigger, gate.
-- `Evidence`: source, span, provenance, reliability, recency, permission, risks.
+- `Evidence`: source, span, provenance, reliability, recency, permission, content hash, retrieval marker, source owner, chain of custody, risks.
 - `Claim`: atomic proposition, type, support, contradiction, dependencies, confidence, status.
 - `Edge`: typed relation between tokens or claims with evidence and confidence.
-- `Loop`: recurrent dependency, feedback direction, observed behavior, risk.
+- `Loop`: recurrent dependency, polarity, delay, gain, control points, observable cues, risk.
 - `OptionMove`: action/query/proof/intervention, preconditions, reversibility, risks.
 - `Trigger`: condition, affected objects, transition class.
 - `Gate`: condition, reviewer, required decision, release status.
 
 Executable artifacts:
 
-- `schemas/ofone.schema.json`: JSON Schema for OfOne maps.
-- `scripts/ofone-validate.mjs`: dependency-aware validator and closure reporter.
+- `schemas/ofone.schema.json`: profile dispatcher for Micro, Map, and Audit schemas.
+- `schemas/ofone.base.schema.json`: shared object definitions.
+- `scripts/ofone-validate.mjs`: JSON Schema plus semantic graph validator and closure reporter.
+- `scripts/ofone-render.mjs`: renderer from internal map to Micro, Map, or Audit answer.
+- `scripts/ofone-patch.mjs`: patch helper for dependency closure from changed object IDs.
 - `examples/*.json`: strategy, formal proof-search, and hybrid policy examples.
 
 ---
@@ -177,7 +180,7 @@ Loop classes:
 - deception
 - regime
 
-Each loop carries detection cues and a named failure mode.
+Each loop carries polarity, delay, gain, control points, observable cues, and a named failure mode.
 
 ---
 
@@ -208,7 +211,7 @@ new evidence
 -> affected edges
 -> affected loops
 -> affected options
--> affected decision rendering
+-> affected decision rendering node
 ```
 
 Boundary, objective, criteria, adapter projection, ontology mapping, or regime changes bypass patching and become scoped reruns or trunk rewrites.
@@ -246,15 +249,18 @@ Human review is required for legal, medical, financial, safety, compliance, publ
 
 ## Validator
 
-Before a decision rendering is final, OfOne checks:
+Before a decision rendering is final, OfOne runs JSON Schema validation, then semantic graph validation. The artifact may include `validator_result`, but the validator computes pass/fail and can write the computed result back into the artifact.
 
 - every emitted item performs a movement-economy job
 - evidence, claims, graph, and rendering stay separate
+- edge relations are legal for their endpoint object types
+- evidence carries stable source identity and custody fields
 - strong claims list support, contradiction or gap, confidence basis, and failure mode
-- causal edges, hidden variables, loops, and regime assumptions are explicit enough for the chosen mode
+- causal edges, hidden variables, loop physics, and regime assumptions are explicit enough for the chosen mode
 - options do not hide dependence on disputed claims
 - adapter projection fits the domain language
 - update triggers and human gates are present
+- trigger closure reaches the rendering node when the final answer depends on changed objects
 - output size fits the selected mode
 
 ---
