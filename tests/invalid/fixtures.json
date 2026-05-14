@@ -1,0 +1,59 @@
+[
+  {
+    "name": "missing-evidence-hash",
+    "base": "examples/strategy-micro.json",
+    "expect": ["json_schema", "content_hash"],
+    "mutations": [
+      { "op": "delete", "path": ["evidence", 0, "content_hash"] }
+    ]
+  },
+  {
+    "name": "illegal-edge-relation",
+    "base": "examples/strategy-micro.json",
+    "expect": ["relation_legality"],
+    "mutations": [
+      { "op": "set", "path": ["edges", 0, "relation"], "value": "observes" }
+    ]
+  },
+  {
+    "name": "disputed-option-without-gate",
+    "base": "examples/strategy-micro.json",
+    "expect": ["option_dependency"],
+    "mutations": [
+      { "op": "set", "path": ["claims", 0, "status"], "value": "disputed" },
+      { "op": "set", "path": ["option_moves", 0, "review_gate"], "value": "none" }
+    ]
+  },
+  {
+    "name": "missing-rendering-dependency",
+    "base": "examples/strategy-micro.json",
+    "expect": ["decision_rendering", "U1"],
+    "mutations": [
+      { "op": "set", "path": ["decision_rendering", "depends_on"], "value": ["C1", "C2", "O1"] }
+    ]
+  },
+  {
+    "name": "high-risk-without-gate",
+    "base": "examples/hybrid-policy-audit.json",
+    "expect": ["human_gate"],
+    "mutations": [
+      { "op": "set", "path": ["gates"], "value": [] }
+    ]
+  },
+  {
+    "name": "adapter-mismatch",
+    "base": "examples/hybrid-policy-audit.json",
+    "expect": ["adapter_contract", "C2"],
+    "mutations": [
+      { "op": "set", "path": ["adapter_projection", "primary"], "value": "formal" }
+    ]
+  },
+  {
+    "name": "unresolved-unknown-without-blocked-object",
+    "base": "examples/strategy-micro.json",
+    "expect": ["unknown", "U1"],
+    "mutations": [
+      { "op": "set", "path": ["unknowns", 0, "blocks"], "value": [] }
+    ]
+  }
+]

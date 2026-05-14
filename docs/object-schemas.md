@@ -161,3 +161,5 @@ npm run validate
 ## Full Schema
 
 Use [`../schemas/ofone.schema.json`](../schemas/ofone.schema.json) for profile-dispatched validation across charter, adapter projection, scene, evidence, claims, edges, loops, options, triggers, gates, confidence model, and decision rendering. `validator_result` is computed by `../scripts/ofone-validate.mjs --write` rather than trusted as self-attestation.
+
+Validator regression fixtures live in [`../tests/invalid/fixtures.json`](../tests/invalid/fixtures.json). Run `npm test` to prove malformed artifacts are rejected.

@@ -275,7 +275,7 @@
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, nested scenes, explicit unknown objects, renderer, patch helper, examples, and benchmark scaffold.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, validator regression tests, nested scenes, explicit unknown objects, decision-native renderer, patch report helper, examples, and benchmark scaffold.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -292,6 +292,7 @@
           <a class="button" href="./examples/strategy-micro.json">Strategy Example</a>
           <a class="button" href="./examples/formal-proof-map.json">Formal Example</a>
           <a class="button" href="./examples/hybrid-policy-audit.json">Hybrid Example</a>
+          <a class="button" href="./examples/source-backed-wastewater-map.json">Source-Backed Example</a>
           <a class="button" href="./benchmarks/README.md">Benchmarks</a>
           <a class="button" href="./benchmarks/cases/regulated-wastewater-market-entry.md">Starter Case</a>
           <a class="button" href="./benchmarks/rubrics/decision-map-rubric.md">Rubric</a>
@@ -300,8 +301,9 @@
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, gates, rendering dependencies, and closure.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, gates, rendering dependencies, and closure. Negative fixtures prove the validator rejects malformed maps.</p>
         <code class="rule">npm run validate
+npm test
 npm run render -- examples/strategy-micro.json Micro
 npm run patch -- examples/strategy-micro.json E1</code>
       </section>

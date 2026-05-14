@@ -1,0 +1,612 @@
+{
+  "ofone_version": "0.3.2",
+  "mode": "Map",
+  "charter": {
+    "objective": "Decide whether a wastewater-market-entry team should move beyond early diligence under a US NPDES-regulated discharge assumption.",
+    "scope": [
+      "source-backed market-entry diligence",
+      "US NPDES regulatory assumption",
+      "permit-path gating"
+    ],
+    "horizon": "90 days",
+    "stakes": [
+      "capital risk",
+      "compliance exposure",
+      "reputation exposure",
+      "environmental consequence"
+    ],
+    "risk_tier": "medium",
+    "movement_jobs": [
+      "BOUND",
+      "GATE"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "hybrid",
+    "axes": {
+      "strategic-agentic": [
+        "market entry",
+        "partner path",
+        "reversible diligence"
+      ],
+      "scientific-explanatory": [
+        "discharge characterization",
+        "treatment performance",
+        "monitoring"
+      ],
+      "normative-evaluative": [
+        "environmental consequence",
+        "public trust"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "LINK"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "strategic",
+        "assumptions": [
+          "entry decision should separate diligence from launch"
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "evidential",
+        "assumptions": [
+          "official regulatory sources are stronger than scenario-only evidence"
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "type": "causal",
+        "assumptions": [
+          "permit limits and monitoring obligations shape operating feasibility"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "K1",
+        "kind": "entity",
+        "label": "wastewater market-entry team"
+      },
+      {
+        "token_id": "K2",
+        "kind": "constraint",
+        "label": "NPDES permit coverage"
+      },
+      {
+        "token_id": "K3",
+        "kind": "variable",
+        "label": "discharge category and receiving water"
+      },
+      {
+        "token_id": "K4",
+        "kind": "constraint",
+        "label": "permit limits, monitoring, and reporting"
+      },
+      {
+        "token_id": "K5",
+        "kind": "constraint",
+        "label": "state, tribal, territorial, or EPA permitting authority"
+      },
+      {
+        "token_id": "K6",
+        "kind": "unknown",
+        "label": "jurisdiction-specific permit path"
+      }
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "parent_scene": "S1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "entry_conditions": [
+          "official NPDES sources establish generic regulatory frame"
+        ],
+        "exit_conditions": [
+          "jurisdiction, authority, and permit pathway are identified"
+        ],
+        "movement_jobs": [
+          "BOUND",
+          "GROUND"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "parent_scene": "S1",
+        "purpose": "causal_mechanism",
+        "frames": [
+          "F3"
+        ],
+        "tokens": [
+          "K3",
+          "K4"
+        ],
+        "entry_conditions": [
+          "discharge category and receiving water are known"
+        ],
+        "exit_conditions": [
+          "permit limits and monitoring obligations are mapped"
+        ],
+        "movement_jobs": [
+          "LINK",
+          "WARN"
+        ]
+      },
+      {
+        "subscene_id": "SS3",
+        "parent_scene": "S1",
+        "purpose": "option_decision",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K1"
+        ],
+        "entry_conditions": [
+          "diligence and launch are separate moves"
+        ],
+        "exit_conditions": [
+          "move is selected or blocked by unknowns"
+        ],
+        "movement_jobs": [
+          "MOVE",
+          "EVALUATE"
+        ]
+      }
+    ],
+    "state_variables": [
+      "jurisdiction",
+      "discharge category",
+      "receiving water",
+      "permit authority",
+      "permit limits",
+      "monitoring obligations"
+    ],
+    "observed_variables": [
+      "NPDES permit requirement",
+      "technology and water-quality control structure",
+      "municipal wastewater permit limits"
+    ],
+    "hidden_variables": [
+      "local enforcement posture",
+      "industrial versus municipal classification",
+      "site-specific pollutant parameters"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "WARN"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "url",
+      "span_or_locator": "https://www.epa.gov/npdes/npdes-permit-basics#what-is-an-npdes-permit",
+      "provenance": "US EPA NPDES Permit Basics page",
+      "recency": "current",
+      "reliability": "high",
+      "permission": "public",
+      "extract": "EPA explains that Clean Water Act point-source pollutant discharges to waters of the United States require NPDES permit coverage with limits, monitoring, reporting, and protective provisions.",
+      "source_owner": "US EPA",
+      "chain_of_custody": "retrieved from public EPA webpage during OfOne source-backed example construction",
+      "supports": [
+        "C1"
+      ],
+      "risks": [
+        "jurisdiction_and_discharge_specifics_still_required"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ],
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:c7fd750ee9060a3267cfc286f2244b75c7119ce2f8389f2f82f1618b51a9aba0"
+    },
+    {
+      "evidence_id": "E2",
+      "source": "url",
+      "span_or_locator": "https://www.epa.gov/npdes/about-npdes#overview",
+      "provenance": "US EPA About NPDES page",
+      "recency": "current",
+      "reliability": "high",
+      "permission": "public",
+      "extract": "EPA describes NPDES as a Clean Water Act program that regulates point sources and uses technology-based and water-quality-based controls, with many permitting functions authorized to states, tribes, and territories.",
+      "source_owner": "US EPA",
+      "chain_of_custody": "retrieved from public EPA webpage during OfOne source-backed example construction",
+      "supports": [
+        "C2"
+      ],
+      "risks": [
+        "state_authorization_and_local_limits_vary"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ],
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:504fcaa0e637fa14bf840ceb5a4ab4f7d7487989ccd0b03e4ee9bcd3574aedbe"
+    },
+    {
+      "evidence_id": "E3",
+      "source": "url",
+      "span_or_locator": "https://www.epa.gov/npdes/municipal-wastewater",
+      "provenance": "US EPA Municipal Wastewater page",
+      "recency": "current",
+      "reliability": "high",
+      "permission": "public",
+      "extract": "EPA states that NPDES permits establish discharge limits and conditions for municipal wastewater treatment facilities that discharge to waters of the United States.",
+      "source_owner": "US EPA",
+      "chain_of_custody": "retrieved from public EPA webpage during OfOne source-backed example construction",
+      "supports": [
+        "C3"
+      ],
+      "risks": [
+        "industrial_or_nonmunicipal_case_may_require_different_permit_analysis"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ],
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:de73970b06ef29c9dda1c6f1ffd04c97e2ca665849fe6cbfe161b3ccbd86a6c4"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "A point-source pollutant discharge to waters of the United States needs NPDES permit coverage before operational launch.",
+      "type": "operational",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "recency",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "activity_may_not_be_point_source",
+          "discharge_may_not_enter_wotus"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "GROUND",
+        "GATE"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "Permit feasibility depends on both federal NPDES structure and the relevant permitting authority for the jurisdiction.",
+      "type": "causal",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "mechanism_fit",
+          "hidden_variable_risk"
+        ],
+        "failure_modes": [
+          "state_authorization_variance",
+          "site_specific_limits_unknown"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "text": "A market-entry recommendation should remain in diligence mode until discharge category, permit limits, monitoring obligations, and authority path are mapped.",
+      "type": "operational",
+      "supports": [
+        "E3"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1",
+        "C2"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "industrial_path_differs_from_municipal_reference",
+          "customer_specific_discharge_unknown"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "EVALUATE",
+        "GATE"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_evidence",
+      "description": "Jurisdiction, discharge category, receiving water, pollutant parameters, and permit authority are not yet source-backed for the specific opportunity.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Collect site, discharge, jurisdiction, and permit-authority evidence before launch or customer commitment.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C3",
+      "test_type": "adapter_conflict",
+      "condition": "A source contradiction or gate escalation shows the opportunity is not governed by the assumed NPDES permit path or has a materially different discharge class.",
+      "falsifies": [
+        "C3"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "C1",
+      "to": "C3",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "K2",
+      "to": "C3",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X3",
+      "from": "K5",
+      "to": "C2",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "edge_id": "X4",
+      "from": "K4",
+      "to": "C3",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E3"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "review",
+      "edges": [
+        "X2",
+        "X4"
+      ],
+      "polarity": "unknown",
+      "delay": "medium",
+      "gain": "high",
+      "control_points": [
+        "permit-authority review",
+        "discharge characterization",
+        "compliance gate"
+      ],
+      "observable_cues": [
+        "permit pathway changes launch feasibility",
+        "monitoring obligations alter operating cost"
+      ],
+      "failure_mode": "generic NPDES evidence mistaken for site-specific approval",
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "query",
+      "preconditions": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "expected_effects": [
+        "X2",
+        "X3",
+        "X4"
+      ],
+      "tradeoffs": [
+        "slower entry",
+        "lower compliance risk",
+        "more specific diligence cost"
+      ],
+      "blocking_unknowns": [
+        "U1"
+      ],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "EVALUATE",
+        "GATE"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "U1"
+      ],
+      "transition": "patch",
+      "movement_jobs": [
+        "TRIGGER"
+      ]
+    },
+    {
+      "trigger_id": "T2",
+      "condition": "regime_shift",
+      "affected_objects": [
+        "C2"
+      ],
+      "transition": "scoped_rerun",
+      "movement_jobs": [
+        "TRIGGER",
+        "WARN"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "customer commitment, permit filing, compliance exposure, reputation exposure, or operational launch",
+      "reviewer": "human regulatory and business owner",
+      "required_decision": "approve diligence only, block launch, or narrow scope to a jurisdiction-specific permit path",
+      "status": "open",
+      "movement_jobs": [
+        "GATE"
+      ]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "high",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "medium",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "rendering_id": "R1",
+    "summary": "Official EPA sources support an NPDES-gated diligence posture, but site-specific jurisdiction and discharge facts remain blocking unknowns.",
+    "recommendation": "Proceed with source-backed regulatory diligence; do not commit to operational launch until U1 is resolved and G1 is approved.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "C3",
+      "O1",
+      "U1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "MOVE",
+      "GATE"
+    ]
+  },
+  "validator_result": {
+    "passed": true,
+    "checks": [
+      {
+        "check": "json_schema",
+        "passed": true,
+        "notes": "Map artifact matches executable JSON Schema profile"
+      },
+      {
+        "check": "adapter_contract",
+        "passed": true,
+        "notes": "hybrid adapter contract loaded"
+      },
+      {
+        "check": "adapter_gate_coverage",
+        "passed": true,
+        "notes": "gate coverage present for compliance, reputation"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T1: O1, R1, T1 [includes rendering]"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T2: C3, KT1, L1, O1, R1, T2, X1, X2, X3, X4 [includes rendering]"
+      },
+      {
+        "check": "semantic_validation",
+        "passed": true,
+        "notes": "semantic graph checks completed"
+      }
+    ]
+  }
+}

@@ -317,7 +317,11 @@ function validateOptions(data, claimIds, unknownIds, edgeIds, gateIds, artifact,
     for (const claimId of array(option.preconditions)) {
       if (!claimIds.has(claimId)) fail("references", `option ${option.option_id} precondition missing claim ${claimId}`);
       const claim = claims.find((item) => item.claim_id === claimId);
-      if (claim?.status === "disputed") warn("option_dependency", `option ${option.option_id} depends on disputed claim ${claimId}`);
+      if (claim?.status === "disputed" && (!option.review_gate || option.review_gate === "none")) {
+        fail("option_dependency", `option ${option.option_id} depends on disputed claim ${claimId} without a review gate`);
+      } else if (claim?.status === "disputed") {
+        warn("option_dependency", `option ${option.option_id} depends on disputed claim ${claimId} behind review gate ${option.review_gate}`);
+      }
     }
     for (const unknownId of array(option.blocking_unknowns)) {
       if (!unknownIds.has(unknownId)) fail("references", `option ${option.option_id} blocking_unknown missing unknown ${unknownId}`);
@@ -366,8 +370,14 @@ function validateRendering(data, index, { fail }) {
   const rendering = data.decision_rendering;
   if (!rendering?.rendering_id) fail("decision_rendering", "decision_rendering.rendering_id is required");
   validateMovementJobs(rendering, "decision_rendering", fail);
+  const renderingDeps = new Set(array(rendering?.depends_on));
   for (const depId of array(rendering?.depends_on)) {
     if (!index.ids.has(depId)) fail("references", `decision_rendering depends_on missing object ${depId}`);
+  }
+  for (const unknown of array(data.unknowns)) {
+    if (array(unknown.blocks).includes(rendering?.rendering_id) && !renderingDeps.has(unknown.unknown_id)) {
+      fail("decision_rendering", `decision_rendering missing blocking unknown dependency ${unknown.unknown_id}`);
+    }
   }
 }
 

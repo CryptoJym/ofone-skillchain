@@ -24,3 +24,5 @@ Benchmarks should compare the validated OfOne artifact and its rendering against
 
 - `cases/regulated-wastewater-market-entry.md`
 - `rubrics/decision-map-rubric.md`
+
+The source-backed example at `../examples/source-backed-wastewater-map.json` is the first repository artifact intended to exercise source identity, external URLs, blocking unknowns, and rendering patchability against public reference material.

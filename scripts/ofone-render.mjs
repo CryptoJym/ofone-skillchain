@@ -18,16 +18,20 @@ else if (mode === "Audit") renderAudit(data, index);
 else renderMap(data, index);
 
 function renderMicro(data) {
-  line(`# OfOne Micro Rendering`);
+  const index = buildObjectIndex(data);
+
+  line(`# OfOne Decision Rendering`);
   line();
-  line(`**Objective:** ${data.charter?.objective || "(missing objective)"}`);
-  line(`**Adapter:** ${data.adapter_projection?.primary || "(missing adapter)"}`);
-  line(`**Decision:** ${data.decision_rendering?.recommendation || "(missing recommendation)"}`);
-  line(`**Confidence:** ${data.decision_rendering?.confidence || "(missing confidence)"}`);
-  line(`**Why:** ${data.decision_rendering?.summary || "(missing summary)"}`);
-  line(`**Blocking Unknowns:** ${unknownSummary(data)}`);
-  line(`**Update Trigger:** ${array(data.triggers)[0]?.condition || "(none recorded)"}`);
-  line(`**Gate:** ${gateSummary(data)}`);
+  section("Decision", [
+    data.decision_rendering?.recommendation || "(missing recommendation)"
+  ]);
+  section("Confidence", [
+    `${data.decision_rendering?.confidence || "(missing confidence)"}: ${data.decision_rendering?.summary || "(missing summary)"}`
+  ]);
+  section("Why", claimLines(data).slice(0, 4));
+  section("Blocking Unknowns", unknownLines(data));
+  section("What Would Change This", triggerLines(data, index).slice(0, 3));
+  section("Human Gates", gateLines(data));
 }
 
 function renderMap(data, index) {
@@ -47,7 +51,8 @@ function renderMap(data, index) {
   ]);
   section("Evidence And Claims", [
     `Evidence: ${array(data.evidence).map((evidence) => `${evidence.evidence_id}:${evidence.reliability}`).join(", ")}`,
-    `Claims: ${array(data.claims).map((claim) => `${claim.claim_id}:${claim.status}:${claim.confidence?.level}`).join(", ")}`
+    `Claims: ${array(data.claims).map((claim) => `${claim.claim_id}:${claim.status}:${claim.confidence?.level}`).join(", ")}`,
+    `Dissent / contradiction: ${dissentSummary(data)}`
   ]);
   section("Graph And Loops", [
     `Edges: ${array(data.edges).map((edge) => `${edge.edge_id}:${edge.from}-${edge.relation}->${edge.to}`).join(", ")}`,
@@ -67,6 +72,7 @@ function renderAudit(data, index) {
   section("Audit Evidence Identity", array(data.evidence).map((evidence) => (
     `${evidence.evidence_id}: ${evidence.content_hash}; retrieved=${evidence.retrieved_at}; owner=${evidence.source_owner}`
   )));
+  section("Dissent / Contradiction", dissentLines(data));
   section("Validator Result", array(data.validator_result?.checks).map((check) => (
     `${check.passed ? "PASS" : "FAIL"} ${check.check}: ${check.notes}`
   )));
@@ -81,8 +87,50 @@ function renderDecisionAndTriggers(data, index) {
   ]);
   section("Update Logic", array(data.triggers).map((trigger) => {
     const closure = dependencyClosure(array(trigger.affected_objects), index.reverseDeps);
-    return `${trigger.trigger_id}: ${trigger.condition} -> ${trigger.transition}; closure=${closure.join(", ") || "(none)"}`;
+    const impact = data.decision_rendering?.rendering_id && closure.includes(data.decision_rendering.rendering_id) ? "rendering affected" : "rendering unchanged";
+    return `${trigger.trigger_id}: ${trigger.condition} -> ${trigger.transition}; ${impact}; closure=${closure.join(", ") || "(none)"}`;
   }));
+}
+
+function claimLines(data) {
+  return array(data.claims).map((claim) => (
+    `${claim.claim_id}: ${claim.text} (${claim.status}, confidence=${claim.confidence?.level})`
+  ));
+}
+
+function unknownLines(data) {
+  const unknowns = array(data.unknowns);
+  if (unknowns.length === 0) return ["none recorded"];
+  return unknowns.map((unknown) => (
+    `${unknown.unknown_id}: ${unknown.description}; blocks=${array(unknown.blocks).join(", ") || "(none)"}; resolution=${unknown.resolution_move}`
+  ));
+}
+
+function triggerLines(data, index) {
+  const triggers = array(data.triggers);
+  if (triggers.length === 0) return ["none recorded"];
+  return triggers.map((trigger) => {
+    const closure = dependencyClosure(array(trigger.affected_objects), index.reverseDeps);
+    const impact = data.decision_rendering?.rendering_id && closure.includes(data.decision_rendering.rendering_id) ? "changes rendering" : "does not change rendering";
+    return `${trigger.trigger_id}: ${trigger.condition} -> ${trigger.transition}; ${impact}`;
+  });
+}
+
+function gateLines(data) {
+  const gates = array(data.gates);
+  if (gates.length === 0) return ["none recorded"];
+  return gates.map((gate) => `${gate.gate_id}: ${gate.status}; ${gate.condition}; reviewer=${gate.reviewer}`);
+}
+
+function dissentLines(data) {
+  const lines = array(data.claims)
+    .filter((claim) => claim.status === "disputed" || array(claim.contradicts).length > 0)
+    .map((claim) => `${claim.claim_id}: status=${claim.status}; contradicts=${array(claim.contradicts).join(", ") || "(none)"}`);
+  return lines.length > 0 ? lines : ["none recorded"];
+}
+
+function dissentSummary(data) {
+  return dissentLines(data).join("; ");
 }
 
 function gateSummary(data) {

@@ -152,8 +152,9 @@ Executable artifacts:
 - `schemas/ofone.schema.json`: profile dispatcher for Micro, Map, and Audit schemas.
 - `schemas/ofone.base.schema.json`: shared object definitions.
 - `scripts/ofone-validate.mjs`: JSON Schema plus semantic graph validator and closure reporter.
-- `scripts/ofone-render.mjs`: renderer from internal map to Micro, Map, or Audit answer.
-- `scripts/ofone-patch.mjs`: patch helper for dependency closure from changed object IDs.
+- `scripts/ofone-test.mjs`: validator regression harness for valid examples and invalid fixtures.
+- `scripts/ofone-render.mjs`: decision-native renderer from internal map to Micro, Map, or Audit answer.
+- `scripts/ofone-patch.mjs`: patch report helper for dependency closure from changed object IDs.
 - `examples/*.json`: strategy, formal proof-search, and hybrid policy examples.
 
 ---

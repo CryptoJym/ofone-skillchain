@@ -45,6 +45,20 @@ The semantic validator checks:
 
 Option `blocking_unknowns` values must reference `unknowns[].unknown_id`. Missing evidence should not remain loose prose once an artifact is schema-bound.
 
+## Regression Tests
+
+`npm test` runs validator regression tests against valid examples and generated invalid fixtures from `tests/invalid/fixtures.json`.
+
+Negative coverage includes:
+
+- missing evidence hash
+- illegal edge relation
+- disputed-claim option dependency without a review gate
+- missing rendering dependency for a blocking unknown
+- high-risk artifact without gate
+- adapter mismatch
+- unresolved unknown with no blocked object
+
 ## Relation Legality
 
 Edges are not only strings. Relation legality is checked against endpoint object types. Examples:

@@ -1,13 +1,14 @@
 {
   "name": "ofone-skillchain",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "OfOne typed causal-geometry compiler skillchain",
   "type": "module",
   "scripts": {
     "validate": "node scripts/ofone-validate.mjs examples/*.json",
     "validate:write": "node scripts/ofone-validate.mjs --write examples/*.json",
     "render": "node scripts/ofone-render.mjs",
-    "patch": "node scripts/ofone-patch.mjs"
+    "patch": "node scripts/ofone-patch.mjs",
+    "test": "node scripts/ofone-test.mjs"
   },
   "license": "MIT",
   "dependencies": {

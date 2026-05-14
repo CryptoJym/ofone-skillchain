@@ -17,9 +17,11 @@ Abstract geometry is primary. Adapters project domain language onto geometry.
 - [`scripts/ofone-validate.mjs`](./scripts/ofone-validate.mjs) - schema-backed semantic validator.
 - [`scripts/ofone-render.mjs`](./scripts/ofone-render.mjs) - human-readable Micro, Map, and Audit renderer.
 - [`scripts/ofone-patch.mjs`](./scripts/ofone-patch.mjs) - dependency-closure patch helper.
+- [`scripts/ofone-test.mjs`](./scripts/ofone-test.mjs) - validator regression tests with negative fixtures.
 - [`examples/strategy-micro.json`](./examples/strategy-micro.json) - Micro strategy example.
 - [`examples/formal-proof-map.json`](./examples/formal-proof-map.json) - Map mode formal example.
 - [`examples/hybrid-policy-audit.json`](./examples/hybrid-policy-audit.json) - Audit mode hybrid example.
+- [`examples/source-backed-wastewater-map.json`](./examples/source-backed-wastewater-map.json) - source-backed Map example using public EPA NPDES sources.
 - [`benchmarks/`](./benchmarks/) - benchmark protocol scaffold.
 - [`index.html`](./index.html) - GitHub Pages site.
 
@@ -44,6 +46,7 @@ Then use it when mapping a bounded domain, stress-testing understanding, or prod
 
 ```bash
 npm run validate
+npm test
 ```
 
 The validator executes JSON Schema first, then semantic graph checks for IDs, references, edge legality, adapter contracts, loop physics, gates, trigger transitions, and dependency closure.
@@ -61,6 +64,8 @@ npm run validate:write
 npm run render -- examples/strategy-micro.json Micro
 npm run patch -- examples/strategy-micro.json E1
 ```
+
+`render` produces a decision-native view: decision, confidence, why, blocking unknowns, change triggers, human gates, evidence identity, and dissent where applicable. `patch` produces a structured patch report with affected objects, invalidated claims, revalidation requirements, and rendering impact.
 
 ## Pages
 
