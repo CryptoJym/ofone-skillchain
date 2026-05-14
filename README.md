@@ -2,14 +2,13 @@
 
 OfOne is a domain-adaptive inquiry compiler for turning bounded objectives into auditable decision maps.
 
-It is not a universal ontology. The universal layer is the inquiry geometry; domain meaning comes from adapters.
+The inquiry geometry is portable; domain meaning comes from adapters.
 
 ## What Is Included
 
 - [`SKILL.md`](./SKILL.md) - the Codex skillchain.
-- [`docs/architecture-framing.md`](./docs/architecture-framing.md) - the revised architecture framing.
-- [`docs/cross-run-synthesis.md`](./docs/cross-run-synthesis.md) - synthesis from six Deep Research runs.
-- [`docs/skillchain-tdd-notes.md`](./docs/skillchain-tdd-notes.md) - skill-writing pressure tests and verification notes.
+- [`docs/architecture-framing.md`](./docs/architecture-framing.md) - the architecture framing.
+- [`docs/research-basis.md`](./docs/research-basis.md) - research-backed architecture basis.
 - [`index.html`](./index.html) - GitHub Pages site.
 
 ## Skillchain

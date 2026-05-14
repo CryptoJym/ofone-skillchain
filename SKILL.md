@@ -9,7 +9,7 @@ description: Use when mapping a bounded domain, uncovering decision-relevant str
 
 OfOne is a domain-adaptive inquiry compiler. It turns a bounded objective into an auditable decision map through adapters, evidence, claims, analytic lenses, options, triggers, and human review gates.
 
-Core rule: do not use OfOne as a universal ontology. The universal part is the inquiry geometry; domain semantics come from adapters.
+Core principle: inquiry geometry is portable; domain semantics come from adapters.
 
 ## When To Use
 
@@ -30,7 +30,7 @@ Do not use for:
 
 If the user asks for a quick, compact, or "just give me the answer" result, still keep the chain intact. Use one or two bullets per stage, but do not omit adapter, evidence, claims, update logic, or human gates.
 
-If the user asks for the old eight-part frame, treat it as legacy vocabulary. Say the repaired OfOne uses the twelve-axis kernel because the old actor/goal language breaks in formal, scientific, and normative domains.
+If the user gives a preferred vocabulary, translate it into adapter-native terms before mapping.
 
 Do not start external research just to apply the skill unless the user asks for live/current due diligence or the host system requires verification. Use provided evidence, mark missing evidence explicitly, and keep moving.
 
@@ -83,7 +83,7 @@ Pick the closest adapter before asking kernel questions.
 
 If no adapter fits, state the mismatch and create a provisional adapter before continuing.
 
-## Repaired Kernel Questions
+## Kernel Questions
 
 Ask all twelve. Keep domain-native wording from the adapter.
 
@@ -178,8 +178,6 @@ Recommendation if justified, confidence, human gates, next evidence.
 
 | Mistake | Fix |
 |---|---|
-| Calling OfOne a universal ontology | Say it is a portable inquiry compiler with adapters. |
-| Collapsing back to the old eight-piece frame | Use the twelve-axis kernel; legacy terms are aliases only. |
 | Forcing actor/goal language into formal or scientific domains | Use units, variables, proof objects, mechanisms, or observables. |
 | Producing a fluent recommendation before evidence | Build the evidence ledger and claim graph first. |
 | Treating council lenses as expert role-play | Use lens contracts, axis coverage, redundancy checks, and contention. |

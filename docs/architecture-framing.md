@@ -1,6 +1,6 @@
 # The Of One Methodology: Domain-Adaptive Inquiry Compiler
 
-**Status:** Reframed after Deep Research validation
+**Status:** Active architecture
 **Category:** Research Methodology + Knowledge Architecture + Decision Compiler
 **Co-Authors:** James Brady, GPT-5.1, GPT-5.2, GPT-5.5 Pro Deep Research, Claude Opus 4.5, Codex
 **Last Updated:** 2026-05-13
@@ -9,32 +9,32 @@
 
 ## Summary
 
-Of One is a domain-adaptive questioning system that turns a bounded objective into an auditable domain map for better decision making.
+Of One turns a bounded objective into an auditable domain map for decision making.
 
-The corrected framing is:
+The operating geometry is:
 
 ```text
 bounded objective + domain adapter + inquiry kernel + evidence ledger + claim graph + analytic lenses + options + update triggers
 = auditable domain map and decision support package
 ```
 
-Of One should not be framed as a literal universal ontology or as one fixed vocabulary that natively maps every section of reality. The universal part is the repeatable inquiry structure. The domain-specific part is supplied by adapters that define what evidence, mechanism, intervention, value, uncertainty, and falsification mean in that domain.
+The inquiry geometry is portable. Domain meaning comes from adapters that define evidence, mechanism, intervention, value, uncertainty, proof, and review thresholds for the domain being mapped.
 
 ---
 
 ## Core Claim
 
-Of One can be universal only at three layers:
+Of One is portable across domains at three layers:
 
-1. **Inquiry layer:** every serious domain investigation needs scope, units, observables, relations, constraints, evidence, uncertainty, evaluation criteria, alternatives, and update triggers.
+1. **Inquiry layer:** every serious investigation needs scope, units, observables, relations, constraints, evidence, uncertainty, evaluation criteria, alternatives, and update triggers.
 2. **Compiler layer:** every run can be represented as versioned state, immutable evidence, atomic claims, dependency edges, options, reviews, and audit events.
 3. **Decision layer:** every decision-relevant domain needs tradeoffs, stakes, reversibility, dissent, kill tests, and triggers for when the map must change.
 
-Of One is not universal at the semantic layer. Domains disagree about what counts as proof, evidence, mechanism, intervention, falsification, value, and acceptable uncertainty.
+Adapters supply the domain semantics. They determine what counts as proof, measurement, mechanism, intervention, falsification, acceptable uncertainty, and admissible value criteria.
 
 ---
 
-## The Repaired Questioning Kernel
+## The Inquiry Kernel
 
 Every Of One run begins with twelve invariant question dimensions.
 
@@ -55,24 +55,24 @@ Every Of One run begins with twelve invariant question dimensions.
 
 ---
 
-## Vocabulary Repairs
+## Domain Primitives
 
-The original vocabulary was useful but too narrow. The revised architecture uses broader primitives.
+The architecture uses domain-adaptive primitives rather than fixed human-centered terms.
 
-| Old Term | Repaired Primitive | Reason |
-|---|---|---|
-| Actor | Units / entities / variables / participants | Formal, physical, biological, and normative domains are not always agentic. |
-| Goal | Analyst task / stakeholder objective / system function / evaluation criterion | Goals are not one thing. |
-| Power / control | Intervention surface / query surface / control channel | Some domains are investigated, proved, or measured rather than controlled. |
-| Evidence | Proof / measurement / observation / testimony / simulation / expert judgment / provenance / confidence | Evidence semantics differ by domain. |
-| Value / cost / utility | Evaluation criteria / stakes / tradeoffs | Normative and strategic domains need plural criteria. |
-| Idempotency | Compiler/workflow property | The world is not idempotent; a bounded research workflow can be. |
+| Primitive | Scope |
+|---|---|
+| Units / entities / variables / participants | People, organizations, artifacts, formal objects, biological entities, physical states, institutions, abstractions. |
+| Task / objective / function / criterion | Analyst task, stakeholder objective, system function, evaluation standard, proof target, or design constraint. |
+| Intervention / query / control channel | Action, measurement, experiment, proof search, leverage point, policy lever, or inquiry path. |
+| Evidence semantics | Proof, measurement, observation, testimony, simulation, expert judgment, provenance, confidence. |
+| Evaluation semantics | Criteria, stakes, tradeoffs, plural values, reversibility, exposure, consequences. |
+| Compiler semantics | Objective versions, evidence hashes, dependency closures, no-op, patch, scoped rerun, trunk rewrite. |
 
 ---
 
 ## Product Architecture
 
-Of One should be implemented as a versioned research compiler with seven separated layers.
+Of One is implemented as a versioned research compiler with seven separated layers.
 
 1. **World model:** entities, variables, states, relations, constraints, mechanisms, dynamics, regimes.
 2. **Evidence model:** raw sources, extraction spans, provenance, freshness, reliability, uncertainty, permission tags.
@@ -82,7 +82,7 @@ Of One should be implemented as a versioned research compiler with seven separat
 6. **Compiler model:** objective versions, hashes, no-op/patch/rerun/trunk-rewrite logic, run logs, audit events.
 7. **Human-review model:** approval tasks, dissent signoff, source review, redaction, export controls.
 
-Authoritative truth should live in a transactional relational store with JSON support plus an append-only raw-evidence object store. Graph, vector, and search stores should be rebuildable projections.
+Authoritative truth lives in a transactional relational store with JSON support plus an append-only raw-evidence object store. Graph, vector, and search stores are rebuildable projections.
 
 ---
 
@@ -104,15 +104,15 @@ The executable shape of Of One is a single chain of linked skills:
 -> 10 Decision Pack
 ```
 
-Each stage must emit:
+Each stage emits:
 
-- current object state
-- evidence or explicit evidence gap
+- object state
+- evidence refs or explicit evidence gap
 - uncertainty and dissent
 - next dependency
 - human-review flag when needed
 
-The chain is geometric because every stage maps the domain along an axis and constrains the next stage. The output is not a flat answer. It is an auditable map of relationships, constraints, options, and update conditions.
+The chain is geometric because every stage maps the domain along an axis and constrains the next stage. The output is an auditable map of relationships, constraints, options, and update conditions.
 
 ---
 
@@ -125,22 +125,22 @@ Initial adapters:
 3. **Formal:** mathematics, logic, proof search, formal systems.
 4. **Normative-evaluative:** ethics, public values, art, legitimacy, creative strategy.
 
-Each adapter must define:
+Each adapter defines:
 
-- what counts as evidence
-- what counts as mechanism
-- what counts as intervention or query
-- what counts as falsification or proof
-- what counts as uncertainty
-- what value criteria are admissible
-- what review threshold is required
-- what vocabulary is forbidden because it creates ontology drag
+- evidence semantics
+- mechanism semantics
+- intervention or query semantics
+- falsification or proof semantics
+- uncertainty semantics
+- admissible evaluation criteria
+- human-review thresholds
+- vocabulary that should be translated into domain-native terms
 
 ---
 
 ## Idempotency
 
-Of One should define idempotency mechanically:
+Of One defines idempotency mechanically:
 
 ```text
 same objective head
@@ -151,7 +151,7 @@ same objective head
 = no-op
 ```
 
-If evidence or a derived claim changes, the system computes a reverse-dependency closure and patches only impacted descendants. A patch that crosses objective, scope, criteria, ontology mapping, adapter choice, or regime assumptions must become a scoped rerun or trunk rewrite.
+If evidence or a derived claim changes, the system computes a reverse-dependency closure and patches only impacted descendants. A patch that crosses objective, scope, criteria, ontology mapping, adapter choice, or regime assumptions becomes a scoped rerun or trunk rewrite.
 
 Transition classes:
 
@@ -165,7 +165,7 @@ Transition classes:
 
 ## Human Gates
 
-Do not automate these without human review:
+Human review is required for:
 
 - legal, medical, financial, safety, compliance, or public-policy recommendations
 - claims or recommendations affecting rights, employment, education, health, money, physical safety, or reputation
@@ -173,16 +173,16 @@ Do not automate these without human review:
 - external research-pack release
 - resolution of high-severity dissent or minority reports
 - promotion of low-provenance evidence into a decision-critical claim
-- adapter override in formal or normative domains
+- adapter overrides in formal or normative domains
 - deletion or backfill of audit records
 
-Human review is part of the architecture, not a separate administrative step.
+Human review is part of the architecture.
 
 ---
 
 ## Benchmark Standard
 
-Of One should not claim superiority until benchmarked against alternatives.
+Of One earns superiority claims through benchmarked performance.
 
 Minimum standard:
 
@@ -219,10 +219,4 @@ Use this operational rule:
 
 ```text
 Build Of One as a versioned research compiler with a narrow kernel, explicit adapters, immutable evidence, atomic claims, constrained council lenses, schema-bounded prompts, auditable patches, and enforceable human gates.
-```
-
-Avoid this claim:
-
-```text
-Of One is a universal ontology that can reveal any domain through one fixed vocabulary.
 ```
