@@ -1,6 +1,12 @@
 # OfOne Object Schemas
 
-These are minimum schema shapes for machine-checkable OfOne artifacts.
+These are minimum schema shapes for machine-checkable OfOne artifacts. The executable schema is `../schemas/ofone.schema.json`.
+
+Run:
+
+```bash
+npm run validate
+```
 
 ## Evidence
 
@@ -75,3 +81,7 @@ These are minimum schema shapes for machine-checkable OfOne artifacts.
   "transition": "no_op|patch|scoped_rerun|trunk_rewrite|human_review"
 }
 ```
+
+## Full Schema
+
+Use [`../schemas/ofone.schema.json`](../schemas/ofone.schema.json) for full top-level validation across charter, adapter projection, scene, evidence, claims, edges, loops, options, triggers, gates, confidence model, decision rendering, and validator result.

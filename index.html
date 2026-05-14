@@ -273,13 +273,26 @@
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill and the research-backed architecture notes used to create it.</p>
+        <p class="lead">The repository packages the Codex skill, executable schemas, validator, examples, and research-backed architecture notes.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
           <a class="button" href="./docs/research-basis.md">Research Basis</a>
           <a class="button" href="./docs/object-schemas.md">Object Schemas</a>
+          <a class="button" href="./docs/dependency-closure.md">Dependency Closure</a>
+          <a class="button" href="./docs/loop-taxonomy.md">Loop Taxonomy</a>
+          <a class="button" href="./docs/confidence-model.md">Confidence Model</a>
+          <a class="button" href="./schemas/ofone.schema.json">JSON Schema</a>
+          <a class="button" href="./examples/strategy-micro.json">Strategy Example</a>
+          <a class="button" href="./examples/formal-proof-map.json">Formal Example</a>
+          <a class="button" href="./examples/hybrid-policy-audit.json">Hybrid Example</a>
         </div>
+      </section>
+
+      <section>
+        <h2>Validation</h2>
+        <p class="lead">OfOne artifacts can be checked for required object families, movement jobs, references, loop classes, confidence basis, human gates, and dependency closure.</p>
+        <code class="rule">npm run validate</code>
       </section>
     </main>
 

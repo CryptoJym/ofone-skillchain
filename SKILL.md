@@ -141,6 +141,14 @@ Ask only at the resolution needed for the chosen mode.
 
 Use stable IDs. Keep evidence, claims, graph objects, and renderings separate.
 
+In the repo, validate Map and Audit artifacts with:
+
+```bash
+npm run validate
+```
+
+The executable schema lives at `schemas/ofone.schema.json`; the dependency-aware runner is `scripts/ofone-validate.mjs`.
+
 ```json
 {
   "evidence_id": "E1",
@@ -207,6 +215,12 @@ Every Map or Audit output should include:
 - regime assumptions
 - failure modes
 - counterfactuals or kill tests
+
+Loop types: reinforcing, balancing, measurement, incentive, learning, contradiction, review, deception, regime. Every loop needs a cue and a failure mode.
+
+Confidence is ordinal, not fake-precise. State the basis across provenance strength, source independence, recency, mechanism fit, contradiction load, hidden-variable risk, adversarial risk, and adapter fit.
+
+Dependency closure must be computable: new evidence points to affected claims, affected claims point to affected edges and loops, and affected loops/options point to the decision rendering.
 
 ## Execution Contract
 

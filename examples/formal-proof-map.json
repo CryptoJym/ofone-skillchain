@@ -1,0 +1,195 @@
+{
+  "ofone_version": "0.2.0",
+  "mode": "Map",
+  "charter": {
+    "objective": "Determine whether theorem T is provable from axiom set A under inference system R.",
+    "scope": ["formal entailment", "bounded proof search", "countermodel search"],
+    "horizon": "bounded compute run",
+    "stakes": ["soundness", "false proof risk"],
+    "risk_tier": "medium",
+    "movement_jobs": ["BOUND"]
+  },
+  "adapter_projection": {
+    "primary": "formal",
+    "axes": {
+      "formal": ["axioms", "inference", "proof certificate", "countermodel", "decidability"]
+    },
+    "movement_jobs": ["BOUND", "LINK"]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "logical",
+        "assumptions": ["R is the governing inference system", "A and T are syntactically well formed"]
+      }
+    ],
+    "tokens": [
+      { "token_id": "K1", "kind": "entity", "label": "axiom set A" },
+      { "token_id": "K2", "kind": "entity", "label": "theorem T" },
+      { "token_id": "K3", "kind": "constraint", "label": "inference system R" },
+      { "token_id": "K4", "kind": "uncertainty", "label": "decidability and resource bounds" }
+    ],
+    "state_variables": ["search frontier", "derived lemmas", "model candidates"],
+    "observed_variables": ["syntax", "proof attempts", "countermodel attempts"],
+    "hidden_variables": ["unknown lemma path", "undiscovered countermodel"],
+    "movement_jobs": ["BOUND", "WARN"]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "tool",
+      "span_or_locator": "proof checker placeholder",
+      "provenance": "candidate proof must be independently checked",
+      "recency": "current",
+      "reliability": "high",
+      "permission": "internal",
+      "supports": ["C1"],
+      "risks": ["no_candidate_yet"],
+      "movement_jobs": ["GROUND", "TEST"]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "tool",
+      "span_or_locator": "model finder placeholder",
+      "provenance": "countermodel search can disprove entailment",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "internal",
+      "supports": ["C2"],
+      "risks": ["bounded_search_only"],
+      "movement_jobs": ["GROUND", "TEST"]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "Provability requires a checkable proof certificate under R.",
+      "type": "formal",
+      "supports": ["E1"],
+      "contradicts": [],
+      "depends_on": ["K3"],
+      "confidence": {
+        "level": "high",
+        "basis": ["mechanism_fit", "adapter_fit"],
+        "failure_modes": ["misencoded_axioms", "wrong_inference_system"]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": ["CLAIM", "GROUND"]
+    },
+    {
+      "claim_id": "C2",
+      "text": "A verified countermodel would show T is not entailed by A.",
+      "type": "formal",
+      "supports": ["E2"],
+      "contradicts": [],
+      "depends_on": ["K1", "K2"],
+      "confidence": {
+        "level": "medium",
+        "basis": ["mechanism_fit", "adapter_fit"],
+        "failure_modes": ["model_scope_mismatch", "bounded_search_only"]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": ["CLAIM", "TEST"]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "K3",
+      "to": "C1",
+      "relation": "constrains",
+      "evidence_refs": ["E1"],
+      "confidence": "high",
+      "movement_jobs": ["LINK"]
+    },
+    {
+      "edge_id": "X2",
+      "from": "C2",
+      "to": "C1",
+      "relation": "contradicts",
+      "evidence_refs": ["E2"],
+      "confidence": "medium",
+      "movement_jobs": ["LINK", "TEST"]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "learning",
+      "edges": ["X1"],
+      "cue": "failed proof search generates lemma candidates and search refinements",
+      "failure_mode": "search exhaustion mistaken for mathematical non-provability",
+      "movement_jobs": ["TEST", "WARN"]
+    },
+    {
+      "loop_id": "L2",
+      "type": "contradiction",
+      "edges": ["X2"],
+      "cue": "proof and countermodel cannot both verify under the same formalization",
+      "failure_mode": "inconsistent encoding hides an invalid result",
+      "movement_jobs": ["TEST", "WARN"]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "prove",
+      "preconditions": ["C1"],
+      "expected_effects": ["X1"],
+      "tradeoffs": ["may time out", "high confidence if certificate verifies"],
+      "blocking_unknowns": ["lemma path", "decidability class"],
+      "review_gate": "none",
+      "movement_jobs": ["MOVE", "TEST"]
+    },
+    {
+      "option_id": "O2",
+      "move_type": "test",
+      "preconditions": ["C2"],
+      "expected_effects": ["X2"],
+      "tradeoffs": ["countermodel may be outside searched bounds", "fast disproof if found"],
+      "blocking_unknowns": ["model domain size"],
+      "review_gate": "none",
+      "movement_jobs": ["MOVE", "TEST"]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": ["E2"],
+      "transition": "patch",
+      "movement_jobs": ["TRIGGER"]
+    }
+  ],
+  "gates": [],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "medium",
+    "recency": "high",
+    "mechanism_fit": "high",
+    "contradiction_load": "medium",
+    "hidden_variable_risk": "medium",
+    "adversarial_risk": "low",
+    "adapter_fit": "high",
+    "movement_jobs": ["EVALUATE", "WARN"]
+  },
+  "decision_rendering": {
+    "summary": "Run proof search and countermodel search; only a verified artifact settles the decision.",
+    "recommendation": "Return provable only with a checked certificate, not from search confidence.",
+    "confidence": "medium",
+    "depends_on": ["C1", "C2", "O1", "O2"],
+    "movement_jobs": ["EVALUATE", "TEST"]
+  },
+  "validator_result": {
+    "passed": true,
+    "checks": [
+      { "check": "formal_adapter", "passed": true, "notes": "uses proof and countermodel semantics" },
+      { "check": "timeout_handling", "passed": true, "notes": "timeout remains unknown-with-bounds" }
+    ]
+  }
+}

@@ -39,6 +39,9 @@ bounded objective
 - Idempotency rules for no-op, patch, scoped rerun, trunk rewrite, and human-review transitions.
 - Movement economy: every emitted object must bound, ground, claim, link, test, move, evaluate, warn, trigger, or gate.
 - Output modes: Micro, Map, and Audit.
+- Executable schemas and validator scripts for OfOne artifacts.
+- Worked examples across strategy, formal proof-search, and hybrid policy.
+- Dependency closure reporting for update triggers.
 
 ## Benchmark Path
 

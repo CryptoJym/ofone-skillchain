@@ -142,6 +142,12 @@ Minimum object families:
 - `Trigger`: condition, affected objects, transition class.
 - `Gate`: condition, reviewer, required decision, release status.
 
+Executable artifacts:
+
+- `schemas/ofone.schema.json`: JSON Schema for OfOne maps.
+- `scripts/ofone-validate.mjs`: dependency-aware validator and closure reporter.
+- `examples/*.json`: strategy, formal proof-search, and hybrid policy examples.
+
 ---
 
 ## Causal Frame Mechanics
@@ -158,6 +164,54 @@ Every Map or Audit run should identify:
 - regime assumptions
 - failure modes
 - counterfactuals or kill tests
+
+Loop classes:
+
+- reinforcing
+- balancing
+- measurement
+- incentive
+- learning
+- contradiction
+- review
+- deception
+- regime
+
+Each loop carries detection cues and a named failure mode.
+
+---
+
+## Confidence Basis
+
+Confidence remains ordinal. Each confidence judgment identifies:
+
+- provenance strength
+- source independence
+- recency
+- mechanism fit
+- contradiction load
+- hidden-variable risk
+- adversarial risk
+- adapter fit
+
+This avoids fake decimal precision while making the basis inspectable.
+
+---
+
+## Dependency Closure
+
+Updates propagate through typed references:
+
+```text
+new evidence
+-> affected claims
+-> affected edges
+-> affected loops
+-> affected options
+-> affected decision rendering
+```
+
+Boundary, objective, criteria, adapter projection, ontology mapping, or regime changes bypass patching and become scoped reruns or trunk rewrites.
 
 ---
 

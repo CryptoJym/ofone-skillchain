@@ -1,0 +1,193 @@
+{
+  "ofone_version": "0.2.0",
+  "mode": "Micro",
+  "charter": {
+    "objective": "Decide whether to enter a regulated wastewater treatment market.",
+    "scope": ["market-entry decision", "early diligence", "US regulatory assumption"],
+    "horizon": "60 days",
+    "stakes": ["capital risk", "compliance exposure", "reputation"],
+    "risk_tier": "medium",
+    "movement_jobs": ["BOUND", "GATE"]
+  },
+  "adapter_projection": {
+    "primary": "hybrid",
+    "axes": {
+      "strategic-agentic": ["market entry", "customer incentives", "partner options"],
+      "scientific-explanatory": ["treatment performance", "measurement", "failure modes"],
+      "normative-evaluative": ["environmental exposure", "public consequence"]
+    },
+    "movement_jobs": ["BOUND", "LINK"]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "strategic",
+        "assumptions": ["market segment and jurisdiction are not yet fixed"]
+      },
+      {
+        "frame_id": "F2",
+        "type": "causal",
+        "assumptions": ["permit path and treatment proof determine launch feasibility"]
+      }
+    ],
+    "tokens": [
+      { "token_id": "K1", "kind": "entity", "label": "target market" },
+      { "token_id": "K2", "kind": "constraint", "label": "permit pathway" },
+      { "token_id": "K3", "kind": "variable", "label": "treatment performance" },
+      { "token_id": "K4", "kind": "uncertainty", "label": "jurisdiction-specific requirements" }
+    ],
+    "state_variables": ["segment", "jurisdiction", "permit pathway", "capex", "opex"],
+    "observed_variables": ["limited evidence", "regulated wastewater context"],
+    "hidden_variables": ["local enforcement posture", "actual influent profile", "operator competence"],
+    "movement_jobs": ["BOUND", "WARN"]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "observation",
+      "span_or_locator": "user scenario",
+      "provenance": "provided prompt states evidence is limited",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "supports": ["C1"],
+      "risks": ["incomplete_context"],
+      "movement_jobs": ["GROUND", "WARN"]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "observation",
+      "span_or_locator": "regulated wastewater treatment market",
+      "provenance": "domain characterization in prompt",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "supports": ["C2"],
+      "risks": ["jurisdiction_unspecified"],
+      "movement_jobs": ["GROUND"]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "Current evidence is insufficient for full operational market entry.",
+      "type": "operational",
+      "supports": ["E1"],
+      "contradicts": [],
+      "depends_on": [],
+      "confidence": {
+        "level": "high",
+        "basis": ["provenance", "hidden_variable_risk", "adapter_fit"],
+        "failure_modes": ["missing_segment_data", "unknown_jurisdiction"]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": ["CLAIM", "WARN", "GATE"]
+    },
+    {
+      "claim_id": "C2",
+      "text": "A gated diligence move is more reversible than launch.",
+      "type": "operational",
+      "supports": ["E2"],
+      "contradicts": [],
+      "depends_on": ["C1"],
+      "confidence": {
+        "level": "medium",
+        "basis": ["mechanism_fit", "adapter_fit"],
+        "failure_modes": ["opportunity_cost", "partner_availability_unknown"]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": ["CLAIM", "EVALUATE"]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "C1",
+      "to": "C2",
+      "relation": "supports",
+      "evidence_refs": ["E1"],
+      "confidence": "medium",
+      "movement_jobs": ["LINK"]
+    },
+    {
+      "edge_id": "X2",
+      "from": "K2",
+      "to": "C1",
+      "relation": "constrains",
+      "evidence_refs": ["E2"],
+      "confidence": "medium",
+      "movement_jobs": ["LINK", "WARN"]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "review",
+      "edges": ["X2"],
+      "cue": "permit uncertainty blocks launch commitment",
+      "failure_mode": "review treated as paperwork instead of a decision gate",
+      "movement_jobs": ["WARN", "GATE"]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "test",
+      "preconditions": ["C1", "C2"],
+      "expected_effects": ["X1"],
+      "tradeoffs": ["slower entry", "lower compliance risk", "more reversible spend"],
+      "blocking_unknowns": ["target segment", "jurisdiction", "pilot performance"],
+      "review_gate": "G1",
+      "movement_jobs": ["MOVE", "EVALUATE", "GATE"]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": ["E1"],
+      "transition": "patch",
+      "movement_jobs": ["TRIGGER"]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "customer commitment, permit filing, or operational launch",
+      "reviewer": "human regulatory and business owner",
+      "required_decision": "approve, block, or narrow the diligence move",
+      "status": "open",
+      "movement_jobs": ["GATE"]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "medium",
+    "adapter_fit": "high",
+    "movement_jobs": ["EVALUATE", "WARN"]
+  },
+  "decision_rendering": {
+    "summary": "Do not launch operationally. Run a gated diligence sprint.",
+    "recommendation": "Approve a reversible diligence move, not full entry.",
+    "confidence": "medium",
+    "depends_on": ["C1", "C2", "O1"],
+    "movement_jobs": ["EVALUATE", "MOVE", "GATE"]
+  },
+  "validator_result": {
+    "passed": true,
+    "checks": [
+      { "check": "movement_economy", "passed": true, "notes": "all objects carry movement jobs" },
+      { "check": "human_gate", "passed": true, "notes": "regulated launch requires G1" }
+    ]
+  }
+}

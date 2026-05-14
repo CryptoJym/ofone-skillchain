@@ -1,0 +1,229 @@
+{
+  "ofone_version": "0.2.0",
+  "mode": "Audit",
+  "charter": {
+    "objective": "Assess a proposed AI policy for deployment in a public-sector workflow.",
+    "scope": ["policy design", "technical risk", "public legitimacy", "deployment gates"],
+    "horizon": "one policy cycle",
+    "stakes": ["rights", "public trust", "operational safety", "legal exposure"],
+    "risk_tier": "high",
+    "movement_jobs": ["BOUND", "GATE", "WARN"]
+  },
+  "adapter_projection": {
+    "primary": "hybrid",
+    "axes": {
+      "strategic-agentic": ["institutional incentives", "implementation capacity"],
+      "scientific-explanatory": ["model performance", "measurement validity"],
+      "formal": ["policy rules", "eligibility logic", "audit constraints"],
+      "normative-evaluative": ["rights", "legitimacy", "distributional harm"]
+    },
+    "movement_jobs": ["BOUND", "LINK", "EVALUATE"]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      { "frame_id": "F1", "type": "normative", "assumptions": ["affected parties deserve explanation and contestability"] },
+      { "frame_id": "F2", "type": "causal", "assumptions": ["workflow incentives can change model use"] },
+      { "frame_id": "F3", "type": "evidential", "assumptions": ["performance evidence must match the deployment population"] }
+    ],
+    "tokens": [
+      { "token_id": "K1", "kind": "entity", "label": "public agency" },
+      { "token_id": "K2", "kind": "entity", "label": "affected residents" },
+      { "token_id": "K3", "kind": "variable", "label": "model error rate" },
+      { "token_id": "K4", "kind": "constraint", "label": "due process requirement" },
+      { "token_id": "K5", "kind": "uncertainty", "label": "distributional impact" }
+    ],
+    "state_variables": ["eligibility outcome", "appeal outcome", "error rate", "caseworker override rate"],
+    "observed_variables": ["policy proposal", "planned model use", "public-sector workflow"],
+    "hidden_variables": ["automation bias", "unequal data quality", "appeal accessibility"],
+    "movement_jobs": ["BOUND", "WARN", "GATE"]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "file",
+      "span_or_locator": "policy proposal placeholder",
+      "provenance": "provided policy draft",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "internal",
+      "supports": ["C1"],
+      "risks": ["draft_policy", "implementation_unknown"],
+      "movement_jobs": ["GROUND", "WARN"]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "observation",
+      "span_or_locator": "public-sector high-stakes workflow",
+      "provenance": "scenario characterization",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "supports": ["C2", "C3"],
+      "risks": ["needs_legal_review"],
+      "movement_jobs": ["GROUND", "GATE"]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "Deployment depends on policy rules, model behavior, workflow incentives, and appeal design.",
+      "type": "causal",
+      "supports": ["E1"],
+      "contradicts": [],
+      "depends_on": ["K1", "K3", "K4"],
+      "confidence": {
+        "level": "medium",
+        "basis": ["mechanism_fit", "adapter_fit", "hidden_variable_risk"],
+        "failure_modes": ["workflow_drift", "automation_bias"]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": ["CLAIM", "LINK", "WARN"]
+    },
+    {
+      "claim_id": "C2",
+      "text": "Rights-impacting public-sector deployment requires human review before release.",
+      "type": "normative",
+      "supports": ["E2"],
+      "contradicts": [],
+      "depends_on": ["K2", "K4"],
+      "confidence": {
+        "level": "high",
+        "basis": ["provenance", "adapter_fit"],
+        "failure_modes": ["jurisdiction_specific_rules_missing"]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": ["CLAIM", "GATE"]
+    },
+    {
+      "claim_id": "C3",
+      "text": "Distributional harm is unresolved without subgroup performance and appeal-access evidence.",
+      "type": "predictive",
+      "supports": ["E2"],
+      "contradicts": [],
+      "depends_on": ["K3", "K5"],
+      "confidence": {
+        "level": "medium",
+        "basis": ["hidden_variable_risk", "adversarial_risk", "adapter_fit"],
+        "failure_modes": ["missing_subgroup_data", "measurement_bias"]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": ["CLAIM", "WARN", "GATE"]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "K3",
+      "to": "C3",
+      "relation": "causes",
+      "evidence_refs": ["E2"],
+      "confidence": "medium",
+      "movement_jobs": ["LINK", "WARN"]
+    },
+    {
+      "edge_id": "X2",
+      "from": "C3",
+      "to": "C2",
+      "relation": "supports",
+      "evidence_refs": ["E2"],
+      "confidence": "medium",
+      "movement_jobs": ["LINK", "GATE"]
+    },
+    {
+      "edge_id": "X3",
+      "from": "K4",
+      "to": "C2",
+      "relation": "constrains",
+      "evidence_refs": ["E2"],
+      "confidence": "high",
+      "movement_jobs": ["LINK", "GATE"]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "incentive",
+      "edges": ["X1"],
+      "cue": "caseworkers may defer to model outputs under workload pressure",
+      "failure_mode": "automation bias increases uncorrected error",
+      "movement_jobs": ["WARN", "LINK"]
+    },
+    {
+      "loop_id": "L2",
+      "type": "review",
+      "edges": ["X2", "X3"],
+      "cue": "rights-impacting errors require appeal and oversight",
+      "failure_mode": "review gate becomes symbolic and does not change outcomes",
+      "movement_jobs": ["GATE", "WARN"]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "defer",
+      "preconditions": ["C2", "C3"],
+      "expected_effects": ["X2"],
+      "tradeoffs": ["delays deployment", "reduces rights-impact risk", "requires more evidence"],
+      "blocking_unknowns": ["subgroup error", "appeal access", "override monitoring"],
+      "review_gate": "G1",
+      "movement_jobs": ["MOVE", "EVALUATE", "GATE"]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "review_required",
+      "affected_objects": ["C2"],
+      "transition": "human_review",
+      "movement_jobs": ["TRIGGER", "GATE"]
+    },
+    {
+      "trigger_id": "T2",
+      "condition": "new_evidence",
+      "affected_objects": ["E2"],
+      "transition": "scoped_rerun",
+      "movement_jobs": ["TRIGGER"]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "rights-impacting public deployment",
+      "reviewer": "legal, policy, technical, and community review owners",
+      "required_decision": "approve, block, narrow, or require additional evidence",
+      "status": "open",
+      "movement_jobs": ["GATE"]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "medium",
+    "adapter_fit": "high",
+    "movement_jobs": ["EVALUATE", "WARN"]
+  },
+  "decision_rendering": {
+    "summary": "Do not release until review gates and subgroup evidence are satisfied.",
+    "recommendation": "Defer deployment and run an audit-mode evidence pass focused on subgroup performance, appeal access, and override monitoring.",
+    "confidence": "medium",
+    "depends_on": ["C1", "C2", "C3", "O1"],
+    "movement_jobs": ["EVALUATE", "GATE", "MOVE"]
+  },
+  "validator_result": {
+    "passed": true,
+    "checks": [
+      { "check": "human_gate", "passed": true, "notes": "G1 blocks release" },
+      { "check": "loop_map", "passed": true, "notes": "incentive and review loops captured" },
+      { "check": "adapter_algebra", "passed": true, "notes": "hybrid adapter axes separated" }
+    ]
+  }
+}
