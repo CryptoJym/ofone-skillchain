@@ -8,6 +8,7 @@ Date: 2026-05-17
 |---|---|---|---|---|---|
 | 01 | OfOne v0.4 Skill R&D Review | foundation | accepted | https://chatgpt.com/c/6a0a12c9-be8c-83e8-8014-58a7b02f36bb | Completed in ChatGPT Deep Research and harvested to `research/results/2026-05-17-01-ofone-v04-skill-rd-result.md`. Accepted as research counsel with local-validation caveat because ChatGPT reported it could not directly fetch the public repo/docs. Local synthesis saved to `research/results/2026-05-17-01-ofone-v04-skill-rd-synthesis.md`. |
 | 02 | OfOne v0.5 Recursive Compiler Review | foundation | integrated | https://chatgpt.com/c/6a0a2b54-1904-83e8-a7f7-c0d9036bdff3 | Completed in ChatGPT Deep Research after public commit `18c9bc2b5a5c514ab58d537937732827d5aa038f` absorbed Run 01 backlog. Prompt: `research/prompts/2026-05-17-02-ofone-v05-recursive-review.md`. Context brief: `research/ofone-v05-context-brief.md`, pasted inline as `Pasted text(4).txt`. Result harvested to `research/results/2026-05-17-02-ofone-v05-recursive-review-result.md`; local synthesis saved to `research/results/2026-05-17-02-ofone-v05-recursive-review-synthesis.md`. |
+| 03 | OfOne v0.6 Recursive Compiler Review | foundation | active_researching | https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746 | Launched after public commit `d2d71e33bc5776fa92dacace1609adcc5bdafcaf` integrated Run 02 backlog. Prompt: `research/prompts/2026-05-17-03-ofone-v06-recursive-review.md`. Context brief: `research/ofone-v06-context-brief.md`, pasted inline as `Pasted text(5).txt`. |
 
 ## Run 01 Launch Metadata
 
@@ -39,6 +40,21 @@ Date: 2026-05-17
 - Current state: `integrated`
 - Result file: `research/results/2026-05-17-02-ofone-v05-recursive-review-result.md`
 
+## Run 03 Launch Metadata
+
+- Observed model label: clean composer initially showed `Extended Pro`; after Deep Research was enabled, composer showed `Pro`.
+- Observed thinking/reasoning label: clean composer initially showed `Extended Pro`; exact expanded model-selector label was not independently opened during this launch.
+- Deep Research: enabled; visible plan title `OfOne v0.6 review`; visible status changed to `Researching...`; `Stop research` button present.
+- Prompt file: `research/prompts/2026-05-17-03-ofone-v06-recursive-review.md`
+- Context brief: `research/ofone-v06-context-brief.md`
+- Attached/pasted context: ChatGPT received the combined prompt and context brief as a pasted document labeled `Pasted text(5).txt`; no separate filesystem upload was used.
+- ChatGPT project/workspace: none selected; clean new chat.
+- Applied connections: public web/GitHub URLs in prompt; no private account connections selected.
+- Browser surface: Chrome plugin / Computer Use on authenticated ChatGPT session.
+- URL: https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746
+- Current state: `active_researching`
+- Result file: `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md` pending harvest
+
 ## Status Checks
 
 - 2026-05-17T13:28:00-06:00: Still active in ChatGPT Deep Research. Visible status remains `Researching...`; step 1 is checked complete, steps 2-4 show active progress, and the report is not ready to harvest.
@@ -59,6 +75,8 @@ Date: 2026-05-17
 - 2026-05-17T15:10:47-06:00: Run 02 still active and possibly stalled. Visible progress remains steps 1 and 2 complete, step 3 active; step 4 and step 5 pending. Status text is now `Considering web calls and file inspection...`; visible count remains `17 searches` / `17 sources searched`; `Stop research` is still present. No final report is ready to harvest.
 - 2026-05-17T15:20:00-06:00: Run 02 completed in ChatGPT Deep Research. Visible report metadata: `Research completed in 23m`, `15 citations`, `14 searches`, title `OfOne Recursive Compiler Review`. Exported Markdown to `/Users/jamesbrady/Downloads/deep-research-report (21).md` and copied it into `research/results/2026-05-17-02-ofone-v05-recursive-review-result.md`.
 - 2026-05-17T15:33:00-06:00: Integrated Run 02 backlog locally: v0.5.0 public labeling, trigger activation/deactivation affected-object expansion, `scoped_rerun` patch classification, trigger transition/closure validation, benchmark full-OfOne artifact enforcement, scientific mechanism artifact, superiority-readiness warning, typed `review_cycle` / `benchmark_trace` state, hostile-source policy, stricter adapter gate coverage, refreshed validator results, and negative fixtures. `npm run schema:check`, `npm run validate`, `npm run benchmark`, and `npm test` passed. Next step is commit/push, then prepare Run 03 recursive review against the public commit.
+- 2026-05-17T15:35:00-06:00: Public commit `d2d71e33bc5776fa92dacace1609adcc5bdafcaf` pushed to `main`; GitHub raw files show package `0.5.0` and the new scientific example. Pages was verified with cache-busted URL showing v0.5 lifecycle, Scientific Example, and Benchmark Trace content. Prepared Run 03 prompt/context against the public commit.
+- 2026-05-17T15:38:02-06:00: Launched Run 03 in a clean ChatGPT conversation with Deep Research enabled. Visible URL: https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746. Plan title: `OfOne v0.6 review`; visible status is `Researching...`; `Stop research` is present. Context was delivered as a pasted document (`Pasted text(5).txt`) containing the prompt plus inline context brief.
 
 ## Required Launch Metadata
 
