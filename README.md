@@ -24,6 +24,7 @@ The v0.4 line freezes the core inquiry IR and adds decision-lifecycle objects fo
 - [`examples/hybrid-policy-audit.json`](./examples/hybrid-policy-audit.json) - Audit mode hybrid example.
 - [`examples/source-backed-wastewater-map.json`](./examples/source-backed-wastewater-map.json) - source-backed Map example using public EPA NPDES sources.
 - [`benchmarks/`](./benchmarks/) - benchmark protocol scaffold.
+- [`benchmarks/suite.json`](./benchmarks/suite.json) - three-arm benchmark suite manifest.
 - [`index.html`](./index.html) - GitHub Pages site.
 
 ## Skillchain
@@ -47,11 +48,13 @@ Then use it when mapping a bounded domain, stress-testing understanding, or prod
 
 ```bash
 npm run validate
+npm run benchmark
 npm test
 ```
 
 The validator executes JSON Schema first, then semantic graph checks for IDs, references, edge legality, edge semantic families, adapter contracts, loop physics, gates, trigger transitions, and dependency closure.
 It also checks nested subscenes, explicit unknown/null objects, kill-test references, artifact identity hashes, criterion ownership, tradeoff-surface dependencies, temporal evidence windows, information value for blocking unknowns, lens coverage, and Audit review logs.
+The benchmark checker verifies the direct-answer, light-structured, and full-OfOne arms across strategic, scientific, formal, normative, hybrid, and update/patch task families with the required metric set.
 Each validation finding also has a stable diagnostic object with `code`, `severity`, `message`, optional object metadata, and an optional repair hint. Use JSON output when another tool needs machine-readable diagnostics:
 
 ```bash

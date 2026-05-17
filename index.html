@@ -306,7 +306,7 @@
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, and benchmark scaffold.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, and executable benchmark suite manifest.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -325,6 +325,7 @@
           <a class="button" href="./examples/hybrid-policy-audit.json">Hybrid Example</a>
           <a class="button" href="./examples/source-backed-wastewater-map.json">Source-Backed Example</a>
           <a class="button" href="./benchmarks/README.md">Benchmarks</a>
+          <a class="button" href="./benchmarks/suite.json">Benchmark Suite</a>
           <a class="button" href="./benchmarks/cases/regulated-wastewater-market-entry.md">Starter Case</a>
           <a class="button" href="./benchmarks/rubrics/decision-map-rubric.md">Rubric</a>
         </div>
@@ -336,6 +337,7 @@
         <code class="rule">npm run validate
 node scripts/ofone-validate.mjs --json examples/strategy-micro.json
 npm test
+npm run benchmark
 npm run render -- examples/strategy-micro.json Executive
 npm run render -- examples/strategy-micro.json PatchImpact X1
 npm run patch -- examples/strategy-micro.json --operation supersede_evidence E1

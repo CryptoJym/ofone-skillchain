@@ -8,6 +8,7 @@
     "validate:write": "node scripts/ofone-validate.mjs --write examples/*.json",
     "render": "node scripts/ofone-render.mjs",
     "patch": "node scripts/ofone-patch.mjs",
+    "benchmark": "node scripts/ofone-benchmark.mjs",
     "test": "node scripts/ofone-test.mjs"
   },
   "license": "MIT",

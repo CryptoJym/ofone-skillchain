@@ -16,6 +16,7 @@ try {
   runValidExamples();
   runRenderSmokeTests();
   runPatchWorkflowTests();
+  runBenchmarkCheck();
   for (const fixture of fixtures) runInvalidFixture(fixture);
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
@@ -155,6 +156,21 @@ function runPatchWorkflowTests() {
     console.error(`expected JSON paths: ${check.expect.map(([path, expected]) => `${path}=${expected}`).join(", ")}`);
     console.error(output);
   }
+}
+
+function runBenchmarkCheck() {
+  const result = spawnSync(process.execPath, ["scripts/ofone-benchmark.mjs"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  if (result.status === 0) {
+    console.log("PASS benchmark suite manifest");
+    return;
+  }
+  failures += 1;
+  console.error("FAIL benchmark suite manifest");
+  console.error(result.stdout);
+  console.error(result.stderr);
 }
 
 function runInvalidFixture(fixture) {

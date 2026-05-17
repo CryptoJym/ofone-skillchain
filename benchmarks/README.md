@@ -22,7 +22,16 @@ Benchmarks should compare the validated OfOne artifact and its rendering against
 
 ## Starter Assets
 
+- `suite.json`
 - `cases/regulated-wastewater-market-entry.md`
 - `rubrics/decision-map-rubric.md`
 
 The source-backed example at `../examples/source-backed-wastewater-map.json` is the first repository artifact intended to exercise source identity, external URLs, blocking unknowns, and rendering patchability against public reference material.
+
+## Validate The Suite
+
+```bash
+npm run benchmark
+```
+
+The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, and linked OfOne artifacts.
