@@ -6,6 +6,7 @@
   "scripts": {
     "validate": "node scripts/ofone-validate.mjs examples/*.json",
     "validate:write": "node scripts/ofone-validate.mjs --write examples/*.json",
+    "schema:check": "node scripts/ofone-schema-check.mjs",
     "render": "node scripts/ofone-render.mjs",
     "patch": "node scripts/ofone-patch.mjs",
     "benchmark": "node scripts/ofone-benchmark.mjs",

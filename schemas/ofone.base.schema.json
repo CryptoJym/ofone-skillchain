@@ -140,6 +140,12 @@
       "$ref": "#/$defs/validatorResult"
     }
   },
+  "dependentRequired": {
+    "artifact_identity": ["evidence"],
+    "tradeoff_surface": ["criteria", "option_moves"],
+    "temporal_model": ["evidence"],
+    "review_log": ["gates", "actors"]
+  },
   "$defs": {
     "movementJob": {
       "enum": ["BOUND", "GROUND", "CLAIM", "LINK", "TEST", "MOVE", "EVALUATE", "WARN", "TRIGGER", "GATE"]
@@ -156,6 +162,7 @@
     },
     "charter": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["objective", "scope", "horizon", "stakes", "risk_tier", "movement_jobs"],
       "properties": {
         "objective": {
@@ -186,6 +193,7 @@
     },
     "artifactIdentity": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["artifact_id", "case_id", "objective_head", "scope_hash", "config_hash", "active_evidence_hashes", "created_at", "status", "movement_jobs"],
       "properties": {
         "artifact_id": {
@@ -224,6 +232,7 @@
     },
     "adapterProjection": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["primary", "axes", "movement_jobs"],
       "properties": {
         "primary": {
@@ -245,6 +254,7 @@
     },
     "scene": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["scene_id", "frames", "tokens", "subscenes", "state_variables", "observed_variables", "hidden_variables", "movement_jobs"],
       "properties": {
         "scene_id": {
@@ -293,6 +303,7 @@
     },
     "frame": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["frame_id", "type", "assumptions"],
       "properties": {
         "frame_id": {
@@ -311,6 +322,7 @@
     },
     "subscene": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["subscene_id", "parent_scene", "purpose", "frames", "tokens", "entry_conditions", "exit_conditions", "movement_jobs"],
       "properties": {
         "subscene_id": {
@@ -353,6 +365,7 @@
     },
     "token": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["token_id", "kind", "label"],
       "properties": {
         "token_id": {
@@ -368,7 +381,11 @@
     },
     "evidence": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["evidence_id", "source", "span_or_locator", "provenance", "recency", "reliability", "permission", "content_hash", "retrieved_at", "extract", "source_owner", "chain_of_custody", "supports", "risks", "movement_jobs"],
+      "dependentRequired": {
+        "content_hash": ["retrieved_at", "extract", "source_owner", "chain_of_custody"]
+      },
       "properties": {
         "evidence_id": {
           "type": "string"
@@ -426,6 +443,7 @@
     },
     "claim": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["claim_id", "text", "type", "supports", "contradicts", "depends_on", "confidence", "status", "review_gate", "movement_jobs"],
       "properties": {
         "claim_id": {
@@ -471,6 +489,7 @@
     },
     "claimConfidence": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["level", "basis", "failure_modes"],
       "properties": {
         "level": {
@@ -494,6 +513,7 @@
     },
     "unknown": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["unknown_id", "kind", "description", "blocks", "resolution_move", "status", "movement_jobs"],
       "properties": {
         "unknown_id": {
@@ -524,6 +544,7 @@
     },
     "killTest": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["test_id", "target", "test_type", "condition", "falsifies", "movement_jobs"],
       "properties": {
         "test_id": {
@@ -551,6 +572,7 @@
     },
     "criterion": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["criterion_id", "name", "kind", "priority", "threshold", "owned_by", "movement_jobs"],
       "properties": {
         "criterion_id": {
@@ -581,7 +603,12 @@
     },
     "tradeoffSurface": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["surface_id", "options", "criteria", "dominant_option", "why", "reversal_conditions", "movement_jobs"],
+      "dependentRequired": {
+        "dominant_option": ["options", "criteria", "why"],
+        "reversal_conditions": ["options", "criteria"]
+      },
       "properties": {
         "surface_id": {
           "type": "string"
@@ -620,6 +647,7 @@
     },
     "actor": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["actor_id", "label", "role", "incentives", "exposures", "authority", "legitimacy_basis", "movement_jobs"],
       "properties": {
         "actor_id": {
@@ -656,6 +684,7 @@
     },
     "temporalModel": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["time_horizon", "decision_deadline", "evidence_validity_windows", "update_cadence", "movement_jobs"],
       "properties": {
         "time_horizon": {
@@ -680,6 +709,7 @@
     },
     "evidenceValidityWindow": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["evidence_id", "valid_until", "staleness_trigger"],
       "properties": {
         "evidence_id": {
@@ -695,6 +725,7 @@
     },
     "informationValue": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["unknown_id", "decision_impact", "resolution_cost", "time_to_resolve", "risk_reduction", "recommended_next_query", "movement_jobs"],
       "properties": {
         "unknown_id": {
@@ -722,6 +753,7 @@
     },
     "lens": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["lens_id", "name", "adapter_axis", "questions", "claims_examined", "blind_spots", "contention", "movement_jobs"],
       "properties": {
         "lens_id": {
@@ -764,6 +796,7 @@
     },
     "councilResult": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["coverage", "missing_lenses", "major_dissent", "decision_effect", "movement_jobs"],
       "properties": {
         "coverage": {
@@ -794,6 +827,7 @@
     },
     "reviewLogEntry": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["review_id", "gate_id", "actor_id", "decision", "timestamp", "notes", "movement_jobs"],
       "properties": {
         "review_id": {
@@ -821,6 +855,7 @@
     },
     "edge": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["edge_id", "from", "to", "relation_family", "relation", "evidence_refs", "confidence", "movement_jobs"],
       "properties": {
         "edge_id": {
@@ -854,6 +889,7 @@
     },
     "loop": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["loop_id", "type", "edges", "polarity", "delay", "gain", "control_points", "observable_cues", "failure_mode", "movement_jobs"],
       "properties": {
         "loop_id": {
@@ -900,6 +936,7 @@
     },
     "optionMove": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["option_id", "move_type", "preconditions", "expected_effects", "tradeoffs", "blocking_unknowns", "review_gate", "movement_jobs"],
       "properties": {
         "option_id": {
@@ -942,6 +979,7 @@
     },
     "trigger": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["trigger_id", "condition", "affected_objects", "transition", "movement_jobs"],
       "properties": {
         "trigger_id": {
@@ -966,6 +1004,7 @@
     },
     "gate": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["gate_id", "condition", "reviewer", "required_decision", "status", "movement_jobs"],
       "properties": {
         "gate_id": {
@@ -990,6 +1029,7 @@
     },
     "confidenceModel": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["overall", "provenance_strength", "source_independence", "recency", "mechanism_fit", "contradiction_load", "hidden_variable_risk", "adversarial_risk", "adapter_fit", "movement_jobs"],
       "properties": {
         "overall": {
@@ -1026,6 +1066,7 @@
     },
     "decisionRendering": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["rendering_id", "summary", "recommendation", "confidence", "depends_on", "movement_jobs"],
       "properties": {
         "rendering_id": {
@@ -1053,7 +1094,11 @@
     },
     "validatorResult": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["passed", "checks"],
+      "dependentRequired": {
+        "diagnostics": ["checks"]
+      },
       "properties": {
         "passed": {
           "type": "boolean"
@@ -1068,6 +1113,7 @@
           "type": "array",
           "items": {
             "type": "object",
+            "additionalProperties": false,
             "required": ["check", "passed", "notes"],
             "properties": {
               "check": {
@@ -1093,6 +1139,7 @@
     },
     "validatorDiagnostic": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["code", "severity", "check", "object_id", "object_type", "path", "message", "repair_hint"],
       "properties": {
         "code": {

@@ -14,6 +14,7 @@ let failures = 0;
 
 try {
   runValidExamples();
+  runSchemaCompatibilityCheck();
   runRenderSmokeTests();
   runPatchWorkflowTests();
   runBenchmarkCheck();
@@ -45,6 +46,21 @@ function runValidExamples() {
     return;
   }
   console.log("PASS valid examples");
+}
+
+function runSchemaCompatibilityCheck() {
+  const result = spawnSync(process.execPath, ["scripts/ofone-schema-check.mjs"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  if (result.status === 0) {
+    console.log("PASS schema compatibility");
+    return;
+  }
+  failures += 1;
+  console.error("FAIL schema compatibility");
+  console.error(result.stdout);
+  console.error(result.stderr);
 }
 
 function runRenderSmokeTests() {

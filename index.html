@@ -335,6 +335,7 @@
         <h2>Validation</h2>
         <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Structured diagnostic codes make failures machine-readable, and negative fixtures prove the validator rejects malformed maps.</p>
         <code class="rule">npm run validate
+npm run schema:check
 node scripts/ofone-validate.mjs --json examples/strategy-micro.json
 npm test
 npm run benchmark

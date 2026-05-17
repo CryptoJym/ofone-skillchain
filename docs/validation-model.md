@@ -23,6 +23,20 @@ The artifact may include `validator_result`, but that field is not trusted as pr
 
 All profiles share `schemas/ofone.base.schema.json`.
 
+Every profile schema declares `$schema` and `$id`, and the dispatcher must route each valid example to exactly one profile matching its `mode`.
+
+Compiler-state object definitions are closed against accidental field drift where extra fields would weaken validation: evidence, claims, unknowns, criteria, tradeoff surfaces, actors, temporal models, review logs, edges, loops, options, triggers, gates, confidence models, decision renderings, and validator results. Domain-specific extension data should live in adapter extensions, lenses, subscenes, or explicit top-level extension objects rather than unvalidated fields inside core objects.
+
+Dependent field rules bind lifecycle, evidence identity, tradeoff, temporal, and review surfaces:
+
+- `artifact_identity` depends on evidence state.
+- `tradeoff_surface` depends on criteria and option moves.
+- `temporal_model` depends on evidence.
+- `review_log` depends on gates and actors.
+- `evidence.content_hash` requires retrieval, extract, owner, and chain-of-custody fields.
+- `tradeoff_surface` decision fields require options and criteria.
+- `validator_result.diagnostics` requires check summaries.
+
 ## Semantic Layer
 
 The semantic validator checks:
@@ -67,6 +81,7 @@ The base schema defines portable object shapes. Profiles decide how much is requ
 Negative coverage includes:
 
 - missing evidence hash
+- closed-world evidence object with an extra unmodeled field
 - artifact identity evidence-hash mismatch
 - illegal edge relation
 - disputed-claim option dependency without a review gate

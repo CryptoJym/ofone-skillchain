@@ -16,6 +16,7 @@ The v0.4 line freezes the core inquiry IR and adds decision-lifecycle objects fo
 - [`schemas/ofone.schema.json`](./schemas/ofone.schema.json) - profile dispatcher for Micro, Map, and Audit schemas.
 - [`schemas/ofone.base.schema.json`](./schemas/ofone.base.schema.json) - shared object definitions.
 - [`scripts/ofone-validate.mjs`](./scripts/ofone-validate.mjs) - schema-backed semantic validator.
+- [`scripts/ofone-schema-check.mjs`](./scripts/ofone-schema-check.mjs) - schema identity, profile, and closed-world compatibility checker.
 - [`scripts/ofone-render.mjs`](./scripts/ofone-render.mjs) - human-readable Micro, Map, and Audit renderer.
 - [`scripts/ofone-patch.mjs`](./scripts/ofone-patch.mjs) - dependency-closure patch helper.
 - [`scripts/ofone-test.mjs`](./scripts/ofone-test.mjs) - validator regression tests with negative fixtures.
@@ -48,12 +49,14 @@ Then use it when mapping a bounded domain, stress-testing understanding, or prod
 
 ```bash
 npm run validate
+npm run schema:check
 npm run benchmark
 npm test
 ```
 
 The validator executes JSON Schema first, then semantic graph checks for IDs, references, edge legality, edge semantic families, adapter contracts, loop physics, gates, trigger transitions, and dependency closure.
 It also checks nested subscenes, explicit unknown/null objects, kill-test references, artifact identity hashes, criterion ownership, tradeoff-surface dependencies, temporal evidence windows, information value for blocking unknowns, lens coverage, and Audit review logs.
+The schema checker verifies `$schema`/`$id`, dispatcher/profile compatibility, examples matching exactly one profile, closed compiler-state object definitions, and dependent field rules for lifecycle, evidence identity, tradeoff, and review objects.
 The benchmark checker verifies the direct-answer, light-structured, and full-OfOne arms across strategic, scientific, formal, normative, hybrid, and update/patch task families with the required metric set.
 Each validation finding also has a stable diagnostic object with `code`, `severity`, `message`, optional object metadata, and an optional repair hint. Use JSON output when another tool needs machine-readable diagnostics:
 

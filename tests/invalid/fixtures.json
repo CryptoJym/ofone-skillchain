@@ -8,6 +8,14 @@
     ]
   },
   {
+    "name": "closed-world-evidence-extra-field",
+    "base": "examples/strategy-micro.json",
+    "expect": ["OFONE_JSON_SCHEMA"],
+    "mutations": [
+      { "op": "set", "path": ["evidence", 0, "unmodeled_field"], "value": "schema drift" }
+    ]
+  },
+  {
     "name": "artifact-identity-hash-mismatch",
     "base": "examples/strategy-micro.json",
     "expect": ["OFONE_IDENTITY"],
