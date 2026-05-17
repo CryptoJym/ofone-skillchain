@@ -229,6 +229,8 @@ function runToolingContractCheck() {
     ["pages checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"))],
     ["README pages command", readme.includes("npm run pages:check")],
     ["README review-round version note", readme.includes("Review-round labels such as `v0.7` and `v0.8`")],
+    ["README batch 01 plan", readme.includes("benchmarks/runs/2026-05-17-batch-01/manifest.json")],
+    ["index batch 01 link", index.includes("./benchmarks/runs/2026-05-17-batch-01/manifest.json")],
     ["Pages v08 context link", index.includes("./research/ofone-v08-convergence-context-brief.md")]
   ];
   const missing = required.filter(([, passed]) => !passed).map(([name]) => name);

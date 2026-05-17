@@ -24,10 +24,21 @@ Benchmarks should compare the validated OfOne artifact and its rendering against
 ## Starter Assets
 
 - `suite.json`
+- `runs/2026-05-17-batch-01/manifest.json`
+- `runs/2026-05-17-batch-01/prompts/direct_answer.md`
+- `runs/2026-05-17-batch-01/prompts/light_structured.md`
+- `runs/2026-05-17-batch-01/prompts/full_ofone.md`
+- `reviews/2026-05-17-batch-01-review-template.md`
 - `cases/regulated-wastewater-market-entry.md`
 - `rubrics/decision-map-rubric.md`
 
 The source-backed example at `../examples/source-backed-wastewater-map.json` is the first repository artifact intended to exercise source identity, external URLs, blocking unknowns, and rendering patchability against public reference material.
+
+## Batch 01
+
+`runs/2026-05-17-batch-01/manifest.json` freezes the first five-case execution plan before any model outputs are collected.
+It declares the three benchmark arms, frozen arm prompts, repeated-run and model-family plan, review template, result placeholders, raw-output directory, and release guard.
+Its status is `not_started`; it supports only the claim that a first benchmark batch has been predeclared.
 
 ## Validate The Suite
 
@@ -35,5 +46,5 @@ The source-backed example at `../examples/source-backed-wastewater-map.json` is 
 npm run benchmark
 ```
 
-The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, and linked OfOne artifacts.
+The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, prompt files, review templates, result placeholders, model-family plans, and release guards.
 It intentionally warns until the suite reaches the declared case/run/model-family minimums and releases failure analysis.

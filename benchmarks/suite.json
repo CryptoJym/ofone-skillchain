@@ -88,6 +88,14 @@
     "publish_failure_analysis": true,
     "case_distribution_note": "The suite has six declared task families. Minimum superiority evidence requires at least 3 cases per family plus enough additional cross-family cases to reach 21 total cases."
   },
+  "benchmark_batches": [
+    {
+      "batch_id": "2026-05-17-batch-01",
+      "label": "Initial five-case benchmark execution plan",
+      "status": "not_started",
+      "manifest": "benchmarks/runs/2026-05-17-batch-01/manifest.json"
+    }
+  ],
   "cases": [
     {
       "case_id": "case-strategic-gated-diligence-001",

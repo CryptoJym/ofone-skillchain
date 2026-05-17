@@ -32,6 +32,7 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`examples/source-backed-wastewater-map.json`](./examples/source-backed-wastewater-map.json) - source-backed Map example using public EPA NPDES sources.
 - [`benchmarks/`](./benchmarks/) - benchmark protocol scaffold.
 - [`benchmarks/suite.json`](./benchmarks/suite.json) - three-arm benchmark suite manifest.
+- [`benchmarks/runs/2026-05-17-batch-01/manifest.json`](./benchmarks/runs/2026-05-17-batch-01/manifest.json) - frozen first benchmark batch plan.
 - [`index.html`](./index.html) - GitHub Pages site.
 
 ## Skillchain
@@ -64,9 +65,9 @@ npm test
 The validator executes JSON Schema first, then semantic graph checks for IDs, references, edge legality, edge semantic families, adapter contracts, loop physics, gates, trigger transitions, transition/closure consistency, and dependency closure.
 It also checks nested subscenes, explicit unknown/null objects, kill-test references, artifact identity hashes, criterion ownership, tradeoff-surface dependencies, temporal evidence windows, information value for blocking unknowns, lens coverage, and Audit review logs.
 The schema checker verifies `$schema`/`$id`, dispatcher/profile compatibility, examples matching exactly one profile, closed compiler-state object definitions, and dependent field rules for lifecycle, evidence identity, tradeoff, and review objects.
-The benchmark checker verifies the direct-answer, light-structured, and full-OfOne arms across strategic, scientific, formal, normative, hybrid, and update/patch task families with the required metric set, requires a concrete OfOne artifact for every full-OfOne arm, and reports whether the suite is ready to support superiority claims.
+The benchmark checker verifies the direct-answer, light-structured, and full-OfOne arms across strategic, scientific, formal, normative, hybrid, and update/patch task families with the required metric set, requires a concrete OfOne artifact for every full-OfOne arm, validates frozen batch manifests, prompts, review templates, result placeholders, model-family plans, and release guards, and reports whether the suite is ready to support superiority claims.
 The review checker validates recursive-review sidecars for inspected surfaces, allowlisted sources, no-follow/no-execute/no-write policy, evidence-class separation, ranked backlog, convergence gate, benchmark handoff, and final mode decision.
-The Pages checker compares the deployed GitHub Pages homepage, schemas, review checker script, strategy example, benchmark suite, and run-specific v08 context brief against the local repository. Run it after pushing a release when Pages has finished publishing.
+The Pages checker compares the deployed GitHub Pages homepage, schemas, review checker script, strategy example, benchmark suite, Batch 01 manifest/review template, and run-specific v08 context brief against the local repository. Run it after pushing a release when Pages has finished publishing.
 Each validation finding also has a stable diagnostic object with `code`, `severity`, `message`, optional object metadata, and an optional repair hint. Use JSON output when another tool needs machine-readable diagnostics:
 
 ```bash
@@ -112,3 +113,8 @@ Current convergence review context:
 
 - [`research/ofone-v08-convergence-context-brief.md`](./research/ofone-v08-convergence-context-brief.md)
 - [`research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`](./research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md)
+
+Current benchmark execution plan:
+
+- [`benchmarks/runs/2026-05-17-batch-01/manifest.json`](./benchmarks/runs/2026-05-17-batch-01/manifest.json)
+- [`benchmarks/reviews/2026-05-17-batch-01-review-template.md`](./benchmarks/reviews/2026-05-17-batch-01-review-template.md)

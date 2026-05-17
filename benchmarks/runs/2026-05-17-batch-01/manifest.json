@@ -1,0 +1,65 @@
+{
+  "batch_id": "2026-05-17-batch-01",
+  "suite_id": "ofone-v0.5-three-arm-evaluation",
+  "label": "Initial five-case benchmark execution plan",
+  "status": "not_started",
+  "purpose": "Freeze the first executable benchmark batch before running model comparisons, so later outputs can be audited against predeclared cases, prompts, review criteria, and release guards.",
+  "case_ids": [
+    "case-strategic-gated-diligence-001",
+    "case-regulated-wastewater-market-entry-001",
+    "case-formal-proof-search-001",
+    "case-public-sector-ai-policy-audit-001",
+    "case-scientific-mechanism-check-001"
+  ],
+  "arms": [
+    {
+      "arm_id": "direct_answer",
+      "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/direct_answer.md",
+      "required_outputs": ["answer", "confidence_or_uncertainty", "source_or_gap_notes"]
+    },
+    {
+      "arm_id": "light_structured",
+      "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/light_structured.md",
+      "required_outputs": ["structured_answer", "risks_or_unknowns", "recommendation"]
+    },
+    {
+      "arm_id": "full_ofone",
+      "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+      "required_outputs": ["artifact_json", "validator_result", "rendering", "patch_report_if_update_case"]
+    }
+  ],
+  "model_plan": {
+    "runs_per_case_per_arm": 3,
+    "model_families": [
+      {
+        "family_id": "frontier_reasoning",
+        "target": "GPT-5.5 Pro or current ChatGPT Pro Deep Research-equivalent reviewer available to the operator",
+        "status": "not_started"
+      },
+      {
+        "family_id": "agentic_coding",
+        "target": "Codex-style implementation and validation reviewer available in the repo workflow",
+        "status": "not_started"
+      }
+    ],
+    "randomization": "Run order should be randomized or rotated by case and arm before execution. Store actual order in run records.",
+    "operator_notes": "Do not summarize across arms until raw outputs are saved. Do not let one arm inspect another arm's answer before its own run is complete."
+  },
+  "review_plan": {
+    "rubric": "benchmarks/rubrics/decision-map-rubric.md",
+    "review_template": "benchmarks/reviews/2026-05-17-batch-01-review-template.md",
+    "blinding": "Hide arm labels from reviewers where practical. If blinding is not possible because full_ofone artifacts are obvious, record that limitation in the review notes.",
+    "adjudication_status": "not_started"
+  },
+  "results_plan": {
+    "summary_file": "benchmarks/results/2026-05-17-batch-01-summary.md",
+    "failure_analysis_file": "benchmarks/results/2026-05-17-batch-01-failure-analysis.md",
+    "raw_output_dir": "benchmarks/runs/2026-05-17-batch-01/outputs",
+    "status": "not_started"
+  },
+  "release_guard": {
+    "superiority_claims_allowed": false,
+    "reason": "This batch has not run, and even completed five-case results would not satisfy the declared 21-case benchmark minimum.",
+    "allowed_claim": "Batch 01 is a frozen execution plan for the first benchmark pass."
+  }
+}
