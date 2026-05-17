@@ -1,0 +1,776 @@
+{
+  "ofone_version": "0.6.0",
+  "mode": "Micro",
+  "charter": {
+    "objective": "Decide whether to enter a regulated wastewater treatment market.",
+    "scope": [
+      "market-entry decision",
+      "early diligence",
+      "US regulatory assumption"
+    ],
+    "horizon": "60 days",
+    "stakes": [
+      "capital risk",
+      "compliance exposure",
+      "reputation"
+    ],
+    "risk_tier": "medium",
+    "movement_jobs": [
+      "BOUND",
+      "GATE"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "hybrid",
+    "axes": {
+      "strategic-agentic": [
+        "market entry",
+        "customer incentives",
+        "partner options"
+      ],
+      "scientific-explanatory": [
+        "treatment performance",
+        "measurement",
+        "failure modes"
+      ],
+      "normative-evaluative": [
+        "environmental exposure",
+        "public consequence"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "LINK"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "strategic",
+        "assumptions": [
+          "market segment and jurisdiction are not yet fixed"
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "causal",
+        "assumptions": [
+          "permit path and treatment proof determine launch feasibility"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "K1",
+        "kind": "entity",
+        "label": "target market"
+      },
+      {
+        "token_id": "K2",
+        "kind": "constraint",
+        "label": "permit pathway"
+      },
+      {
+        "token_id": "K3",
+        "kind": "variable",
+        "label": "treatment performance"
+      },
+      {
+        "token_id": "K4",
+        "kind": "uncertainty",
+        "label": "jurisdiction-specific requirements"
+      }
+    ],
+    "state_variables": [
+      "segment",
+      "jurisdiction",
+      "permit pathway",
+      "capex",
+      "opex"
+    ],
+    "observed_variables": [
+      "limited evidence",
+      "regulated wastewater context"
+    ],
+    "hidden_variables": [
+      "local enforcement posture",
+      "actual influent profile",
+      "operator competence"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "WARN"
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "K3",
+          "K4"
+        ],
+        "entry_conditions": [
+          "market entry question requires segment, jurisdiction, and pilot evidence"
+        ],
+        "exit_conditions": [
+          "minimum diligence evidence is collected or the move remains gated"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "purpose": "option_decision",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K1",
+          "K2"
+        ],
+        "entry_conditions": [
+          "launch and diligence options are distinguishable"
+        ],
+        "exit_conditions": [
+          "option move is selected or blocked"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "observation",
+      "span_or_locator": "user scenario",
+      "provenance": "provided prompt states evidence is limited",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "supports": [
+        "C1"
+      ],
+      "risks": [
+        "incomplete_context"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "WARN"
+      ],
+      "extract": "provided prompt states evidence is limited",
+      "source_owner": "artifact author",
+      "chain_of_custody": "artifact author recorded source locator and extracted summary during example construction",
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:5afd10e838f35e38419087bbe0fb06796972f59f0419eb246fb331f61db76542"
+    },
+    {
+      "evidence_id": "E2",
+      "source": "observation",
+      "span_or_locator": "regulated wastewater treatment market",
+      "provenance": "domain characterization in prompt",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "supports": [
+        "C2"
+      ],
+      "risks": [
+        "jurisdiction_unspecified"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ],
+      "extract": "domain characterization in prompt",
+      "source_owner": "artifact author",
+      "chain_of_custody": "artifact author recorded source locator and extracted summary during example construction",
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:2714646fa5ba5264bc0b561c45a65499502c6b630d5fe05627784443bc093d52"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "Current evidence is insufficient for full operational market entry.",
+      "type": "operational",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "hidden_variable_risk",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "missing_segment_data",
+          "unknown_jurisdiction"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "A gated diligence move is more reversible than launch.",
+      "type": "operational",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "opportunity_cost",
+          "partner_availability_unknown"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "C1",
+      "to": "C2",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "K2",
+      "to": "C1",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "review",
+      "edges": [
+        "X2"
+      ],
+      "failure_mode": "review treated as paperwork instead of a decision gate",
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ],
+      "polarity": "unknown",
+      "delay": "unknown",
+      "gain": "unknown",
+      "control_points": [
+        "human gate decision"
+      ],
+      "observable_cues": [
+        "permit uncertainty blocks launch commitment"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "test",
+      "preconditions": [
+        "C1",
+        "C2"
+      ],
+      "expected_effects": [
+        "X1"
+      ],
+      "tradeoffs": [
+        "slower entry",
+        "lower compliance risk",
+        "more reversible spend"
+      ],
+      "blocking_unknowns": [
+        "U1"
+      ],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "EVALUATE",
+        "GATE"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "E1"
+      ],
+      "transition": "patch",
+      "movement_jobs": [
+        "TRIGGER"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "customer commitment, permit filing, compliance exposure, reputation exposure, or operational launch",
+      "reviewer": "human regulatory and business owner",
+      "required_decision": "approve, block, or narrow the diligence move",
+      "status": "open",
+      "movement_jobs": [
+        "GATE"
+      ]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "medium",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "summary": "Do not launch operationally. Run a gated diligence sprint.",
+    "recommendation": "Approve a reversible diligence move, not full entry.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "O1",
+      "U1",
+      "TS1",
+      "COUNCIL"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "MOVE",
+      "GATE"
+    ],
+    "rendering_id": "R1"
+  },
+  "validator_result": {
+    "passed": true,
+    "diagnostics": [
+      {
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info",
+        "check": "json_schema",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "Micro artifact matches executable JSON Schema profile",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info",
+        "check": "adapter_contract",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "hybrid adapter contract loaded",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_GATE_COVERAGE",
+        "severity": "info",
+        "check": "adapter_gate_coverage",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "gate coverage present for compliance, reputation",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T1: C1, C2, COUNCIL, KT1, L1, LENS1, LENS2, LENS3, O1, OFONE-strategy-micro-001, R1, T1, TEMPORAL, TS1, X1, X2 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info",
+        "check": "semantic_validation",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "semantic graph checks completed",
+        "repair_hint": null
+      }
+    ],
+    "checks": [
+      {
+        "check": "json_schema",
+        "passed": true,
+        "notes": "Micro artifact matches executable JSON Schema profile",
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_contract",
+        "passed": true,
+        "notes": "hybrid adapter contract loaded",
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_gate_coverage",
+        "passed": true,
+        "notes": "gate coverage present for compliance, reputation",
+        "code": "OFONE_ADAPTER_GATE_COVERAGE",
+        "severity": "info"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T1: C1, C2, COUNCIL, KT1, L1, LENS1, LENS2, LENS3, O1, OFONE-strategy-micro-001, R1, T1, TEMPORAL, TS1, X1, X2 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "semantic_validation",
+        "passed": true,
+        "notes": "semantic graph checks completed",
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info"
+      }
+    ]
+  },
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_evidence",
+      "description": "Target segment, jurisdiction, and pilot-performance evidence are not yet specified.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Collect segment, jurisdiction, and pilot-performance evidence before operational entry.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C2",
+      "test_type": "adapter_conflict",
+      "condition": "Source contradiction or regime shift shows diligence is not more reversible than launch.",
+      "falsifies": [
+        "C2"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ],
+  "artifact_identity": {
+    "artifact_id": "OFONE-strategy-micro-001",
+    "case_id": "case-strategy-micro-001",
+    "objective_head": "Decide whether to enter a regulated wastewater treatment market.",
+    "scope_hash": "sha256:1e3e88c64f9e6379801ab33950efbac5c38eb2472a2b8663cf8c189a15140dc5",
+    "config_hash": "sha256:4e06a380a458a5f0e4f40d556fce17df6c6146185209f075fbc56b97a314790b",
+    "active_evidence_hashes": [
+      "sha256:5afd10e838f35e38419087bbe0fb06796972f59f0419eb246fb331f61db76542",
+      "sha256:2714646fa5ba5264bc0b561c45a65499502c6b630d5fe05627784443bc093d52"
+    ],
+    "created_at": "2026-05-14T00:00:00Z",
+    "status": "review_pending",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "human review owner",
+      "role": "reviewer",
+      "incentives": [
+        "avoid invalid release"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "assigned review authority for the decision",
+      "movement_jobs": [
+        "BOUND",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "affected party",
+      "role": "affected_party",
+      "incentives": [
+        "avoid harm from incorrect decision"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation"
+      ],
+      "authority": "observe",
+      "legitimacy_basis": "directly exposed to the decision outcome",
+      "movement_jobs": [
+        "BOUND",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Gate safety",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not release or launch while required gate remains open.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Unknown resolution value",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Prefer moves that resolve rendering-blocking unknowns before irreversible action.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "TEST"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Affected-party exposure",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "Do not hide material exposure to affected parties.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "60 days",
+    "decision_deadline": "60 days",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "source is superseded, contradicted, or made stale by new evidence"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "source is superseded, contradicted, or made stale by new evidence"
+      }
+    ],
+    "update_cadence": "weekly until open unknowns resolve",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "low",
+      "time_to_resolve": "days to 2 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Collect segment, jurisdiction, and pilot-performance evidence before operational entry.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "strategic agentic lens",
+      "adapter_axis": "strategic-agentic",
+      "questions": [
+        "What does the strategic-agentic frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "Target segment, jurisdiction, and pilot-performance evidence are not yet specified."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "scientific explanatory lens",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "What does the scientific-explanatory frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C2"
+      ],
+      "blind_spots": [
+        "Target segment, jurisdiction, and pilot-performance evidence are not yet specified."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS3",
+      "name": "normative evaluative lens",
+      "adapter_axis": "normative-evaluative",
+      "questions": [
+        "What does the normative-evaluative frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "Target segment, jurisdiction, and pilot-performance evidence are not yet specified."
+      ],
+      "contention": [
+        "U1 blocks O1, R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "strategic-agentic",
+      "scientific-explanatory",
+      "normative-evaluative"
+    ],
+    "missing_lenses": [],
+    "major_dissent": [
+      "U1 blocks O1, R1"
+    ],
+    "decision_effect": "Approve a reversible diligence move, not full entry.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "review_log": []
+}

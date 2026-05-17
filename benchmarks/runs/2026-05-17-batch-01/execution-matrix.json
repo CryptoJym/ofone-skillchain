@@ -2,7 +2,7 @@
   "matrix_id": "2026-05-17-batch-01-matrix",
   "batch_id": "2026-05-17-batch-01",
   "suite_id": "ofone-v0.5-three-arm-evaluation",
-  "status": "queued",
+  "status": "in_progress",
   "case_ids": [
     "case-strategic-gated-diligence-001",
     "case-regulated-wastewater-market-entry-001",
@@ -19,14 +19,44 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 90,
-    "completed": 0,
+    "queued": 87,
+    "completed": 3,
     "reviewed": 0,
     "excluded": 0
   },
+  "completed_runs": [
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1.md"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1.md"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json"
+    }
+  ],
   "release_guard": {
     "aggregate_scoring_allowed": false,
     "superiority_claims_allowed": false,
-    "reason": "No raw benchmark outputs have been collected for this matrix."
+    "reason": "Only 3 of 90 raw benchmark outputs have been collected, and no reviews or aggregate scoring have been completed."
   }
 }

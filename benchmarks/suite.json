@@ -92,7 +92,7 @@
     {
       "batch_id": "2026-05-17-batch-01",
       "label": "Initial five-case benchmark execution plan",
-      "status": "not_started",
+      "status": "in_progress",
       "manifest": "benchmarks/runs/2026-05-17-batch-01/manifest.json"
     }
   ],

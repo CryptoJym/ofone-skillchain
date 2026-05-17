@@ -2,7 +2,7 @@
   "batch_id": "2026-05-17-batch-01",
   "suite_id": "ofone-v0.5-three-arm-evaluation",
   "label": "Initial five-case benchmark execution plan",
-  "status": "not_started",
+  "status": "in_progress",
   "purpose": "Freeze the first executable benchmark batch before running model comparisons, so later outputs can be audited against predeclared cases, prompts, review criteria, and release guards.",
   "case_ids": [
     "case-strategic-gated-diligence-001",
@@ -40,7 +40,7 @@
       {
         "family_id": "agentic_coding",
         "target": "Codex-style implementation and validation reviewer available in the repo workflow",
-        "status": "not_started"
+        "status": "in_progress"
       }
     ],
     "randomization": "Run order should be randomized or rotated by case and arm before execution. Store actual order in run records.",
@@ -56,7 +56,7 @@
     "summary_file": "benchmarks/results/2026-05-17-batch-01-summary.md",
     "failure_analysis_file": "benchmarks/results/2026-05-17-batch-01-failure-analysis.md",
     "raw_output_dir": "benchmarks/runs/2026-05-17-batch-01/outputs",
-    "status": "not_started"
+    "status": "in_progress"
   },
   "release_guard": {
     "superiority_claims_allowed": false,

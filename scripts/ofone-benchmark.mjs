@@ -293,11 +293,90 @@ function validateBatchExecutionMatrix(manifest) {
     pass("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion totals match predeclared run count`);
   }
 
+  validateCompletedRuns(manifest, matrix);
+
   if (!matrix.release_guard || matrix.release_guard.superiority_claims_allowed !== false) {
     fail("BENCH_BATCH_MATRIX_RELEASE_GUARD", `${manifest.batch_id} execution matrix must block superiority claims until results are reviewed`);
   } else {
     pass("BENCH_BATCH_MATRIX_RELEASE_GUARD", `${manifest.batch_id} execution matrix release guard blocks unsupported claims`);
   }
+}
+
+function validateCompletedRuns(manifest, matrix) {
+  const completedRuns = matrix.completed_runs || [];
+  const completedCount = matrix.completion?.completed || 0;
+  if (completedRuns.length !== completedCount) {
+    fail("BENCH_BATCH_COMPLETED_RUNS", `${manifest.batch_id} lists ${completedRuns.length}/${completedCount} completed run record(s)`);
+    return;
+  }
+  pass("BENCH_BATCH_COMPLETED_RUNS", `${manifest.batch_id} lists ${completedRuns.length} completed run record(s)`);
+
+  const seen = new Set();
+  const validCases = new Set(manifest.case_ids || []);
+  const validArms = new Set((manifest.arms || []).map((arm) => arm.arm_id));
+  const validModelFamilies = new Set((manifest.model_plan?.model_families || []).map((family) => family.family_id));
+  const maxRepeat = manifest.model_plan?.runs_per_case_per_arm || 0;
+
+  for (const run of completedRuns) {
+    const label = run.run_id || "(missing run_id)";
+    if (!run.run_id) fail("BENCH_BATCH_RUN_ID", `${manifest.batch_id} completed run missing run_id`);
+    if (seen.has(run.run_id)) fail("BENCH_BATCH_RUN_ID_UNIQUE", `${manifest.batch_id} duplicate completed run_id ${run.run_id}`);
+    seen.add(run.run_id);
+
+    if (!validCases.has(run.case_id)) fail("BENCH_BATCH_RUN_CASE", `${label} has unknown case_id ${run.case_id || "(missing)"}`);
+    if (!validArms.has(run.arm_id)) fail("BENCH_BATCH_RUN_ARM", `${label} has unknown arm_id ${run.arm_id || "(missing)"}`);
+    if (!validModelFamilies.has(run.model_family)) fail("BENCH_BATCH_RUN_MODEL_FAMILY", `${label} has unknown model_family ${run.model_family || "(missing)"}`);
+    if (!Number.isInteger(run.repeat) || run.repeat < 1 || run.repeat > maxRepeat) {
+      fail("BENCH_BATCH_RUN_REPEAT", `${label} repeat ${run.repeat || "(missing)"} outside 1..${maxRepeat}`);
+    }
+
+    const expectedRunId = `${manifest.batch_id}__${run.case_id}__${run.arm_id}__${run.model_family}__r${run.repeat}`;
+    if (run.run_id !== expectedRunId) {
+      fail("BENCH_BATCH_RUN_ID_FORMAT", `${label} should be ${expectedRunId}`);
+    }
+
+    if (run.status !== "completed") fail("BENCH_BATCH_RUN_STATUS", `${label} status must be completed`);
+    checkRunOutput(run);
+    if (run.arm_id === "full_ofone") checkRunArtifact(run);
+  }
+}
+
+function checkRunOutput(run) {
+  if (!run.raw_output) {
+    fail("BENCH_BATCH_RUN_OUTPUT", `${run.run_id || "(missing run_id)"} missing raw_output`);
+    return;
+  }
+  const outputPath = path.join(repoRoot, run.raw_output);
+  if (!fs.existsSync(outputPath)) {
+    fail("BENCH_BATCH_RUN_OUTPUT", `${run.run_id} raw output not found at ${run.raw_output}`);
+    return;
+  }
+  const outputText = fs.readFileSync(outputPath, "utf8");
+  const missing = [run.run_id, run.case_id, run.arm_id, run.model_family, "Status: `completed`"].filter((needle) => !outputText.includes(needle));
+  if (missing.length > 0) {
+    fail("BENCH_BATCH_RUN_OUTPUT", `${run.run_id} raw output missing ${missing.join(", ")}`);
+    return;
+  }
+  pass("BENCH_BATCH_RUN_OUTPUT", `${run.run_id} raw output exists and identifies its slot`);
+}
+
+function checkRunArtifact(run) {
+  if (!run.artifact_json) {
+    fail("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} full_ofone run missing artifact_json`);
+    return;
+  }
+  const artifactPath = path.join(repoRoot, run.artifact_json);
+  if (!fs.existsSync(artifactPath)) {
+    fail("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} artifact_json not found at ${run.artifact_json}`);
+    return;
+  }
+  try {
+    JSON.parse(fs.readFileSync(artifactPath, "utf8"));
+  } catch (error) {
+    fail("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} artifact_json is not valid JSON: ${error.message}`);
+    return;
+  }
+  pass("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} full_ofone artifact JSON exists and parses`);
 }
 
 function checkArrayExact(code, expected, actual, label) {

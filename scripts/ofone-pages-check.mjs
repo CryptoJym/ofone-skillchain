@@ -22,6 +22,8 @@ const targets = [
   { label: "benchmark suite", local: "benchmarks/suite.json", remote: "/benchmarks/suite.json", kind: "json" },
   { label: "batch 01 manifest", local: "benchmarks/runs/2026-05-17-batch-01/manifest.json", remote: "/benchmarks/runs/2026-05-17-batch-01/manifest.json", kind: "json" },
   { label: "batch 01 execution matrix", local: "benchmarks/runs/2026-05-17-batch-01/execution-matrix.json", remote: "/benchmarks/runs/2026-05-17-batch-01/execution-matrix.json", kind: "json" },
+  { label: "batch 01 raw full output", local: "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md", remote: "/benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md" },
+  { label: "batch 01 raw full artifact", local: "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json", remote: "/benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json", kind: "json" },
   { label: "batch 01 review template", local: "benchmarks/reviews/2026-05-17-batch-01-review-template.md", remote: "/benchmarks/reviews/2026-05-17-batch-01-review-template.md" },
   { label: "v08 context brief", local: "research/ofone-v08-convergence-context-brief.md", remote: "/research/ofone-v08-convergence-context-brief.md" }
 ];
