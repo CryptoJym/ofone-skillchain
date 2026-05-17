@@ -24,6 +24,14 @@
     ]
   },
   {
+    "name": "relation-family-mismatch",
+    "base": "examples/strategy-micro.json",
+    "expect": ["OFONE_RELATION_FAMILY"],
+    "mutations": [
+      { "op": "set", "path": ["edges", 0, "relation_family"], "value": "causal" }
+    ]
+  },
+  {
     "name": "disputed-option-without-gate",
     "base": "examples/strategy-micro.json",
     "expect": ["OFONE_OPTION_DEPENDENCY"],

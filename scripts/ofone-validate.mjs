@@ -25,6 +25,7 @@ const enums = {
   movementJobs: new Set(["BOUND", "GROUND", "CLAIM", "LINK", "TEST", "MOVE", "EVALUATE", "WARN", "TRIGGER", "GATE"]),
   ordinals: new Set(["low", "medium", "high"]),
   adapters: new Set(["strategic-agentic", "scientific-explanatory", "formal", "normative-evaluative", "hybrid", "provisional"]),
+  relationFamilies: new Set(["causal", "evidential", "argumentative", "workflow_state"]),
   loopTypes: new Set(["reinforcing", "balancing", "measurement", "incentive", "learning", "contradiction", "review", "deception", "regime"]),
   triggerTransitions: new Set(["no_op", "patch", "scoped_rerun", "trunk_rewrite", "human_review"])
 };
@@ -61,6 +62,7 @@ const diagnosticCodes = {
   confidence: "OFONE_CONFIDENCE",
   unknown: "OFONE_UNKNOWN",
   kill_test: "OFONE_KILL_TEST",
+  relation_family: "OFONE_RELATION_FAMILY",
   relation_legality: "OFONE_RELATION_LEGALITY",
   loop_type: "OFONE_LOOP_TYPE",
   loop_physics: "OFONE_LOOP_PHYSICS",
@@ -519,6 +521,10 @@ function validateEdges(data, evidenceIds, index, { fail }) {
     if (!isLegalRelation(edge.relation, fromType, toType)) {
       fail("relation_legality", `edge ${edge.edge_id} cannot use ${edge.relation} from ${fromType} to ${toType}`);
     }
+    if (!isLegalRelationFamily(edge.relation_family, edge.relation, fromType, toType)) {
+      const allowed = [...relationFamiliesFor(edge.relation, fromType, toType)].join("|") || "(none)";
+      fail("relation_family", `edge ${edge.edge_id} relation_family ${edge.relation_family || "(missing)"} is invalid for ${edge.relation} from ${fromType} to ${toType}; expected ${allowed}`);
+    }
   }
 }
 
@@ -717,6 +723,35 @@ function isLegalRelation(relation, fromType, toType) {
   };
 
   return rules[relation]?.() ?? false;
+}
+
+function isLegalRelationFamily(family, relation, fromType, toType) {
+  return relationFamiliesFor(relation, fromType, toType).has(family);
+}
+
+function relationFamiliesFor(relation, fromType, toType) {
+  const from = normalizeType(fromType);
+  const to = normalizeType(toType);
+  const families = new Set();
+
+  if (["causes", "constrains", "enables"].includes(relation)) families.add("causal");
+  if (["observes"].includes(relation)) families.add("evidential");
+  if (["contradicts", "evaluates"].includes(relation)) families.add("argumentative");
+  if (["updates", "blocks", "depends_on"].includes(relation)) families.add("workflow_state");
+
+  if (relation === "supports") {
+    if (from.base === "evidence" || from.raw === "token:evidence") {
+      families.add("evidential");
+    }
+    if (["claim", "edge", "criterion", "tradeoff_surface"].includes(from.base)) {
+      families.add("argumentative");
+    }
+    if (to.base === "rendering" || to.base === "tradeoff_surface") {
+      families.add("argumentative");
+    }
+  }
+
+  return families;
 }
 
 function normalizeType(type) {

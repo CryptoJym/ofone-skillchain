@@ -821,7 +821,7 @@
     },
     "edge": {
       "type": "object",
-      "required": ["edge_id", "from", "to", "relation", "evidence_refs", "confidence", "movement_jobs"],
+      "required": ["edge_id", "from", "to", "relation_family", "relation", "evidence_refs", "confidence", "movement_jobs"],
       "properties": {
         "edge_id": {
           "type": "string"
@@ -831,6 +831,9 @@
         },
         "to": {
           "type": "string"
+        },
+        "relation_family": {
+          "enum": ["causal", "evidential", "argumentative", "workflow_state"]
         },
         "relation": {
           "enum": ["causes", "constrains", "supports", "contradicts", "enables", "observes", "evaluates", "updates", "blocks", "depends_on"]

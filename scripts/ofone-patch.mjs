@@ -22,6 +22,7 @@ const closure = dependencyClosure(changedIds, index.reverseDeps);
 const transition = classifyTransition(data, changedIds, closure);
 const affectedObjects = closure.map((id) => describeObject(id));
 const changedObjects = changedIds.map((id) => describeObject(id));
+const affectedSemanticLayers = semanticLayersFor([...changedObjects, ...affectedObjects]);
 const renderingAffected = data.decision_rendering?.rendering_id ? closure.includes(data.decision_rendering.rendering_id) : false;
 const invalidatedClaims = affectedObjects.filter((object) => object.type === "claim").map((object) => object.id);
 const validationScope = [...changedObjects, ...affectedObjects];
@@ -41,6 +42,7 @@ console.log(JSON.stringify({
   changed_objects: changedObjects,
   affected_closure: affectedObjects,
   affected_by_type: groupByType(affectedObjects),
+  affected_semantic_layers: affectedSemanticLayers,
   invalidated_claims: invalidatedClaims,
   suggested_transition: transition,
   rendering_affected: renderingAffected,
@@ -98,6 +100,26 @@ function nextSteps(transition, renderingAffected, invalidatedClaims) {
   if (transition === "human_review") steps.push("route through the required human gate before release");
   if (transition === "trunk_rewrite") steps.push("recompute charter, adapter projection, and dependent graph");
   return steps;
+}
+
+function semanticLayersFor(objects) {
+  const layers = new Set();
+  for (const object of objects) {
+    if (object.type === "evidence") layers.add("evidential");
+    if (object.type === "claim") layers.add("argumentative");
+    if (object.type === "trigger" || object.type === "gate" || object.type === "review_log") layers.add("workflow_state");
+    if (object.type === "edge") {
+      const family = index.ids.get(object.id)?.object?.relation_family;
+      if (family) layers.add(family);
+    }
+    if (object.type === "loop") {
+      for (const edgeId of index.ids.get(object.id)?.object?.edges || []) {
+        const family = index.ids.get(edgeId)?.object?.relation_family;
+        if (family) layers.add(family);
+      }
+    }
+  }
+  return [...layers].sort();
 }
 
 function requiresTypeCheck(objects, types) {

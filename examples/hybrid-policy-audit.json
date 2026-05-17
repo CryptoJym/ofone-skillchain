@@ -347,6 +347,7 @@
       "edge_id": "X1",
       "from": "K3",
       "to": "C3",
+      "relation_family": "causal",
       "relation": "causes",
       "evidence_refs": [
         "E2"
@@ -361,6 +362,7 @@
       "edge_id": "X2",
       "from": "C3",
       "to": "C2",
+      "relation_family": "argumentative",
       "relation": "supports",
       "evidence_refs": [
         "E2"
@@ -375,6 +377,7 @@
       "edge_id": "X3",
       "from": "K4",
       "to": "C2",
+      "relation_family": "causal",
       "relation": "constrains",
       "evidence_refs": [
         "E2"

@@ -90,7 +90,7 @@ Map all domains through these primitives before rendering domain language:
 | Subscene | local scene decomposition for evidence acquisition, causal mechanism, option decision, proof step, stakeholder context, or review gate |
 | Unknown | addressable null object for missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable |
 | Move | transformation: infer, observe, test, intervene, decide, revise |
-| Edge | typed relation: causes, constrains, supports, contradicts, enables, observes, evaluates, updates |
+| Edge | typed relation with semantic family: causal, evidential, argumentative, or workflow-state |
 | Loop | recurrent dependency: feedback, control, learning, incentive, measurement, contradiction, review |
 | Invariant | constraint or symmetry that survives across frames or reruns |
 | Gate | condition that blocks movement until evidence, review, permission, or redaction exists |
@@ -308,6 +308,7 @@ The executable schemas live at `schemas/ofone.*.schema.json`; `schemas/ofone.sch
   "edge_id": "X1",
   "from": "token_or_claim_id",
   "to": "token_or_claim_id",
+  "relation_family": "causal|evidential|argumentative|workflow_state",
   "relation": "causes|constrains|supports|contradicts|enables|observes|evaluates|updates|blocks|depends_on",
   "evidence_refs": ["E1"],
   "confidence": "low|medium|high"
@@ -488,6 +489,7 @@ Before final output, run the validator or answer these checks. The artifact may 
 - Did every sentence or object perform BOUND, GROUND, CLAIM, LINK, TEST, MOVE, EVALUATE, WARN, TRIGGER, or GATE?
 - Are evidence, claims, domain graph, and final rendering separate?
 - Are edge relations legal for their endpoint object types?
+- Does each edge's semantic family match its relation and endpoint object types?
 - Do evidence objects carry stable identity fields and source custody?
 - Does each strong claim list support, contradiction or gaps, confidence basis, and failure mode?
 - Are causal edges, hidden variables, loop physics, and regime assumptions explicit enough for the chosen mode?

@@ -286,7 +286,7 @@
           <div class="item"><h3>Token</h3><p>Entity, variable, evidence item, claim, uncertainty, constraint, option, or trigger.</p></div>
           <div class="item"><h3>Unknown</h3><p>Addressable absence: missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable.</p></div>
           <div class="item"><h3>Move</h3><p>Infer, observe, test, intervene, decide, or revise.</p></div>
-          <div class="item"><h3>Edge</h3><p>Cause, constrain, support, contradict, enable, observe, evaluate, or update.</p></div>
+          <div class="item"><h3>Edge</h3><p>Causal, evidential, argumentative, or workflow-state relation over cause, support, contradiction, constraint, update, block, or dependency.</p></div>
           <div class="item"><h3>Loop</h3><p>Feedback, control, learning, incentive, measurement, contradiction, or review.</p></div>
         </div>
       </section>
@@ -332,7 +332,7 @@
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Structured diagnostic codes make failures machine-readable, and negative fixtures prove the validator rejects malformed maps.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Structured diagnostic codes make failures machine-readable, and negative fixtures prove the validator rejects malformed maps.</p>
         <code class="rule">npm run validate
 node scripts/ofone-validate.mjs --json examples/strategy-micro.json
 npm test

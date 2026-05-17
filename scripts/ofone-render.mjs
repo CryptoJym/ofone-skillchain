@@ -58,7 +58,7 @@ function renderMap(data, index) {
     `Dissent / contradiction: ${dissentSummary(data)}`
   ]);
   section("Graph And Loops", [
-    `Edges: ${array(data.edges).map((edge) => `${edge.edge_id}:${edge.from}-${edge.relation}->${edge.to}`).join(", ")}`,
+    ...edgeFamilyLines(data),
     `Loops: ${array(data.loops).map((loop) => `${loop.loop_id}:${loop.type}:${loop.polarity}`).join(", ")}`
   ]);
   section("Decision Surface", decisionSurfaceLines(data));
@@ -107,6 +107,22 @@ function claimLines(data) {
   return array(data.claims).map((claim) => (
     `${claim.claim_id}: ${claim.text} (${claim.status}, confidence=${claim.confidence?.level})`
   ));
+}
+
+function edgeFamilyLines(data) {
+  const edges = array(data.edges);
+  if (edges.length === 0) return ["Edges: none recorded"];
+
+  const families = ["causal", "evidential", "argumentative", "workflow_state"];
+  return families.flatMap((family) => {
+    const familyEdges = edges.filter((edge) => edge.relation_family === family);
+    if (familyEdges.length === 0) return [];
+    return [`${labelFamily(family)} edges: ${familyEdges.map((edge) => `${edge.edge_id}:${edge.from}-${edge.relation}->${edge.to}`).join(", ")}`];
+  });
+}
+
+function labelFamily(family) {
+  return String(family || "unclassified").replace("_", " ");
 }
 
 function unknownLines(data) {

@@ -78,4 +78,4 @@ Guardrails:
 
 ## Product Rule
 
-Build OfOne as a typed causal-geometry compiler with explicit adapter projection, immutable evidence, atomic claims, causal loops, schema-bounded objects, executable relation legality, auditable patches, compression modes, renderers, validators, and enforceable human gates.
+Build OfOne as a typed causal-geometry compiler with explicit adapter projection, immutable evidence, atomic claims, causal loops, schema-bounded objects, executable relation legality, semantic relation families, auditable patches, compression modes, renderers, validators, and enforceable human gates.

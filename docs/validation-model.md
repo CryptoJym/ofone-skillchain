@@ -81,9 +81,10 @@ Negative coverage includes:
 
 ## Relation Legality
 
-Edges are not only strings. Relation legality is checked against endpoint object types. Examples:
+Edges are not only strings. Relation legality is checked against endpoint object types, and every edge carries a semantic family: `causal`, `evidential`, `argumentative`, or `workflow_state`. Examples:
 
-- evidence or claims may `support` claims
+- evidence may `support` claims as evidential edges
+- claims may `support` claims as argumentative edges
 - claims may `contradict` claims
 - variables or claims may `cause` variables or claims
 - constraints, claims, or gates may `constrain` claims, options, edges, loops, or renderings

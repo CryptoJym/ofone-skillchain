@@ -50,7 +50,7 @@ This makes OfOne portable across domains without forcing a single domain vocabul
 | Token | The smallest typed unit: entity, variable, claim, evidence item, uncertainty, constraint, option, trigger. |
 | Unknown | An addressable null object for missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable. |
 | Move | A transformation: infer, observe, test, intervene, decide, revise. |
-| Edge | A typed relation: causes, constrains, supports, contradicts, enables, observes, evaluates, updates. |
+| Edge | A typed relation with semantic family: causal, evidential, argumentative, or workflow-state. |
 | Loop | A recurrent dependency: feedback, control, learning, incentive, measurement, contradiction, review. |
 | Invariant | A constraint or symmetry that survives across frames or reruns. |
 | Gate | A condition that blocks movement until evidence, review, permission, or redaction exists. |

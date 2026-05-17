@@ -189,6 +189,7 @@ npm run validate
   "edge_id": "X1",
   "from": "token_or_claim_id",
   "to": "token_or_claim_id",
+  "relation_family": "causal|evidential|argumentative|workflow_state",
   "relation": "causes|constrains|supports|contradicts|enables|observes|evaluates|updates|blocks|depends_on",
   "evidence_refs": ["E1"],
   "confidence": "low|medium|high"
