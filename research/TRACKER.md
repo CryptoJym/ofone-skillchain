@@ -52,8 +52,23 @@ Date: 2026-05-17
 - Applied connections: public web/GitHub URLs in prompt; no private account connections selected.
 - Browser surface: Chrome plugin / Computer Use on authenticated ChatGPT session.
 - URL: https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746
+- Current state: `integrated`
+- Result file: `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md`
+
+## Run 04 Launch Metadata
+
+- Observed model label: expanded model selector showed `Latest · 5.5`; selected option showed `Pro • Extended`; composer showed `Pro` after Deep Research was enabled.
+- Observed thinking/reasoning label: expanded selector showed `Pro • Extended` selected.
+- Deep Research: enabled; visible plan title `OfOne v0.7 Recursive Review`; `Start` clicked; visible status changed to `Researching...`; `Stop research` button present.
+- Prompt file: `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md`
+- Context brief: `research/ofone-v07-context-brief.md`
+- Attached/pasted context: ChatGPT received the full prompt in the composer; no separate filesystem upload was used.
+- ChatGPT project/workspace: none selected; clean new chat.
+- Applied connections: public web/GitHub URLs in prompt; no private account connections selected.
+- Browser surface: Chrome plugin unavailable through callable tools; launched with Computer Use on authenticated Chrome session.
+- URL: https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc
 - Current state: `active_researching`
-- Result file: `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md` pending harvest
+- Result file: `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md` pending harvest
 
 ## Status Checks
 
@@ -86,6 +101,8 @@ Date: 2026-05-17
 - 2026-05-17T16:16:25-06:00: Run 03 still active and no longer appears frozen on the prior finalization text. Visible status changed to `Clarifying the citation and review process...`, visible count `28 searches`, and `Stop research` remains present. Report is not ready to harvest.
 - 2026-05-17T16:25:23-06:00: Run 03 completed in ChatGPT Deep Research. Visible report metadata: `Research completed in 47m`, `1 citation`, `30 searches`, title `OfOne v0.6 Recursive Review Prompt Assessment`. Exported Markdown to `/Users/jamesbrady/Downloads/deep-research-report (22).md` and copied it into `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md`.
 - 2026-05-17T16:31:00-06:00: Accepted Run 03 as protocol-hardening counsel, not empirical proof. Added sidecar `research/review-sidecars/2026-05-17-03-ofone-v06-recursive-review-sidecar.json` and synthesis `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md`. Integrated accepted backlog locally: review sidecar schema/checker, typed `review_cycle.convergence_gate`, convergence semantic validation, allowlisted/no-execute/no-write review protocol, source/self-report separation, docs/Pages/package v0.6.0 sync, and review-sidecar negative regression tests. `npm run schema:check`, `npm run validate`, `npm run review:check`, `npm run benchmark`, and `npm test` passed. Next step is commit/push, verify public Pages, then launch Run 04 against the public v0.6.0 commit unless a blocker appears.
+- 2026-05-17T16:36:50-06:00: Public commit `00da3fe3d530f0fd8c96353dc52b8ff6a7146976` pushed to `main`; GitHub raw package shows version `0.6.0` and scripts include `review:check`; GitHub Pages build completed successfully for the same commit and cache-busted page showed v0.6 recursive-review sidecar, convergence-gate, review-protocol, and `npm run review:check` content.
+- 2026-05-17T16:40:20-06:00: Launched Run 04 in a clean ChatGPT conversation with Deep Research enabled. Visible URL: https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc. Model selector showed `Latest · 5.5` and selected `Pro • Extended`; visible plan title `OfOne v0.7 Recursive Review`; `Start` clicked; visible status is `Researching...`; `Stop research` is present.
 
 ## Required Launch Metadata
 

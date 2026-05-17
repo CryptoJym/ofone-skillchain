@@ -19,6 +19,9 @@ Date: 2026-05-17
 - `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md` - harvested Run 03 Markdown export.
 - `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md` - local synthesis and backlog from Run 03.
 - `research/review-sidecars/2026-05-17-03-ofone-v06-recursive-review-sidecar.json` - structured accepted-review sidecar.
+- `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md` - launch prompt for Run 04.
+- `research/ofone-v07-context-brief.md` - context brief for Run 04.
+- ChatGPT Run 04 - full prompt pasted into the composer; no separate filesystem upload was used.
 
 ## Repo Context
 
@@ -29,6 +32,8 @@ Date: 2026-05-17
 - Run 02 ChatGPT URL: https://chatgpt.com/c/6a0a2b54-1904-83e8-a7f7-c0d9036bdff3
 - Run 03 public repo commit at preparation: `d2d71e33bc5776fa92dacace1609adcc5bdafcaf`
 - Run 03 ChatGPT URL: https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746
+- Run 04 public repo commit at launch: `00da3fe3d530f0fd8c96353dc52b8ff6a7146976`
+- Run 04 ChatGPT URL: https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc
 
 ## Run 01 External Sources Reported By ChatGPT
 

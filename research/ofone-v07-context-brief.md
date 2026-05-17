@@ -7,7 +7,7 @@ Use this as the volatile per-run context for the next external review. The stabl
 - Repository: https://github.com/CryptoJym/ofone-skillchain
 - GitHub Pages: https://cryptojym.github.io/ofone-skillchain/
 - Package version after the Run 03 implementation batch: `0.6.0`
-- Exact public commit: record in the launch prompt and tracker after the implementation commit is pushed.
+- Exact public commit after the Run 03 implementation batch: `00da3fe3d530f0fd8c96353dc52b8ff6a7146976`
 
 ## Self-Reported Local Verification Claims
 

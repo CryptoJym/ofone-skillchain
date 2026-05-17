@@ -72,6 +72,8 @@ The public GitHub Pages site was checked and contains references to the latest v
 - Run 03 result: `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md`
 - Run 03 synthesis/backlog: `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md`
 - Run 03 structured sidecar: `research/review-sidecars/2026-05-17-03-ofone-v06-recursive-review-sidecar.json`
+- Run 04 launch prompt: `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md`
+- Run 04 context brief: `research/ofone-v07-context-brief.md`
 - Stable recursive review protocol: `research/review-protocol.md`
 - Source register: `research/source-register.md`
 - Acceptance caveat: ChatGPT reported that it could read the attached context brief but could not directly fetch the public repo/docs; repo-specific findings were locally checked before synthesis.
