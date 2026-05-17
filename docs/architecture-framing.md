@@ -123,6 +123,16 @@ OfOne separates three layers:
 
 A new object belongs in core only if it improves almost every serious decision map. Otherwise it belongs in the decision lifecycle or in an adapter extension.
 
+Research tools belong outside the core IR. Cross-surface research and cross-domain transfer are represented as subscenes and lenses that feed the existing evidence, claim, unknown, information-value, council, trigger, and rendering objects.
+
+For volatile or multi-surface decisions, invoke `cross-surface-trend-intelligence` as an evidence-acquisition lens. For Medici-effect style analogical research, invoke `cross-domain-transfer` as a challenge lens. The former asks what current surfaces say; the latter asks what distant domains imply. Neither bypasses evidence grading or dependency closure.
+
+```text
+cross-surface research -> evidence / claims / unknowns / triggers
+cross-domain transfer -> hypotheses / kill tests / measurement ideas / options
+OfOne compiler -> map / confidence / synthesis / decision rendering
+```
+
 ---
 
 ## Adapter Algebra

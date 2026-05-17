@@ -37,6 +37,8 @@ bounded objective
 - A causal / constraint graph that stays separate from the claim graph.
 - A loop map for feedback, incentives, measurement, contradiction, and review.
 - Council Geometry as constrained lens selection with contracts, coverage, and contention tracking.
+- Cross-surface research as evidence-acquisition lenses that preserve run state, source custody, acceptance status, and integration effects.
+- Cross-domain transfer as challenge lenses that use distant-domain mechanisms to create hypotheses, kill tests, measurement ideas, and option moves without treating analogy as proof.
 - Hypotheses, kill tests, option moves, tradeoff surfaces, and update triggers.
 - Decision-surface geometry: explicit criteria, dominant option, reversal conditions, and value-of-information for blocking unknowns.
 - Lifecycle geometry: artifact identity, objective/scope/config/evidence hashes, temporal validity windows, status, review logs, and release state.

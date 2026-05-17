@@ -100,3 +100,17 @@ Artifact identity, temporal model, information-value objects, tradeoff surfaces,
 Scenes can contain `subscenes` for local evidence acquisition, causal mechanism work, option decisions, proof steps, stakeholder context, and review gates. This lets a bounded inquiry decompose without creating a separate artifact.
 
 Unknowns are null objects: addressable absences such as missing evidence, missing measurement, unresolved conflict, or unobserved variables. If an unknown blocks an option or rendering, it participates in dependency closure and can force patching or review when resolved.
+
+## Research Lens Integration
+
+Cross-surface and cross-domain research are validated through existing objects rather than a new schema branch:
+
+- research runs live in `scene.subscenes`
+- captured reports, URLs, exports, and local code observations live in `evidence`
+- accepted conclusions become `claims`
+- unresolved access, trend, measurement, or analogy gaps become `unknowns`
+- next research actions become `information_value`
+- cross-surface and cross-domain reviews live in `lenses` and `council_result`
+- any accepted finding that changes the decision creates a `trigger`
+
+This keeps the compiler domain-independent while still making deep research auditable.

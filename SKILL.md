@@ -11,6 +11,31 @@ OfOne is a typed causal-geometry compiler for decision maps. It turns a bounded 
 
 Core principle: abstract geometry is primary. Adapters project domain language onto geometry. Answers are renderings of the map, not the map itself.
 
+## Artifact-First Compile Loop
+
+Treat the OfOne artifact as the source of truth. Prose is only a rendering of validated artifact state.
+
+Run every nontrivial OfOne pass as:
+
+```text
+objective/context/sources
+-> draft artifact objects
+-> validate schema and semantic graph
+-> repair artifact failures
+-> render the smallest safe answer
+-> record patch triggers and benchmark trace
+```
+
+Do not rely on persuasive prose as evidence of completion. A claim, recommendation, or gate is not complete until it exists as an addressable object or an explicitly named omission.
+
+Compiler rules:
+
+- record the selected adapter and at least one rejected adapter alternative with the reason it was rejected when the choice is non-obvious
+- classify each material assertion as `evidence`, `claim`, `unknown`, `assumption`, `criterion`, `option_move`, `gate`, or `decision_rendering`
+- create `unknown` plus `information_value` objects for blocked decisions rather than fabricating closure
+- prefer minimal patches over reruns when new evidence affects only a bounded dependency closure
+- log benchmark-relevant traces: mode, validation outcome, diagnostic codes, patch count, render mode, and whether a human gate blocked release
+
 ## When To Use
 
 Use for:
@@ -155,6 +180,29 @@ Freeze the primitive geometry before adding domain-specific objects. In v0.4, th
 - `review_log`: auditable gate decisions for Audit artifacts.
 
 Keep domain-specific concepts in adapter extensions unless they improve almost every serious decision map.
+
+## Research Acquisition Lenses
+
+Do not add research tools as core primitives. Represent them as subscenes, lenses, evidence, unknowns, information-value entries, and triggers.
+
+Use `cross-surface-trend-intelligence` when a decision depends on current, unstable, multi-surface, or repo-grounded evidence across ChatGPT Deep Research, Grok/X, Gemini/Google, GitHub, OpenRouter, official docs, or local code. Its outputs must become OfOne objects before synthesis:
+
+- external reports and source captures become `evidence`
+- material conclusions become atomic `claims`
+- weak or missing proof becomes `unknowns`
+- next-best research becomes `information_value`
+- cross-surface disagreement becomes `lenses` / `council_result`
+- changed evidence produces `triggers`
+
+Use `cross-domain-transfer` when the map may be too local to one industry, technology cycle, or vocabulary. Cross-domain transfer creates hypotheses, kill tests, measurement ideas, and option moves. It never counts as proof until target-domain evidence validates the transfer.
+
+Recommended lens split:
+
+- `cross_surface_research_lens`: what current surfaces say
+- `cross_domain_transfer_lens`: what distant domains imply
+- `synthesis_lens`: what survives evidence grading, analogy filtering, and decision constraints
+
+Rule: OfOne owns the map. Cross-surface research feeds the map. Cross-domain transfer challenges the map. Synthesis renders the map.
 
 ## Minimal Schemas
 
@@ -406,16 +454,19 @@ Dependency closure must be computable: new evidence points to affected claims, a
 Before recommending action:
 
 1. State mode, charter, and adapter projection.
-2. Build the scene map using geometry primitives.
-3. Separate evidence, claims, graph, and rendering.
-4. Convert important findings into atomic claims.
-5. Build causal / constraint graph and loop map.
-6. Select only lenses that add axis coverage or reduce named uncertainty.
-7. Preserve dissent and minority reports.
-8. Define criteria, tradeoff surface, actor exposure, temporal validity, and information value for blocking unknowns.
-9. Produce option moves with tradeoffs, preconditions, reversibility, and blocking unknowns.
-10. Classify future changes as no-op, patch, scoped rerun, trunk rewrite, or human review.
-11. Render the decision pack from the internal map.
+2. Name the adapter alternatives considered and why rejected alternatives were not selected when the choice is non-obvious.
+3. Build the scene map using geometry primitives.
+4. Separate evidence, claims, graph objects, unknowns, assumptions, and rendering.
+5. Convert important findings into atomic claims or explicit unknowns; do not leave decision-critical assertions only in prose.
+6. Build causal / constraint graph and loop map.
+7. Select only lenses that add axis coverage or reduce named uncertainty.
+8. Preserve dissent and minority reports.
+9. Define criteria, tradeoff surface, actor exposure, temporal validity, and information value for blocking unknowns.
+10. Produce option moves with tradeoffs, preconditions, reversibility, and blocking unknowns.
+11. Classify future changes as no-op, patch, scoped rerun, trunk rewrite, or human review.
+12. Validate the artifact and repair errors before rendering.
+13. Render the decision pack from the internal map.
+14. Log benchmark trace fields: mode, validator pass/fail, diagnostic codes, patch count, render mode, and gate status.
 
 ## Idempotency Rule
 

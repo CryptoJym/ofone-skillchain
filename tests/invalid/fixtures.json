@@ -2,7 +2,7 @@
   {
     "name": "missing-evidence-hash",
     "base": "examples/strategy-micro.json",
-    "expect": ["json_schema", "content_hash"],
+    "expect": ["OFONE_JSON_SCHEMA"],
     "mutations": [
       { "op": "delete", "path": ["evidence", 0, "content_hash"] }
     ]
@@ -10,7 +10,7 @@
   {
     "name": "artifact-identity-hash-mismatch",
     "base": "examples/strategy-micro.json",
-    "expect": ["identity", "active_evidence_hashes"],
+    "expect": ["OFONE_IDENTITY"],
     "mutations": [
       { "op": "set", "path": ["artifact_identity", "active_evidence_hashes"], "value": [] }
     ]
@@ -18,7 +18,7 @@
   {
     "name": "illegal-edge-relation",
     "base": "examples/strategy-micro.json",
-    "expect": ["relation_legality"],
+    "expect": ["OFONE_RELATION_LEGALITY"],
     "mutations": [
       { "op": "set", "path": ["edges", 0, "relation"], "value": "observes" }
     ]
@@ -26,7 +26,7 @@
   {
     "name": "disputed-option-without-gate",
     "base": "examples/strategy-micro.json",
-    "expect": ["option_dependency"],
+    "expect": ["OFONE_OPTION_DEPENDENCY"],
     "mutations": [
       { "op": "set", "path": ["claims", 0, "status"], "value": "disputed" },
       { "op": "set", "path": ["option_moves", 0, "review_gate"], "value": "none" }
@@ -35,7 +35,7 @@
   {
     "name": "missing-rendering-dependency",
     "base": "examples/strategy-micro.json",
-    "expect": ["decision_surface", "TS1"],
+    "expect": ["OFONE_DECISION_SURFACE"],
     "mutations": [
       { "op": "set", "path": ["decision_rendering", "depends_on"], "value": ["C1", "C2", "O1"] }
     ]
@@ -43,7 +43,7 @@
   {
     "name": "rendering-blocking-unknown-without-information-value",
     "base": "examples/source-backed-wastewater-map.json",
-    "expect": ["unknown_value", "U1"],
+    "expect": ["OFONE_UNKNOWN_VALUE"],
     "mutations": [
       { "op": "set", "path": ["information_value"], "value": [] }
     ]
@@ -51,7 +51,7 @@
   {
     "name": "hybrid-map-with-single-lens-axis",
     "base": "examples/source-backed-wastewater-map.json",
-    "expect": ["lens_coverage", "requires lenses covering at least two adapter axes"],
+    "expect": ["OFONE_LENS_COVERAGE"],
     "mutations": [
       { "op": "set", "path": ["lenses"], "value": [
         {
@@ -70,7 +70,7 @@
   {
     "name": "criterion-owned-by-missing-actor",
     "base": "examples/source-backed-wastewater-map.json",
-    "expect": ["criteria", "owned_by missing actor"],
+    "expect": ["OFONE_CRITERIA"],
     "mutations": [
       { "op": "set", "path": ["criteria", 0, "owned_by"], "value": ["A404"] }
     ]
@@ -78,7 +78,7 @@
   {
     "name": "high-risk-without-gate",
     "base": "examples/hybrid-policy-audit.json",
-    "expect": ["human_gate"],
+    "expect": ["OFONE_HUMAN_GATE"],
     "mutations": [
       { "op": "set", "path": ["gates"], "value": [] }
     ]
@@ -86,7 +86,7 @@
   {
     "name": "adapter-mismatch",
     "base": "examples/hybrid-policy-audit.json",
-    "expect": ["adapter_contract", "C2"],
+    "expect": ["OFONE_ADAPTER_CONTRACT"],
     "mutations": [
       { "op": "set", "path": ["adapter_projection", "primary"], "value": "formal" }
     ]
@@ -94,7 +94,7 @@
   {
     "name": "unresolved-unknown-without-blocked-object",
     "base": "examples/strategy-micro.json",
-    "expect": ["unknown", "U1"],
+    "expect": ["OFONE_UNKNOWN"],
     "mutations": [
       { "op": "set", "path": ["unknowns", 0, "blocks"], "value": [] }
     ]
@@ -102,7 +102,7 @@
   {
     "name": "approved-audit-gate-without-review-log",
     "base": "examples/hybrid-policy-audit.json",
-    "expect": ["review_log", "approved gate"],
+    "expect": ["OFONE_REVIEW_LOG"],
     "mutations": [
       { "op": "set", "path": ["gates", 0, "status"], "value": "approved" },
       { "op": "set", "path": ["review_log"], "value": [] }

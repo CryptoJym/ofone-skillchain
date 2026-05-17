@@ -53,12 +53,14 @@ function runInvalidFixture(fixture) {
   const outputPath = path.join(tempDir, `${fixture.name}.json`);
   fs.writeFileSync(outputPath, `${JSON.stringify(data, null, 2)}\n`);
 
-  const result = spawnSync(process.execPath, ["scripts/ofone-validate.mjs", outputPath], {
+  const result = spawnSync(process.execPath, ["scripts/ofone-validate.mjs", "--json", outputPath], {
     cwd: repoRoot,
     encoding: "utf8"
   });
   const output = `${result.stdout}\n${result.stderr}`;
-  const expected = fixture.expect.every((needle) => output.includes(needle));
+  const diagnostics = parseDiagnostics(result.stdout);
+  const codes = new Set(diagnostics.map((diagnostic) => diagnostic.code));
+  const expected = fixture.expect.every((code) => codes.has(code));
 
   if (result.status !== 0 && expected) {
     console.log(`PASS invalid ${fixture.name}`);
@@ -67,8 +69,18 @@ function runInvalidFixture(fixture) {
 
   failures += 1;
   console.error(`FAIL invalid ${fixture.name}`);
-  console.error(`expected non-zero exit and output containing: ${fixture.expect.join(", ")}`);
+  console.error(`expected non-zero exit and diagnostic codes: ${fixture.expect.join(", ")}`);
+  console.error(`actual diagnostic codes: ${[...codes].join(", ") || "(none)"}`);
   console.error(output);
+}
+
+function parseDiagnostics(stdout) {
+  try {
+    const parsed = JSON.parse(stdout);
+    return parsed.results?.flatMap((result) => result.diagnostics || []) || [];
+  } catch {
+    return [];
+  }
 }
 
 function applyMutation(data, mutation) {

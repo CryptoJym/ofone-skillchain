@@ -1055,6 +1055,12 @@
         "passed": {
           "type": "boolean"
         },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validatorDiagnostic"
+          }
+        },
         "checks": {
           "type": "array",
           "items": {
@@ -1069,9 +1075,47 @@
               },
               "notes": {
                 "type": "string"
+              },
+              "code": {
+                "type": "string",
+                "pattern": "^OFONE_[A-Z0-9_]+$"
+              },
+              "severity": {
+                "enum": ["error", "warning", "info"]
               }
             }
           }
+        }
+      }
+    },
+    "validatorDiagnostic": {
+      "type": "object",
+      "required": ["code", "severity", "check", "object_id", "object_type", "path", "message", "repair_hint"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^OFONE_[A-Z0-9_]+$"
+        },
+        "severity": {
+          "enum": ["error", "warning", "info"]
+        },
+        "check": {
+          "type": "string"
+        },
+        "object_id": {
+          "type": ["string", "null"]
+        },
+        "object_type": {
+          "type": ["string", "null"]
+        },
+        "path": {
+          "type": ["string", "null"]
+        },
+        "message": {
+          "type": "string"
+        },
+        "repair_hint": {
+          "type": ["string", "null"]
         }
       }
     }

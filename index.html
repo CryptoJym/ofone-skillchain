@@ -224,6 +224,7 @@
       <div class="brand">OfOne</div>
       <nav aria-label="Primary">
         <a href="#framing">Framing</a>
+        <a href="#compiler">Compiler</a>
         <a href="#kernel">Kernel</a>
         <a href="#lifecycle">Lifecycle</a>
         <a href="#artifacts">Artifacts</a>
@@ -257,6 +258,22 @@
         <p class="lead">OfOne compiles domain language into scenes, frames, tokens, moves, edges, loops, invariants, gates, criteria, tradeoff surfaces, and reviewable renderings. Adapters project domain semantics onto that geometry.</p>
         <code class="rule">bounded objective + geometry primitives + adapter projection + scene map + evidence ledger + claim graph + causal graph + loop map + option moves + decision surface + update triggers + gates
 = decision rendering</code>
+      </section>
+
+      <section id="compiler">
+        <h2>Compiler Loop</h2>
+        <p class="lead">The artifact is the source of truth. Prose is a rendering of validated state, and every implementation pass must be repairable, patchable, and measurable.</p>
+        <code class="rule">objective/context/sources
+-> draft artifact objects
+-> validate schema and semantic graph
+-> repair artifact failures
+-> render the smallest safe answer
+-> record patch triggers and benchmark trace</code>
+        <div class="grid">
+          <div class="item"><h3>Artifact First</h3><p>Claims, unknowns, criteria, gates, and recommendations must exist as addressable objects or explicit omissions.</p></div>
+          <div class="item"><h3>Structured Diagnostics</h3><p>Validator findings emit stable codes, severity, message, object metadata, path, and repair hints for CI, patching, and tests.</p></div>
+          <div class="item"><h3>Recursive Review</h3><p>Deep Research critique becomes backlog, implementation, verification, resubmission, and convergence tracking.</p></div>
+        </div>
       </section>
 
       <section id="kernel">
@@ -315,8 +332,9 @@
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Negative fixtures prove the validator rejects malformed maps.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Structured diagnostic codes make failures machine-readable, and negative fixtures prove the validator rejects malformed maps.</p>
         <code class="rule">npm run validate
+node scripts/ofone-validate.mjs --json examples/strategy-micro.json
 npm test
 npm run render -- examples/strategy-micro.json Micro
 npm run patch -- examples/strategy-micro.json E1</code>

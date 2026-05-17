@@ -8,10 +8,11 @@ import { array, buildObjectIndex, dependencyClosure, objectType } from "../lib/o
 
 const args = process.argv.slice(2);
 const write = args.includes("--write");
-const files = args.filter((arg) => arg !== "--write");
+const jsonOutput = args.includes("--json");
+const files = args.filter((arg) => arg !== "--write" && arg !== "--json");
 
 if (files.length === 0) {
-  console.error("Usage: node scripts/ofone-validate.mjs [--write] <ofone-map.json> [...]");
+  console.error("Usage: node scripts/ofone-validate.mjs [--json] [--write] <ofone-map.json> [...]");
   process.exit(2);
 }
 
@@ -33,32 +34,112 @@ for (const schemaName of ["ofone.base.schema.json", "ofone.micro.schema.json", "
   ajv.addSchema(JSON.parse(fs.readFileSync(path.join(schemasDir, schemaName), "utf8")));
 }
 
+const diagnosticCodes = {
+  json_parse: "OFONE_JSON_PARSE",
+  schema_profile: "OFONE_SCHEMA_PROFILE",
+  json_schema: "OFONE_JSON_SCHEMA",
+  self_attestation: "OFONE_SELF_ATTESTATION",
+  validator_result: "OFONE_VALIDATOR_RESULT",
+  root: "OFONE_ROOT",
+  mode: "OFONE_MODE",
+  movement_jobs: "OFONE_MOVEMENT_JOBS",
+  adapter_contract: "OFONE_ADAPTER_CONTRACT",
+  risk_tier: "OFONE_RISK_TIER",
+  human_gate: "OFONE_HUMAN_GATE",
+  adapter_gate_coverage: "OFONE_ADAPTER_GATE_COVERAGE",
+  ids: "OFONE_IDS",
+  references: "OFONE_REFERENCE",
+  identity: "OFONE_IDENTITY",
+  criteria: "OFONE_CRITERIA",
+  decision_surface: "OFONE_DECISION_SURFACE",
+  temporal_validity: "OFONE_TEMPORAL_VALIDITY",
+  unknown_value: "OFONE_UNKNOWN_VALUE",
+  lens_coverage: "OFONE_LENS_COVERAGE",
+  review_log: "OFONE_REVIEW_LOG",
+  evidence_identity: "OFONE_EVIDENCE_IDENTITY",
+  claim_support: "OFONE_CLAIM_SUPPORT",
+  confidence: "OFONE_CONFIDENCE",
+  unknown: "OFONE_UNKNOWN",
+  kill_test: "OFONE_KILL_TEST",
+  relation_legality: "OFONE_RELATION_LEGALITY",
+  loop_type: "OFONE_LOOP_TYPE",
+  loop_physics: "OFONE_LOOP_PHYSICS",
+  option_dependency: "OFONE_OPTION_DEPENDENCY",
+  trigger_transition: "OFONE_TRIGGER_TRANSITION",
+  dependency_closure: "OFONE_DEPENDENCY_CLOSURE",
+  confidence_model: "OFONE_CONFIDENCE_MODEL",
+  decision_rendering: "OFONE_DECISION_RENDERING",
+  confidence_consistency: "OFONE_CONFIDENCE_CONSISTENCY",
+  lifecycle: "OFONE_LIFECYCLE",
+  actor_gate_alignment: "OFONE_ACTOR_GATE_ALIGNMENT",
+  council_contention: "OFONE_COUNCIL_CONTENTION",
+  semantic_validation: "OFONE_SEMANTIC_VALIDATION"
+};
+
 let hadFailure = false;
+const results = [];
 
 for (const file of files) {
   const result = validateFile(file);
+  results.push({
+    file,
+    passed: result.ok,
+    diagnostics: result.diagnostics
+  });
   if (!result.ok) hadFailure = true;
 
-  console.log(`\n${result.ok ? "PASS" : "FAIL"} ${file}`);
-  for (const message of result.messages) console.log(`- ${message}`);
+  if (!jsonOutput) {
+    console.log(`\n${result.ok ? "PASS" : "FAIL"} ${file}`);
+    for (const message of result.messages) console.log(`- ${message}`);
+  }
+}
+
+if (jsonOutput) {
+  console.log(JSON.stringify({
+    passed: !hadFailure,
+    validator: {
+      schema_draft: "https://json-schema.org/draft/2020-12/schema",
+      ajv_strict: false
+    },
+    results
+  }, null, 2));
 }
 
 process.exit(hadFailure ? 1 : 0);
 
 function validateFile(file) {
   const messages = [];
+  const diagnostics = [];
   let data;
 
   try {
     data = JSON.parse(fs.readFileSync(file, "utf8"));
   } catch (error) {
-    return { ok: false, messages: [`ERROR invalid JSON: ${error.message}`] };
+    const diagnostic = makeDiagnostic("fail", "json_parse", `invalid JSON: ${error.message}`, {
+      path: "/",
+      repair_hint: "Fix JSON syntax before schema or semantic validation can run."
+    });
+    return {
+      ok: false,
+      diagnostics: [diagnostic],
+      messages: [formatMessage(diagnostic)]
+    };
   }
 
   const checks = [];
-  const fail = (check, notes) => checks.push({ check, passed: false, notes });
-  const warn = (check, notes) => checks.push({ check, passed: true, notes, warning: true });
-  const pass = (check, notes) => checks.push({ check, passed: true, notes });
+  const record = (kind, check, notes, meta = {}) => {
+    const diagnostic = makeDiagnostic(kind, check, notes, meta);
+    checks.push({
+      check,
+      passed: kind !== "fail",
+      notes,
+      warning: kind === "warn",
+      diagnostic
+    });
+  };
+  const fail = (check, notes, meta) => record("fail", check, notes, meta);
+  const warn = (check, notes, meta) => record("warn", check, notes, meta);
+  const pass = (check, notes, meta) => record("pass", check, notes, meta);
 
   const schemaId = schemaIdForMode(data.mode);
   const validateSchema = ajv.getSchema(schemaId);
@@ -67,7 +148,10 @@ function validateFile(file) {
     fail("schema_profile", `no schema profile for mode ${data.mode}`);
   } else if (!validateSchema(data)) {
     for (const error of validateSchema.errors || []) {
-      fail("json_schema", `${error.instancePath || "/"} ${error.message}`);
+      fail("json_schema", `${error.instancePath || "/"} ${error.message}`, {
+        path: error.instancePath || "/",
+        repair_hint: "Update the artifact to match the selected OfOne schema profile."
+      });
     }
   } else {
     pass("json_schema", `${data.mode} artifact matches executable JSON Schema profile`);
@@ -84,7 +168,14 @@ function validateFile(file) {
 
   const computedResult = {
     passed: ok,
-    checks: checks.map(({ check, passed, notes }) => ({ check, passed, notes }))
+    diagnostics: checks.map(({ diagnostic }) => diagnostic),
+    checks: checks.map(({ check, passed, notes, diagnostic }) => ({
+      check,
+      passed,
+      notes,
+      code: diagnostic.code,
+      severity: diagnostic.severity
+    }))
   };
 
   if (write) {
@@ -94,11 +185,34 @@ function validateFile(file) {
   }
 
   for (const check of checks) {
-    const prefix = check.passed ? (check.warning ? "WARN" : "OK") : "ERROR";
-    messages.push(`${prefix} ${check.check}: ${check.notes}`);
+    diagnostics.push(check.diagnostic);
+    messages.push(formatMessage(check.diagnostic));
   }
 
-  return { ok, messages };
+  return { ok, diagnostics, messages };
+}
+
+function makeDiagnostic(kind, check, message, meta = {}) {
+  return {
+    code: meta.code || diagnosticCodes[check] || codeFromCheck(check),
+    severity: kind === "fail" ? "error" : kind === "warn" ? "warning" : "info",
+    check,
+    object_id: meta.object_id ?? null,
+    object_type: meta.object_type ?? null,
+    path: meta.path ?? null,
+    message,
+    repair_hint: meta.repair_hint ?? null
+  };
+}
+
+function formatMessage(diagnostic) {
+  const prefix = diagnostic.severity === "error" ? "ERROR" : diagnostic.severity === "warning" ? "WARN" : "OK";
+  const location = diagnostic.path ? ` ${diagnostic.path}` : "";
+  return `${prefix} ${diagnostic.code} ${diagnostic.check}:${location} ${diagnostic.message}`;
+}
+
+function codeFromCheck(check) {
+  return `OFONE_${String(check || "UNKNOWN").toUpperCase().replace(/[^A-Z0-9]+/g, "_")}`;
 }
 
 function validateSemantic(data, { fail, warn, pass }) {
