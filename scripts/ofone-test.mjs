@@ -15,6 +15,7 @@ let failures = 0;
 try {
   runValidExamples();
   runRenderSmokeTests();
+  runPatchWorkflowTests();
   for (const fixture of fixtures) runInvalidFixture(fixture);
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
@@ -87,6 +88,75 @@ function runRenderSmokeTests() {
   }
 }
 
+function runPatchWorkflowTests() {
+  const checks = [
+    {
+      name: "evidence supersession",
+      args: ["scripts/ofone-patch.mjs", "examples/strategy-micro.json", "--operation", "supersede_evidence", "E1"],
+      expect: [
+        ["operation.operation_id", "supersede_evidence"],
+        ["rendering_regeneration_required", true],
+        ["invalidated_claims", "C1"],
+        ["affected_semantic_layers", "evidential"]
+      ]
+    },
+    {
+      name: "criterion invalidation",
+      args: ["scripts/ofone-patch.mjs", "examples/strategy-micro.json", "--operation", "invalidate_criterion", "CR1"],
+      expect: [
+        ["operation.operation_id", "invalidate_criterion"],
+        ["required_revalidation", "decision_surface_check"],
+        ["rendering_regeneration_required", true]
+      ]
+    },
+    {
+      name: "actor reassignment",
+      args: ["scripts/ofone-patch.mjs", "examples/strategy-micro.json", "--operation", "actor_reassignment", "A1"],
+      expect: [
+        ["operation.operation_id", "actor_reassignment"],
+        ["suggested_transition", "human_review"],
+        ["required_approvals.0.gate_id", "G1"]
+      ]
+    },
+    {
+      name: "trigger activation",
+      args: ["scripts/ofone-patch.mjs", "examples/strategy-micro.json", "--operation", "trigger_activation", "T1"],
+      expect: [
+        ["operation.operation_id", "trigger_activation"],
+        ["required_revalidation", "trigger_transition_check"],
+        ["rendering_regeneration_required", true]
+      ]
+    },
+    {
+      name: "trigger deactivation",
+      args: ["scripts/ofone-patch.mjs", "examples/strategy-micro.json", "--operation", "trigger_deactivation", "T1"],
+      expect: [
+        ["operation.operation_id", "trigger_deactivation"],
+        ["semantic_patch_operations.0.op", "trigger_deactivation"],
+        ["rendering_regeneration_required", true]
+      ]
+    }
+  ];
+
+  for (const check of checks) {
+    const result = spawnSync(process.execPath, check.args, {
+      cwd: repoRoot,
+      encoding: "utf8"
+    });
+    const output = `${result.stdout}\n${result.stderr}`;
+    const parsed = parseJson(result.stdout);
+    const passed = result.status === 0 && check.expect.every(([path, expected]) => valueMatches(getPath(parsed, path), expected));
+    if (passed) {
+      console.log(`PASS patch ${check.name}`);
+      continue;
+    }
+    failures += 1;
+    console.error(`FAIL patch ${check.name}`);
+    console.error(`expected JSON paths: ${check.expect.map(([path, expected]) => `${path}=${expected}`).join(", ")}`);
+    console.error(output);
+  }
+}
+
 function runInvalidFixture(fixture) {
   const sourcePath = path.join(repoRoot, fixture.base);
   const data = JSON.parse(fs.readFileSync(sourcePath, "utf8"));
@@ -119,11 +189,27 @@ function runInvalidFixture(fixture) {
 
 function parseDiagnostics(stdout) {
   try {
-    const parsed = JSON.parse(stdout);
+    const parsed = parseJson(stdout);
     return parsed.results?.flatMap((result) => result.diagnostics || []) || [];
   } catch {
     return [];
   }
+}
+
+function parseJson(stdout) {
+  return JSON.parse(stdout);
+}
+
+function getPath(object, pathExpression) {
+  return pathExpression.split(".").reduce((current, key) => {
+    if (current === undefined || current === null) return undefined;
+    return current[key];
+  }, object);
+}
+
+function valueMatches(actual, expected) {
+  if (Array.isArray(actual)) return actual.includes(expected);
+  return actual === expected;
 }
 
 function applyMutation(data, mutation) {

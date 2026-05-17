@@ -477,6 +477,20 @@ same objective head + same scope hash + same config hash + same active evidence 
 
 New evidence patches only the affected dependency closure. Boundary, objective, criteria, ontology mapping, adapter projection, or regime changes require scoped rerun or trunk rewrite.
 
+Semantic patch operations include:
+
+- `add_supporting_evidence`
+- `supersede_evidence`
+- `downgrade_confidence`
+- `invalidate_criterion`
+- `open_gate` / `reopen_gate`
+- `trigger_re_review`
+- `supersede_artifact_identity`
+- `actor_reassignment`
+- `trigger_activation` / `trigger_deactivation`
+
+Every patch report must state changed decision meaning, invalidated claims, reopened gates, required approvals, required revalidation, affected semantic layers, and whether rendering regeneration is required.
+
 ## Human Gates
 
 Require human review for legal, medical, financial, safety, compliance, public-policy, rights, employment, education, health, money, physical safety, reputation, trunk rewrites, external research-pack release, high-severity dissent, low-provenance evidence in high-consequence claims, adapter override, or audit deletion/backfill.

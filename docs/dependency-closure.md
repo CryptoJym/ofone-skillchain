@@ -28,6 +28,9 @@ The validator reports dependency closure for each trigger in an artifact and mar
 ```bash
 npm run patch -- examples/strategy-micro.json E1
 npm run patch -- examples/strategy-micro.json U1
+npm run patch -- examples/strategy-micro.json --operation supersede_evidence E1
 ```
 
-The patch helper returns a structured report with changed objects, affected closure grouped by type, invalidated claims, required revalidation, rendering impact, and next steps. It is still a patch analyzer, not a full artifact-rewriter.
+Supported semantic patch operations include `add_supporting_evidence`, `supersede_evidence`, `downgrade_confidence`, `invalidate_criterion`, `open_gate`, `reopen_gate`, `trigger_re_review`, `supersede_artifact_identity`, `actor_reassignment`, `trigger_activation`, and `trigger_deactivation`.
+
+The patch helper returns a structured report with changed objects, affected closure grouped by type, affected semantic layers, invalidated claims, reopened gates, required approvals, changed decision meaning, required revalidation, rendering impact, and next steps. It is still a patch analyzer, not a full artifact-rewriter.

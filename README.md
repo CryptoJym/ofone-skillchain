@@ -71,9 +71,12 @@ npm run render -- examples/strategy-micro.json Micro
 npm run render -- examples/strategy-micro.json Executive
 npm run render -- examples/strategy-micro.json PatchImpact X1
 npm run patch -- examples/strategy-micro.json E1
+npm run patch -- examples/strategy-micro.json --operation supersede_evidence E1
 ```
 
-`render` produces decision-native views: Executive decision brief, Analyst map, Audit report, and Patch Impact view. These expose decision, confidence, why, blocking unknowns, change triggers, human gates, evidence identity, dissent, semantic graph layers, and patch impact where applicable. `patch` produces a structured patch report with affected objects, semantic layers, invalidated claims, revalidation requirements, and rendering impact.
+`render` produces decision-native views: Executive decision brief, Analyst map, Audit report, and Patch Impact view. These expose decision, confidence, why, blocking unknowns, change triggers, human gates, evidence identity, dissent, semantic graph layers, and patch impact where applicable. `patch` produces a structured patch report with affected objects, semantic layers, invalidated claims, reopened gates, required approvals, revalidation requirements, changed decision meaning, and rendering impact.
+
+Supported semantic patch operations include `add_supporting_evidence`, `supersede_evidence`, `downgrade_confidence`, `invalidate_criterion`, `open_gate`, `reopen_gate`, `trigger_re_review`, `supersede_artifact_identity`, `actor_reassignment`, `trigger_activation`, and `trigger_deactivation`.
 
 ## Pages
 
