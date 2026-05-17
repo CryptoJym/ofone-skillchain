@@ -107,6 +107,8 @@ Date: 2026-05-17
 - 2026-05-17T16:42:47-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Handling GitHub search issues with quotes...`; step 1 (`Fetch and inspect the specified GitHub commit and repository files`) is active; `Stop research` remains present. Report is not ready to harvest.
 - 2026-05-17T16:44:06-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Exploring data sources and options...`; step 1 remains active; `Stop research` remains present. Report is not ready to harvest.
 - 2026-05-17T16:47:56-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Assessing possible docs sync issue and release blockers...`; visible count shows `5 searches`; `Stop research` remains present. Report is not ready to harvest.
+- 2026-05-17T16:49:09-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Identifying stale Pages schema as a blocker...`; visible count still shows `5 searches`; `Stop research` remains present. Report is not ready to harvest.
+- 2026-05-17T16:50:00-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Considering using exact URL from prompt...`; visible count still shows `5 searches`; `Stop research` remains present. Local independent check found Pages-hosted schemas and key docs hash-match the local repo, so any stale-Pages issue remains unaccepted until the final report provides evidence.
 
 ## Required Launch Metadata
 
