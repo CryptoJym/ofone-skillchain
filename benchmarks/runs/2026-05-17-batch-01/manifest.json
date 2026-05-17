@@ -11,6 +11,7 @@
     "case-public-sector-ai-policy-audit-001",
     "case-scientific-mechanism-check-001"
   ],
+  "execution_matrix_file": "benchmarks/runs/2026-05-17-batch-01/execution-matrix.json",
   "arms": [
     {
       "arm_id": "direct_answer",

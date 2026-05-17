@@ -25,6 +25,7 @@ Benchmarks should compare the validated OfOne artifact and its rendering against
 
 - `suite.json`
 - `runs/2026-05-17-batch-01/manifest.json`
+- `runs/2026-05-17-batch-01/execution-matrix.json`
 - `runs/2026-05-17-batch-01/prompts/direct_answer.md`
 - `runs/2026-05-17-batch-01/prompts/light_structured.md`
 - `runs/2026-05-17-batch-01/prompts/full_ofone.md`
@@ -38,6 +39,7 @@ The source-backed example at `../examples/source-backed-wastewater-map.json` is 
 
 `runs/2026-05-17-batch-01/manifest.json` freezes the first five-case execution plan before any model outputs are collected.
 It declares the three benchmark arms, frozen arm prompts, repeated-run and model-family plan, review template, result placeholders, raw-output directory, and release guard.
+`runs/2026-05-17-batch-01/execution-matrix.json` predeclares 90 run slots across 5 cases, 3 arms, 2 model families, and 3 repeats.
 Its status is `not_started`; it supports only the claim that a first benchmark batch has been predeclared.
 
 ## Validate The Suite
@@ -46,5 +48,5 @@ Its status is `not_started`; it supports only the claim that a first benchmark b
 npm run benchmark
 ```
 
-The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, prompt files, review templates, result placeholders, model-family plans, and release guards.
+The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, execution matrices, prompt files, review templates, result placeholders, model-family plans, and release guards.
 It intentionally warns until the suite reaches the declared case/run/model-family minimums and releases failure analysis.

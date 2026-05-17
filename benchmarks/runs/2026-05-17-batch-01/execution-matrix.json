@@ -1,0 +1,32 @@
+{
+  "matrix_id": "2026-05-17-batch-01-matrix",
+  "batch_id": "2026-05-17-batch-01",
+  "suite_id": "ofone-v0.5-three-arm-evaluation",
+  "status": "queued",
+  "case_ids": [
+    "case-strategic-gated-diligence-001",
+    "case-regulated-wastewater-market-entry-001",
+    "case-formal-proof-search-001",
+    "case-public-sector-ai-policy-audit-001",
+    "case-scientific-mechanism-check-001"
+  ],
+  "arms": ["direct_answer", "light_structured", "full_ofone"],
+  "model_families": ["frontier_reasoning", "agentic_coding"],
+  "repeats": [1, 2, 3],
+  "expected_run_count": 90,
+  "run_id_template": "{batch_id}__{case_id}__{arm_id}__{model_family}__r{repeat}",
+  "raw_output_path_template": "benchmarks/runs/2026-05-17-batch-01/outputs/{run_id}.md",
+  "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
+  "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
+  "completion": {
+    "queued": 90,
+    "completed": 0,
+    "reviewed": 0,
+    "excluded": 0
+  },
+  "release_guard": {
+    "aggregate_scoring_allowed": false,
+    "superiority_claims_allowed": false,
+    "reason": "No raw benchmark outputs have been collected for this matrix."
+  }
+}

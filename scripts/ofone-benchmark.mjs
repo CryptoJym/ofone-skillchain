@@ -24,6 +24,7 @@ const requiredMetrics = [
   "inter_run_stability"
 ];
 const validBatchStatuses = new Set(["not_started", "in_progress", "completed", "reviewed", "released", "accepted", "superseded"]);
+const validRunMatrixStatuses = new Set(["queued", "in_progress", "completed", "reviewed", "released", "superseded"]);
 
 const diagnostics = [];
 const fail = (code, message) => diagnostics.push({ severity: "error", code, message });
@@ -145,6 +146,7 @@ function validateBatchReference(batch, caseIds, armOutputs) {
   validateBatchCases(manifest, caseIds);
   validateBatchArms(manifest, armOutputs);
   validateBatchModelPlan(manifest);
+  validateBatchExecutionMatrix(manifest);
   validateBatchReviewPlan(manifest);
   validateBatchResultsPlan(manifest);
   validateBatchReleaseGuard(manifest);
@@ -216,6 +218,100 @@ function validateBatchModelPlan(manifest) {
       fail("BENCH_BATCH_MODEL_STATUS", `${manifest.batch_id} model family ${family.family_id || "(unknown)"} has invalid status ${family.status || "(missing)"}`);
     }
   }
+}
+
+function validateBatchExecutionMatrix(manifest) {
+  checkFile("BENCH_BATCH_MATRIX", manifest.execution_matrix_file, `${manifest.batch_id} execution matrix`);
+  if (!manifest.execution_matrix_file || !fs.existsSync(path.join(repoRoot, manifest.execution_matrix_file))) return;
+
+  let matrix;
+  try {
+    matrix = JSON.parse(fs.readFileSync(path.join(repoRoot, manifest.execution_matrix_file), "utf8"));
+  } catch (error) {
+    fail("BENCH_BATCH_MATRIX_JSON", `${manifest.execution_matrix_file} is not valid JSON: ${error.message}`);
+    return;
+  }
+
+  if (matrix.batch_id !== manifest.batch_id) {
+    fail("BENCH_BATCH_MATRIX_ID_MATCH", `${manifest.execution_matrix_file} batch_id ${matrix.batch_id || "(missing)"} does not match ${manifest.batch_id}`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_ID_MATCH", `${manifest.batch_id} execution matrix matches batch ID`);
+  }
+
+  if (matrix.suite_id !== suite.suite_id) {
+    fail("BENCH_BATCH_MATRIX_SUITE_MATCH", `${manifest.batch_id} execution matrix suite_id ${matrix.suite_id || "(missing)"} does not match ${suite.suite_id}`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_SUITE_MATCH", `${manifest.batch_id} execution matrix targets ${suite.suite_id}`);
+  }
+
+  if (!matrix.status || !validRunMatrixStatuses.has(matrix.status)) {
+    fail("BENCH_BATCH_MATRIX_STATUS", `${manifest.batch_id} execution matrix has invalid status ${matrix.status || "(missing)"}`);
+  }
+
+  const expectedCases = manifest.case_ids || [];
+  const expectedArms = (manifest.arms || []).map((arm) => arm.arm_id);
+  const expectedFamilies = (manifest.model_plan?.model_families || []).map((family) => family.family_id);
+  const expectedRepeats = Array.from(
+    { length: manifest.model_plan?.runs_per_case_per_arm || 0 },
+    (_, index) => index + 1
+  );
+  const expectedRunCount = expectedCases.length * expectedArms.length * expectedFamilies.length * expectedRepeats.length;
+
+  checkArrayExact("BENCH_BATCH_MATRIX_CASES", expectedCases, matrix.case_ids, `${manifest.batch_id} execution matrix cases`);
+  checkArrayExact("BENCH_BATCH_MATRIX_ARMS", expectedArms, matrix.arms, `${manifest.batch_id} execution matrix arms`);
+  checkArrayExact("BENCH_BATCH_MATRIX_MODEL_FAMILIES", expectedFamilies, matrix.model_families, `${manifest.batch_id} execution matrix model families`);
+  checkArrayExact("BENCH_BATCH_MATRIX_REPEATS", expectedRepeats, matrix.repeats, `${manifest.batch_id} execution matrix repeats`);
+
+  if (matrix.expected_run_count !== expectedRunCount) {
+    fail("BENCH_BATCH_MATRIX_RUN_COUNT", `${manifest.batch_id} expected_run_count ${matrix.expected_run_count || "(missing)"} should be ${expectedRunCount}`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_RUN_COUNT", `${manifest.batch_id} predeclares ${expectedRunCount} run slot(s)`);
+  }
+
+  const runIdTokens = ["{batch_id}", "{case_id}", "{arm_id}", "{model_family}", "{repeat}"];
+  const runIdMissingTokens = runIdTokens.filter((token) => !matrix.run_id_template?.includes(token));
+  if (runIdMissingTokens.length > 0) {
+    fail("BENCH_BATCH_MATRIX_RUN_ID_TEMPLATE", `${manifest.batch_id} run_id_template missing ${runIdMissingTokens.join(", ")}`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_RUN_ID_TEMPLATE", `${manifest.batch_id} run_id_template identifies batch, case, arm, model family, and repeat`);
+  }
+
+  for (const [code, field] of [
+    ["BENCH_BATCH_MATRIX_OUTPUT_TEMPLATE", "raw_output_path_template"],
+    ["BENCH_BATCH_MATRIX_REVIEW_TEMPLATE", "review_path_template"]
+  ]) {
+    if (!matrix[field] || !matrix[field].includes("{run_id}")) {
+      fail(code, `${manifest.batch_id} ${field} must include {run_id}`);
+    }
+  }
+
+  const completion = matrix.completion || {};
+  const completionTotal = ["queued", "completed", "reviewed", "excluded"].reduce((sum, key) => sum + (Number.isInteger(completion[key]) ? completion[key] : 0), 0);
+  if (completionTotal !== expectedRunCount) {
+    fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion totals ${completionTotal}/${expectedRunCount}`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion totals match predeclared run count`);
+  }
+
+  if (!matrix.release_guard || matrix.release_guard.superiority_claims_allowed !== false) {
+    fail("BENCH_BATCH_MATRIX_RELEASE_GUARD", `${manifest.batch_id} execution matrix must block superiority claims until results are reviewed`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_RELEASE_GUARD", `${manifest.batch_id} execution matrix release guard blocks unsupported claims`);
+  }
+}
+
+function checkArrayExact(code, expected, actual, label) {
+  if (!Array.isArray(actual)) {
+    fail(code, `${label} missing array`);
+    return;
+  }
+  const sameLength = expected.length === actual.length;
+  const sameValues = sameLength && expected.every((value, index) => actual[index] === value);
+  if (!sameValues) {
+    fail(code, `${label} expected [${expected.join(", ")}], got [${actual.join(", ")}]`);
+    return;
+  }
+  pass(code, `${label} match the batch manifest`);
 }
 
 function validateBatchReviewPlan(manifest) {

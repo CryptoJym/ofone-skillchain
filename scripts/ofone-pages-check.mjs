@@ -21,6 +21,7 @@ const targets = [
   { label: "strategy example", local: "examples/strategy-micro.json", remote: "/examples/strategy-micro.json", kind: "json" },
   { label: "benchmark suite", local: "benchmarks/suite.json", remote: "/benchmarks/suite.json", kind: "json" },
   { label: "batch 01 manifest", local: "benchmarks/runs/2026-05-17-batch-01/manifest.json", remote: "/benchmarks/runs/2026-05-17-batch-01/manifest.json", kind: "json" },
+  { label: "batch 01 execution matrix", local: "benchmarks/runs/2026-05-17-batch-01/execution-matrix.json", remote: "/benchmarks/runs/2026-05-17-batch-01/execution-matrix.json", kind: "json" },
   { label: "batch 01 review template", local: "benchmarks/reviews/2026-05-17-batch-01-review-template.md", remote: "/benchmarks/reviews/2026-05-17-batch-01-review-template.md" },
   { label: "v08 context brief", local: "research/ofone-v08-convergence-context-brief.md", remote: "/research/ofone-v08-convergence-context-brief.md" }
 ];
