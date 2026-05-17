@@ -26,6 +26,7 @@ const requiredMetrics = [
 
 const diagnostics = [];
 const fail = (code, message) => diagnostics.push({ severity: "error", code, message });
+const warn = (code, message) => diagnostics.push({ severity: "warning", code, message });
 const pass = (code, message) => diagnostics.push({ severity: "info", code, message });
 
 checkRequiredSet("BENCH_ARM", requiredArms, suite.arms?.map((arm) => arm.arm_id), "benchmark arms");
@@ -37,15 +38,16 @@ for (const item of suite.cases || []) {
   validateCase(item, caseFamilies);
 }
 checkRequiredSet("BENCH_CASE_FAMILY_COVERAGE", requiredFamilies, [...caseFamilies], "case family coverage");
+checkSuperiorityReadiness();
 
 const passed = diagnostics.every((diagnostic) => diagnostic.severity !== "error");
 
 if (jsonOutput) {
-  console.log(JSON.stringify({ passed, suite_id: suite.suite_id, diagnostics }, null, 2));
+  console.log(JSON.stringify({ passed, suite_id: suite.suite_id, superiority_ready: superiorityReady(), diagnostics }, null, 2));
 } else {
   console.log(`${passed ? "PASS" : "FAIL"} ${suite.suite_id}`);
   for (const diagnostic of diagnostics) {
-    const prefix = diagnostic.severity === "error" ? "ERROR" : "OK";
+    const prefix = diagnostic.severity === "error" ? "ERROR" : diagnostic.severity === "warning" ? "WARN" : "OK";
     console.log(`- ${prefix} ${diagnostic.code}: ${diagnostic.message}`);
   }
 }
@@ -60,7 +62,9 @@ function validateCase(item, caseFamilies) {
   checkRequiredSet("BENCH_CASE_ARMS", requiredArms, item.arms, `${item.case_id} arms`);
   checkFile("BENCH_CASE_FILE", item.case_file, `${item.case_id} case_file`);
   checkFile("BENCH_CASE_RUBRIC", item.rubric, `${item.case_id} rubric`);
-  if (item.ofone_artifact) checkFile("BENCH_CASE_ARTIFACT", item.ofone_artifact, `${item.case_id} OfOne artifact`);
+  if ((item.arms || []).includes("full_ofone")) {
+    checkFile("BENCH_CASE_ARTIFACT", item.ofone_artifact, `${item.case_id} OfOne artifact`);
+  }
 }
 
 function checkRequiredSet(code, required, actual, label) {
@@ -83,4 +87,42 @@ function checkFile(code, filePath, label) {
     return;
   }
   pass(code, `${label} exists at ${filePath}`);
+}
+
+function checkSuperiorityReadiness() {
+  const readiness = superiorityReady();
+  if (readiness.ready) {
+    pass("BENCH_SUPERIORITY_READY", "benchmark suite meets the declared minimums before superiority claims");
+    return;
+  }
+  warn("BENCH_SUPERIORITY_READY", `not ready for superiority claims: ${readiness.reasons.join("; ")}`);
+}
+
+function superiorityReady() {
+  const minimums = suite.minimums_before_superiority_claim || {};
+  const familyCounts = new Map();
+  for (const family of requiredFamilies) familyCounts.set(family, 0);
+  for (const item of suite.cases || []) {
+    for (const family of item.families || []) {
+      familyCounts.set(family, (familyCounts.get(family) || 0) + 1);
+    }
+  }
+
+  const reasons = [];
+  const casesPerFamily = minimums.cases_per_family || 0;
+  for (const family of requiredFamilies) {
+    const count = familyCounts.get(family) || 0;
+    if (count < casesPerFamily) reasons.push(`${family} has ${count}/${casesPerFamily} cases`);
+  }
+  if ((suite.cases || []).length < (minimums.total_cases || 0)) {
+    reasons.push(`total cases ${(suite.cases || []).length}/${minimums.total_cases}`);
+  }
+  if (!suite.results_release || suite.results_release === "not_started") {
+    reasons.push("no released benchmark results");
+  }
+  if (minimums.publish_failure_analysis && !suite.failure_analysis) {
+    reasons.push("failure analysis not published");
+  }
+
+  return { ready: reasons.length === 0, reasons };
 }

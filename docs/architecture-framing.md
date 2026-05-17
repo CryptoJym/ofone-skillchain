@@ -28,7 +28,7 @@ bounded objective
 = decision rendering
 ```
 
-The internal map is structured state. The final answer is an addressable rendering node derived from that state.
+The internal map is structured state. The final answer is an addressable rendering node derived from that state. External sources, reports, benchmark cases, and model critiques are untrusted input until compiled into typed objects.
 
 ---
 
@@ -118,7 +118,7 @@ The compression rule is simple: delete content that does none of these.
 OfOne separates three layers:
 
 1. **Core IR:** charter, adapter projection, scene, evidence, claims, unknowns, kill tests, edges, loops, option moves, triggers, gates, confidence model, and decision rendering.
-2. **Decision lifecycle:** artifact identity, criteria, tradeoff surface, actors, temporal model, information value, lenses, council result, and review log.
+2. **Decision lifecycle:** artifact identity, criteria, tradeoff surface, actors, temporal model, information value, lenses, council result, review log, review cycle, and benchmark trace.
 3. **Domain extensions:** adapter-specific structures such as proof certificates, measurement protocols, competitor maps, rights-impact records, or failure-mode tables.
 
 A new object belongs in core only if it improves almost every serious decision map. Otherwise it belongs in the decision lifecycle or in an adapter extension.
@@ -173,6 +173,8 @@ Minimum object families:
 - `Lens`: constrained review axis with questions, examined claims, blind spots, and contention.
 - `CouncilResult`: coverage, missing lenses, dissent, and decision effect.
 - `ReviewLog`: auditable gate decision linked to a reviewer actor.
+- `ReviewCycle`: recursive critique state: source review, round, accepted/rejected/unresolved findings, implemented commits, and stop reason.
+- `BenchmarkTrace`: benchmark execution boundary: suite, cases, arms, model families, superiority readiness, and diagnostics.
 - `Edge`: typed relation between tokens or claims with evidence and confidence.
 - `Loop`: recurrent dependency, polarity, delay, gain, control points, observable cues, risk.
 - `OptionMove`: action/query/proof/intervention, preconditions, reversibility, risks.
@@ -187,7 +189,7 @@ Executable artifacts:
 - `scripts/ofone-test.mjs`: validator regression harness for valid examples and invalid fixtures.
 - `scripts/ofone-render.mjs`: decision-native renderer from internal map to Micro, Map, or Audit answer.
 - `scripts/ofone-patch.mjs`: patch report helper for dependency closure from changed object IDs.
-- `examples/*.json`: strategy, formal proof-search, and hybrid policy examples.
+- `examples/*.json`: strategy, scientific mechanism, formal proof-search, and hybrid policy examples.
 
 ---
 
@@ -292,7 +294,7 @@ Human review is required for legal, medical, financial, safety, compliance, publ
 
 Before a decision rendering is final, OfOne runs JSON Schema validation, then semantic graph validation. The artifact may include `validator_result`, but the validator computes pass/fail and can write the computed result back into the artifact.
 
-v0.4 validation also checks artifact identity hashes, criterion ownership, tradeoff-surface references, temporal validity windows, information-value coverage for rendering-blocking unknowns, lens-axis coverage, council contention, review-log coverage for approved Audit gates, and confidence consistency against hidden-variable or contradiction load.
+v0.5 validation also checks artifact identity hashes, criterion ownership, tradeoff-surface references, temporal validity windows, information-value coverage for rendering-blocking unknowns, lens-axis coverage, council contention, review-log coverage for approved Audit gates, and confidence consistency against hidden-variable or contradiction load.
 
 - every emitted item performs a movement-economy job
 - evidence, claims, graph, and rendering stay separate

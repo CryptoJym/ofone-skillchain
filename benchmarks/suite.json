@@ -131,7 +131,7 @@
       "case_file": "benchmarks/cases/scientific-mechanism-check.md",
       "rubric": "benchmarks/rubrics/decision-map-rubric.md",
       "arms": ["direct_answer", "light_structured", "full_ofone"],
-      "ofone_artifact": null
+      "ofone_artifact": "examples/scientific-mechanism-map.json"
     }
   ]
 }

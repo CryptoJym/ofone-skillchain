@@ -56,7 +56,9 @@ const closedDefinitions = [
   "confidenceModel",
   "decisionRendering",
   "validatorResult",
-  "validatorDiagnostic"
+  "validatorDiagnostic",
+  "reviewCycle",
+  "benchmarkTrace"
 ];
 
 const diagnostics = [];

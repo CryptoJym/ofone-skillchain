@@ -123,5 +123,58 @@
       { "op": "set", "path": ["gates", 0, "status"], "value": "approved" },
       { "op": "set", "path": ["review_log"], "value": [] }
     ]
+  },
+  {
+    "name": "rendering-impacting-trigger-declared-no-op",
+    "base": "examples/strategy-micro.json",
+    "expect": ["OFONE_TRIGGER_TRANSITION"],
+    "mutations": [
+      { "op": "set", "path": ["triggers", 0, "transition"], "value": "no_op" }
+    ]
+  },
+  {
+    "name": "implemented-review-cycle-without-commit",
+    "base": "examples/strategy-micro.json",
+    "expect": ["OFONE_REVIEW_CYCLE"],
+    "mutations": [
+      {
+        "op": "set",
+        "path": ["review_cycle"],
+        "value": {
+          "cycle_id": "RCX",
+          "source_review": "external critique",
+          "source_url": "https://example.com/review",
+          "round": 2,
+          "status": "implemented",
+          "accepted_findings": ["accepted but uncommitted finding"],
+          "rejected_findings": [],
+          "unresolved_findings": [],
+          "implemented_commits": [],
+          "stop_reason": "not converged",
+          "movement_jobs": ["TRIGGER", "EVALUATE"]
+        }
+      }
+    ]
+  },
+  {
+    "name": "benchmark-trace-premature-superiority",
+    "base": "examples/strategy-micro.json",
+    "expect": ["OFONE_BENCHMARK_TRACE"],
+    "mutations": [
+      {
+        "op": "set",
+        "path": ["benchmark_trace"],
+        "value": {
+          "trace_id": "BTX",
+          "suite_id": "ofone-v0.5-three-arm-evaluation",
+          "cases_run": 5,
+          "arms_run": ["direct_answer", "light_structured", "full_ofone"],
+          "model_families": 1,
+          "superiority_ready": true,
+          "diagnostics": ["premature claim"],
+          "movement_jobs": ["GROUND", "WARN"]
+        }
+      }
+    ]
   }
 ]

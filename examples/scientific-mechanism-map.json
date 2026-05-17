@@ -1,0 +1,644 @@
+{
+  "ofone_version": "0.5.0",
+  "mode": "Map",
+  "charter": {
+    "objective": "Decide whether a plausible mechanism with limited measurements justifies a bounded intervention test.",
+    "scope": [
+      "mechanism plausibility",
+      "measurement limits",
+      "confounding risk",
+      "testable intervention decision"
+    ],
+    "horizon": "45 days",
+    "stakes": [
+      "wrong mechanism could waste experiment budget",
+      "premature intervention could hide confounding"
+    ],
+    "risk_tier": "medium",
+    "movement_jobs": [
+      "BOUND",
+      "WARN"
+    ]
+  },
+  "artifact_identity": {
+    "artifact_id": "OFONE-scientific-mechanism-map-001",
+    "case_id": "case-scientific-mechanism-check-001",
+    "objective_head": "scientific mechanism check",
+    "scope_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "config_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "active_evidence_hashes": [
+      "sha256:e137b52e3875d01e391783d999a80cc7f2ba9c3e5942d4947de01456e9331b6f",
+      "sha256:ceef1b69d92f9b8d535a3a5178004d73650300b2ab677db432c3ef40fbf37f0e"
+    ],
+    "created_at": "2026-05-17T00:00:00Z",
+    "status": "draft",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "scientific-explanatory",
+    "axes": {
+      "scientific-explanatory": [
+        "separate measurement from mechanism",
+        "surface confounding",
+        "force replication or counterexample pressure"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "EVALUATE"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "causal",
+        "assumptions": [
+          "observed variable movement may be caused by the proposed mechanism or by confounding"
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "evidential",
+        "assumptions": [
+          "current measurements are preliminary and need replication pressure"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "V1",
+        "kind": "variable",
+        "label": "target variable"
+      },
+      {
+        "token_id": "V2",
+        "kind": "uncertainty",
+        "label": "uncontrolled confounder"
+      },
+      {
+        "token_id": "M1",
+        "kind": "claim",
+        "label": "proposed mechanism"
+      }
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "parent_scene": "S1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "V1",
+          "V2"
+        ],
+        "entry_conditions": [
+          "limited preliminary measurement exists"
+        ],
+        "exit_conditions": [
+          "replication measurement or confounder-control result exists"
+        ],
+        "movement_jobs": [
+          "GROUND",
+          "TEST"
+        ]
+      }
+    ],
+    "state_variables": [
+      "mechanism state",
+      "target variable",
+      "confounder state"
+    ],
+    "observed_variables": [
+      "target variable"
+    ],
+    "hidden_variables": [
+      "uncontrolled confounder",
+      "measurement error"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "WARN"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/scientific-mechanism-check.md#prompt",
+      "provenance": "benchmark prompt",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:e137b52e3875d01e391783d999a80cc7f2ba9c3e5942d4947de01456e9331b6f",
+      "retrieved_at": "2026-05-17T00:00:00Z",
+      "extract": "Case prompt: plausible mechanism, limited measurements, possible confounding, proposed intervention.",
+      "source_owner": "OfOne benchmark scaffold",
+      "chain_of_custody": "local repository benchmark case",
+      "supports": [
+        "C1"
+      ],
+      "risks": [
+        "scenario-level evidence only"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "observation",
+      "span_or_locator": "synthetic benchmark observation",
+      "provenance": "example artifact placeholder",
+      "recency": "current",
+      "reliability": "low",
+      "permission": "public",
+      "content_hash": "sha256:ceef1b69d92f9b8d535a3a5178004d73650300b2ab677db432c3ef40fbf37f0e",
+      "retrieved_at": "2026-05-17T00:00:00Z",
+      "extract": "Tool observation placeholder: preliminary measurement shows movement in target variable but confounders remain uncontrolled.",
+      "source_owner": "OfOne example author",
+      "chain_of_custody": "local example fixture",
+      "supports": [
+        "C2",
+        "C3"
+      ],
+      "risks": [
+        "placeholder measurement",
+        "confounding not controlled"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "WARN"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "The current case requires mechanism and measurement to remain separate objects.",
+      "type": "operational",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "case prompt may understate practical constraints"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "BOUND"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "The observed target-variable movement is compatible with the proposed mechanism but does not establish it.",
+      "type": "causal",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "mechanism_fit",
+          "hidden_variable_risk"
+        ],
+        "failure_modes": [
+          "confounding",
+          "measurement error"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "WARN"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "text": "A bounded replication test has higher information value than immediate intervention.",
+      "type": "operational",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C2",
+        "U1"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "mechanism_fit",
+          "hidden_variable_risk",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "test may not isolate the confounder",
+          "timeline may force action"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "unobserved_variable",
+      "description": "The main confounder has not been isolated or measured.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "run a controlled replication measurement before intervention",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "GATE"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C2",
+      "test_type": "replication",
+      "condition": "failed replication or confounder-control result eliminates the observed effect",
+      "falsifies": [
+        "C2",
+        "C3"
+      ],
+      "movement_jobs": [
+        "TEST"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Mechanism testability",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not intervene until a replication test can separate mechanism from confounding.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Information gain",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Prefer the move that most reduces mechanism uncertainty per unit time.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "scientific decision owner",
+      "role": "decision_owner",
+      "incentives": [
+        "avoid false mechanism commitment"
+      ],
+      "exposures": [
+        "experiment budget",
+        "interpretation risk"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "owns the intervention test decision",
+      "movement_jobs": [
+        "BOUND",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "temporal_model": {
+    "time_horizon": "45 days",
+    "decision_deadline": "2026-07-01",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "benchmark case changes"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "until replication data arrives",
+        "staleness_trigger": "new measurement contradicts or confirms the mechanism"
+      }
+    ],
+    "update_cadence": "after each measurement batch",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "one measurement cycle",
+      "risk_reduction": "high",
+      "recommended_next_query": "What controlled measurement would distinguish the proposed mechanism from the main confounder?",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "E2",
+      "to": "C2",
+      "relation_family": "evidential",
+      "relation": "supports",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "GROUND"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "C2",
+      "to": "C3",
+      "relation_family": "causal",
+      "relation": "enables",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "EVALUATE"
+      ]
+    },
+    {
+      "edge_id": "X3",
+      "from": "U1",
+      "to": "O1",
+      "relation_family": "workflow_state",
+      "relation": "blocks",
+      "evidence_refs": [],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "edge_id": "X4",
+      "from": "CR1",
+      "to": "O1",
+      "relation_family": "argumentative",
+      "relation": "evaluates",
+      "evidence_refs": [],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "learning",
+      "edges": [
+        "X1",
+        "X2"
+      ],
+      "polarity": "balancing",
+      "delay": "medium",
+      "gain": "medium",
+      "control_points": [
+        "replication measurement design"
+      ],
+      "observable_cues": [
+        "target-variable movement changes under controlled measurement"
+      ],
+      "failure_mode": "measurement loop reinforces a false mechanism if confounders remain uncontrolled",
+      "movement_jobs": [
+        "LINK",
+        "WARN",
+        "TEST"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "test",
+      "preconditions": [
+        "C1",
+        "C2"
+      ],
+      "expected_effects": [
+        "X2"
+      ],
+      "tradeoffs": [
+        "delays intervention but reduces mechanism error"
+      ],
+      "blocking_unknowns": [
+        "U1"
+      ],
+      "review_gate": "none",
+      "movement_jobs": [
+        "MOVE",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "E2"
+      ],
+      "transition": "scoped_rerun",
+      "movement_jobs": [
+        "TRIGGER"
+      ]
+    }
+  ],
+  "gates": [],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "low",
+    "recency": "medium",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "low",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "rendering_id": "R1",
+    "summary": "The mechanism is plausible enough to test, not strong enough to justify immediate intervention.",
+    "recommendation": "Run the bounded replication/confounder-control test before acting on the intervention.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "C3",
+      "U1",
+      "O1",
+      "TS1",
+      "TEMPORAL"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "MOVE",
+      "WARN"
+    ]
+  },
+  "validator_result": {
+    "passed": true,
+    "diagnostics": [
+      {
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info",
+        "check": "json_schema",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "Map artifact matches executable JSON Schema profile",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info",
+        "check": "adapter_contract",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "scientific-explanatory adapter contract loaded",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T1: C2, C3, KT1, L1, O1, OFONE-scientific-mechanism-map-001, R1, T1, TEMPORAL, TS1, X1, X2, X3, X4 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info",
+        "check": "semantic_validation",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "semantic graph checks completed",
+        "repair_hint": null
+      }
+    ],
+    "checks": [
+      {
+        "check": "json_schema",
+        "passed": true,
+        "notes": "Map artifact matches executable JSON Schema profile",
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_contract",
+        "passed": true,
+        "notes": "scientific-explanatory adapter contract loaded",
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T1: C2, C3, KT1, L1, O1, OFONE-scientific-mechanism-map-001, R1, T1, TEMPORAL, TS1, X1, X2, X3, X4 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "semantic_validation",
+        "passed": true,
+        "notes": "semantic graph checks completed",
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info"
+      }
+    ]
+  }
+}

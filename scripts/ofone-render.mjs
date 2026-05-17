@@ -93,13 +93,15 @@ function renderAudit(data, index) {
 }
 
 function renderPatchImpact(data, index, changedIds) {
-  const startIds = changedIds.length > 0 ? changedIds : array(data.triggers).flatMap((trigger) => array(trigger.affected_objects));
+  const requestedStartIds = changedIds.length > 0 ? changedIds : array(data.triggers).flatMap((trigger) => array(trigger.affected_objects));
+  const startIds = expandTriggerStartIds(index, requestedStartIds);
   const knownIds = startIds.filter((id) => index.ids.has(id));
   const missingIds = startIds.filter((id) => !index.ids.has(id));
   const closure = dependencyClosure(knownIds, index.reverseDeps);
-  const changedObjects = knownIds.map((id) => describeObject(index, id));
-  const affectedObjects = closure.map((id) => describeObject(index, id));
-  const renderingAffected = data.decision_rendering?.rendering_id ? closure.includes(data.decision_rendering.rendering_id) : false;
+  const changedObjects = requestedStartIds.filter((id) => index.ids.has(id)).map((id) => describeObject(index, id));
+  const affectedIds = [...new Set([...knownIds.filter((id) => !requestedStartIds.includes(id)), ...closure.filter((id) => !requestedStartIds.includes(id))])].sort();
+  const affectedObjects = affectedIds.map((id) => describeObject(index, id));
+  const renderingAffected = data.decision_rendering?.rendering_id ? affectedIds.includes(data.decision_rendering.rendering_id) : false;
   const semanticLayers = semanticLayersFor(index, [...changedObjects, ...affectedObjects]);
 
   line(`# OfOne Patch Impact View`);
@@ -113,6 +115,16 @@ function renderPatchImpact(data, index, changedIds) {
     `Invalidated claims: ${affectedObjects.filter((object) => object.type === "claim").map((object) => object.id).join(", ") || "(none)"}`,
     `Required revalidation: ${patchRevalidationLines(affectedObjects, renderingAffected).join(", ")}`
   ]);
+}
+
+function expandTriggerStartIds(index, ids) {
+  const expanded = new Set(ids);
+  for (const id of ids) {
+    const entry = index.ids.get(id);
+    if (entry?.type !== "trigger") continue;
+    for (const affectedId of array(entry.object?.affected_objects)) expanded.add(affectedId);
+  }
+  return [...expanded];
 }
 
 function renderDecisionAndTriggers(data, index) {
@@ -167,7 +179,7 @@ function semanticLayersFor(index, objects) {
   for (const object of objects) {
     if (object.type === "evidence") layers.add("evidential");
     if (object.type === "claim") layers.add("argumentative");
-    if (object.type === "trigger" || object.type === "gate" || object.type === "review_log") layers.add("workflow_state");
+    if (["trigger", "gate", "review_log", "review_cycle", "benchmark_trace"].includes(object.type)) layers.add("workflow_state");
     if (object.type === "edge") {
       const family = index.ids.get(object.id)?.object?.relation_family;
       if (family) layers.add(family);

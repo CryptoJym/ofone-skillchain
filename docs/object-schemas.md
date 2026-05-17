@@ -289,8 +289,41 @@ npm run validate
 }
 ```
 
+## Recursive Review Cycle
+
+```json
+{
+  "cycle_id": "RC2",
+  "source_review": "OfOne Recursive Compiler Review",
+  "source_url": "https://chatgpt.com/c/example",
+  "round": 2,
+  "status": "harvested|accepted|implemented|resubmitted|converged|blocked",
+  "accepted_findings": ["trigger closure starts from affected objects"],
+  "rejected_findings": ["finding already implemented"],
+  "unresolved_findings": ["needs empirical benchmark results"],
+  "implemented_commits": ["abc1234"],
+  "stop_reason": "not converged",
+  "movement_jobs": ["TRIGGER", "EVALUATE"]
+}
+```
+
+## Benchmark Trace
+
+```json
+{
+  "trace_id": "BT1",
+  "suite_id": "ofone-v0.5-three-arm-evaluation",
+  "cases_run": 5,
+  "arms_run": ["direct_answer", "light_structured", "full_ofone"],
+  "model_families": 0,
+  "superiority_ready": false,
+  "diagnostics": ["scaffold valid; empirical superiority not established"],
+  "movement_jobs": ["GROUND", "WARN"]
+}
+```
+
 ## Full Schema
 
-Use [`../schemas/ofone.schema.json`](../schemas/ofone.schema.json) for profile-dispatched validation across charter, adapter projection, scene, evidence, claims, decision surface, actors, time, lenses, edges, loops, options, triggers, gates, confidence model, and decision rendering. `validator_result` is computed by `../scripts/ofone-validate.mjs --write` rather than trusted as self-attestation.
+Use [`../schemas/ofone.schema.json`](../schemas/ofone.schema.json) for profile-dispatched validation across charter, adapter projection, scene, evidence, claims, decision surface, actors, time, lenses, edges, loops, options, triggers, gates, confidence model, decision rendering, recursive review cycles, and benchmark traces. `validator_result` is computed by `../scripts/ofone-validate.mjs --write` rather than trusted as self-attestation.
 
 Validator regression fixtures live in [`../tests/invalid/fixtures.json`](../tests/invalid/fixtures.json). Run `npm test` to prove malformed artifacts are rejected.

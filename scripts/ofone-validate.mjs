@@ -73,6 +73,8 @@ const diagnosticCodes = {
   decision_rendering: "OFONE_DECISION_RENDERING",
   confidence_consistency: "OFONE_CONFIDENCE_CONSISTENCY",
   lifecycle: "OFONE_LIFECYCLE",
+  review_cycle: "OFONE_REVIEW_CYCLE",
+  benchmark_trace: "OFONE_BENCHMARK_TRACE",
   actor_gate_alignment: "OFONE_ACTOR_GATE_ALIGNMENT",
   council_contention: "OFONE_COUNCIL_CONTENTION",
   semantic_validation: "OFONE_SEMANTIC_VALIDATION"
@@ -232,6 +234,8 @@ function validateSemantic(data, { fail, warn, pass }) {
   validateOptionalMovementJobs(data.temporal_model, "temporal_model", fail);
   validateOptionalMovementJobs(data.tradeoff_surface, "tradeoff_surface", fail);
   validateOptionalMovementJobs(data.council_result, "council_result", fail);
+  validateOptionalMovementJobs(data.review_cycle, "review_cycle", fail);
+  validateOptionalMovementJobs(data.benchmark_trace, "benchmark_trace", fail);
   validateMovementJobs(data.confidence_model, "confidence_model", fail);
   validateMovementJobs(data.decision_rendering, "decision_rendering", fail);
 
@@ -287,10 +291,12 @@ function validateSemantic(data, { fail, warn, pass }) {
   validateLenses(data, claimIds, { fail });
   if (data.council_result) validateCouncilResult(data, { fail });
   validateReviewLog(data, gateIds, actorIds, { fail });
+  validateReviewCycle(data, { fail, warn });
+  validateBenchmarkTrace(data, { fail, warn });
   validateEdges(data, evidenceIds, index, { fail });
   validateLoops(data, edgeIds, { fail });
   validateOptions(data, claimIds, unknownIds, edgeIds, gateIds, data, { fail, warn });
-  validateTriggers(data, index, { fail, pass });
+  validateTriggers(data, index, { fail, warn, pass });
   validateConfidenceModel(data.confidence_model, { fail });
   validateRendering(data, index, { fail });
   validateDecisionSurface(data, { fail, warn });
@@ -316,7 +322,7 @@ function validateAdapterGateCoverage(data, contract, { warn, pass }) {
   if (expected.length === 0) return;
 
   const gateText = JSON.stringify(array(data.gates).map((gate) => [gate.condition, gate.reviewer, gate.required_decision]));
-  const covered = expected.some((term) => containsNormalized(gateText, term)) || containsNormalized(gateText, "review");
+  const covered = expected.some((term) => containsNormalized(gateText, term));
   if (covered) {
     pass("adapter_gate_coverage", `gate coverage present for ${expected.join(", ")}`);
   } else {
@@ -427,6 +433,36 @@ function validateReviewLog(data, gateIds, actorIds, { fail }) {
     validateMovementJobs(review, `review_log ${review.review_id}`, fail);
     if (!gateIds.has(review.gate_id)) fail("review_log", `review_log ${review.review_id} references missing gate ${review.gate_id}`);
     if (!actorIds.has(review.actor_id)) fail("review_log", `review_log ${review.review_id} references missing actor ${review.actor_id}`);
+  }
+}
+
+function validateReviewCycle(data, { fail, warn }) {
+  const cycle = data.review_cycle;
+  if (!cycle) return;
+  validateMovementJobs(cycle, `review_cycle ${cycle.cycle_id}`, fail);
+  if (cycle.status === "implemented" && array(cycle.accepted_findings).length > 0 && array(cycle.implemented_commits).length === 0) {
+    fail("review_cycle", `review_cycle ${cycle.cycle_id} is implemented but has no implemented_commits`);
+  }
+  if (cycle.status === "converged" && array(cycle.unresolved_findings).length > 0) {
+    fail("review_cycle", `review_cycle ${cycle.cycle_id} is converged but still lists unresolved findings`);
+  }
+  if (cycle.status === "blocked" && !cycle.stop_reason) {
+    warn("review_cycle", `review_cycle ${cycle.cycle_id} is blocked without a stop_reason`);
+  }
+}
+
+function validateBenchmarkTrace(data, { fail, warn }) {
+  const trace = data.benchmark_trace;
+  if (!trace) return;
+  validateMovementJobs(trace, `benchmark_trace ${trace.trace_id}`, fail);
+  if (trace.superiority_ready && trace.cases_run < 21) {
+    fail("benchmark_trace", `benchmark_trace ${trace.trace_id} claims superiority readiness with only ${trace.cases_run} cases`);
+  }
+  if (trace.superiority_ready && trace.model_families < 2) {
+    fail("benchmark_trace", `benchmark_trace ${trace.trace_id} claims superiority readiness with fewer than two model families`);
+  }
+  if (!trace.superiority_ready) {
+    warn("benchmark_trace", `benchmark_trace ${trace.trace_id} is not superiority-ready`);
   }
 }
 
@@ -565,7 +601,7 @@ function validateOptions(data, claimIds, unknownIds, edgeIds, gateIds, artifact,
   }
 }
 
-function validateTriggers(data, index, { fail, pass }) {
+function validateTriggers(data, index, { fail, warn, pass }) {
   for (const trigger of array(data.triggers)) {
     validateMovementJobs(trigger, `trigger ${trigger.trigger_id}`, fail);
     if (!enums.triggerTransitions.has(trigger.transition)) {
@@ -576,7 +612,40 @@ function validateTriggers(data, index, { fail, pass }) {
     }
     const closure = dependencyClosure(array(trigger.affected_objects), index.reverseDeps);
     const includesRendering = data.decision_rendering?.rendering_id ? closure.includes(data.decision_rendering.rendering_id) : false;
+    validateTriggerTransitionSemantics(data, trigger, closure, includesRendering, index, { fail, warn });
     pass("dependency_closure", `trigger ${trigger.trigger_id}: ${closure.join(", ") || "(none)"}${includesRendering ? " [includes rendering]" : ""}`);
+  }
+}
+
+function validateTriggerTransitionSemantics(data, trigger, closure, includesRendering, index, { fail, warn }) {
+  const affected = array(trigger.affected_objects);
+  const closureTypes = new Set([...affected, ...closure].map((id) => objectType(index, id)));
+  const transition = trigger.transition;
+  const failTransition = (message) => fail("trigger_transition", `trigger ${trigger.trigger_id} ${message}`);
+
+  if (transition === "no_op" && (affected.length > 0 || closure.length > 0)) {
+    failTransition("declares no_op despite affected objects or downstream closure");
+  }
+  if (transition === "no_op" && includesRendering) {
+    failTransition("declares no_op despite closure reaching the decision rendering");
+  }
+  if (trigger.condition === "review_required" && transition !== "human_review") {
+    failTransition("condition review_required must transition to human_review");
+  }
+  if (["scope_change", "regime_shift"].includes(trigger.condition) && !["scoped_rerun", "trunk_rewrite", "human_review"].includes(transition)) {
+    failTransition(`condition ${trigger.condition} must transition to scoped_rerun, trunk_rewrite, or human_review`);
+  }
+  if (transition === "human_review" && array(data.gates).length === 0) {
+    failTransition("uses human_review without any gate object");
+  }
+  if (transition === "scoped_rerun" && affected.length === 0 && closure.length === 0) {
+    failTransition("uses scoped_rerun without an affected subgraph");
+  }
+  if (transition === "trunk_rewrite" && !["scope_change", "regime_shift"].includes(trigger.condition) && ![...closureTypes].some((type) => ["charter", "adapter_projection", "scene", "criterion"].includes(type))) {
+    warn("trigger_transition", `trigger ${trigger.trigger_id} declares trunk_rewrite without an obvious trunk object or scope/regime condition`);
+  }
+  if (transition === "patch" && ["scope_change", "regime_shift", "review_required"].includes(trigger.condition)) {
+    failTransition(`condition ${trigger.condition} is stronger than patch`);
   }
 }
 
@@ -692,6 +761,8 @@ function collectIdEntries(data) {
     ...array(data.information_value).map((item) => ({ label: "information_value", id: `IV:${item.unknown_id}` })),
     ...array(data.lenses).map((item) => ({ label: "lens", id: item.lens_id })),
     ...array(data.review_log).map((item) => ({ label: "review_log", id: item.review_id })),
+    ...(data.review_cycle ? [{ label: "review_cycle", id: data.review_cycle.cycle_id }] : []),
+    ...(data.benchmark_trace ? [{ label: "benchmark_trace", id: data.benchmark_trace.trace_id }] : []),
     ...array(data.edges).map((item) => ({ label: "edge", id: item.edge_id })),
     ...array(data.loops).map((item) => ({ label: "loop", id: item.loop_id })),
     ...array(data.option_moves).map((item) => ({ label: "option_move", id: item.option_id })),

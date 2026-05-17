@@ -140,7 +140,20 @@ function runPatchWorkflowTests() {
       args: ["scripts/ofone-patch.mjs", "examples/strategy-micro.json", "--operation", "trigger_activation", "T1"],
       expect: [
         ["operation.operation_id", "trigger_activation"],
+        ["trigger_expansion.0.affected_objects", "E1"],
+        ["affected_by_type.evidence", "E1"],
+        ["invalidated_claims", "C1"],
         ["required_revalidation", "trigger_transition_check"],
+        ["rendering_regeneration_required", true]
+      ]
+    },
+    {
+      name: "trigger scoped rerun",
+      args: ["scripts/ofone-patch.mjs", "examples/source-backed-wastewater-map.json", "--operation", "trigger_activation", "T2"],
+      expect: [
+        ["operation.operation_id", "trigger_activation"],
+        ["trigger_expansion.0.transition", "scoped_rerun"],
+        ["suggested_transition", "scoped_rerun"],
         ["rendering_regeneration_required", true]
       ]
     },

@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.4.0",
+  "ofone_version": "0.5.0",
   "mode": "Map",
   "charter": {
     "objective": "Determine whether theorem T is provable from axiom set A under inference system R.",
@@ -415,26 +415,76 @@
   },
   "validator_result": {
     "passed": true,
+    "diagnostics": [
+      {
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info",
+        "check": "json_schema",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "Map artifact matches executable JSON Schema profile",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info",
+        "check": "adapter_contract",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "formal adapter contract loaded",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T1: C2, L2, O2, OFONE-formal-proof-map-001, R1, T1, TEMPORAL, TS1, X2 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info",
+        "check": "semantic_validation",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "semantic graph checks completed",
+        "repair_hint": null
+      }
+    ],
     "checks": [
       {
         "check": "json_schema",
         "passed": true,
-        "notes": "Map artifact matches executable JSON Schema profile"
+        "notes": "Map artifact matches executable JSON Schema profile",
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info"
       },
       {
         "check": "adapter_contract",
         "passed": true,
-        "notes": "formal adapter contract loaded"
+        "notes": "formal adapter contract loaded",
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info"
       },
       {
         "check": "dependency_closure",
         "passed": true,
-        "notes": "trigger T1: C2, L2, O2, OFONE-formal-proof-map-001, R1, T1, TEMPORAL, TS1, X2 [includes rendering]"
+        "notes": "trigger T1: C2, L2, O2, OFONE-formal-proof-map-001, R1, T1, TEMPORAL, TS1, X2 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
       },
       {
         "check": "semantic_validation",
         "passed": true,
-        "notes": "semantic graph checks completed"
+        "notes": "semantic graph checks completed",
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info"
       }
     ]
   },

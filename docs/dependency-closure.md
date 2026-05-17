@@ -13,7 +13,7 @@ new evidence
 ```
 
 The validator builds reverse dependencies from evidence support, claim dependencies and contradictions, edge endpoints, loop edge membership, option preconditions/effects, trigger affected objects, gate references, and `decision_rendering.depends_on`.
-It also includes subscene membership, explicit unknown/null objects that block options or renderings, kill tests that falsify claims, artifact identity, temporal evidence windows, information-value entries, tradeoff surfaces, lens/council review, and review-log entries.
+It also includes subscene membership, explicit unknown/null objects that block options or renderings, kill tests that falsify claims, artifact identity, temporal evidence windows, information-value entries, tradeoff surfaces, lens/council review, review-log entries, recursive review cycles, and benchmark traces.
 
 Transition classes:
 
@@ -29,8 +29,11 @@ The validator reports dependency closure for each trigger in an artifact and mar
 npm run patch -- examples/strategy-micro.json E1
 npm run patch -- examples/strategy-micro.json U1
 npm run patch -- examples/strategy-micro.json --operation supersede_evidence E1
+npm run patch -- examples/strategy-micro.json --operation trigger_activation T1
 ```
 
 Supported semantic patch operations include `add_supporting_evidence`, `supersede_evidence`, `downgrade_confidence`, `invalidate_criterion`, `open_gate`, `reopen_gate`, `trigger_re_review`, `supersede_artifact_identity`, `actor_reassignment`, `trigger_activation`, and `trigger_deactivation`.
+
+For `trigger_activation` and `trigger_deactivation`, closure starts from the trigger plus the trigger's declared `affected_objects`. This prevents a trigger patch from only traversing objects that depend on the trigger label while skipping the evidence, claim, unknown, or criterion that the trigger watches.
 
 The patch helper returns a structured report with changed objects, affected closure grouped by type, affected semantic layers, invalidated claims, reopened gates, required approvals, changed decision meaning, required revalidation, rendering impact, and next steps. It is still a patch analyzer, not a full artifact-rewriter.

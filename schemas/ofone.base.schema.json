@@ -138,6 +138,12 @@
     },
     "validator_result": {
       "$ref": "#/$defs/validatorResult"
+    },
+    "review_cycle": {
+      "$ref": "#/$defs/reviewCycle"
+    },
+    "benchmark_trace": {
+      "$ref": "#/$defs/benchmarkTrace"
     }
   },
   "dependentRequired": {
@@ -1166,6 +1172,98 @@
         },
         "repair_hint": {
           "type": ["string", "null"]
+        }
+      }
+    },
+    "reviewCycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cycle_id", "source_review", "source_url", "round", "status", "accepted_findings", "rejected_findings", "unresolved_findings", "implemented_commits", "stop_reason", "movement_jobs"],
+      "properties": {
+        "cycle_id": {
+          "type": "string"
+        },
+        "source_review": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "enum": ["launched", "harvested", "accepted", "implemented", "resubmitted", "converged", "blocked"]
+        },
+        "accepted_findings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rejected_findings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unresolved_findings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "implemented_commits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stop_reason": {
+          "type": "string"
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "benchmarkTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trace_id", "suite_id", "cases_run", "arms_run", "model_families", "superiority_ready", "diagnostics", "movement_jobs"],
+      "properties": {
+        "trace_id": {
+          "type": "string"
+        },
+        "suite_id": {
+          "type": "string"
+        },
+        "cases_run": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "arms_run": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "model_families": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "superiority_ready": {
+          "type": "boolean"
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
         }
       }
     }

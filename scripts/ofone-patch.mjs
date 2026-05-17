@@ -20,16 +20,22 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-const closure = dependencyClosure(changedIds, index.reverseDeps);
-const affectedObjects = closure.map((id) => describeObject(id));
+const expandedStartIds = closureStartIdsFor(operation, changedIds);
+const closure = dependencyClosure(expandedStartIds, index.reverseDeps);
+const affectedIds = unique([
+  ...expandedStartIds.filter((id) => !changedIds.includes(id)),
+  ...closure.filter((id) => !changedIds.includes(id))
+]);
+const expandedAffectedObjects = affectedIds.map((id) => describeObject(id));
 const changedObjects = changedIds.map((id) => describeObject(id));
-const affectedSemanticLayers = semanticLayersFor([...changedObjects, ...affectedObjects]);
-const renderingAffected = data.decision_rendering?.rendering_id ? closure.includes(data.decision_rendering.rendering_id) : false;
-const invalidatedClaims = invalidatedClaimsFor(operation, changedObjects, affectedObjects);
-const reopenedGates = reopenedGatesFor(operation, changedObjects, affectedObjects);
-const requiredApprovals = requiredApprovalsFor(operation, changedObjects, affectedObjects);
-const transition = classifyTransition(data, operation, changedIds, closure, { reopenedGates, requiredApprovals });
-const validationScope = [...changedObjects, ...affectedObjects];
+const triggerExpansion = triggerExpansionFor(operation, changedIds);
+const affectedSemanticLayers = semanticLayersFor([...changedObjects, ...expandedAffectedObjects]);
+const renderingAffected = data.decision_rendering?.rendering_id ? affectedIds.includes(data.decision_rendering.rendering_id) : false;
+const invalidatedClaims = invalidatedClaimsFor(operation, changedObjects, expandedAffectedObjects);
+const reopenedGates = reopenedGatesFor(operation, changedObjects, expandedAffectedObjects);
+const requiredApprovals = requiredApprovalsFor(operation, changedObjects, expandedAffectedObjects);
+const transition = classifyTransition(data, operation, changedIds, affectedIds, { reopenedGates, requiredApprovals });
+const validationScope = [...changedObjects, ...expandedAffectedObjects];
 const requiredRevalidation = [
   "json_schema",
   "semantic_validation",
@@ -42,7 +48,6 @@ const requiredRevalidation = [
   renderingAffected ? "rendering_regeneration" : "rendering_check",
   transition === "human_review" ? "human_gate_review" : null
 ].filter(Boolean);
-const changedDecisionMeaning = decisionMeaningFor(operation, changedObjects, affectedObjects, renderingAffected, transition);
 
 console.log(JSON.stringify({
   input: file,
@@ -52,8 +57,9 @@ console.log(JSON.stringify({
     description: operation.description
   },
   changed_objects: changedObjects,
-  affected_closure: affectedObjects,
-  affected_by_type: groupByType(affectedObjects),
+  trigger_expansion: triggerExpansion,
+  affected_closure: expandedAffectedObjects,
+  affected_by_type: groupByType(expandedAffectedObjects),
   affected_semantic_layers: affectedSemanticLayers,
   invalidated_claims: invalidatedClaims,
   reopened_gates: reopenedGates,
@@ -61,16 +67,16 @@ console.log(JSON.stringify({
   suggested_transition: transition,
   rendering_affected: renderingAffected,
   rendering_regeneration_required: renderingAffected,
-  changed_decision_meaning: changedDecisionMeaning,
+  changed_decision_meaning: decisionMeaningFor(operation, changedObjects, expandedAffectedObjects, renderingAffected, transition),
   required_revalidation: requiredRevalidation,
-  semantic_patch_operations: semanticPatchOperations(operation, changedObjects, affectedObjects, {
+  semantic_patch_operations: semanticPatchOperations(operation, changedObjects, expandedAffectedObjects, {
     invalidatedClaims,
     reopenedGates,
     requiredApprovals,
     renderingAffected
   }),
   patch_report: {
-    summary: summarizePatch(operation, changedObjects, affectedObjects, transition, renderingAffected),
+    summary: summarizePatch(operation, changedObjects, expandedAffectedObjects, transition, renderingAffected),
     next_steps: nextSteps(operation, transition, renderingAffected, invalidatedClaims, reopenedGates, requiredApprovals)
   }
 }, null, 2));
@@ -130,7 +136,8 @@ function patchOperation(operationId) {
       id: "invalidate_criterion",
       label: "Invalidate criterion",
       description: "Remove or weaken a decision criterion and re-evaluate the tradeoff surface.",
-      review: false
+      review: false,
+      scoped: true
     },
     open_gate: {
       id: "open_gate",
@@ -179,17 +186,64 @@ function patchOperation(operationId) {
   return operations[operationId] || { ...operations.object_change, id: operationId, label: operationId.replaceAll("_", " ") };
 }
 
-function classifyTransition(data, operation, changedIds, closure, { reopenedGates, requiredApprovals }) {
-  const changedTypes = changedIds.map((id) => index.ids.get(id)?.type);
-  const hasGate = changedTypes.includes("gate") || closure.some((id) => index.ids.get(id)?.type === "gate");
-  const hasRendering = data.decision_rendering?.rendering_id && closure.includes(data.decision_rendering.rendering_id);
-  const hasAdapter = changedTypes.includes("adapter_projection");
-  const highRisk = data.charter?.risk_tier === "high";
+function closureStartIdsFor(operation, ids) {
+  const expanded = new Set(ids);
+  if (operation.id !== "trigger_activation" && operation.id !== "trigger_deactivation") {
+    return [...expanded];
+  }
 
-  if (operation.trunk || hasAdapter) return "trunk_rewrite";
+  for (const id of ids) {
+    const entry = index.ids.get(id);
+    if (entry?.type !== "trigger") continue;
+    for (const affectedId of entry.object?.affected_objects || []) expanded.add(affectedId);
+  }
+
+  return [...expanded];
+}
+
+function triggerExpansionFor(operation, ids) {
+  if (operation.id !== "trigger_activation" && operation.id !== "trigger_deactivation") return [];
+  return ids
+    .map((id) => {
+      const entry = index.ids.get(id);
+      if (entry?.type !== "trigger") return null;
+      return {
+        trigger_id: id,
+        transition: entry.object?.transition || "unknown",
+        affected_objects: entry.object?.affected_objects || []
+      };
+    })
+    .filter(Boolean);
+}
+
+function unique(values) {
+  return [...new Set(values)].sort();
+}
+
+function classifyTransition(data, operation, changedIds, affectedIds, { reopenedGates, requiredApprovals }) {
+  const changedTypes = changedIds.map((id) => index.ids.get(id)?.type);
+  const affectedTypes = affectedIds.map((id) => index.ids.get(id)?.type);
+  const hasGate = changedTypes.includes("gate") || affectedTypes.includes("gate");
+  const hasRendering = data.decision_rendering?.rendering_id && affectedIds.includes(data.decision_rendering.rendering_id);
+  const hasAdapter = changedTypes.includes("adapter_projection");
+  const hasCharter = changedTypes.includes("charter");
+  const hasScopedChange = operation.scoped || changedTypes.some((type) => ["criterion", "tradeoff_surface", "lens", "council_result", "scene", "subscene"].includes(type));
+  const highRisk = data.charter?.risk_tier === "high";
+  const triggerTransitions = changedIds
+    .map((id) => index.ids.get(id))
+    .filter((entry) => entry?.type === "trigger")
+    .map((entry) => entry.object?.transition)
+    .filter(Boolean);
+
+  if (operation.trunk || hasAdapter || hasCharter) return "trunk_rewrite";
   if (operation.review || reopenedGates.length > 0 || requiredApprovals.length > 0 || hasGate || highRisk) return "human_review";
+  if (triggerTransitions.includes("trunk_rewrite")) return "trunk_rewrite";
+  if (triggerTransitions.includes("human_review")) return "human_review";
+  if (triggerTransitions.includes("scoped_rerun")) return "scoped_rerun";
+  if (hasScopedChange) return "scoped_rerun";
+  if (triggerTransitions.includes("patch")) return "patch";
   if (hasRendering) return "patch";
-  if (closure.length > 0) return "patch";
+  if (affectedIds.length > 0) return "patch";
   return "no_op";
 }
 
@@ -326,7 +380,7 @@ function semanticLayersFor(objects) {
   for (const object of objects) {
     if (object.type === "evidence") layers.add("evidential");
     if (object.type === "claim") layers.add("argumentative");
-    if (object.type === "trigger" || object.type === "gate" || object.type === "review_log") layers.add("workflow_state");
+    if (["trigger", "gate", "review_log", "review_cycle", "benchmark_trace"].includes(object.type)) layers.add("workflow_state");
     if (object.type === "edge") {
       const family = index.ids.get(object.id)?.object?.relation_family;
       if (family) layers.add(family);

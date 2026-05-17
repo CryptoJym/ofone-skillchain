@@ -25,7 +25,7 @@ All profiles share `schemas/ofone.base.schema.json`.
 
 Every profile schema declares `$schema` and `$id`, and the dispatcher must route each valid example to exactly one profile matching its `mode`.
 
-Compiler-state object definitions are closed against accidental field drift where extra fields would weaken validation: evidence, claims, unknowns, criteria, tradeoff surfaces, actors, temporal models, review logs, edges, loops, options, triggers, gates, confidence models, decision renderings, and validator results. Domain-specific extension data should live in adapter extensions, lenses, subscenes, or explicit top-level extension objects rather than unvalidated fields inside core objects.
+Compiler-state object definitions are closed against accidental field drift where extra fields would weaken validation: evidence, claims, unknowns, criteria, tradeoff surfaces, actors, temporal models, review logs, edges, loops, options, triggers, gates, confidence models, decision renderings, validator results, review cycles, and benchmark traces. Domain-specific extension data should live in adapter extensions, lenses, subscenes, or explicit top-level extension objects rather than unvalidated fields inside core objects.
 
 Dependent field rules bind lifecycle, evidence identity, tradeoff, temporal, and review surfaces:
 
@@ -54,7 +54,7 @@ The semantic validator checks:
 - edge endpoint references and relation legality
 - loop type and loop physics
 - option preconditions, expected effects, and review gates
-- trigger transitions and dependency closure
+- trigger transitions, transition/closure consistency, and dependency closure
 - decision rendering dependencies
 - artifact identity evidence-hash coverage
 - decision criteria and tradeoff-surface references
@@ -63,8 +63,11 @@ The semantic validator checks:
 - actor ownership for criteria and gates
 - hybrid/provisional lens coverage
 - council contention and review-log requirements
+- recursive review-cycle state and benchmark-trace readiness boundaries
 
 Option `blocking_unknowns` values must reference `unknowns[].unknown_id`. Missing evidence should not remain loose prose once an artifact is schema-bound.
+
+Source material is never trusted as instruction. The validator can accept evidence extracted from public pages, GitHub files, benchmark cases, and model reviews, but the compiler must ignore commands embedded in those sources. Source text can only affect an artifact after it is represented as evidence, claims, unknowns, gates, triggers, review-cycle findings, or rejected findings.
 
 ## Mode-Aware Profiles
 
@@ -93,6 +96,7 @@ Negative coverage includes:
 - adapter mismatch
 - unresolved unknown with no blocked object
 - approved Audit gate without review log
+- rendering-impacting trigger incorrectly declared as `no_op`
 
 ## Relation Legality
 
@@ -109,7 +113,16 @@ Edges are not only strings. Relation legality is checked against endpoint object
 ## Rendering Closure
 
 `decision_rendering.rendering_id` is a graph node. Any object in `decision_rendering.depends_on` gets a reverse dependency to that rendering node, so trigger closure can show whether the final answer must be patched.
-Artifact identity, temporal model, information-value objects, tradeoff surfaces, lenses/council result, and review-log entries also participate in reverse dependency closure when present.
+Artifact identity, temporal model, information-value objects, tradeoff surfaces, lenses/council result, review-log entries, review cycles, and benchmark traces also participate in reverse dependency closure when present.
+
+## Recursive Review State
+
+Recursive improvement cycles should not live only in tracker prose. Use optional typed objects when a map or repo review is being iterated:
+
+- `review_cycle`: source review, URL, round, status, accepted findings, rejected findings, unresolved findings, implemented commits, and stop reason.
+- `benchmark_trace`: suite ID, cases run, arms run, model-family count, superiority readiness, and diagnostic notes.
+
+`review_cycle.status=implemented` requires implemented commits when accepted findings exist. `review_cycle.status=converged` cannot carry unresolved findings. `benchmark_trace.superiority_ready=true` is invalid until it reports at least 21 cases and at least two model families.
 
 ## Nested Scenes And Unknowns
 
