@@ -19,6 +19,12 @@ const schemaPath = path.join(repoRoot, "schemas", "ofone.review.schema.json");
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 const validate = ajv.compile(schema);
+const REQUIRED_SOURCE_ROOTS = [
+  "github.com/CryptoJym/ofone-skillchain",
+  "raw.githubusercontent.com/CryptoJym/ofone-skillchain",
+  "cryptojym.github.io/ofone-skillchain"
+];
+const REQUIRED_SOURCE_ROOT_SET = new Set(REQUIRED_SOURCE_ROOTS);
 
 const results = [];
 let hasError = false;
@@ -83,6 +89,21 @@ function runSemanticChecks(data, diagnostics) {
   if (!policy.sanitize_markup) {
     diagnostics.push(errorDiagnostic("OFONE_REVIEW_SOURCE_BOUNDARY", "review must sanitize or fence source markup before using it as context"));
   }
+  const normalizedHosts = policy.allowlisted_hosts.map(normalizeSourceRoot);
+  const uniqueHosts = new Set(normalizedHosts);
+  if (uniqueHosts.size !== normalizedHosts.length) {
+    diagnostics.push(errorDiagnostic("OFONE_REVIEW_SOURCE_BOUNDARY", "source_policy.allowlisted_hosts must not contain duplicate source roots"));
+  }
+  for (const host of normalizedHosts) {
+    if (!REQUIRED_SOURCE_ROOT_SET.has(host)) {
+      diagnostics.push(errorDiagnostic("OFONE_REVIEW_SOURCE_BOUNDARY", `source_policy.allowlisted_hosts contains non-allowlisted source root: ${host}`));
+    }
+  }
+  for (const requiredHost of REQUIRED_SOURCE_ROOTS) {
+    if (!uniqueHosts.has(requiredHost)) {
+      diagnostics.push(errorDiagnostic("OFONE_REVIEW_SOURCE_BOUNDARY", `source_policy.allowlisted_hosts must include ${requiredHost}`));
+    }
+  }
 
   if (execution.execute_repo_code || execution.mutate_files) {
     diagnostics.push(errorDiagnostic("OFONE_REVIEW_EXECUTION", "external review must not execute repo code or mutate files"));
@@ -91,8 +112,8 @@ function runSemanticChecks(data, diagnostics) {
     diagnostics.push(warnDiagnostic("OFONE_REVIEW_EXECUTION", "maintainer-only writes should stay outside external review execution"));
   }
 
-  if (uninspected.length > 0 && data.final_decision === "stop_architecture_iteration") {
-    diagnostics.push(errorDiagnostic("OFONE_REVIEW_INSPECTION", `cannot stop architecture iteration with uninspected required surfaces: ${uninspected.join(", ")}`));
+  if (uninspected.length > 0 && ["stop_architecture_iteration", "benchmark"].includes(data.final_decision)) {
+    diagnostics.push(errorDiagnostic("OFONE_REVIEW_INSPECTION", `cannot choose ${data.final_decision} with uninspected required surfaces: ${uninspected.join(", ")}`));
   }
 
   if (gate.round > gate.max_rounds && gate.recommended_next_mode === "architecture_iteration") {
@@ -112,6 +133,20 @@ function runSemanticChecks(data, diagnostics) {
   }
 
   diagnostics.push(infoDiagnostic("OFONE_REVIEW_SEMANTIC", "review sidecar semantic checks completed"));
+}
+
+function normalizeSourceRoot(value) {
+  const raw = String(value).trim();
+  const withProtocol = raw.includes("://") ? raw : `https://${raw}`;
+  try {
+    const url = new URL(withProtocol);
+    const pathName = url.pathname.replace(/\/+$/, "");
+    return `${url.hostname}${pathName}`;
+  } catch {
+    return raw
+      .replace(/^https?:\/\//, "")
+      .replace(/\/+$/, "");
+  }
 }
 
 function infoDiagnostic(code, message) {

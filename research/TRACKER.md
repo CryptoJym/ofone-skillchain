@@ -9,7 +9,7 @@ Date: 2026-05-17
 | 01 | OfOne v0.4 Skill R&D Review | foundation | accepted | https://chatgpt.com/c/6a0a12c9-be8c-83e8-8014-58a7b02f36bb | Completed in ChatGPT Deep Research and harvested to `research/results/2026-05-17-01-ofone-v04-skill-rd-result.md`. Accepted as research counsel with local-validation caveat because ChatGPT reported it could not directly fetch the public repo/docs. Local synthesis saved to `research/results/2026-05-17-01-ofone-v04-skill-rd-synthesis.md`. |
 | 02 | OfOne v0.5 Recursive Compiler Review | foundation | integrated | https://chatgpt.com/c/6a0a2b54-1904-83e8-a7f7-c0d9036bdff3 | Completed in ChatGPT Deep Research after public commit `18c9bc2b5a5c514ab58d537937732827d5aa038f` absorbed Run 01 backlog. Prompt: `research/prompts/2026-05-17-02-ofone-v05-recursive-review.md`. Context brief: `research/ofone-v05-context-brief.md`, pasted inline as `Pasted text(4).txt`. Result harvested to `research/results/2026-05-17-02-ofone-v05-recursive-review-result.md`; local synthesis saved to `research/results/2026-05-17-02-ofone-v05-recursive-review-synthesis.md`. |
 | 03 | OfOne v0.6 Recursive Compiler Review | foundation | integrated | https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746 | Completed in ChatGPT Deep Research after public commit `d2d71e33bc5776fa92dacace1609adcc5bdafcaf` integrated Run 02 backlog. Prompt: `research/prompts/2026-05-17-03-ofone-v06-recursive-review.md`. Context brief: `research/ofone-v06-context-brief.md`, pasted inline as `Pasted text(5).txt`. Result harvested to `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md`; accepted protocol-hardening synthesis saved to `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md`. |
-| 04 | OfOne v0.7 Recursive Review | foundation | active_researching | https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc | Launched after public commit `00da3fe3d530f0fd8c96353dc52b8ff6a7146976` integrated Run 03 protocol-hardening backlog. Prompt: `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md`. Context brief: `research/ofone-v07-context-brief.md`; prompt pasted directly into the composer. |
+| 04 | OfOne v0.7 Recursive Review | foundation | integrated | https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc | Completed in ChatGPT Deep Research after public commit `00da3fe3d530f0fd8c96353dc52b8ff6a7146976` integrated Run 03 protocol-hardening backlog. Prompt: `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md`. Context brief: `research/ofone-v07-context-brief.md`; prompt pasted directly into the composer. Result harvested to `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md`; sidecar saved to `research/review-sidecars/2026-05-17-04-ofone-v07-recursive-review-sidecar.json`; local synthesis saved to `research/results/2026-05-17-04-ofone-v07-recursive-review-synthesis.md`. |
 
 ## Run 01 Launch Metadata
 
@@ -68,8 +68,10 @@ Date: 2026-05-17
 - Applied connections: public web/GitHub URLs in prompt; no private account connections selected.
 - Browser surface: Chrome plugin unavailable through callable tools; launched with Computer Use on authenticated Chrome session.
 - URL: https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc
-- Current state: `active_researching`
-- Result file: `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md` pending harvest
+- Current state: `integrated`
+- Result file: `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md`
+- Review sidecar: `research/review-sidecars/2026-05-17-04-ofone-v07-recursive-review-sidecar.json`
+- Local synthesis: `research/results/2026-05-17-04-ofone-v07-recursive-review-synthesis.md`
 
 ## Status Checks
 
@@ -112,6 +114,7 @@ Date: 2026-05-17
 - 2026-05-17T16:51:10-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Inspecting inspected_surfaces and potential checks...`; visible count still shows `5 searches`; `Stop research` remains present. Report is not ready to harvest.
 - 2026-05-17T16:52:42-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Inspecting potential benchmarks and scaffold...`; visible count still shows `5 searches`; `Stop research` remains present. Report is not ready to harvest.
 - 2026-05-17T16:57:22-06:00: Run 04 still active in ChatGPT Deep Research. Visible status text changed to `Inspecting necessary files and documentation...`; visible count still shows `5 searches`; `Stop research` remains present. Report is not ready to harvest.
+- 2026-05-17T17:04:03-06:00: Run 04 completed in ChatGPT Deep Research. Visible report metadata showed `Research completed in 20m`; citation/search counts were not cleanly preserved by the page-text copy. Harvested report to `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md`, extracted sidecar to `research/review-sidecars/2026-05-17-04-ofone-v07-recursive-review-sidecar.json`, and validated sidecars with `npm run review:check`. Local verification rejected the reported stale-Pages P0 because the live Pages homepage and base/review schema endpoints hash-match the local repo. Accepted and implemented R4-P1-1, R4-P1-2, and R4-P2-1: semantic allowlist-host validation, benchmark-decision inspection completeness, negative regression tests, and example `ofone_version` sync to `0.6.0`. `npm run review:check`, `npm run validate`, `npm run schema:check`, `npm run benchmark`, and `npm test` passed. Next mode after push/public verification should be narrow convergence/benchmark-handoff review, not broad ontology review.
 
 ## Required Launch Metadata
 

@@ -1,0 +1,177 @@
+{
+  "protocol_version": "ofone-review-0.6",
+  "review_id": "2026-05-17-04-ofone-v07-recursive-review",
+  "source_report": "ChatGPT Deep Research Run 04",
+  "based_on_commit": "00da3fe3d530f0fd8c96353dc52b8ff6a7146976",
+  "inspected_surfaces": {
+    "repo": {
+      "inspected": true,
+      "source": "https://github.com/CryptoJym/ofone-skillchain",
+      "notes": "Inspected the public repo tree at the target commit plus the named repo files."
+    },
+    "pages": {
+      "inspected": true,
+      "source": "https://cryptojym.github.io/ofone-skillchain/",
+      "notes": "Inspected the live Pages homepage and the published base-schema endpoint. Some linked markdown endpoints were not directly retrievable through the browsing tool."
+    },
+    "schemas": {
+      "inspected": true,
+      "source": "https://github.com/CryptoJym/ofone-skillchain/tree/main/schemas",
+      "notes": "Closely inspected schemas/ofone.review.schema.json and schemas/ofone.base.schema.json, and compared the repo base schema to the Pages-published base schema."
+    },
+    "scripts": {
+      "inspected": true,
+      "source": "https://github.com/CryptoJym/ofone-skillchain/tree/main/scripts",
+      "notes": "Inspected validator, patch, render, benchmark, review-check, and test scripts."
+    },
+    "examples": {
+      "inspected": true,
+      "source": "https://github.com/CryptoJym/ofone-skillchain/tree/main/examples",
+      "notes": "Inspected strategy-micro, source-backed-wastewater-map, hybrid-policy-audit, and formal-proof-map."
+    },
+    "benchmark_scaffold": {
+      "inspected": true,
+      "source": "https://github.com/CryptoJym/ofone-skillchain/tree/main/benchmarks",
+      "notes": "Inspected benchmarks/README.md, benchmarks/suite.json, one case file, and the rubric."
+    },
+    "attached_context": {
+      "inspected": true,
+      "source": "pasted prompt and context brief",
+      "notes": "Inspected the pasted launch prompt plus research/ofone-v07-context-brief.md."
+    }
+  },
+  "source_policy": {
+    "allowlisted_hosts": [
+      "https://github.com/CryptoJym/ofone-skillchain",
+      "https://raw.githubusercontent.com/CryptoJym/ofone-skillchain",
+      "https://cryptojym.github.io/ofone-skillchain/"
+    ],
+    "no_follow_discovered_links": true,
+    "treat_source_as_untrusted": true,
+    "sanitize_markup": true
+  },
+  "execution_policy": {
+    "execute_repo_code": false,
+    "mutate_files": false,
+    "validator_write_policy": "forbidden"
+  },
+  "evidence_classes": {
+    "direct_observations": [
+      "The public repo at commit 00da3fe3d530f0fd8c96353dc52b8ff6a7146976 exposes the expected top-level surfaces, including benchmarks, docs, examples, research, schemas, scripts, tests/invalid, README.md, SKILL.md, index.html, and package.json.",
+      "The repository contains a stable recursive review protocol, a review sidecar schema, a review sidecar checker, convergence-gate validation in the main validator, and review-sidecar regression coverage.",
+      "The live GitHub Pages homepage still reflects older v0.4-era public framing and omits the repo's current review-sidecar / review-protocol public affordances.",
+      "The live GitHub Pages base-schema endpoint serves an older schema shape than the repo base schema inspected at the target commit."
+    ],
+    "self_reported_claims": [
+      "The prompt/context says npm run schema:check, npm run validate, npm run review:check, npm run benchmark, and npm test all passed locally.",
+      "The prompt/context says npm run benchmark still warns that empirical superiority is not established."
+    ],
+    "inferences": [
+      "The in-repo convergence controls are now sufficient to stop broad architecture iteration once the public Pages mismatch is fixed.",
+      "The review sidecar checker is structurally useful but does not yet fully machine-check host allowlisting, ranked backlog semantics, or benchmark-hand-off completeness."
+    ],
+    "open_gaps": [
+      "I did not independently rerun the npm command suite.",
+      "I could not directly retrieve every linked GitHub Pages markdown document endpoint through the browsing tool; Pages inspection therefore relied on the homepage and published base-schema URL."
+    ]
+  },
+  "release_blockers": [
+    "GitHub Pages is publicly stale relative to commit 00da3fe3d530f0fd8c96353dc52b8ff6a7146976, so the public homepage and Pages-published schema content do not match the reviewed v0.6.0 repository state."
+  ],
+  "ranked_backlog": [
+    {
+      "id": "R4-P0-1",
+      "priority": "P0",
+      "recommendation": "Republish GitHub Pages from the current repo state so the public homepage and published schema endpoints match the reviewed commit.",
+      "target_files": [
+        "index.html",
+        "schemas/ofone.base.schema.json",
+        "schemas/ofone.review.schema.json",
+        "GitHub Pages deployment configuration"
+      ],
+      "acceptance_tests": [
+        "Open the live Pages homepage and verify it reflects the v0.6 recursive-review text and links.",
+        "Open the live Pages base-schema endpoint and verify it matches the repo base schema content for the reviewed commit.",
+        "Verify the live Pages surface exposes the review sidecar schema path referenced by the repo schema IDs."
+      ],
+      "status": "accepted"
+    },
+    {
+      "id": "R4-P1-1",
+      "priority": "P1",
+      "recommendation": "Add semantic validation for source_policy.allowlisted_hosts so the checker rejects non-allowlisted review hosts.",
+      "target_files": [
+        "scripts/ofone-review-check.mjs",
+        "scripts/ofone-test.mjs",
+        "schemas/ofone.review.schema.json"
+      ],
+      "acceptance_tests": [
+        "Create an invalid review sidecar that includes a non-allowlisted host and verify npm run review:check exits non-zero.",
+        "Add a regression test that expects an OFONE_REVIEW_SOURCE_BOUNDARY-style diagnostic for non-allowlisted hosts."
+      ],
+      "status": "accepted"
+    },
+    {
+      "id": "R4-P1-2",
+      "priority": "P1",
+      "recommendation": "Require all required surfaces to be inspected before a final benchmark decision and add a negative regression for incomplete benchmark handoff.",
+      "target_files": [
+        "scripts/ofone-review-check.mjs",
+        "scripts/ofone-test.mjs"
+      ],
+      "acceptance_tests": [
+        "Create an invalid review sidecar with pages.inspected=false and final_decision=benchmark and verify npm run review:check exits non-zero.",
+        "Add a regression test that fails benchmark handoff when a required inspection surface is marked uninspected."
+      ],
+      "status": "accepted"
+    },
+    {
+      "id": "R4-P2-1",
+      "priority": "P2",
+      "recommendation": "Sync example ofone_version metadata to the public release line or explicitly document why artifact version and package version intentionally differ.",
+      "target_files": [
+        "examples/*.json",
+        "docs/object-schemas.md"
+      ],
+      "acceptance_tests": [
+        "After the update, validate that the inspected example files no longer drift from the intended release/version semantics.",
+        "Run npm run validate after any example metadata change."
+      ],
+      "status": "accepted"
+    }
+  ],
+  "stale_or_deferred": [
+    {
+      "item": "Another broad architecture or ontology iteration before benchmark work",
+      "reason": "The repo now has typed convergence gating and benchmark-handoff logic; the remaining blocker is public Pages sync, not missing architecture."
+    },
+    {
+      "item": "Empirical superiority claims",
+      "reason": "The benchmark scaffold itself declares that superiority claims require more cases, released results, and failure analysis than are currently published."
+    },
+    {
+      "item": "Further stable-prompt accretion",
+      "reason": "The stable recursive review protocol and volatile per-run context have already been separated."
+    }
+  ],
+  "convergence_gate": {
+    "round": 4,
+    "max_rounds": 4,
+    "release_blockers": 1,
+    "new_high_value_architecture_items": 0,
+    "repeated_top_findings_count": 0,
+    "benchmark_handoff_ready": false,
+    "recommended_next_mode": "blocked",
+    "stop_reason": "The in-repo protocol-hardening work is sufficient, but the public GitHub Pages surface is still stale relative to the reviewed commit and must be synchronized before benchmark handoff."
+  },
+  "benchmark_handoff": {
+    "ready_after_current_batch": false,
+    "reason": "Benchmark execution should be the next substantive mode only after the public Pages deployment matches the reviewed v0.6.0 repository state.",
+    "minimum_next_evidence": [
+      "Live GitHub Pages homepage reflects the v0.6 recursive-review content from the reviewed repo state.",
+      "Live GitHub Pages base-schema endpoint matches the reviewed repo schema content.",
+      "A follow-up review sidecar records zero release blockers."
+    ]
+  },
+  "final_decision": "blocked"
+}

@@ -231,6 +231,16 @@ function runInvalidReviewSidecarChecks() {
       expect: "OFONE_REVIEW_SOURCE_BOUNDARY"
     },
     {
+      name: "source allowlist host",
+      mutate: (data) => {
+        data.source_policy.allowlisted_hosts = [
+          ...data.source_policy.allowlisted_hosts,
+          "https://example.com/ofone-shadow"
+        ];
+      },
+      expect: "OFONE_REVIEW_SOURCE_BOUNDARY"
+    },
+    {
       name: "execution boundary",
       mutate: (data) => {
         data.execution_policy.execute_repo_code = true;
@@ -243,6 +253,19 @@ function runInvalidReviewSidecarChecks() {
         data.convergence_gate.recommended_next_mode = "architecture_iteration";
       },
       expect: "OFONE_REVIEW_CONVERGENCE"
+    },
+    {
+      name: "benchmark uninspected surface",
+      mutate: (data) => {
+        data.inspected_surfaces.pages.inspected = false;
+        data.release_blockers = [];
+        data.convergence_gate.release_blockers = 0;
+        data.convergence_gate.benchmark_handoff_ready = true;
+        data.convergence_gate.recommended_next_mode = "benchmark";
+        data.benchmark_handoff.ready_after_current_batch = true;
+        data.final_decision = "benchmark";
+      },
+      expect: "OFONE_REVIEW_INSPECTION"
     }
   ];
 

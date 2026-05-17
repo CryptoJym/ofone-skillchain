@@ -1,5 +1,5 @@
 {
-  "ofone_version": "0.5.0",
+  "ofone_version": "0.6.0",
   "mode": "Map",
   "charter": {
     "objective": "Determine whether theorem T is provable from axiom set A under inference system R.",
