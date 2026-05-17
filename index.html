@@ -293,7 +293,7 @@
 
       <section id="lifecycle">
         <h2>Decision Lifecycle</h2>
-        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, and review sidecars.</p>
+        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, and review sidecars. Review-round labels such as v0.7 and v0.8 describe Deep Research cycles, not package or artifact versions.</p>
         <div class="grid">
           <div class="item"><h3>Identity</h3><p>Objective head, scope hash, config hash, active evidence hashes, created-at marker, and lifecycle status.</p></div>
           <div class="item"><h3>Criteria</h3><p>Decision standards with priority, threshold, owner, and review implications.</p></div>
@@ -309,7 +309,7 @@
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, and executable benchmark suite manifest.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, GitHub Pages parity checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, and executable benchmark suite manifest.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -325,6 +325,8 @@
           <a class="button" href="./schemas/ofone.review.schema.json">Review Sidecar Schema</a>
           <a class="button" href="./schemas/ofone.audit.schema.json">Audit Schema</a>
           <a class="button" href="./research/review-protocol.md">Review Protocol</a>
+          <a class="button" href="./research/ofone-v08-convergence-context-brief.md">v0.8 Context Brief</a>
+          <a class="button" href="./research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md">Run 05 Result</a>
           <a class="button" href="./examples/strategy-micro.json">Strategy Example</a>
           <a class="button" href="./examples/scientific-mechanism-map.json">Scientific Example</a>
           <a class="button" href="./examples/formal-proof-map.json">Formal Example</a>
@@ -343,6 +345,7 @@
         <code class="rule">npm run validate
 npm run schema:check
 npm run review:check
+npm run pages:check
 node scripts/ofone-validate.mjs --json examples/strategy-micro.json
 npm test
 npm run benchmark

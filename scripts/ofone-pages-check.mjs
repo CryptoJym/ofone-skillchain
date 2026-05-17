@@ -1,0 +1,139 @@
+#!/usr/bin/env node
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const args = process.argv.slice(2);
+const jsonOutput = args.includes("--json");
+const baseArg = args.find((arg) => arg.startsWith("--base-url="));
+const baseUrl = (baseArg ? baseArg.split("=").slice(1).join("=") : "https://cryptojym.github.io/ofone-skillchain").replace(/\/+$/, "");
+const cacheBust = `ofone_pages_check=${Date.now()}`;
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(__dirname, "..");
+
+const targets = [
+  { label: "homepage", local: "index.html", remote: "/" },
+  { label: "base schema", local: "schemas/ofone.base.schema.json", remote: "/schemas/ofone.base.schema.json", kind: "json" },
+  { label: "review sidecar schema", local: "schemas/ofone.review.schema.json", remote: "/schemas/ofone.review.schema.json", kind: "json" },
+  { label: "review checker script", local: "scripts/ofone-review-check.mjs", remote: "/scripts/ofone-review-check.mjs" },
+  { label: "strategy example", local: "examples/strategy-micro.json", remote: "/examples/strategy-micro.json", kind: "json" },
+  { label: "benchmark suite", local: "benchmarks/suite.json", remote: "/benchmarks/suite.json", kind: "json" },
+  { label: "v08 context brief", local: "research/ofone-v08-convergence-context-brief.md", remote: "/research/ofone-v08-convergence-context-brief.md" }
+];
+
+const diagnostics = [];
+
+for (const target of targets) {
+  const localPath = path.join(repoRoot, target.local);
+  if (!fs.existsSync(localPath)) {
+    diagnostics.push({
+      severity: "error",
+      code: "OFONE_PAGES_LOCAL_MISSING",
+      label: target.label,
+      local: target.local,
+      message: `local file not found: ${target.local}`
+    });
+    continue;
+  }
+
+  const remoteUrl = withCacheBust(`${baseUrl}${target.remote}`);
+  try {
+    const response = await fetch(remoteUrl, { cache: "no-store" });
+    if (!response.ok) {
+      diagnostics.push({
+        severity: "error",
+        code: "OFONE_PAGES_HTTP",
+        label: target.label,
+        local: target.local,
+        remote: remoteUrl,
+        status: response.status,
+        message: `${target.label} returned HTTP ${response.status}`
+      });
+      continue;
+    }
+
+    const localText = fs.readFileSync(localPath, "utf8");
+    const remoteText = await response.text();
+    const localNormalized = normalize(localText, target.kind);
+    const remoteNormalized = normalize(remoteText, target.kind);
+    const localHash = sha256(localNormalized);
+    const remoteHash = sha256(remoteNormalized);
+
+    if (localHash !== remoteHash) {
+      diagnostics.push({
+        severity: "error",
+        code: "OFONE_PAGES_MISMATCH",
+        label: target.label,
+        local: target.local,
+        remote: remoteUrl,
+        local_hash: localHash,
+        remote_hash: remoteHash,
+        message: `${target.label} differs between local repo and GitHub Pages`
+      });
+      continue;
+    }
+
+    diagnostics.push({
+      severity: "info",
+      code: "OFONE_PAGES_MATCH",
+      label: target.label,
+      local: target.local,
+      remote: remoteUrl,
+      hash: localHash,
+      message: `${target.label} matches GitHub Pages`
+    });
+  } catch (error) {
+    diagnostics.push({
+      severity: "error",
+      code: "OFONE_PAGES_FETCH",
+      label: target.label,
+      local: target.local,
+      remote: remoteUrl,
+      message: `${target.label} fetch failed: ${error.message}`
+    });
+  }
+}
+
+const passed = diagnostics.every((diagnostic) => diagnostic.severity !== "error");
+
+if (jsonOutput) {
+  console.log(JSON.stringify({ passed, base_url: baseUrl, diagnostics }, null, 2));
+} else {
+  console.log(`${passed ? "PASS" : "FAIL"} GitHub Pages parity`);
+  for (const diagnostic of diagnostics) {
+    const prefix = diagnostic.severity === "error" ? "ERROR" : "OK";
+    console.log(`- ${prefix} ${diagnostic.code}: ${diagnostic.message}`);
+    if (diagnostic.severity === "error" && diagnostic.local_hash && diagnostic.remote_hash) {
+      console.log(`  local ${diagnostic.local_hash}`);
+      console.log(`  remote ${diagnostic.remote_hash}`);
+    }
+  }
+}
+
+process.exit(passed ? 0 : 1);
+
+function withCacheBust(url) {
+  return `${url}${url.includes("?") ? "&" : "?"}${cacheBust}`;
+}
+
+function normalize(text, kind) {
+  const normalizedText = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trimEnd();
+  if (kind !== "json") return `${normalizedText}\n`;
+  try {
+    return `${JSON.stringify(sortJson(JSON.parse(normalizedText)), null, 2)}\n`;
+  } catch {
+    return `${normalizedText}\n`;
+  }
+}
+
+function sortJson(value) {
+  if (Array.isArray(value)) return value.map(sortJson);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.keys(value).sort().map((key) => [key, sortJson(value[key])]));
+}
+
+function sha256(text) {
+  return `sha256:${crypto.createHash("sha256").update(text).digest("hex")}`;
+}

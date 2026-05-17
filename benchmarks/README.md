@@ -13,7 +13,8 @@ OfOne should not claim empirical superiority without benchmark evidence. This sc
 ## Minimum Benchmark Standard
 
 - predeclared cases and rubrics
-- at least 21 retrospective cases across seven domains before performance claims
+- at least 21 retrospective cases across the six declared task families before performance claims
+- at least 3 cases per task family, plus enough additional cross-family cases to reach the 21-case minimum
 - repeated runs across multiple model families
 - blinded expert review where possible
 - full artifact release or redacted release notes when source permission blocks publication
@@ -35,3 +36,4 @@ npm run benchmark
 ```
 
 The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, and linked OfOne artifacts.
+It intentionally warns until the suite reaches the declared case/run/model-family minimums and releases failure analysis.

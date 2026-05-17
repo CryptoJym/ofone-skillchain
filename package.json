@@ -10,6 +10,7 @@
     "render": "node scripts/ofone-render.mjs",
     "patch": "node scripts/ofone-patch.mjs",
     "benchmark": "node scripts/ofone-benchmark.mjs",
+    "pages:check": "node scripts/ofone-pages-check.mjs",
     "review:check": "node scripts/ofone-review-check.mjs research/review-sidecars/*.json",
     "test": "node scripts/ofone-test.mjs"
   },

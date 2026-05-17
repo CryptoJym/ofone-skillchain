@@ -85,7 +85,8 @@
     "total_cases": 21,
     "runs_per_case_per_arm": 3,
     "model_families": 2,
-    "publish_failure_analysis": true
+    "publish_failure_analysis": true,
+    "case_distribution_note": "The suite has six declared task families. Minimum superiority evidence requires at least 3 cases per family plus enough additional cross-family cases to reach 21 total cases."
   },
   "cases": [
     {

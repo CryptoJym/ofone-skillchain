@@ -5,6 +5,8 @@ OfOne is a typed causal-geometry compiler for turning bounded objectives into au
 Abstract geometry is primary. Adapters project domain language onto geometry.
 The v0.6 line keeps the core inquiry IR stable and hardens the recursive review protocol with typed convergence gates, source allowlists, no-execute/no-write review policy, and machine-checkable review sidecars.
 
+Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. They are not package or artifact release versions. The current public package/artifact line is `0.6.0` until `package.json` changes.
+
 ## What Is Included
 
 - [`SKILL.md`](./SKILL.md) - the Codex skillchain.
@@ -19,6 +21,7 @@ The v0.6 line keeps the core inquiry IR stable and hardens the recursive review 
 - [`scripts/ofone-validate.mjs`](./scripts/ofone-validate.mjs) - schema-backed semantic validator.
 - [`scripts/ofone-schema-check.mjs`](./scripts/ofone-schema-check.mjs) - schema identity, profile, and closed-world compatibility checker.
 - [`scripts/ofone-review-check.mjs`](./scripts/ofone-review-check.mjs) - recursive review sidecar checker.
+- [`scripts/ofone-pages-check.mjs`](./scripts/ofone-pages-check.mjs) - maintainer-side GitHub Pages parity checker.
 - [`scripts/ofone-render.mjs`](./scripts/ofone-render.mjs) - human-readable Micro, Map, and Audit renderer.
 - [`scripts/ofone-patch.mjs`](./scripts/ofone-patch.mjs) - dependency-closure patch helper.
 - [`scripts/ofone-test.mjs`](./scripts/ofone-test.mjs) - validator regression tests with negative fixtures.
@@ -63,6 +66,7 @@ It also checks nested subscenes, explicit unknown/null objects, kill-test refere
 The schema checker verifies `$schema`/`$id`, dispatcher/profile compatibility, examples matching exactly one profile, closed compiler-state object definitions, and dependent field rules for lifecycle, evidence identity, tradeoff, and review objects.
 The benchmark checker verifies the direct-answer, light-structured, and full-OfOne arms across strategic, scientific, formal, normative, hybrid, and update/patch task families with the required metric set, requires a concrete OfOne artifact for every full-OfOne arm, and reports whether the suite is ready to support superiority claims.
 The review checker validates recursive-review sidecars for inspected surfaces, allowlisted sources, no-follow/no-execute/no-write policy, evidence-class separation, ranked backlog, convergence gate, benchmark handoff, and final mode decision.
+The Pages checker compares the deployed GitHub Pages homepage, schemas, review checker script, strategy example, benchmark suite, and run-specific v08 context brief against the local repository. Run it after pushing a release when Pages has finished publishing.
 Each validation finding also has a stable diagnostic object with `code`, `severity`, `message`, optional object metadata, and an optional repair hint. Use JSON output when another tool needs machine-readable diagnostics:
 
 ```bash
@@ -98,3 +102,13 @@ Recursive reviews of OfOne itself use [`research/review-protocol.md`](./research
 ## Pages
 
 The GitHub Pages site is served from the repository root.
+After a push, verify public parity with:
+
+```bash
+npm run pages:check
+```
+
+Current convergence review context:
+
+- [`research/ofone-v08-convergence-context-brief.md`](./research/ofone-v08-convergence-context-brief.md)
+- [`research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`](./research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md)

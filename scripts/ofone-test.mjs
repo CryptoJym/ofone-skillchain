@@ -19,6 +19,7 @@ try {
   runPatchWorkflowTests();
   runBenchmarkCheck();
   runReviewSidecarCheck();
+  runToolingContractCheck();
   runInvalidReviewSidecarChecks();
   for (const fixture of fixtures) runInvalidFixture(fixture);
 } finally {
@@ -217,6 +218,26 @@ function runReviewSidecarCheck() {
   console.error("FAIL recursive review sidecar");
   console.error(result.stdout);
   console.error(result.stderr);
+}
+
+function runToolingContractCheck() {
+  const packageJson = JSON.parse(fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"));
+  const readme = fs.readFileSync(path.join(repoRoot, "README.md"), "utf8");
+  const index = fs.readFileSync(path.join(repoRoot, "index.html"), "utf8");
+  const required = [
+    ["package pages script", packageJson.scripts?.["pages:check"] === "node scripts/ofone-pages-check.mjs"],
+    ["pages checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"))],
+    ["README pages command", readme.includes("npm run pages:check")],
+    ["README review-round version note", readme.includes("Review-round labels such as `v0.7` and `v0.8`")],
+    ["Pages v08 context link", index.includes("./research/ofone-v08-convergence-context-brief.md")]
+  ];
+  const missing = required.filter(([, passed]) => !passed).map(([name]) => name);
+  if (missing.length === 0) {
+    console.log("PASS tooling contract");
+    return;
+  }
+  failures += 1;
+  console.error(`FAIL tooling contract: ${missing.join(", ")}`);
 }
 
 function runInvalidReviewSidecarChecks() {

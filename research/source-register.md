@@ -22,6 +22,11 @@ Date: 2026-05-17
 - `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md` - launch prompt for Run 04.
 - `research/ofone-v07-context-brief.md` - context brief for Run 04.
 - ChatGPT Run 04 - full prompt pasted into the composer; no separate filesystem upload was used.
+- `research/prompts/2026-05-17-05-ofone-v08-convergence-benchmark-handoff.md` - launch prompt for Run 05.
+- `research/ofone-v08-convergence-context-brief.md` - context brief for Run 05.
+- `Pasted text(6).txt` and `Pasted text(7).txt` in ChatGPT Run 05 - pasted prompt/context documents used by the active launch instruction.
+- `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md` - harvested Run 05 Markdown export.
+- `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md` - local synthesis and accepted benchmark-handoff backlog from Run 05.
 
 ## Repo Context
 
@@ -34,6 +39,8 @@ Date: 2026-05-17
 - Run 03 ChatGPT URL: https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746
 - Run 04 public repo commit at launch: `00da3fe3d530f0fd8c96353dc52b8ff6a7146976`
 - Run 04 ChatGPT URL: https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc
+- Run 05 public repo commit at launch: `fccb58ee035ab8d415fa0e1616dae8266a02f7e5`
+- Run 05 ChatGPT URL: https://chatgpt.com/c/6a0a4b1b-712c-83e8-8f52-671c899dbbd7
 
 ## Run 01 External Sources Reported By ChatGPT
 
@@ -67,3 +74,5 @@ The Run 01 report states these external sources were successfully inspected:
 Run 01 could read the attached local context brief but reported that it could not directly fetch the public GitHub repo, public docs, commit archive, or raw `SKILL.md`. Repo-specific findings in the report should therefore be treated as research counsel until locally validated against the repository.
 
 Run 03 reported direct public-surface inspection but the exported metadata showed only one visible citation. Treat Run 03 as accepted architectural review counsel with local command verification and repo inspection as the implementation authority.
+
+Run 05 reported direct public-surface inspection with visible metadata `21 citations`, `26 searches`, and `21 sources`. It accepted benchmark handoff and found no current release blocker. Two gaps remain non-blocking: the v08 context brief was not present at the reviewed target commit, and the external browser tool did not directly retrieve every Pages-hosted script or markdown endpoint. Local follow-up should keep public repo/Pages verification authoritative before launching another review.
