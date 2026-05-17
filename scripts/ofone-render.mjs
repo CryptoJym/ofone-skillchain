@@ -2,25 +2,26 @@
 import fs from "node:fs";
 import { array, buildObjectIndex, dependencyClosure } from "../lib/ofone-graph.mjs";
 
-const [file, requestedMode] = process.argv.slice(2);
+const [file, requestedMode, ...renderArgs] = process.argv.slice(2);
 
 if (!file) {
-  console.error("Usage: node scripts/ofone-render.mjs <ofone-map.json> [Micro|Map|Audit]");
+  console.error("Usage: node scripts/ofone-render.mjs <ofone-map.json> [Micro|Executive|Map|Analyst|Audit|PatchImpact] [changed-object-id ...]");
   process.exit(2);
 }
 
 const data = JSON.parse(fs.readFileSync(file, "utf8"));
-const mode = requestedMode || data.mode || "Map";
+const mode = normalizeMode(requestedMode || data.mode || "Map");
 const index = buildObjectIndex(data);
 
-if (mode === "Micro") renderMicro(data);
+if (mode === "Micro" || mode === "Executive") renderMicro(data, mode);
 else if (mode === "Audit") renderAudit(data, index);
+else if (mode === "PatchImpact") renderPatchImpact(data, index, renderArgs);
 else renderMap(data, index);
 
-function renderMicro(data) {
+function renderMicro(data, mode = "Micro") {
   const index = buildObjectIndex(data);
 
-  line(`# OfOne Decision Rendering`);
+  line(`# OfOne ${mode === "Executive" ? "Executive Decision Brief" : "Decision Rendering"}`);
   line();
   section("Decision", [
     data.decision_rendering?.recommendation || "(missing recommendation)"
@@ -37,7 +38,7 @@ function renderMicro(data) {
 }
 
 function renderMap(data, index) {
-  line(`# OfOne Map Rendering`);
+  line(`# OfOne Analyst Map`);
   line();
   section("Lifecycle", lifecycleLines(data));
   section("Mode And Charter", [
@@ -78,6 +79,8 @@ function renderMap(data, index) {
 }
 
 function renderAudit(data, index) {
+  line(`# OfOne Audit Report`);
+  line();
   renderMap(data, index);
   section("Audit Evidence Identity", array(data.evidence).map((evidence) => (
     `${evidence.evidence_id}: ${evidence.content_hash}; retrieved=${evidence.retrieved_at}; owner=${evidence.source_owner}`
@@ -87,6 +90,29 @@ function renderAudit(data, index) {
   section("Validator Result", array(data.validator_result?.checks).map((check) => (
     `${check.passed ? "PASS" : "FAIL"} ${check.check}: ${check.notes}`
   )));
+}
+
+function renderPatchImpact(data, index, changedIds) {
+  const startIds = changedIds.length > 0 ? changedIds : array(data.triggers).flatMap((trigger) => array(trigger.affected_objects));
+  const knownIds = startIds.filter((id) => index.ids.has(id));
+  const missingIds = startIds.filter((id) => !index.ids.has(id));
+  const closure = dependencyClosure(knownIds, index.reverseDeps);
+  const changedObjects = knownIds.map((id) => describeObject(index, id));
+  const affectedObjects = closure.map((id) => describeObject(index, id));
+  const renderingAffected = data.decision_rendering?.rendering_id ? closure.includes(data.decision_rendering.rendering_id) : false;
+  const semanticLayers = semanticLayersFor(index, [...changedObjects, ...affectedObjects]);
+
+  line(`# OfOne Patch Impact View`);
+  line();
+  section("Changed Objects", changedObjects.length > 0 ? changedObjects.map(objectLine) : ["none supplied"]);
+  if (missingIds.length > 0) section("Missing Objects", missingIds);
+  section("Affected Closure", affectedObjects.length > 0 ? affectedObjects.map(objectLine) : ["none"]);
+  section("Affected Semantic Layers", semanticLayers.length > 0 ? semanticLayers : ["none"]);
+  section("Decision Impact", [
+    `Rendering: ${renderingAffected ? "affected" : "unchanged"}`,
+    `Invalidated claims: ${affectedObjects.filter((object) => object.type === "claim").map((object) => object.id).join(", ") || "(none)"}`,
+    `Required revalidation: ${patchRevalidationLines(affectedObjects, renderingAffected).join(", ")}`
+  ]);
 }
 
 function renderDecisionAndTriggers(data, index) {
@@ -103,10 +129,70 @@ function renderDecisionAndTriggers(data, index) {
   }));
 }
 
+function normalizeMode(mode) {
+  const value = String(mode || "").toLowerCase();
+  if (value === "micro") return "Micro";
+  if (value === "executive" || value === "executivebrief") return "Executive";
+  if (value === "audit" || value === "auditreport") return "Audit";
+  if (value === "patch" || value === "patchimpact" || value === "patch-impact") return "PatchImpact";
+  return "Map";
+}
+
 function claimLines(data) {
   return array(data.claims).map((claim) => (
     `${claim.claim_id}: ${claim.text} (${claim.status}, confidence=${claim.confidence?.level})`
   ));
+}
+
+function describeObject(index, id) {
+  const entry = index.ids.get(id);
+  return {
+    id,
+    type: entry?.type || "missing",
+    label: labelFor(entry)
+  };
+}
+
+function objectLine(object) {
+  return `${object.id}: ${object.type}${object.label ? `; ${object.label}` : ""}`;
+}
+
+function labelFor(entry) {
+  const object = entry?.object || {};
+  return object.text || object.description || object.name || object.label || object.condition || object.decision_effect || object.recommended_next_query || object.recommendation || object.summary || object.source || object.move_type || object.objective_head || object.time_horizon || object.surface_id || "";
+}
+
+function semanticLayersFor(index, objects) {
+  const layers = new Set();
+  for (const object of objects) {
+    if (object.type === "evidence") layers.add("evidential");
+    if (object.type === "claim") layers.add("argumentative");
+    if (object.type === "trigger" || object.type === "gate" || object.type === "review_log") layers.add("workflow_state");
+    if (object.type === "edge") {
+      const family = index.ids.get(object.id)?.object?.relation_family;
+      if (family) layers.add(family);
+    }
+    if (object.type === "loop") {
+      for (const edgeId of index.ids.get(object.id)?.object?.edges || []) {
+        const family = index.ids.get(edgeId)?.object?.relation_family;
+        if (family) layers.add(family);
+      }
+    }
+  }
+  return [...layers].sort();
+}
+
+function patchRevalidationLines(affectedObjects, renderingAffected) {
+  const types = new Set(affectedObjects.map((object) => object.type));
+  return [
+    "json_schema",
+    "semantic_validation",
+    types.has("criterion") || types.has("tradeoff_surface") || types.has("option_move") ? "decision_surface_check" : null,
+    types.has("evidence") || types.has("temporal_model") ? "temporal_validity_check" : null,
+    types.has("lens") || types.has("council_result") ? "council_review_check" : null,
+    types.has("gate") || types.has("review_log") ? "review_log_check" : null,
+    renderingAffected ? "rendering_regeneration" : "rendering_check"
+  ].filter(Boolean);
 }
 
 function edgeFamilyLines(data) {

@@ -14,6 +14,7 @@ let failures = 0;
 
 try {
   runValidExamples();
+  runRenderSmokeTests();
   for (const fixture of fixtures) runInvalidFixture(fixture);
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
@@ -42,6 +43,48 @@ function runValidExamples() {
     return;
   }
   console.log("PASS valid examples");
+}
+
+function runRenderSmokeTests() {
+  const checks = [
+    {
+      name: "executive decision brief",
+      args: ["scripts/ofone-render.mjs", "examples/strategy-micro.json", "Executive"],
+      includes: ["# OfOne Executive Decision Brief", "## Decision", "## What Would Change This"]
+    },
+    {
+      name: "analyst semantic graph grouping",
+      args: ["scripts/ofone-render.mjs", "examples/strategy-micro.json", "Analyst"],
+      includes: ["# OfOne Analyst Map", "causal edges", "argumentative edges"]
+    },
+    {
+      name: "audit report",
+      args: ["scripts/ofone-render.mjs", "examples/hybrid-policy-audit.json", "Audit"],
+      includes: ["# OfOne Audit Report", "## Audit Evidence Identity", "## Review Log"]
+    },
+    {
+      name: "patch impact view",
+      args: ["scripts/ofone-render.mjs", "examples/strategy-micro.json", "PatchImpact", "X1"],
+      includes: ["# OfOne Patch Impact View", "## Affected Semantic Layers", "argumentative"]
+    }
+  ];
+
+  for (const check of checks) {
+    const result = spawnSync(process.execPath, check.args, {
+      cwd: repoRoot,
+      encoding: "utf8"
+    });
+    const output = `${result.stdout}\n${result.stderr}`;
+    const passed = result.status === 0 && check.includes.every((needle) => output.includes(needle));
+    if (passed) {
+      console.log(`PASS render ${check.name}`);
+      continue;
+    }
+    failures += 1;
+    console.error(`FAIL render ${check.name}`);
+    console.error(`expected output containing: ${check.includes.join(", ")}`);
+    console.error(output);
+  }
 }
 
 function runInvalidFixture(fixture) {

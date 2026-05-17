@@ -68,10 +68,12 @@ npm run validate:write
 
 ```bash
 npm run render -- examples/strategy-micro.json Micro
+npm run render -- examples/strategy-micro.json Executive
+npm run render -- examples/strategy-micro.json PatchImpact X1
 npm run patch -- examples/strategy-micro.json E1
 ```
 
-`render` produces a decision-native view: decision, confidence, why, blocking unknowns, change triggers, human gates, evidence identity, and dissent where applicable. `patch` produces a structured patch report with affected objects, invalidated claims, revalidation requirements, and rendering impact.
+`render` produces decision-native views: Executive decision brief, Analyst map, Audit report, and Patch Impact view. These expose decision, confidence, why, blocking unknowns, change triggers, human gates, evidence identity, dissent, semantic graph layers, and patch impact where applicable. `patch` produces a structured patch report with affected objects, semantic layers, invalidated claims, revalidation requirements, and rendering impact.
 
 ## Pages
 
