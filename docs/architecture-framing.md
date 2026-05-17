@@ -118,7 +118,7 @@ The compression rule is simple: delete content that does none of these.
 OfOne separates three layers:
 
 1. **Core IR:** charter, adapter projection, scene, evidence, claims, unknowns, kill tests, edges, loops, option moves, triggers, gates, confidence model, and decision rendering.
-2. **Decision lifecycle:** artifact identity, criteria, tradeoff surface, actors, temporal model, information value, lenses, council result, review log, review cycle, and benchmark trace.
+2. **Decision lifecycle:** artifact identity, criteria, tradeoff surface, actors, temporal model, information value, lenses, council result, review log, review cycle, convergence gate, and benchmark trace.
 3. **Domain extensions:** adapter-specific structures such as proof certificates, measurement protocols, competitor maps, rights-impact records, or failure-mode tables.
 
 A new object belongs in core only if it improves almost every serious decision map. Otherwise it belongs in the decision lifecycle or in an adapter extension.
@@ -175,6 +175,7 @@ Minimum object families:
 - `ReviewLog`: auditable gate decision linked to a reviewer actor.
 - `ReviewCycle`: recursive critique state: source review, round, accepted/rejected/unresolved findings, implemented commits, and stop reason.
 - `BenchmarkTrace`: benchmark execution boundary: suite, cases, arms, model families, superiority readiness, and diagnostics.
+- `ReviewSidecar`: recursive-review control boundary: inspected surfaces, source and execution policy, evidence classes, ranked backlog, convergence gate, benchmark handoff, and final mode decision.
 - `Edge`: typed relation between tokens or claims with evidence and confidence.
 - `Loop`: recurrent dependency, polarity, delay, gain, control points, observable cues, risk.
 - `OptionMove`: action/query/proof/intervention, preconditions, reversibility, risks.

@@ -150,7 +150,53 @@
           "rejected_findings": [],
           "unresolved_findings": [],
           "implemented_commits": [],
+          "convergence_gate": {
+            "round": 2,
+            "max_rounds": 4,
+            "release_blockers": 0,
+            "new_high_value_architecture_items": 1,
+            "repeated_top_findings_count": 1,
+            "benchmark_handoff_ready": false,
+            "recommended_next_mode": "protocol_hardening",
+            "stop_reason": "accepted finding still needs implementation",
+            "movement_jobs": ["TRIGGER", "EVALUATE"]
+          },
           "stop_reason": "not converged",
+          "movement_jobs": ["TRIGGER", "EVALUATE"]
+        }
+      }
+    ]
+  },
+  {
+    "name": "review-cycle-keeps-iterating-after-benchmark-handoff",
+    "base": "examples/strategy-micro.json",
+    "expect": ["OFONE_REVIEW_CYCLE"],
+    "mutations": [
+      {
+        "op": "set",
+        "path": ["review_cycle"],
+        "value": {
+          "cycle_id": "RCY",
+          "source_review": "external critique",
+          "source_url": "https://example.com/review",
+          "round": 3,
+          "status": "accepted",
+          "accepted_findings": [],
+          "rejected_findings": [],
+          "unresolved_findings": [],
+          "implemented_commits": [],
+          "convergence_gate": {
+            "round": 3,
+            "max_rounds": 4,
+            "release_blockers": 0,
+            "new_high_value_architecture_items": 0,
+            "repeated_top_findings_count": 2,
+            "benchmark_handoff_ready": true,
+            "recommended_next_mode": "architecture_iteration",
+            "stop_reason": "should have switched to benchmark mode",
+            "movement_jobs": ["TRIGGER", "EVALUATE"]
+          },
+          "stop_reason": "incorrectly continuing architecture iteration",
           "movement_jobs": ["TRIGGER", "EVALUATE"]
         }
       }

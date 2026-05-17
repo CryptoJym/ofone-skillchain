@@ -119,10 +119,22 @@ Artifact identity, temporal model, information-value objects, tradeoff surfaces,
 
 Recursive improvement cycles should not live only in tracker prose. Use optional typed objects when a map or repo review is being iterated:
 
-- `review_cycle`: source review, URL, round, status, accepted findings, rejected findings, unresolved findings, implemented commits, and stop reason.
+- `review_cycle`: source review, URL, round, status, accepted findings, rejected findings, unresolved findings, implemented commits, typed convergence gate, and stop reason.
 - `benchmark_trace`: suite ID, cases run, arms run, model-family count, superiority readiness, and diagnostic notes.
 
-`review_cycle.status=implemented` requires implemented commits when accepted findings exist. `review_cycle.status=converged` cannot carry unresolved findings. `benchmark_trace.superiority_ready=true` is invalid until it reports at least 21 cases and at least two model families.
+`review_cycle.status=implemented` requires implemented commits when accepted findings exist. `review_cycle.status=converged` cannot carry unresolved findings, release blockers, or new high-value architecture items. `review_cycle.convergence_gate` must match the review round and cannot recommend another broad architecture iteration when there are no blockers and benchmark handoff is ready. `benchmark_trace.superiority_ready=true` is invalid until it reports at least 21 cases and at least two model families.
+
+## Recursive Review Protocol
+
+External reviews of OfOne itself use a separate review sidecar schema: `schemas/ofone.review.schema.json`.
+
+Validate review sidecars with:
+
+```bash
+npm run review:check
+```
+
+The review sidecar records inspected surfaces, source policy, execution policy, evidence classes, release blockers, ranked backlog, stale/deferred items, convergence gate, benchmark handoff state, and final decision. It exists to keep recursive improvement bounded: if no release blocker remains and the remaining uncertainty is empirical, the review should hand off to benchmark execution instead of producing another broad architecture pass.
 
 ## Nested Scenes And Unknowns
 

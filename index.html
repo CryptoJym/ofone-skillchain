@@ -272,7 +272,7 @@
         <div class="grid">
           <div class="item"><h3>Artifact First</h3><p>Claims, unknowns, criteria, gates, and recommendations must exist as addressable objects or explicit omissions.</p></div>
           <div class="item"><h3>Structured Diagnostics</h3><p>Validator findings emit stable codes, severity, message, object metadata, path, and repair hints for CI, patching, and tests.</p></div>
-          <div class="item"><h3>Recursive Review</h3><p>Deep Research critique becomes backlog, implementation, verification, resubmission, and convergence tracking.</p></div>
+          <div class="item"><h3>Recursive Review</h3><p>Deep Research critique becomes typed sidecar state: inspected surfaces, accepted backlog, safety policy, convergence gate, and benchmark handoff.</p></div>
         </div>
       </section>
 
@@ -293,7 +293,7 @@
 
       <section id="lifecycle">
         <h2>Decision Lifecycle</h2>
-        <p class="lead">v0.5 freezes the core inquiry IR and adds the missing decision surface: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, and benchmark traces.</p>
+        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, and review sidecars.</p>
         <div class="grid">
           <div class="item"><h3>Identity</h3><p>Objective head, scope hash, config hash, active evidence hashes, created-at marker, and lifecycle status.</p></div>
           <div class="item"><h3>Criteria</h3><p>Decision standards with priority, threshold, owner, and review implications.</p></div>
@@ -302,13 +302,14 @@
           <div class="item"><h3>Time</h3><p>Decision horizon, deadline, evidence validity windows, staleness triggers, and update cadence.</p></div>
           <div class="item"><h3>Information Value</h3><p>Which unknowns are worth resolving next, with impact, cost, time, and risk reduction.</p></div>
           <div class="item"><h3>Recursive Review</h3><p>External critique becomes accepted, rejected, unresolved, implemented, and resubmitted state.</p></div>
+          <div class="item"><h3>Convergence Gate</h3><p>Architecture recursion stops or hands off to benchmarks when blockers are gone and remaining uncertainty is empirical.</p></div>
           <div class="item"><h3>Benchmark Trace</h3><p>Benchmark readiness is explicit, so scaffold checks are not mistaken for empirical superiority.</p></div>
         </div>
       </section>
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, and executable benchmark suite manifest.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, and executable benchmark suite manifest.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -321,7 +322,9 @@
           <a class="button" href="./docs/confidence-model.md">Confidence Model</a>
           <a class="button" href="./schemas/ofone.schema.json">JSON Schema</a>
           <a class="button" href="./schemas/ofone.base.schema.json">Base Schema</a>
+          <a class="button" href="./schemas/ofone.review.schema.json">Review Sidecar Schema</a>
           <a class="button" href="./schemas/ofone.audit.schema.json">Audit Schema</a>
+          <a class="button" href="./research/review-protocol.md">Review Protocol</a>
           <a class="button" href="./examples/strategy-micro.json">Strategy Example</a>
           <a class="button" href="./examples/scientific-mechanism-map.json">Scientific Example</a>
           <a class="button" href="./examples/formal-proof-map.json">Formal Example</a>
@@ -336,9 +339,10 @@
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Structured diagnostic codes make failures machine-readable, and negative fixtures prove the validator rejects malformed maps.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Recursive review sidecars are checked for inspection honesty, source allowlists, no-execute/no-write policy, convergence gating, and benchmark handoff. Structured diagnostic codes make failures machine-readable, and negative fixtures prove the validator rejects malformed maps.</p>
         <code class="rule">npm run validate
 npm run schema:check
+npm run review:check
 node scripts/ofone-validate.mjs --json examples/strategy-micro.json
 npm test
 npm run benchmark

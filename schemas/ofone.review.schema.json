@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.review.schema.json",
+  "title": "OfOne Recursive Review Sidecar",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "review_id",
+    "source_report",
+    "based_on_commit",
+    "inspected_surfaces",
+    "source_policy",
+    "execution_policy",
+    "evidence_classes",
+    "release_blockers",
+    "ranked_backlog",
+    "stale_or_deferred",
+    "convergence_gate",
+    "benchmark_handoff",
+    "final_decision"
+  ],
+  "properties": {
+    "protocol_version": {
+      "const": "ofone-review-0.6"
+    },
+    "review_id": {
+      "type": "string"
+    },
+    "source_report": {
+      "type": "string"
+    },
+    "based_on_commit": {
+      "type": "string"
+    },
+    "inspected_surfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "pages", "schemas", "scripts", "examples", "benchmark_scaffold", "attached_context"],
+      "properties": {
+        "repo": {
+          "$ref": "#/$defs/inspection"
+        },
+        "pages": {
+          "$ref": "#/$defs/inspection"
+        },
+        "schemas": {
+          "$ref": "#/$defs/inspection"
+        },
+        "scripts": {
+          "$ref": "#/$defs/inspection"
+        },
+        "examples": {
+          "$ref": "#/$defs/inspection"
+        },
+        "benchmark_scaffold": {
+          "$ref": "#/$defs/inspection"
+        },
+        "attached_context": {
+          "$ref": "#/$defs/inspection"
+        }
+      }
+    },
+    "source_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowlisted_hosts", "no_follow_discovered_links", "treat_source_as_untrusted", "sanitize_markup"],
+      "properties": {
+        "allowlisted_hosts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "no_follow_discovered_links": {
+          "type": "boolean"
+        },
+        "treat_source_as_untrusted": {
+          "type": "boolean"
+        },
+        "sanitize_markup": {
+          "type": "boolean"
+        }
+      }
+    },
+    "execution_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execute_repo_code", "mutate_files", "validator_write_policy"],
+      "properties": {
+        "execute_repo_code": {
+          "type": "boolean"
+        },
+        "mutate_files": {
+          "type": "boolean"
+        },
+        "validator_write_policy": {
+          "enum": ["forbidden", "disposable_clone_only", "maintainer_local_only"]
+        }
+      }
+    },
+    "evidence_classes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["direct_observations", "self_reported_claims", "inferences", "open_gaps"],
+      "properties": {
+        "direct_observations": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "self_reported_claims": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "inferences": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "open_gaps": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "release_blockers": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "ranked_backlog": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/backlogItem"
+      }
+    },
+    "stale_or_deferred": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deferredItem"
+      }
+    },
+    "convergence_gate": {
+      "$ref": "#/$defs/convergenceGate"
+    },
+    "benchmark_handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ready_after_current_batch", "reason", "minimum_next_evidence"],
+      "properties": {
+        "ready_after_current_batch": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "minimum_next_evidence": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "final_decision": {
+      "enum": ["implement_protocol_hardening", "benchmark", "stop_architecture_iteration", "blocked"]
+    }
+  },
+  "$defs": {
+    "inspection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inspected", "source"],
+      "properties": {
+        "inspected": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "backlogItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "priority", "recommendation", "target_files", "acceptance_tests", "status"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "priority": {
+          "enum": ["P0", "P1", "P2"]
+        },
+        "recommendation": {
+          "type": "string"
+        },
+        "target_files": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "acceptance_tests": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "status": {
+          "enum": ["accepted", "deferred", "rejected"]
+        }
+      }
+    },
+    "deferredItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["item", "reason"],
+      "properties": {
+        "item": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "convergenceGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["round", "max_rounds", "release_blockers", "new_high_value_architecture_items", "repeated_top_findings_count", "benchmark_handoff_ready", "recommended_next_mode", "stop_reason"],
+      "properties": {
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_rounds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "release_blockers": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "new_high_value_architecture_items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "repeated_top_findings_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "benchmark_handoff_ready": {
+          "type": "boolean"
+        },
+        "recommended_next_mode": {
+          "enum": ["architecture_iteration", "protocol_hardening", "benchmark", "stop", "blocked"]
+        },
+        "stop_reason": {
+          "type": "string"
+        }
+      }
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

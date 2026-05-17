@@ -1178,7 +1178,7 @@
     "reviewCycle": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["cycle_id", "source_review", "source_url", "round", "status", "accepted_findings", "rejected_findings", "unresolved_findings", "implemented_commits", "stop_reason", "movement_jobs"],
+      "required": ["cycle_id", "source_review", "source_url", "round", "status", "accepted_findings", "rejected_findings", "unresolved_findings", "implemented_commits", "convergence_gate", "stop_reason", "movement_jobs"],
       "properties": {
         "cycle_id": {
           "type": "string"
@@ -1219,6 +1219,48 @@
           "items": {
             "type": "string"
           }
+        },
+        "convergence_gate": {
+          "$ref": "#/$defs/reviewConvergenceGate"
+        },
+        "stop_reason": {
+          "type": "string"
+        },
+        "movement_jobs": {
+          "$ref": "#/$defs/movementJobs"
+        }
+      }
+    },
+    "reviewConvergenceGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["round", "max_rounds", "release_blockers", "new_high_value_architecture_items", "repeated_top_findings_count", "benchmark_handoff_ready", "recommended_next_mode", "stop_reason", "movement_jobs"],
+      "properties": {
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_rounds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "release_blockers": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "new_high_value_architecture_items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "repeated_top_findings_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "benchmark_handoff_ready": {
+          "type": "boolean"
+        },
+        "recommended_next_mode": {
+          "enum": ["architecture_iteration", "protocol_hardening", "benchmark", "stop", "blocked"]
         },
         "stop_reason": {
           "type": "string"

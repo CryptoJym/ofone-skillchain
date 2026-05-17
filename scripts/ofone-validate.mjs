@@ -440,11 +440,30 @@ function validateReviewCycle(data, { fail, warn }) {
   const cycle = data.review_cycle;
   if (!cycle) return;
   validateMovementJobs(cycle, `review_cycle ${cycle.cycle_id}`, fail);
+  const gate = cycle.convergence_gate;
+  if (gate) {
+    validateMovementJobs(gate, `review_cycle ${cycle.cycle_id} convergence_gate`, fail);
+    if (gate.round !== cycle.round) {
+      fail("review_cycle", `review_cycle ${cycle.cycle_id} convergence_gate round does not match review round`);
+    }
+    if (gate.round > gate.max_rounds && gate.recommended_next_mode === "architecture_iteration") {
+      fail("review_cycle", `review_cycle ${cycle.cycle_id} exceeds max_rounds but still recommends architecture_iteration`);
+    }
+    if (gate.release_blockers === 0 && gate.benchmark_handoff_ready && gate.recommended_next_mode === "architecture_iteration") {
+      fail("review_cycle", `review_cycle ${cycle.cycle_id} has no blockers and is benchmark-handoff ready but still recommends architecture_iteration`);
+    }
+    if (gate.recommended_next_mode === "stop" && gate.release_blockers > 0) {
+      fail("review_cycle", `review_cycle ${cycle.cycle_id} recommends stop with release blockers still present`);
+    }
+  }
   if (cycle.status === "implemented" && array(cycle.accepted_findings).length > 0 && array(cycle.implemented_commits).length === 0) {
     fail("review_cycle", `review_cycle ${cycle.cycle_id} is implemented but has no implemented_commits`);
   }
   if (cycle.status === "converged" && array(cycle.unresolved_findings).length > 0) {
     fail("review_cycle", `review_cycle ${cycle.cycle_id} is converged but still lists unresolved findings`);
+  }
+  if (cycle.status === "converged" && gate && (gate.release_blockers > 0 || gate.new_high_value_architecture_items > 0)) {
+    fail("review_cycle", `review_cycle ${cycle.cycle_id} is converged but convergence_gate still has blockers or high-value architecture items`);
   }
   if (cycle.status === "blocked" && !cycle.stop_reason) {
     warn("review_cycle", `review_cycle ${cycle.cycle_id} is blocked without a stop_reason`);

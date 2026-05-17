@@ -11,6 +11,14 @@ Date: 2026-05-17
 - `research/prompts/2026-05-17-02-ofone-v05-recursive-review.md` - prepared launch prompt for Run 02.
 - `research/ofone-v05-context-brief.md` - prepared context brief for Run 02.
 - `Pasted text(4).txt` in ChatGPT Run 02 - combined Run 02 prompt plus inline context brief, pasted into the ChatGPT composer as the launch document.
+- `research/results/2026-05-17-02-ofone-v05-recursive-review-result.md` - harvested Run 02 Markdown export.
+- `research/results/2026-05-17-02-ofone-v05-recursive-review-synthesis.md` - local synthesis and backlog from Run 02.
+- `research/prompts/2026-05-17-03-ofone-v06-recursive-review.md` - launch prompt for Run 03.
+- `research/ofone-v06-context-brief.md` - context brief for Run 03.
+- `Pasted text(5).txt` in ChatGPT Run 03 - combined Run 03 prompt plus inline context brief, pasted into the ChatGPT composer as the launch document.
+- `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md` - harvested Run 03 Markdown export.
+- `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md` - local synthesis and backlog from Run 03.
+- `research/review-sidecars/2026-05-17-03-ofone-v06-recursive-review-sidecar.json` - structured accepted-review sidecar.
 
 ## Repo Context
 
@@ -19,6 +27,8 @@ Date: 2026-05-17
 - Run 01 local repo commit at launch/harvest: `5065da3808475f77cf242802fcdccc68c616d0ea`
 - Run 02 public repo commit at preparation: `18c9bc2b5a5c514ab58d537937732827d5aa038f`
 - Run 02 ChatGPT URL: https://chatgpt.com/c/6a0a2b54-1904-83e8-a7f7-c0d9036bdff3
+- Run 03 public repo commit at preparation: `d2d71e33bc5776fa92dacace1609adcc5bdafcaf`
+- Run 03 ChatGPT URL: https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746
 
 ## Run 01 External Sources Reported By ChatGPT
 
@@ -50,3 +60,5 @@ The Run 01 report states these external sources were successfully inspected:
 ## Source Caveat
 
 Run 01 could read the attached local context brief but reported that it could not directly fetch the public GitHub repo, public docs, commit archive, or raw `SKILL.md`. Repo-specific findings in the report should therefore be treated as research counsel until locally validated against the repository.
+
+Run 03 reported direct public-surface inspection but the exported metadata showed only one visible citation. Treat Run 03 as accepted architectural review counsel with local command verification and repo inspection as the implementation authority.

@@ -18,6 +18,8 @@ try {
   runRenderSmokeTests();
   runPatchWorkflowTests();
   runBenchmarkCheck();
+  runReviewSidecarCheck();
+  runInvalidReviewSidecarChecks();
   for (const fixture of fixtures) runInvalidFixture(fixture);
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
@@ -200,6 +202,72 @@ function runBenchmarkCheck() {
   console.error("FAIL benchmark suite manifest");
   console.error(result.stdout);
   console.error(result.stderr);
+}
+
+function runReviewSidecarCheck() {
+  const result = spawnSync(process.execPath, ["scripts/ofone-review-check.mjs", "research/review-sidecars/2026-05-17-03-ofone-v06-recursive-review-sidecar.json"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  if (result.status === 0) {
+    console.log("PASS recursive review sidecar");
+    return;
+  }
+  failures += 1;
+  console.error("FAIL recursive review sidecar");
+  console.error(result.stdout);
+  console.error(result.stderr);
+}
+
+function runInvalidReviewSidecarChecks() {
+  const sourcePath = path.join(repoRoot, "research", "review-sidecars", "2026-05-17-03-ofone-v06-recursive-review-sidecar.json");
+  const base = JSON.parse(fs.readFileSync(sourcePath, "utf8"));
+  const checks = [
+    {
+      name: "source boundary",
+      mutate: (data) => {
+        data.source_policy.no_follow_discovered_links = false;
+      },
+      expect: "OFONE_REVIEW_SOURCE_BOUNDARY"
+    },
+    {
+      name: "execution boundary",
+      mutate: (data) => {
+        data.execution_policy.execute_repo_code = true;
+      },
+      expect: "OFONE_REVIEW_EXECUTION"
+    },
+    {
+      name: "convergence handoff",
+      mutate: (data) => {
+        data.convergence_gate.recommended_next_mode = "architecture_iteration";
+      },
+      expect: "OFONE_REVIEW_CONVERGENCE"
+    }
+  ];
+
+  for (const check of checks) {
+    const data = JSON.parse(JSON.stringify(base));
+    check.mutate(data);
+    const outputPath = path.join(tempDir, `invalid-review-${check.name.replaceAll(" ", "-")}.json`);
+    fs.writeFileSync(outputPath, `${JSON.stringify(data, null, 2)}\n`);
+    const result = spawnSync(process.execPath, ["scripts/ofone-review-check.mjs", "--json", outputPath], {
+      cwd: repoRoot,
+      encoding: "utf8"
+    });
+    const diagnostics = parseDiagnostics(result.stdout);
+    const codes = new Set(diagnostics.map((diagnostic) => diagnostic.code));
+    if (result.status !== 0 && codes.has(check.expect)) {
+      console.log(`PASS invalid review ${check.name}`);
+      continue;
+    }
+    failures += 1;
+    console.error(`FAIL invalid review ${check.name}`);
+    console.error(`expected non-zero exit and diagnostic code: ${check.expect}`);
+    console.error(`actual diagnostic codes: ${[...codes].join(", ") || "(none)"}`);
+    console.error(result.stdout);
+    console.error(result.stderr);
+  }
 }
 
 function runInvalidFixture(fixture) {

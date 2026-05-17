@@ -302,10 +302,23 @@ npm run validate
   "rejected_findings": ["finding already implemented"],
   "unresolved_findings": ["needs empirical benchmark results"],
   "implemented_commits": ["abc1234"],
+  "convergence_gate": {
+    "round": 2,
+    "max_rounds": 4,
+    "release_blockers": 0,
+    "new_high_value_architecture_items": 1,
+    "repeated_top_findings_count": 1,
+    "benchmark_handoff_ready": false,
+    "recommended_next_mode": "protocol_hardening",
+    "stop_reason": "one accepted protocol hardening item remains",
+    "movement_jobs": ["EVALUATE", "TRIGGER"]
+  },
   "stop_reason": "not converged",
   "movement_jobs": ["TRIGGER", "EVALUATE"]
 }
 ```
+
+`convergence_gate` turns the recursive improvement loop into typed state. If `release_blockers` is zero and `benchmark_handoff_ready` is true, a review cannot keep recommending broad architecture iteration without a new P0/P1 defect.
 
 ## Benchmark Trace
 
@@ -325,5 +338,7 @@ npm run validate
 ## Full Schema
 
 Use [`../schemas/ofone.schema.json`](../schemas/ofone.schema.json) for profile-dispatched validation across charter, adapter projection, scene, evidence, claims, decision surface, actors, time, lenses, edges, loops, options, triggers, gates, confidence model, decision rendering, recursive review cycles, and benchmark traces. `validator_result` is computed by `../scripts/ofone-validate.mjs --write` rather than trusted as self-attestation.
+
+For recursive reviews of OfOne itself, use [`../schemas/ofone.review.schema.json`](../schemas/ofone.review.schema.json) and `npm run review:check` to validate the sidecar that records inspected surfaces, source policy, execution policy, evidence classes, ranked backlog, convergence gate, and benchmark handoff state.
 
 Validator regression fixtures live in [`../tests/invalid/fixtures.json`](../tests/invalid/fixtures.json). Run `npm test` to prove malformed artifacts are rejected.

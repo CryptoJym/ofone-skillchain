@@ -67,8 +67,15 @@ The public GitHub Pages site was checked and contains references to the latest v
 
 - Run 01 result: `research/results/2026-05-17-01-ofone-v04-skill-rd-result.md`
 - Run 01 synthesis/backlog: `research/results/2026-05-17-01-ofone-v04-skill-rd-synthesis.md`
+- Run 02 result: `research/results/2026-05-17-02-ofone-v05-recursive-review-result.md`
+- Run 02 synthesis/backlog: `research/results/2026-05-17-02-ofone-v05-recursive-review-synthesis.md`
+- Run 03 result: `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md`
+- Run 03 synthesis/backlog: `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md`
+- Run 03 structured sidecar: `research/review-sidecars/2026-05-17-03-ofone-v06-recursive-review-sidecar.json`
+- Stable recursive review protocol: `research/review-protocol.md`
 - Source register: `research/source-register.md`
 - Acceptance caveat: ChatGPT reported that it could read the attached context brief but could not directly fetch the public repo/docs; repo-specific findings were locally checked before synthesis.
+- Run 03 acceptance caveat: ChatGPT reported direct public-surface inspection but the export showed only one visible citation; treat it as external review counsel and keep local verification authoritative.
 
 ## Research Guardrails
 

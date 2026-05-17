@@ -17,6 +17,7 @@ const schemaNames = [
   "ofone.micro.schema.json",
   "ofone.map.schema.json",
   "ofone.audit.schema.json",
+  "ofone.review.schema.json",
   "ofone.schema.json"
 ];
 
@@ -58,6 +59,7 @@ const closedDefinitions = [
   "validatorResult",
   "validatorDiagnostic",
   "reviewCycle",
+  "reviewConvergenceGate",
   "benchmarkTrace"
 ];
 
@@ -99,6 +101,9 @@ checkDependentFields("evidence", "content_hash", ["retrieved_at", "extract", "so
 checkDependentFields("tradeoffSurface", "dominant_option", ["options", "criteria", "why"]);
 checkDependentFields("tradeoffSurface", "reversal_conditions", ["options", "criteria"]);
 checkDependentFields("validatorResult", "diagnostics", ["checks"]);
+if (!base.$defs?.reviewCycle?.required?.includes("convergence_gate")) {
+  fail("SCHEMA_DEPENDENT_FIELDS", "$defs.reviewCycle must require convergence_gate");
+}
 for (const key of ["artifact_identity", "tradeoff_surface", "temporal_model", "review_log"]) {
   if (!Object.keys(base.dependentRequired || {}).includes(key)) fail("SCHEMA_DEPENDENT_FIELDS", `root missing dependentRequired for ${key}`);
 }
