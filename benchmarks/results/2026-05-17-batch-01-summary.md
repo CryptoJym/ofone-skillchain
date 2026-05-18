@@ -4,7 +4,7 @@ Status: `in_progress`
 
 This file is reserved for aggregate findings from `2026-05-17-batch-01`.
 
-Raw output collection, local unblinded review, and the first independent frontier review have started. Fifteen of 90 predeclared run slots have completed and have local reviews across five local `agentic_coding` slices:
+Raw output collection, local unblinded review, and the first independent frontier review have started. Eighteen of 90 predeclared run slots have completed and have local reviews across six local `agentic_coding` slices:
 
 - `case-strategic-gated-diligence-001` / `direct_answer` / `agentic_coding` / repeat 1
 - `case-strategic-gated-diligence-001` / `light_structured` / `agentic_coding` / repeat 1
@@ -21,6 +21,9 @@ Raw output collection, local unblinded review, and the first independent frontie
 - `case-public-sector-ai-policy-audit-001` / `direct_answer` / `agentic_coding` / repeat 1
 - `case-public-sector-ai-policy-audit-001` / `light_structured` / `agentic_coding` / repeat 1
 - `case-public-sector-ai-policy-audit-001` / `full_ofone` / `agentic_coding` / repeat 1
+- `case-strategic-gated-diligence-001` / `direct_answer` / `agentic_coding` / repeat 2
+- `case-strategic-gated-diligence-001` / `light_structured` / `agentic_coding` / repeat 2
+- `case-strategic-gated-diligence-001` / `full_ofone` / `agentic_coding` / repeat 2
 
 Run 06 independently adjudicated the first slice. It accepted the direct-answer and light-structured slots for later aggregate scoring, but rejected the full-OfOne slot because the artifact identity is copied from `case-strategy-micro-001` rather than bound to `case-strategic-gated-diligence-001`.
 
@@ -37,6 +40,8 @@ The regulated wastewater slice completed after the scientific slice. All three r
 The formal proof-search slice completed after the regulated wastewater slice. All three formal `agentic_coding` repeat-1 arms passed local pre-score compliance. The full-OfOne formal artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, rendering, and patch artifacts.
 
 The public-sector AI policy audit slice completed after the formal proof-search slice. All three policy-audit `agentic_coding` repeat-1 arms passed local pre-score compliance. The full-OfOne policy artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Audit rendering, patch, review-log, and local review artifacts. The slice is published and Pages-confirmed.
+
+The strategic gated diligence repeat-2 slice completed after the policy-audit slice. All three strategic repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne strategic repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. Publication and Pages parity are still pending until this batch is committed, pushed, and deployed.
 
 Current aggregate eligibility among reviewed local slots:
 
@@ -58,6 +63,9 @@ Current aggregate eligibility among reviewed local slots:
 | public-sector AI policy audit / `direct_answer` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | public-sector AI policy audit / `light_structured` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | public-sector AI policy audit / `full_ofone` / `agentic_coding` / repeat 1 | eligible | Case-native Audit artifact with benchmark trace binding, validator output, rendering, patch report, review-log objects, and local review. |
+| strategic / `direct_answer` / `agentic_coding` / repeat 2 | eligible | Passes pre-score compliance gate. |
+| strategic / `light_structured` / `agentic_coding` / repeat 2 | eligible | Passes pre-score compliance gate. |
+| strategic / `full_ofone` / `agentic_coding` / repeat 2 | eligible | Case-native Map artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
 
 No aggregate scoring or performance comparison has been completed. No performance or superiority claim is supported by this in-progress state.
 

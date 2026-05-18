@@ -69,7 +69,7 @@ if (jsonOutput) {
   }
 }
 
-process.exit(passed ? 0 : 1);
+process.exitCode = passed ? 0 : 1;
 
 function validateCase(item, caseFamilies) {
   if (!item.case_id) fail("BENCH_CASE_ID", "case missing case_id");

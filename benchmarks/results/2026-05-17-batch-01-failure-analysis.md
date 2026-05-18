@@ -51,6 +51,12 @@ The public-sector AI policy audit slice adds a high-risk hybrid/normative case-b
 - Light structured answer: makes release conditions, reviewer authority, and evidence gaps clearer, but still leaves rights, model, stakeholder, and review dependencies as text.
 - Full OfOne answer: preserves model evidence gaps, rights and legitimacy claims, stakeholder exposure, gates, review-log objects, trigger closure, Audit rendering, validator, and patch artifacts for `case-public-sector-ai-policy-audit-001`; remaining limitation is that the benchmark dossier lacks real external policy, model validation, subgroup, appeal-access, and operational-monitoring artifacts.
 
+The strategic gated diligence repeat-2 slice adds the first non-remedial repeated-run check for the original strategic case:
+
+- Direct answer: preserves the diligence-versus-launch distinction and names update conditions, but remains prose-only and low traceability.
+- Light structured answer: clarifies gate, unknowns, and guardrails in a table, but still lacks addressable criteria, review gate state, and dependency closure.
+- Full OfOne answer: preserves evidence hashes, claims, actors, criteria, open unknowns, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-strategic-gated-diligence-001` repeat 2; remaining limitation is that the benchmark dossier still provides only scenario-level evidence rather than a real launch checklist or named reviewer.
+
 Minimum sections once runs exist:
 
 - validation failures

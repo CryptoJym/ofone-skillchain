@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 75,
-    "completed": 15,
-    "reviewed": 15,
+    "queued": 72,
+    "completed": 18,
+    "reviewed": 18,
     "excluded": 1,
-    "aggregate_eligible": 15,
+    "aggregate_eligible": 18,
     "remedial": 1
   },
   "completed_runs": [
@@ -516,6 +516,99 @@
         "patch_sha256": "sha256:a82115da73c8af320a65cf1a6cb629de9b6342239e37e0f6290580c47d0b7194",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.rendering.md",
         "rendering_sha256": "sha256:3a69e6b93de919c50a5b5cf87cefcebcbd0e1c0bf550885b62f8aa61965a01e4"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r2",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r2",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for lightweight structured arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence with stable content hashes, chain-of-custody notes, and explicit release-gate unknowns",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the strategic gated diligence repeat-2 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-strategic-gated-diligence-001",
+        "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2",
+        "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+        "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.validator.json",
+        "validator_sha256": "sha256:c04e33e0c7dadd6013a6f710264bdb23e167a9b95d9d42edd45f2486248e6b17",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.patch.json",
+        "patch_sha256": "sha256:7ef16c667d14a2e4aa622372e3a6fbfd745a912894151196a3ac42d9bec3a97f",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.rendering.md",
+        "rendering_sha256": "sha256:5524f308e9456dab3c751fb98cde6461ae17d0d1e1f7e26960604dff90f56fa2"
       }
     }
   ],
@@ -999,12 +1092,105 @@
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.rendering.md",
         "rendering_sha256": "sha256:3a69e6b93de919c50a5b5cf87cefcebcbd0e1c0bf550885b62f8aa61965a01e4"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r2",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r2",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for lightweight structured arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence with stable content hashes, chain-of-custody notes, and explicit release-gate unknowns",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the strategic gated diligence repeat-2 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-strategic-gated-diligence-001",
+        "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2",
+        "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+        "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.validator.json",
+        "validator_sha256": "sha256:c04e33e0c7dadd6013a6f710264bdb23e167a9b95d9d42edd45f2486248e6b17",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.patch.json",
+        "patch_sha256": "sha256:7ef16c667d14a2e4aa622372e3a6fbfd745a912894151196a3ac42d9bec3a97f",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.rendering.md",
+        "rendering_sha256": "sha256:5524f308e9456dab3c751fb98cde6461ae17d0d1e1f7e26960604dff90f56fa2"
+      }
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
     "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
-    "allowed_claim": "Batch 01 has fifteen completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
+    "allowed_claim": "Batch 01 has eighteen completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
   },
   "excluded_runs": [
     {

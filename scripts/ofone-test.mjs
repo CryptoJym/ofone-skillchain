@@ -10,6 +10,7 @@ const repoRoot = path.resolve(__dirname, "..");
 const fixturesPath = path.join(repoRoot, "tests", "invalid", "fixtures.json");
 const fixtures = JSON.parse(fs.readFileSync(fixturesPath, "utf8"));
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ofone-invalid-"));
+const spawnMaxBuffer = 20 * 1024 * 1024;
 let failures = 0;
 
 try {
@@ -287,7 +288,8 @@ function runBenchmarkNegativeChecks() {
     const result = spawnSync(process.execPath, ["scripts/ofone-benchmark.mjs", "--json"], {
       cwd: repoRoot,
       env: { ...process.env, OFONE_BENCHMARK_REPO_ROOT: root },
-      encoding: "utf8"
+      encoding: "utf8",
+      maxBuffer: spawnMaxBuffer
     });
     const parsed = parseJson(result.stdout || "{}");
     const codes = new Set((parsed.diagnostics || []).map((diagnostic) => diagnostic.code));
@@ -369,6 +371,8 @@ function runToolingContractCheck() {
     ["pages checker Run 07 synthesis target", pagesScript.includes("research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md")],
     ["pages checker remedial artifact target", pagesScript.includes("2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json")],
     ["pages checker remedial review target", pagesScript.includes("batch 01 remedial full review")],
+    ["pages checker strategic r2 artifact target", pagesScript.includes("2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.artifact.json")],
+    ["pages checker strategic r2 review target", pagesScript.includes("batch 01 strategic r2 full review")],
     ["pages checker scientific artifact target", pagesScript.includes("2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.artifact.json")],
     ["pages checker scientific review target", pagesScript.includes("batch 01 scientific full review")],
     ["pages checker wastewater artifact target", pagesScript.includes("2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.artifact.json")],
@@ -384,6 +388,7 @@ function runToolingContractCheck() {
     ["README batch 01 plan", readme.includes("benchmarks/runs/2026-05-17-batch-01/manifest.json")],
     ["README batch 01 matrix", readme.includes("benchmarks/runs/2026-05-17-batch-01/execution-matrix.json")],
     ["README remedial rerun artifact", readme.includes("2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json")],
+    ["README strategic r2 artifact", readme.includes("2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.artifact.json")],
     ["README scientific artifact", readme.includes("2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.artifact.json")],
     ["README wastewater artifact", readme.includes("2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.artifact.json")],
     ["README formal artifact", readme.includes("2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.artifact.json")],
@@ -394,6 +399,8 @@ function runToolingContractCheck() {
     ["index first review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md")],
     ["index remedial artifact link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json")],
     ["index remedial review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md")],
+    ["index strategic r2 artifact link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.artifact.json")],
+    ["index strategic r2 review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md")],
     ["index scientific artifact link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.artifact.json")],
     ["index scientific review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.md")],
     ["index wastewater artifact link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.artifact.json")],
