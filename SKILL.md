@@ -227,7 +227,7 @@ When OfOne is improved through external Deep Research or frontier-model review, 
 prepared -> launched -> active_researching -> harvested -> accepted|rejected -> integrated|deferred -> resubmitted|converged|blocked
 ```
 
-The run is only `launched` after the external system shows a generated research plan, the operator clicks `Start` or an explicit countdown begins, and a visible `Researching...` / stop-control state is present. Record model label, reasoning label, Deep Research flag, prompt/context paths, pasted/uploaded context label, URL, public repo or Pages state, and launch proof. Resubmit only after accepted findings have been implemented, verified, committed, pushed, and made visible to the external reviewer.
+The run is only `launched` after the external system shows a generated research plan, the operator clicks `Start` or an explicit countdown begins, and a visible `Researching...` / stop-control state is present. Record model label, reasoning label, Deep Research flag, prompt/context paths, pasted/uploaded context label, URL, public repo or Pages state, and launch proof. Active external runs must also keep a run-scoped status ledger so progress, harvest, acceptance, and implementation evidence cannot be confused with other review cycles. Resubmit only after accepted findings have been implemented, verified, committed, pushed, and made visible to the external reviewer.
 
 ## Minimal Schemas
 
@@ -494,6 +494,7 @@ Before recommending action:
 13. Render the decision pack from the internal map.
 14. Log benchmark trace fields: mode, validator pass/fail, diagnostic codes, patch count, render mode, and gate status.
 15. For recursive improvement cycles, record accepted, rejected, unresolved, implemented, and stop-condition findings as typed review state before resubmitting to outside research.
+16. For active outside research, update the run-scoped status ledger before tracker summaries whenever material status changes.
 
 ## Idempotency Rule
 

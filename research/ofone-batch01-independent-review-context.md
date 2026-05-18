@@ -25,7 +25,7 @@ This is a benchmark-review run, not a broad architecture review. The architectur
 
 The matrix currently has 90 predeclared run slots. Only three have local unblinded reviews. No aggregate scoring, independent review, or superiority claim is supported.
 
-Run 06 was launched in ChatGPT Deep Research at https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93 after the plan title `Independent OfOne Batch 01 Review` appeared, `Start` was clicked, and the UI showed `Researching...` with `Stop research` present. This launch state does not change the release guard.
+Run 06 was launched in ChatGPT Deep Research at https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93 after the plan title `Independent OfOne Batch 01 Review` appeared, `Start` was clicked, and the UI showed `Researching...` with `Stop research` present. Current progress is tracked in the run-scoped status ledger at `research/status/2026-05-17-06-ofone-batch01-independent-review.md`. This launch state does not change the release guard.
 
 ## Key Files
 

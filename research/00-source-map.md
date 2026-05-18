@@ -80,7 +80,7 @@ The public GitHub Pages site was checked and contains references to the latest v
 - Run 06 independent-review prompt: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`
 - Run 06 independent-review context: `research/ofone-batch01-independent-review-context.md`
 - Run 06 benchmark handoff: `benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`
-- Run 06 launch state: active ChatGPT Deep Research URL `https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93`; launch proof is recorded in `research/TRACKER.md` and `benchmarks/runs/2026-05-17-batch-01/manifest.json`.
+- Run 06 launch state: active ChatGPT Deep Research URL `https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93`; launch proof is recorded in `research/TRACKER.md`, `research/status/2026-05-17-06-ofone-batch01-independent-review.md`, and `benchmarks/runs/2026-05-17-batch-01/manifest.json`.
 - Stable recursive review protocol: `research/review-protocol.md`
 - Source register: `research/source-register.md`
 - Acceptance caveat: ChatGPT reported that it could read the attached context brief but could not directly fetch the public repo/docs; repo-specific findings were locally checked before synthesis.

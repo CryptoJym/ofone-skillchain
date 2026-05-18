@@ -18,6 +18,7 @@ try {
   runRenderSmokeTests();
   runPatchWorkflowTests();
   runBenchmarkCheck();
+  runResearchLifecycleCheck();
   runReviewSidecarCheck();
   runToolingContractCheck();
   runInvalidReviewSidecarChecks();
@@ -205,6 +206,21 @@ function runBenchmarkCheck() {
   console.error(result.stderr);
 }
 
+function runResearchLifecycleCheck() {
+  const result = spawnSync(process.execPath, ["scripts/ofone-research-check.mjs"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  if (result.status === 0) {
+    console.log("PASS research lifecycle");
+    return;
+  }
+  failures += 1;
+  console.error("FAIL research lifecycle");
+  console.error(result.stdout);
+  console.error(result.stderr);
+}
+
 function runReviewSidecarCheck() {
   const result = spawnSync(process.execPath, ["scripts/ofone-review-check.mjs", "research/review-sidecars/2026-05-17-03-ofone-v06-recursive-review-sidecar.json"], {
     cwd: repoRoot,
@@ -230,6 +246,7 @@ function runToolingContractCheck() {
     ["package pages script", packageJson.scripts?.["pages:check"] === "node scripts/ofone-pages-check.mjs"],
     ["pages checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"))],
     ["README pages command", readme.includes("npm run pages:check")],
+    ["README research command", readme.includes("npm run research:check")],
     ["README review-round version note", readme.includes("Review-round labels such as `v0.7` and `v0.8`")],
     ["README launch-proof boundary", readme.includes("A prepared packet is not a launched run")],
     ["README batch 01 plan", readme.includes("benchmarks/runs/2026-05-17-batch-01/manifest.json")],
@@ -240,7 +257,9 @@ function runToolingContractCheck() {
     ["index first review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md")],
     ["index independent review handoff link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md")],
     ["index launch proof item", index.includes("Launch Proof")],
+    ["index status ledger link", index.includes("./research/status/2026-05-17-06-ofone-batch01-independent-review.md")],
     ["index research tracker link", index.includes("./research/TRACKER.md")],
+    ["package research script", packageJson.scripts?.["research:check"] === "node scripts/ofone-research-check.mjs"],
     ["manifest independent review launch state", manifest.review_plan?.independent_review_status === "launched"],
     ["manifest independent review launch proof", Array.isArray(manifest.review_plan?.independent_review_launch?.launch_proof)],
     ["benchmark launch metadata validator", benchmarkScript.includes("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH")],

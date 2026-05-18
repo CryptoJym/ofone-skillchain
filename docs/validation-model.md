@@ -166,3 +166,5 @@ External review cycles are validated as workflow state, not as core domain ontol
 - `integrated`: accepted findings have implementation commits and local checks.
 
 The validator treats launch metadata as a benchmark/review control-plane check. A prepared packet must never be reported as launched, and a normal chat answer must never be reported as Deep Research.
+
+Active external runs also require status isolation. A tracker row may summarize the current state, but a run-scoped ledger should carry the canonical launch proof, material status checks, harvest boundary, and target result path. `npm run research:check` verifies the active run ledger against the tracker row and benchmark manifest so a status update from one review cycle cannot be mistaken for another.

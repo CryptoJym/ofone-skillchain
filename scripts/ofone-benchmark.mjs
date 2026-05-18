@@ -459,6 +459,9 @@ function validateIndependentReviewPlan(manifest, reviewPlan) {
   checkFile("BENCH_BATCH_INDEPENDENT_REVIEW_HANDOFF", reviewPlan.independent_review_handoff, `${manifest.batch_id} independent review handoff`);
   checkFile("BENCH_BATCH_INDEPENDENT_REVIEW_PROMPT", reviewPlan.independent_review_prompt, `${manifest.batch_id} independent review prompt`);
   checkFile("BENCH_BATCH_INDEPENDENT_REVIEW_CONTEXT", reviewPlan.independent_review_context, `${manifest.batch_id} independent review context`);
+  if (["launched", "harvested", "accepted", "integrated"].includes(status)) {
+    checkFile("BENCH_BATCH_INDEPENDENT_REVIEW_STATUS_LEDGER", reviewPlan.independent_review_status_ledger, `${manifest.batch_id} independent review status ledger`);
+  }
 
   if (["launched", "harvested", "accepted", "integrated"].includes(status) && !reviewPlan.independent_review_url) {
     fail("BENCH_BATCH_INDEPENDENT_REVIEW_URL", `${manifest.batch_id} independent_review_url required when status is ${status}`);

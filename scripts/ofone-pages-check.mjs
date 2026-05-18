@@ -28,6 +28,7 @@ const targets = [
   { label: "batch 01 independent review handoff", local: "benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md", remote: "/benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md" },
   { label: "batch 01 independent review context", local: "research/ofone-batch01-independent-review-context.md", remote: "/research/ofone-batch01-independent-review-context.md" },
   { label: "research tracker", local: "research/TRACKER.md", remote: "/research/TRACKER.md" },
+  { label: "run 06 status ledger", local: "research/status/2026-05-17-06-ofone-batch01-independent-review.md", remote: "/research/status/2026-05-17-06-ofone-batch01-independent-review.md" },
   { label: "review protocol", local: "research/review-protocol.md", remote: "/research/review-protocol.md" },
   { label: "batch 01 review template", local: "benchmarks/reviews/2026-05-17-batch-01-review-template.md", remote: "/benchmarks/reviews/2026-05-17-batch-01-review-template.md" },
   { label: "v08 context brief", local: "research/ofone-v08-convergence-context-brief.md", remote: "/research/ofone-v08-convergence-context-brief.md" }

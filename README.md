@@ -110,6 +110,12 @@ After a push, verify public parity with:
 npm run pages:check
 ```
 
+While an external review is active, verify launch/status isolation with:
+
+```bash
+npm run research:check
+```
+
 Current convergence review context:
 
 - [`research/ofone-v08-convergence-context-brief.md`](./research/ofone-v08-convergence-context-brief.md)
@@ -122,3 +128,4 @@ Current benchmark execution plan:
 - [`benchmarks/reviews/2026-05-17-batch-01-review-template.md`](./benchmarks/reviews/2026-05-17-batch-01-review-template.md)
 - First locally reviewed slice: `case-strategic-gated-diligence-001`, `agentic_coding`, repeat 1, across direct-answer, light-structured, and full-OfOne arms. These reviews are unblinded, not independent, and do not support aggregate benchmark claims.
 - Independent frontier-review handoff launched in ChatGPT Deep Research: [`benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`](./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md)
+- Run-scoped status ledger: [`research/status/2026-05-17-06-ofone-batch01-independent-review.md`](./research/status/2026-05-17-06-ofone-batch01-independent-review.md)

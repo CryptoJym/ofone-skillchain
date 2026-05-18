@@ -139,7 +139,7 @@ External Deep Research and frontier-model review add another control loop around
 prepared packet -> launch proof -> active research -> harvested report -> adjudicated findings -> implemented patch -> public resubmission
 ```
 
-The important invariant is proof of state transition. A prompt file or context packet is only `prepared`. A run is only `launched` after the external system exposes a research plan, Start/countdown has occurred, and the UI shows `Researching...` or an equivalent stop-control state. This prevents recursive learning from becoming self-reported progress.
+The important invariant is proof of state transition. A prompt file or context packet is only `prepared`. A run is only `launched` after the external system exposes a research plan, Start/countdown has occurred, and the UI shows `Researching...` or an equivalent stop-control state. Active runs keep run-scoped status ledgers so launch, progress, harvest, and acceptance state do not blur across review cycles. This prevents recursive learning from becoming self-reported progress.
 
 ---
 

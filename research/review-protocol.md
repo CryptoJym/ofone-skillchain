@@ -49,11 +49,14 @@ Required cycle fields:
 
 - prepared packet: prompt path, context path, public handoff URL, target public commit or Pages state.
 - launch proof: model label, reasoning label, Deep Research enabled flag, pasted/uploaded context label, conversation URL, plan title, `Start`/countdown action, `Researching...` status, and `Stop research` affordance.
+- status isolation: active runs must have a run-scoped status ledger. The tracker may summarize status, but the run ledger is the canonical place for launch, progress, harvest, and acceptance evidence for that run.
 - harvest proof: exported report path, source/citation/search metadata when visible, and faithful local copy path.
 - adjudication: accepted findings, rejected findings with reason, unresolved blockers, deferred findings, implementation commits, and next trigger.
 - resubmission trigger: only resubmit after public repo/Pages state reflects the implemented closure, or after a documented blocker makes implementation impossible.
 
 A prepared packet is not a launched run. A submitted normal chat response is not a launched run. A Deep Research plan is not launched until `Start` is clicked or an explicit countdown begins and the UI shows `Researching...` or an equivalent stop-control state.
+
+Use `npm run research:check` to verify the active-run ledger, tracker row, manifest launch state, live conversation URL, launch proof, harvest boundary, and absence of premature result files.
 
 ## Evidence Classification
 

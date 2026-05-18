@@ -2,7 +2,7 @@
 
 Status: `launched`
 
-This handoff supports an independent frontier-model review of the first Batch 01 slice. It was launched in ChatGPT Deep Research on 2026-05-17 at https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93. The visible launch proof was: plan title `Independent OfOne Batch 01 Review`, `Start` clicked, status `Researching...`, and `Stop research` present.
+This handoff supports an independent frontier-model review of the first Batch 01 slice. It was launched in ChatGPT Deep Research on 2026-05-17 at https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93. The visible launch proof was: plan title `Independent OfOne Batch 01 Review`, `Start` clicked, status `Researching...`, and `Stop research` present. Current progress is tracked in the run-scoped status ledger at `research/status/2026-05-17-06-ofone-batch01-independent-review.md`.
 
 ## Target Slice
 
