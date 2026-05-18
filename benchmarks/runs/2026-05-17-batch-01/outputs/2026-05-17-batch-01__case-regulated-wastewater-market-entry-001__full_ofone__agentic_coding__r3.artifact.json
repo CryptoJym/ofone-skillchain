@@ -1,0 +1,1067 @@
+{
+  "ofone_version": "0.6.0",
+  "mode": "Map",
+  "charter": {
+    "objective": "Map regulated wastewater market entry as a repeat-3 gated diligence decision, separating source-backed generic regulatory evidence from site-specific unknowns before any launch move.",
+    "scope": [
+      "regulated wastewater market-entry decision",
+      "jurisdiction-specific diligence boundary",
+      "technical proof and launch gating"
+    ],
+    "horizon": "90 days",
+    "stakes": [
+      "capital risk",
+      "compliance exposure",
+      "reputation exposure",
+      "environmental consequence"
+    ],
+    "risk_tier": "medium",
+    "movement_jobs": [
+      "BOUND",
+      "GATE"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "hybrid",
+    "axes": {
+      "strategic-agentic": [
+        "market entry",
+        "partner path",
+        "reversible diligence"
+      ],
+      "scientific-explanatory": [
+        "discharge characterization",
+        "treatment performance",
+        "monitoring"
+      ],
+      "normative-evaluative": [
+        "environmental consequence",
+        "public trust"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "LINK"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "strategic",
+        "assumptions": [
+          "entry decision should separate diligence from launch"
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "evidential",
+        "assumptions": [
+          "official regulatory sources are stronger than scenario-only evidence"
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "type": "causal",
+        "assumptions": [
+          "permit limits and monitoring obligations shape operating feasibility"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "K1",
+        "kind": "entity",
+        "label": "wastewater market-entry team"
+      },
+      {
+        "token_id": "K2",
+        "kind": "constraint",
+        "label": "NPDES permit coverage"
+      },
+      {
+        "token_id": "K3",
+        "kind": "variable",
+        "label": "discharge category and receiving water"
+      },
+      {
+        "token_id": "K4",
+        "kind": "constraint",
+        "label": "permit limits, monitoring, and reporting"
+      },
+      {
+        "token_id": "K5",
+        "kind": "constraint",
+        "label": "state, tribal, territorial, or EPA permitting authority"
+      },
+      {
+        "token_id": "K6",
+        "kind": "unknown",
+        "label": "jurisdiction-specific permit path"
+      }
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "parent_scene": "S1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "entry_conditions": [
+          "official NPDES sources establish generic regulatory frame"
+        ],
+        "exit_conditions": [
+          "jurisdiction, authority, and permit pathway are identified"
+        ],
+        "movement_jobs": [
+          "BOUND",
+          "GROUND"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "parent_scene": "S1",
+        "purpose": "causal_mechanism",
+        "frames": [
+          "F3"
+        ],
+        "tokens": [
+          "K3",
+          "K4"
+        ],
+        "entry_conditions": [
+          "discharge category and receiving water are known"
+        ],
+        "exit_conditions": [
+          "permit limits and monitoring obligations are mapped"
+        ],
+        "movement_jobs": [
+          "LINK",
+          "WARN"
+        ]
+      },
+      {
+        "subscene_id": "SS3",
+        "parent_scene": "S1",
+        "purpose": "option_decision",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K1"
+        ],
+        "entry_conditions": [
+          "diligence and launch are separate moves"
+        ],
+        "exit_conditions": [
+          "move is selected or blocked by unknowns"
+        ],
+        "movement_jobs": [
+          "MOVE",
+          "EVALUATE"
+        ]
+      }
+    ],
+    "state_variables": [
+      "jurisdiction",
+      "discharge category",
+      "receiving water",
+      "permit authority",
+      "permit limits",
+      "monitoring obligations"
+    ],
+    "observed_variables": [
+      "NPDES permit requirement",
+      "technology and water-quality control structure",
+      "municipal wastewater permit limits"
+    ],
+    "hidden_variables": [
+      "local enforcement posture",
+      "industrial versus municipal classification",
+      "site-specific pollutant parameters",
+      "partner operating accountability",
+      "customer commitment quality"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "WARN"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "url",
+      "span_or_locator": "https://www.epa.gov/npdes/npdes-permit-basics#what-is-an-npdes-permit",
+      "provenance": "US EPA NPDES Permit Basics page",
+      "recency": "current",
+      "reliability": "high",
+      "permission": "public",
+      "extract": "EPA explains that Clean Water Act point-source pollutant discharges to waters of the United States require NPDES permit coverage with limits, monitoring, reporting, and protective provisions.",
+      "source_owner": "US EPA",
+      "chain_of_custody": "retrieved from public EPA webpage during OfOne source-backed example construction",
+      "supports": [
+        "C1"
+      ],
+      "risks": [
+        "jurisdiction_and_discharge_specifics_still_required"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ],
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:c7fd750ee9060a3267cfc286f2244b75c7119ce2f8389f2f82f1618b51a9aba0"
+    },
+    {
+      "evidence_id": "E2",
+      "source": "url",
+      "span_or_locator": "https://www.epa.gov/npdes/about-npdes#overview",
+      "provenance": "US EPA About NPDES page",
+      "recency": "current",
+      "reliability": "high",
+      "permission": "public",
+      "extract": "EPA describes NPDES as a Clean Water Act program that regulates point sources and uses technology-based and water-quality-based controls, with many permitting functions authorized to states, tribes, and territories.",
+      "source_owner": "US EPA",
+      "chain_of_custody": "retrieved from public EPA webpage during OfOne source-backed example construction",
+      "supports": [
+        "C2"
+      ],
+      "risks": [
+        "state_authorization_and_local_limits_vary"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ],
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:504fcaa0e637fa14bf840ceb5a4ab4f7d7487989ccd0b03e4ee9bcd3574aedbe"
+    },
+    {
+      "evidence_id": "E3",
+      "source": "url",
+      "span_or_locator": "https://www.epa.gov/npdes/municipal-wastewater",
+      "provenance": "US EPA Municipal Wastewater page",
+      "recency": "current",
+      "reliability": "high",
+      "permission": "public",
+      "extract": "EPA states that NPDES permits establish discharge limits and conditions for municipal wastewater treatment facilities that discharge to waters of the United States.",
+      "source_owner": "US EPA",
+      "chain_of_custody": "retrieved from public EPA webpage during OfOne source-backed example construction",
+      "supports": [
+        "C3"
+      ],
+      "risks": [
+        "industrial_or_nonmunicipal_case_may_require_different_permit_analysis"
+      ],
+      "movement_jobs": [
+        "GROUND"
+      ],
+      "retrieved_at": "2026-05-14T00:00:00Z",
+      "content_hash": "sha256:de73970b06ef29c9dda1c6f1ffd04c97e2ca665849fe6cbfe161b3ccbd86a6c4"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "A point-source pollutant discharge to waters of the United States needs NPDES permit coverage before operational launch.",
+      "type": "operational",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "recency",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "activity_may_not_be_point_source",
+          "discharge_may_not_enter_wotus"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "GROUND",
+        "GATE"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "Permit feasibility depends on both federal NPDES structure and the relevant permitting authority for the jurisdiction.",
+      "type": "causal",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "mechanism_fit",
+          "hidden_variable_risk"
+        ],
+        "failure_modes": [
+          "state_authorization_variance",
+          "site_specific_limits_unknown"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "text": "A market-entry recommendation should remain in diligence mode until jurisdiction, influent profile, treatment proof, partner path, and customer commitment are source-backed.",
+      "type": "operational",
+      "supports": [
+        "E3"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1",
+        "C2"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "industrial_path_differs_from_municipal_reference",
+          "customer_specific_discharge_unknown",
+          "pilot_performance_unknown",
+          "partner_accountability_unknown"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "EVALUATE",
+        "GATE"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_evidence",
+      "description": "Jurisdiction, permitting authority, discharge class, and receiving-water context are not fixed for the opportunity.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Select the target jurisdiction and collect source-backed permit-path evidence before launch or customer commitment.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "kind": "missing_evidence",
+      "description": "Influent profile and treatment proof for the actual wastewater stream are not fixed.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Collect influent characterization and pilot-performance evidence for the actual profile before operational launch.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    },
+    {
+      "unknown_id": "U3",
+      "kind": "missing_evidence",
+      "description": "Partner path and customer commitment are not fixed.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Identify the accountable partner/operator path and verify customer commitment terms before irreversible commercial promises.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C3",
+      "test_type": "adapter_conflict",
+      "condition": "A source contradiction or gate escalation shows the opportunity is not governed by the assumed NPDES permit path or has a materially different discharge class.",
+      "falsifies": [
+        "C3"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "C1",
+      "to": "C3",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "K2",
+      "to": "C3",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X3",
+      "from": "K5",
+      "to": "C2",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "edge_id": "X4",
+      "from": "K4",
+      "to": "C3",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E3"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "review",
+      "edges": [
+        "X2",
+        "X4"
+      ],
+      "polarity": "unknown",
+      "delay": "medium",
+      "gain": "high",
+      "control_points": [
+        "permit-authority review",
+        "discharge characterization",
+        "compliance gate"
+      ],
+      "observable_cues": [
+        "permit pathway changes launch feasibility",
+        "monitoring obligations alter operating cost"
+      ],
+      "failure_mode": "generic NPDES evidence mistaken for site-specific approval",
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "query",
+      "preconditions": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "expected_effects": [
+        "X2",
+        "X3",
+        "X4"
+      ],
+      "tradeoffs": [
+        "slower entry",
+        "lower compliance risk",
+        "more specific technical and commercial diligence cost"
+      ],
+      "blocking_unknowns": [
+        "U1",
+        "U2",
+        "U3"
+      ],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "EVALUATE",
+        "GATE"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "U1",
+        "U2",
+        "U3"
+      ],
+      "transition": "patch",
+      "movement_jobs": [
+        "TRIGGER"
+      ]
+    },
+    {
+      "trigger_id": "T2",
+      "condition": "regime_shift",
+      "affected_objects": [
+        "C2",
+        "G1"
+      ],
+      "transition": "scoped_rerun",
+      "movement_jobs": [
+        "TRIGGER",
+        "WARN"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "customer commitment, permit filing, compliance exposure, reputation exposure, technical performance claim, or operational launch",
+      "reviewer": "human regulatory and business owner",
+      "required_decision": "approve diligence only, block launch, or narrow scope to a jurisdiction-specific permit and pilot-proof path",
+      "status": "open",
+      "movement_jobs": [
+        "GATE"
+      ]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "high",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "medium",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "rendering_id": "R1",
+    "summary": "Repeat-3 Map rendering: proceed with source-backed regulatory, technical, partner, and customer diligence only; do not approve operational launch until jurisdiction-specific permit path, influent profile, pilot proof, partner accountability, and customer commitment are resolved.",
+    "recommendation": "Approve reversible diligence and block launch or customer promises until the compliance/business gate receives site-specific evidence.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "C3",
+      "O1",
+      "U1",
+      "U2",
+      "U3",
+      "TS1",
+      "G1",
+      "COUNCIL",
+      "BT-2026-05-17-B01-WW-FULL-R3"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "MOVE",
+      "GATE"
+    ]
+  },
+  "validator_result": {
+    "passed": true,
+    "diagnostics": [
+      {
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info",
+        "check": "json_schema",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "Map artifact matches executable JSON Schema profile",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info",
+        "check": "adapter_contract",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "hybrid adapter contract loaded",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_GATE_COVERAGE",
+        "severity": "info",
+        "check": "adapter_gate_coverage",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "gate coverage present for compliance, reputation",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_BENCHMARK_TRACE",
+        "severity": "warning",
+        "check": "benchmark_trace",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "benchmark_trace BT-2026-05-17-B01-WW-FULL-R3 is not superiority-ready",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T1: IV:U1, IV:U2, IV:U3, O1, R1, T1, TS1 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T2: C3, COUNCIL, KT1, L1, LENS2, LENS3, O1, R1, T2, TS1, X1, X2, X3, X4 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info",
+        "check": "semantic_validation",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "semantic graph checks completed",
+        "repair_hint": null
+      }
+    ],
+    "checks": [
+      {
+        "check": "json_schema",
+        "passed": true,
+        "notes": "Map artifact matches executable JSON Schema profile",
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_contract",
+        "passed": true,
+        "notes": "hybrid adapter contract loaded",
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_gate_coverage",
+        "passed": true,
+        "notes": "gate coverage present for compliance, reputation",
+        "code": "OFONE_ADAPTER_GATE_COVERAGE",
+        "severity": "info"
+      },
+      {
+        "check": "benchmark_trace",
+        "passed": true,
+        "notes": "benchmark_trace BT-2026-05-17-B01-WW-FULL-R3 is not superiority-ready",
+        "code": "OFONE_BENCHMARK_TRACE",
+        "severity": "warning"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T1: IV:U1, IV:U2, IV:U3, O1, R1, T1, TS1 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T2: C3, COUNCIL, KT1, L1, LENS2, LENS3, O1, R1, T2, TS1, X1, X2, X3, X4 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "semantic_validation",
+        "passed": true,
+        "notes": "semantic graph checks completed",
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info"
+      }
+    ]
+  },
+  "artifact_identity": {
+    "artifact_id": "OFONE-2026-05-18-B01-WW-FULL-R3",
+    "case_id": "case-regulated-wastewater-market-entry-001",
+    "objective_head": "regulated wastewater market entry gated diligence repeat 2",
+    "scope_hash": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+    "config_hash": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "active_evidence_hashes": [
+      "sha256:c7fd750ee9060a3267cfc286f2244b75c7119ce2f8389f2f82f1618b51a9aba0",
+      "sha256:504fcaa0e637fa14bf840ceb5a4ab4f7d7487989ccd0b03e4ee9bcd3574aedbe",
+      "sha256:de73970b06ef29c9dda1c6f1ffd04c97e2ca665849fe6cbfe161b3ccbd86a6c4"
+    ],
+    "created_at": "2026-05-18T10:05:27Z",
+    "status": "draft",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "human review owner",
+      "role": "reviewer",
+      "incentives": [
+        "avoid invalid release"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation exposure",
+        "environmental consequence"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "assigned review authority for the decision",
+      "movement_jobs": [
+        "BOUND",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "affected party",
+      "role": "affected_party",
+      "incentives": [
+        "avoid harm from incorrect decision"
+      ],
+      "exposures": [
+        "capital risk",
+        "compliance exposure",
+        "reputation exposure",
+        "environmental consequence"
+      ],
+      "authority": "observe",
+      "legitimacy_basis": "directly exposed to the decision outcome",
+      "movement_jobs": [
+        "BOUND",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Gate safety",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not release or launch while required gate remains open.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Unknown resolution value",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Prefer moves that resolve rendering-blocking regulatory, technical, partner, and customer unknowns before irreversible action.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "TEST"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Affected-party exposure",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "Do not hide material exposure to affected parties.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "U2",
+      "U3",
+      "T1",
+      "T2"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "90 days",
+    "decision_deadline": "90 days",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "source page changes, regulator updates guidance, jurisdiction-specific facts contradict the generic source, or source is superseded"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "source page changes, regulator updates guidance, jurisdiction-specific facts contradict the generic source, or source is superseded"
+      },
+      {
+        "evidence_id": "E3",
+        "valid_until": "unknown",
+        "staleness_trigger": "source page changes, regulator updates guidance, jurisdiction-specific facts contradict the generic source, or source is superseded"
+      }
+    ],
+    "update_cadence": "weekly until jurisdiction, influent, partner, and customer unknowns resolve",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "1 to 4 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Identify target jurisdiction, permitting authority, discharge class, receiving-water context, and permit pathway.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "2 to 8 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Collect influent profile and pilot-performance evidence for the actual wastewater stream.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    },
+    {
+      "unknown_id": "U3",
+      "decision_impact": "medium",
+      "resolution_cost": "medium",
+      "time_to_resolve": "2 to 6 weeks",
+      "risk_reduction": "medium",
+      "recommended_next_query": "Verify accountable partner/operator path and customer commitment terms.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "strategic agentic lens",
+      "adapter_axis": "strategic-agentic",
+      "questions": [
+        "What does the strategic-agentic frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C1"
+      ],
+      "blind_spots": [
+        "Jurisdiction, influent profile, treatment proof, partner path, and customer commitment are not yet fixed."
+      ],
+      "contention": [
+        "U1, U2, and U3 block O1 and R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "scientific explanatory lens",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "What does the scientific-explanatory frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C2"
+      ],
+      "blind_spots": [
+        "Jurisdiction, influent profile, treatment proof, partner path, and customer commitment are not yet fixed."
+      ],
+      "contention": [
+        "U1, U2, and U3 block O1 and R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS3",
+      "name": "normative evaluative lens",
+      "adapter_axis": "normative-evaluative",
+      "questions": [
+        "What does the normative-evaluative frame reveal or block?"
+      ],
+      "claims_examined": [
+        "C3"
+      ],
+      "blind_spots": [
+        "Jurisdiction, influent profile, treatment proof, partner path, and customer commitment are not yet fixed."
+      ],
+      "contention": [
+        "U1, U2, and U3 block O1 and R1"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "strategic-agentic",
+      "scientific-explanatory",
+      "normative-evaluative"
+    ],
+    "missing_lenses": [],
+    "major_dissent": [
+      "U1, U2, and U3 block O1 and R1"
+    ],
+    "decision_effect": "Proceed with source-backed regulatory, technical, partner, and customer diligence; do not commit to operational launch until U1, U2, and U3 are resolved and G1 is approved.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "review_log": [],
+  "benchmark_trace": {
+    "trace_id": "BT-2026-05-17-B01-WW-FULL-R3",
+    "suite_id": "ofone-v0.5-three-arm-evaluation",
+    "cases_run": 1,
+    "arms_run": [
+      "full_ofone"
+    ],
+    "model_families": 1,
+    "superiority_ready": false,
+    "diagnostics": [
+      "single repeat-3 benchmark run only",
+      "no empirical superiority claim supported",
+      "Batch 01 remains below release minimums"
+    ],
+    "case_id": "case-regulated-wastewater-market-entry-001",
+    "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3",
+    "case_file": "benchmarks/cases/regulated-wastewater-market-entry.md",
+    "case_file_sha256": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+    "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+    "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "input_bundle_sha256": "sha256:2849a7b8ab7af3553a448c44916d236e5cdd8dc4c4e37dd9fc5e3a18e4398b0b",
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "TRIGGER"
+    ]
+  }
+}

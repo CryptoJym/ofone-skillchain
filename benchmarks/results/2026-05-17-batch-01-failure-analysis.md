@@ -93,6 +93,12 @@ The scientific mechanism repeat-3 slice adds the final local `agentic_coding` re
 - Light structured answer: keeps mechanism status, hidden-variable pressure, intervention gate, and update rule visible, but remains prose-only.
 - Full OfOne answer: preserves measurement evidence hashes, mechanism claims, hidden-variable unknowns, kill tests, criteria, validation gate, trigger closure, Map rendering, validator, and patch artifacts for `case-scientific-mechanism-check-001` repeat 3; remaining limitation is still the abstract dossier rather than a real measurement protocol, sample, instrument, named confounder, or replication result.
 
+The regulated wastewater repeat-3 slice adds the final local `agentic_coding` repeated-run check for the hybrid wastewater case:
+
+- Direct answer: again blocks launch and narrows the next move to permit, influent, pilot, partner, and customer diligence, but leaves update closure as prose.
+- Light structured answer: keeps regulatory, technical, commercial, execution, and public-risk categories scannable, but does not make criteria, gates, or patch effects machine-addressable.
+- Full OfOne answer: preserves generic public EPA evidence identity, case-native benchmark trace, launch-blocking unknowns, criteria, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-regulated-wastewater-market-entry-001` repeat 3; remaining limitation is still that generic source-backed evidence cannot resolve jurisdiction-specific launch authority.
+
 Minimum sections once runs exist:
 
 - validation failures

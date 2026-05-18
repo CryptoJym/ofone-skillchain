@@ -1,0 +1,135 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "U1",
+        "U2",
+        "U3"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "Identify target jurisdiction, permitting authority, discharge class, receiving-water context, and permit pathway."
+    },
+    {
+      "id": "IV:U2",
+      "type": "information_value",
+      "label": "Collect influent profile and pilot-performance evidence for the actual wastewater stream."
+    },
+    {
+      "id": "IV:U3",
+      "type": "information_value",
+      "label": "Verify accountable partner/operator path and customer commitment terms."
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "query"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Approve reversible diligence and block launch or customer promises until the compliance/business gate receives site-specific evidence."
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "Jurisdiction, permitting authority, discharge class, and receiving-water context are not fixed for the opportunity."
+    },
+    {
+      "id": "U2",
+      "type": "unknown",
+      "label": "Influent profile and treatment proof for the actual wastewater stream are not fixed."
+    },
+    {
+      "id": "U3",
+      "type": "unknown",
+      "label": "Partner path and customer commitment are not fixed."
+    }
+  ],
+  "affected_by_type": {
+    "information_value": [
+      "IV:U1",
+      "IV:U2",
+      "IV:U3"
+    ],
+    "option_move": [
+      "O1"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1",
+      "U2",
+      "U3"
+    ]
+  },
+  "affected_semantic_layers": [
+    "workflow_state"
+  ],
+  "invalidated_claims": [],
+  "reopened_gates": [],
+  "required_approvals": [],
+  "suggested_transition": "patch",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 9 downstream object(s) are in closure, so the current decision rendering must be regenerated.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "trigger_transition_check",
+    "rendering_regeneration"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 9 downstream object(s); transition=patch; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log"
+    ]
+  }
+}
