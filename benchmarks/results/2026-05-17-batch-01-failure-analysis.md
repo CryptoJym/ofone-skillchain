@@ -39,6 +39,12 @@ The regulated wastewater slice adds a hybrid strategic/scientific/normative case
 - Light structured answer: gives a useful gated diligence checklist, but criteria, gates, and patch effects remain prose.
 - Full OfOne answer: preserves evidence, claim, unknown, option, gate, trigger, tradeoff, rendering, validator, and patch artifacts for `case-regulated-wastewater-market-entry-001`; remaining limitation is that generic source-backed regulatory evidence does not resolve jurisdiction-specific launch authority.
 
+The formal proof-search slice adds a formal-adapter case-binding proof:
+
+- Direct answer: correctly refuses to mark the theorem proved from an incomplete proof path, but remains prose-only and low traceability.
+- Light structured answer: isolates candidate lemma, countermodel pressure, and update conditions, but does not make proof obligations and closure addressable.
+- Full OfOne answer: preserves proof certificate absence, candidate lemma obligation, countermodel pressure, bounded-timeout risk, criteria, trigger, rendering, validator, and patch artifacts for `case-formal-proof-search-001`; remaining limitation is that the benchmark dossier does not include actual axiom, theorem, checker, or countermodel artifacts.
+
 Minimum sections once runs exist:
 
 - validation failures
