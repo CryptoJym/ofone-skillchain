@@ -81,6 +81,12 @@ The public-sector AI policy audit repeat-2 slice adds a repeated-run check for t
 - Light structured answer: improves the gated audit checklist and release conditions, but rights, stakeholder, model-evidence, and review-log dependencies remain non-addressable.
 - Full OfOne answer: preserves model evidence gaps, rights and legitimacy claims, stakeholder exposure, gates, review-log objects, trigger closure, Audit rendering, validator, and patch artifacts for `case-public-sector-ai-policy-audit-001` repeat 2; remaining limitation is still that the benchmark dossier lacks real external policy, model validation, subgroup, appeal-access, and operational-monitoring artifacts.
 
+The strategic gated diligence repeat-3 slice adds the final local `agentic_coding` repeated-run check for the original strategic case:
+
+- Direct answer: again recommends inquiry-only diligence and blocks launch, but still cannot make release-gate closure machine-addressable.
+- Light structured answer: keeps approval, blocker, assumption, and update-path states scannable, but criteria and dependency closure remain prose.
+- Full OfOne answer: preserves evidence hashes, claims, unknowns, criteria, actors, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-strategic-gated-diligence-001` repeat 3; remaining limitation is still the scenario-level case dossier rather than a real diligence checklist, named reviewer, or launch authority record.
+
 Minimum sections once runs exist:
 
 - validation failures

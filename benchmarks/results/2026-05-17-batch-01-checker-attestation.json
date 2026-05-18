@@ -291,7 +291,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_COMPLETED_RUNS",
-      "message": "2026-05-17-batch-01 lists 30 completed run record(s)"
+      "message": "2026-05-17-batch-01 lists 33 completed run record(s)"
     },
     {
       "severity": "info",
@@ -995,8 +995,78 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 validator_json hash matches sha256:11ea3e975b056fab1b3ff552bbda265400868aa4a69d0c18d23512692d81d1d3"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 patch_json hash matches sha256:a4d8ddea55c2ab8225d5f868447f5bc0cfefe2ec85a6c149b8b9228ab24c5313"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_REVIEWED_RUNS",
-      "message": "2026-05-17-batch-01 lists 30 reviewed run record(s)"
+      "message": "2026-05-17-batch-01 lists 33 reviewed run record(s)"
     },
     {
       "severity": "info",
@@ -1847,6 +1917,91 @@
       "severity": "info",
       "code": "BENCH_BATCH_RUN_REVIEW",
       "message": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 validator_json hash matches sha256:11ea3e975b056fab1b3ff552bbda265400868aa4a69d0c18d23512692d81d1d3"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 patch_json hash matches sha256:a4d8ddea55c2ab8225d5f868447f5bc0cfefe2ec85a6c149b8b9228ab24c5313"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3 review file exists and covers required metrics"
     },
     {
       "severity": "info",

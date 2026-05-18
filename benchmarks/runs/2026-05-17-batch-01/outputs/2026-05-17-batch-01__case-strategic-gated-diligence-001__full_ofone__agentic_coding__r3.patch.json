@@ -1,0 +1,291 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "E1",
+        "U1"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C1",
+      "type": "claim",
+      "label": "A bounded diligence authorization is supportable only if the move remains inquiry-only, reversible, and visibly separate from operational launch."
+    },
+    {
+      "id": "C2",
+      "type": "claim",
+      "label": "Operational launch remains blocked until release criteria, reviewer authority, and approval evidence are all present."
+    },
+    {
+      "id": "C4",
+      "type": "claim",
+      "label": "A named release authority is required before launch can move from blocked to approved."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "approve bounded diligence as an inquiry move only; keep launch blocked until evidence and named authority close the release gate"
+    },
+    {
+      "id": "E1",
+      "type": "evidence",
+      "label": "file"
+    },
+    {
+      "id": "EDGE1",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE10",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE2",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE6",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE7",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE8",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "EDGE9",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "What specific evidence checklist, threshold, and owner would convert the diligence cycle into a launch/no-launch decision?"
+    },
+    {
+      "id": "KT1",
+      "type": "kill_test",
+      "label": "Gate escalation: diligence creates irreversible launch exposure, public commitment, or material spend before approval."
+    },
+    {
+      "id": "KT2",
+      "type": "kill_test",
+      "label": "Adapter conflict or stakeholder objection shows the proposed reviewer lacks legitimate authority over launch release."
+    },
+    {
+      "id": "LENS1",
+      "type": "lens",
+      "label": "strategic sequencing"
+    },
+    {
+      "id": "LENS2",
+      "type": "lens",
+      "label": "release legitimacy"
+    },
+    {
+      "id": "LOOP1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LOOP2",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "query"
+    },
+    {
+      "id": "O2",
+      "type": "option_move",
+      "label": "act"
+    },
+    {
+      "id": "O3",
+      "type": "option_move",
+      "label": "defer"
+    },
+    {
+      "id": "OFONE-B01-STRAT-R3",
+      "type": "artifact_identity",
+      "label": "strategic gated diligence repeat 3"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Proceed with bounded diligence under written guardrails. Do not launch, externally commit, or spend irreversibly until the evidence package is complete and G1 is approved by the named release authority."
+    },
+    {
+      "id": "TEMPORAL",
+      "type": "temporal_model",
+      "label": "one bounded diligence cycle before launch"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "The repeat-3 map still lacks a concrete diligence evidence package, launch threshold, and pass/fail criteria."
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C1",
+      "C2",
+      "C4"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "evidence": [
+      "E1"
+    ],
+    "edge": [
+      "EDGE1",
+      "EDGE10",
+      "EDGE2",
+      "EDGE4",
+      "EDGE5",
+      "EDGE6",
+      "EDGE7",
+      "EDGE8",
+      "EDGE9"
+    ],
+    "information_value": [
+      "IV:U1"
+    ],
+    "kill_test": [
+      "KT1",
+      "KT2"
+    ],
+    "lens": [
+      "LENS1",
+      "LENS2"
+    ],
+    "loop": [
+      "LOOP1",
+      "LOOP2"
+    ],
+    "option_move": [
+      "O1",
+      "O2",
+      "O3"
+    ],
+    "artifact_identity": [
+      "OFONE-B01-STRAT-R3"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "temporal_model": [
+      "TEMPORAL"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "evidential",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C1",
+    "C2",
+    "C4"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [],
+  "suggested_transition": "patch",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 29 downstream object(s) are in closure, so the current decision rendering must be regenerated.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "temporal_validity_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "rendering_regeneration"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C1",
+        "C2",
+        "C4"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 29 downstream object(s); transition=patch; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C1, C2, C4",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log"
+    ]
+  }
+}
