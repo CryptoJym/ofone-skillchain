@@ -8,7 +8,9 @@ const args = process.argv.slice(2);
 const jsonOutput = args.includes("--json");
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(__dirname, "..");
+const repoRoot = process.env.OFONE_BENCHMARK_REPO_ROOT
+  ? path.resolve(process.env.OFONE_BENCHMARK_REPO_ROOT)
+  : path.resolve(__dirname, "..");
 const suitePath = path.join(repoRoot, "benchmarks", "suite.json");
 const suite = JSON.parse(fs.readFileSync(suitePath, "utf8"));
 
@@ -28,6 +30,8 @@ const validBatchStatuses = new Set(["not_started", "in_progress", "completed", "
 const validRunMatrixStatuses = new Set(["queued", "in_progress", "completed", "reviewed", "excluded", "released", "superseded"]);
 const validIndependentReviewStatuses = new Set(["not_prepared", "prepared", "launched", "harvested", "accepted", "integrated", "blocked"]);
 const validComplianceValues = new Set(["pass", "fail", "not_applicable", "unknown"]);
+const validRerunStatuses = new Set(["not_started", "queued", "in_progress", "completed", "reviewed", "released", "failed", "superseded"]);
+const validRerunAggregatePolicies = new Set(["supplement_original", "replace_for_aggregate_only", "not_aggregate_eligible"]);
 const requiredPreScoreFields = ["case_fidelity", "required_outputs", "independence", "no_superiority_compliance"];
 const requiredSemanticFidelityFields = [
   "case_binding",
@@ -297,6 +301,8 @@ function validateBatchExecutionMatrix(manifest) {
 
   validateMatrixCompletion(manifest, matrix, expectedRunCount);
 
+  validateMatrixRerunPolicy(manifest, matrix);
+
   validateRunRecords(manifest, matrix);
 
   if (!matrix.release_guard || matrix.release_guard.superiority_claims_allowed !== false) {
@@ -406,10 +412,11 @@ function validateRunRecord(manifest, run, expectedStatus, seen, validCases, vali
   }
 
   if (run.status !== expectedStatus) fail("BENCH_BATCH_RUN_STATUS", `${label} status must be ${expectedStatus}`);
+  checkBenchmarkTrace(manifest, run);
   checkPreScoreCompliance(run);
   checkSemanticFidelity(run);
   checkRunOutput(run);
-  if (run.arm_id === "full_ofone") checkRunArtifact(run);
+  if (run.arm_id === "full_ofone") checkRunArtifact(manifest, run);
   if (expectedStatus === "reviewed") checkRunReview(run);
   if (expectedStatus === "excluded") checkExcludedRun(run);
 }
@@ -433,7 +440,7 @@ function checkRunOutput(run) {
   pass("BENCH_BATCH_RUN_OUTPUT", `${run.run_id} raw output exists and identifies its slot`);
 }
 
-function checkRunArtifact(run) {
+function checkRunArtifact(manifest, run) {
   if (!run.artifact_json) {
     fail("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} full_ofone run missing artifact_json`);
     return;
@@ -451,8 +458,84 @@ function checkRunArtifact(run) {
     return;
   }
   pass("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} full_ofone artifact JSON exists and parses`);
-  checkFullOfOneCaseBinding(run, artifact);
+  checkFullOfOneCaseBinding(manifest, run, artifact);
   checkMachineArtifacts(run);
+}
+
+function checkBenchmarkTrace(manifest, run) {
+  if (run.arm_id !== "full_ofone" && !run.benchmark_trace) return;
+
+  const expected = expectedBenchmarkTrace(manifest, run);
+  if (!expected) return;
+
+  const trace = run.benchmark_trace || {};
+  const requiredFields = [
+    "case_id",
+    "run_id",
+    "case_file",
+    "case_file_sha256",
+    "prompt_file",
+    "prompt_file_sha256",
+    "input_bundle_sha256"
+  ];
+  const missing = requiredFields.filter((field) => !trace[field]);
+  const mismatches = [];
+  for (const field of requiredFields) {
+    if (trace[field] && trace[field] !== expected[field]) mismatches.push(`${field}=${trace[field]} expected ${expected[field]}`);
+  }
+
+  if (missing.length > 0) {
+    fail("BENCH_BATCH_RUN_BENCHMARK_TRACE", `${run.run_id} benchmark_trace missing ${missing.join(", ")}`);
+    return;
+  }
+  if (mismatches.length > 0) {
+    fail("BENCH_BATCH_RUN_BENCHMARK_TRACE", `${run.run_id} benchmark_trace mismatch: ${mismatches.join("; ")}`);
+    return;
+  }
+  pass("BENCH_BATCH_RUN_BENCHMARK_TRACE", `${run.run_id} benchmark trace binds case, prompt, and input bundle hashes`);
+}
+
+function expectedBenchmarkTrace(manifest, run) {
+  const caseDef = getCaseDefinition(run.case_id);
+  const armDef = getArmDefinition(manifest, run.arm_id);
+  if (!caseDef || !armDef) return null;
+
+  const caseFile = caseDef.case_file;
+  const promptFile = armDef.prompt_file;
+  const caseAbs = path.join(repoRoot, caseFile);
+  const promptAbs = path.join(repoRoot, promptFile);
+  if (!fs.existsSync(caseAbs) || !fs.existsSync(promptAbs)) return null;
+
+  return {
+    case_id: run.case_id,
+    run_id: run.run_id,
+    case_file: caseFile,
+    case_file_sha256: sha256File(caseFile),
+    prompt_file: promptFile,
+    prompt_file_sha256: sha256File(promptFile),
+    input_bundle_sha256: sha256BenchmarkBundle(caseFile, promptFile)
+  };
+}
+
+function getCaseDefinition(caseId) {
+  return (suite.cases || []).find((item) => item.case_id === caseId);
+}
+
+function getArmDefinition(manifest, armId) {
+  return (manifest.arms || []).find((arm) => arm.arm_id === armId);
+}
+
+function sha256File(relPath) {
+  return `sha256:${crypto.createHash("sha256").update(fs.readFileSync(path.join(repoRoot, relPath))).digest("hex")}`;
+}
+
+function sha256BenchmarkBundle(caseFile, promptFile) {
+  const hash = crypto.createHash("sha256");
+  hash.update(`case_file:${caseFile}\n`);
+  hash.update(fs.readFileSync(path.join(repoRoot, caseFile)));
+  hash.update(`\nprompt_file:${promptFile}\n`);
+  hash.update(fs.readFileSync(path.join(repoRoot, promptFile)));
+  return `sha256:${hash.digest("hex")}`;
 }
 
 function checkPreScoreCompliance(run) {
@@ -495,12 +578,23 @@ function checkSemanticFidelity(run) {
   pass("BENCH_BATCH_RUN_SEMANTIC_FIDELITY", `${run.run_id} semantic fidelity adjudication recorded`);
 }
 
-function checkFullOfOneCaseBinding(run, artifact) {
+function checkFullOfOneCaseBinding(manifest, run, artifact) {
   const identity = artifact.artifact_identity || {};
   const trace = artifact.benchmark_trace || {};
+  const expectedTrace = expectedBenchmarkTrace(manifest, run);
   const mismatches = [];
   if (identity.case_id !== run.case_id) mismatches.push(`artifact_identity.case_id=${identity.case_id || "(missing)"} expected ${run.case_id}`);
+  if (trace.case_id && trace.case_id !== run.case_id) mismatches.push(`benchmark_trace.case_id=${trace.case_id} expected ${run.case_id}`);
   if (trace.run_id && trace.run_id !== run.run_id) mismatches.push(`benchmark_trace.run_id=${trace.run_id} expected ${run.run_id}`);
+  if (expectedTrace) {
+    for (const field of ["case_file", "case_file_sha256", "prompt_file", "prompt_file_sha256", "input_bundle_sha256"]) {
+      if (!trace[field]) {
+        mismatches.push(`benchmark_trace.${field}=(missing) expected ${expectedTrace[field]}`);
+      } else if (trace[field] !== expectedTrace[field]) {
+        mismatches.push(`benchmark_trace.${field}=${trace[field]} expected ${expectedTrace[field]}`);
+      }
+    }
+  }
 
   if (mismatches.length === 0) {
     pass("BENCH_BATCH_RUN_CASE_BINDING", `${run.run_id} full_ofone artifact is bound to the benchmark case/run`);
@@ -589,8 +683,49 @@ function checkExcludedRun(run) {
   if (run.independent_adjudication.decision !== "reject") {
     fail("BENCH_BATCH_RUN_EXCLUDED", `${run.run_id} excluded run independent_adjudication.decision must be reject`);
   }
+  checkExcludedRunRerunPlan(run);
   checkFile("BENCH_BATCH_RUN_EXCLUDED_REVIEW", run.independent_adjudication.result_file, `${run.run_id} independent adjudication result`);
   pass("BENCH_BATCH_RUN_EXCLUDED", `${run.run_id} excluded from aggregate scoring with independent adjudication`);
+}
+
+function checkExcludedRunRerunPlan(run) {
+  const plan = run.rerun_plan;
+  if (!plan || typeof plan !== "object") {
+    fail("BENCH_BATCH_RUN_RERUN_PLAN", `${run.run_id} excluded run missing rerun_plan`);
+    return;
+  }
+  if (plan.required !== true) fail("BENCH_BATCH_RUN_RERUN_PLAN", `${run.run_id} rerun_plan.required must be true`);
+  if (plan.rerun_of !== run.run_id) fail("BENCH_BATCH_RUN_RERUN_PLAN", `${run.run_id} rerun_plan.rerun_of must identify the excluded original run`);
+  if (!plan.reason) fail("BENCH_BATCH_RUN_RERUN_PLAN", `${run.run_id} rerun_plan.reason missing`);
+  if (!validRerunStatuses.has(plan.status)) fail("BENCH_BATCH_RUN_RERUN_PLAN", `${run.run_id} rerun_plan.status ${plan.status || "(missing)"} is invalid`);
+  if (!validRerunAggregatePolicies.has(plan.aggregate_policy)) {
+    fail("BENCH_BATCH_RUN_RERUN_PLAN", `${run.run_id} rerun_plan.aggregate_policy ${plan.aggregate_policy || "(missing)"} is invalid`);
+  }
+  pass("BENCH_BATCH_RUN_RERUN_PLAN", `${run.run_id} excluded run has explicit rerun semantics`);
+}
+
+function validateMatrixRerunPolicy(manifest, matrix) {
+  const hasExcludedRuns = (matrix.excluded_runs || []).length > 0;
+  if (!hasExcludedRuns) return;
+
+  const policy = matrix.rerun_policy || {};
+  const missing = ["rerun_id_template", "replacement_policy", "aggregate_policy", "planned_repeat_policy"].filter((field) => !policy[field]);
+  if (missing.length > 0) {
+    fail("BENCH_BATCH_RERUN_POLICY", `${manifest.batch_id} rerun_policy missing ${missing.join(", ")}`);
+    return;
+  }
+  if (policy.preserve_original_runs !== true) {
+    fail("BENCH_BATCH_RERUN_POLICY", `${manifest.batch_id} rerun_policy.preserve_original_runs must be true`);
+  }
+  for (const token of ["{original_run_id}", "{rerun_number}"]) {
+    if (!policy.rerun_id_template.includes(token)) {
+      fail("BENCH_BATCH_RERUN_POLICY", `${manifest.batch_id} rerun_id_template missing ${token}`);
+    }
+  }
+  if (!validRerunAggregatePolicies.has(policy.aggregate_policy)) {
+    fail("BENCH_BATCH_RERUN_POLICY", `${manifest.batch_id} rerun_policy.aggregate_policy ${policy.aggregate_policy} is invalid`);
+  }
+  pass("BENCH_BATCH_RERUN_POLICY", `${manifest.batch_id} declares immutable rerun semantics for excluded slots`);
 }
 
 function checkArrayExact(code, expected, actual, label) {
@@ -687,6 +822,9 @@ function validateBatchResultsPlan(manifest) {
   if (resultsPlan.excluded_run_log) {
     checkFile("BENCH_BATCH_EXCLUDED_RUN_LOG", resultsPlan.excluded_run_log, `${manifest.batch_id} excluded-run log`);
   }
+  if (resultsPlan.checker_attestation_file) {
+    checkFile("BENCH_BATCH_CHECKER_ATTESTATION", resultsPlan.checker_attestation_file, `${manifest.batch_id} benchmark checker attestation`);
+  }
   if (!resultsPlan.raw_output_dir) {
     fail("BENCH_BATCH_RAW_OUTPUT_DIR", `${manifest.batch_id} results_plan.raw_output_dir missing path`);
   } else if (!fs.existsSync(path.join(repoRoot, resultsPlan.raw_output_dir))) {
@@ -767,9 +905,67 @@ function superiorityReady() {
   if (!suite.results_release || suite.results_release === "not_started") {
     reasons.push("no released benchmark results");
   }
+  const evidence = releasedAggregateEvidence();
+  if (evidence.runs.length === 0) {
+    reasons.push("no released aggregate-eligible benchmark run slots");
+  }
+  const modelMinimum = minimums.model_families || 0;
+  if (modelMinimum > 0 && evidence.modelFamilies.size < modelMinimum) {
+    reasons.push(`released model families ${evidence.modelFamilies.size}/${modelMinimum}`);
+  }
+  const repeatMinimum = minimums.runs_per_case_per_arm || 0;
+  if (repeatMinimum > 0 && evidence.maxRepeatsPerCaseArm < repeatMinimum) {
+    reasons.push(`released repeats per case/arm max ${evidence.maxRepeatsPerCaseArm}/${repeatMinimum}`);
+  }
   if (minimums.publish_failure_analysis && !suite.failure_analysis) {
     reasons.push("failure analysis not published");
   }
 
   return { ready: reasons.length === 0, reasons };
+}
+
+function releasedAggregateEvidence() {
+  const runs = [];
+  const modelFamilies = new Set();
+  const repeatsByCaseArm = new Map();
+
+  for (const batch of suite.benchmark_batches || []) {
+    const manifestPath = batch.manifest && path.join(repoRoot, batch.manifest);
+    if (!manifestPath || !fs.existsSync(manifestPath)) continue;
+    let manifest;
+    try {
+      manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    } catch {
+      continue;
+    }
+    const matrixPath = manifest.execution_matrix_file && path.join(repoRoot, manifest.execution_matrix_file);
+    if (!matrixPath || !fs.existsSync(matrixPath)) continue;
+    let matrix;
+    try {
+      matrix = JSON.parse(fs.readFileSync(matrixPath, "utf8"));
+    } catch {
+      continue;
+    }
+    for (const run of matrix.released_runs || []) collectReleasedRun(run, runs, modelFamilies, repeatsByCaseArm);
+    for (const run of matrix.reviewed_runs || []) {
+      if (run.status === "released") collectReleasedRun(run, runs, modelFamilies, repeatsByCaseArm);
+    }
+  }
+
+  const repeatCounts = [...repeatsByCaseArm.values()].map((set) => set.size);
+  return {
+    runs,
+    modelFamilies,
+    maxRepeatsPerCaseArm: repeatCounts.length > 0 ? Math.max(...repeatCounts) : 0
+  };
+}
+
+function collectReleasedRun(run, runs, modelFamilies, repeatsByCaseArm) {
+  if (!run || run.aggregate_eligible === false) return;
+  if (run.status !== "released") return;
+  runs.push(run);
+  if (run.model_family) modelFamilies.add(run.model_family);
+  const key = `${run.case_id || "(missing)"}::${run.arm_id || "(missing)"}`;
+  if (!repeatsByCaseArm.has(key)) repeatsByCaseArm.set(key, new Set());
+  if (Number.isInteger(run.repeat)) repeatsByCaseArm.get(key).add(run.repeat);
 }

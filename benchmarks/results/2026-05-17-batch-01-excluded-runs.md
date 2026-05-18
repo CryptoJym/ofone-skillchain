@@ -20,3 +20,15 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - Light-structured first-slice run remains aggregate-eligible.
 - Full-OfOne first-slice run must be rerun with a case-native artifact before it can be compared.
 - No empirical superiority or method-performance claim is supported.
+
+## Rerun Semantics
+
+- Excluded originals are immutable evidence records. Do not edit or delete the original raw output, artifact, validator artifact, patch artifact, review, or independent adjudication.
+- The execution matrix declares `rerun_policy.preserve_original_runs=true`.
+- Remedial reruns use `rerun_id_template={original_run_id}__rerun{rerun_number}` and carry `rerun_of`, `reason`, `status`, and `aggregate_policy`.
+- The first remedial rerun repairs the excluded repeat-1 slot and does not consume repeat 2 or repeat 3.
+- A remedial rerun can replace the excluded original for aggregate scoring only after it passes pre-score compliance, benchmark trace binding, machine-artifact hash checks, and review/adjudication.
+
+## Provenance Binding
+
+The excluded original now carries run-record-level `benchmark_trace` fields for the case file, arm prompt, and input bundle hashes. The failed artifact itself remains unchanged because it is evidence of the Run 06 defect. Future aggregate-eligible `full_ofone` artifacts must carry matching artifact-level `benchmark_trace` values, or the benchmark checker rejects them.

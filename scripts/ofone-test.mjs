@@ -18,6 +18,7 @@ try {
   runRenderSmokeTests();
   runPatchWorkflowTests();
   runBenchmarkCheck();
+  runBenchmarkNegativeChecks();
   runResearchLifecycleCheck();
   runReviewSidecarCheck();
   runToolingContractCheck();
@@ -206,6 +207,114 @@ function runBenchmarkCheck() {
   console.error(result.stderr);
 }
 
+function runBenchmarkNegativeChecks() {
+  const checks = [
+    {
+      name: "missing rerun policy",
+      mutate: (root) => {
+        const matrix = readBenchmarkMatrix(root);
+        delete matrix.rerun_policy;
+        writeBenchmarkMatrix(root, matrix);
+      },
+      expect: "BENCH_BATCH_RERUN_POLICY"
+    },
+    {
+      name: "missing excluded-run rerun plan",
+      mutate: (root) => {
+        const matrix = readBenchmarkMatrix(root);
+        delete matrix.excluded_runs[0].rerun_plan;
+        writeBenchmarkMatrix(root, matrix);
+      },
+      expect: "BENCH_BATCH_RUN_RERUN_PLAN"
+    },
+    {
+      name: "mismatched benchmark trace",
+      mutate: (root) => {
+        const matrix = readBenchmarkMatrix(root);
+        const run = matrix.completed_runs.find((item) => item.arm_id === "full_ofone");
+        run.benchmark_trace.case_file_sha256 = "sha256:bad";
+        writeBenchmarkMatrix(root, matrix);
+      },
+      expect: "BENCH_BATCH_RUN_BENCHMARK_TRACE"
+    },
+    {
+      name: "forged artifact binding",
+      mutate: (root) => {
+        const matrix = readBenchmarkMatrix(root);
+        for (const key of ["completed_runs", "reviewed_runs"]) {
+          const run = matrix[key].find((item) => item.arm_id === "full_ofone");
+          run.aggregate_eligible = true;
+          run.pre_score_compliance.case_fidelity = "pass";
+          run.pre_score_compliance.independence = "pass";
+          run.pre_score_compliance.auto_reject = false;
+          delete run.pre_score_compliance.reject_reason;
+        }
+        matrix.excluded_runs = [];
+        matrix.completion.excluded = 0;
+        matrix.completion.aggregate_eligible = 3;
+        writeBenchmarkMatrix(root, matrix);
+
+        const artifactPath = path.join(root, "benchmarks", "runs", "2026-05-17-batch-01", "outputs", "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json");
+        const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
+        artifact.artifact_identity.case_id = "case-strategic-gated-diligence-001";
+        artifact.benchmark_trace = {
+          case_id: "case-strategic-gated-diligence-001",
+          run_id: "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
+          case_file: "benchmarks/cases/strategic-gated-diligence.md",
+          case_file_sha256: "sha256:bad",
+          prompt_file: "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+          prompt_file_sha256: "sha256:bad",
+          input_bundle_sha256: "sha256:bad"
+        };
+        fs.writeFileSync(artifactPath, `${JSON.stringify(artifact, null, 2)}\n`);
+      },
+      expect: "BENCH_BATCH_RUN_CASE_BINDING"
+    }
+  ];
+
+  for (const check of checks) {
+    const root = copyBenchmarkFixtureRoot(check.name);
+    check.mutate(root);
+    const result = spawnSync(process.execPath, ["scripts/ofone-benchmark.mjs", "--json"], {
+      cwd: repoRoot,
+      env: { ...process.env, OFONE_BENCHMARK_REPO_ROOT: root },
+      encoding: "utf8"
+    });
+    const parsed = parseJson(result.stdout || "{}");
+    const codes = new Set((parsed.diagnostics || []).map((diagnostic) => diagnostic.code));
+    if (result.status !== 0 && codes.has(check.expect)) {
+      console.log(`PASS benchmark invalid ${check.name}`);
+      continue;
+    }
+    failures += 1;
+    console.error(`FAIL benchmark invalid ${check.name}`);
+    console.error(`expected non-zero exit and diagnostic code: ${check.expect}`);
+    console.error(`actual diagnostic codes: ${[...codes].join(", ") || "(none)"}`);
+    console.error(result.stdout);
+    console.error(result.stderr);
+  }
+}
+
+function copyBenchmarkFixtureRoot(name) {
+  const root = fs.mkdtempSync(path.join(tempDir, `benchmark-${name.replaceAll(" ", "-")}-`));
+  for (const dir of ["benchmarks", "examples", "research"]) {
+    fs.cpSync(path.join(repoRoot, dir), path.join(root, dir), { recursive: true });
+  }
+  return root;
+}
+
+function readBenchmarkMatrix(root) {
+  return JSON.parse(fs.readFileSync(benchmarkMatrixPath(root), "utf8"));
+}
+
+function writeBenchmarkMatrix(root, matrix) {
+  fs.writeFileSync(benchmarkMatrixPath(root), `${JSON.stringify(matrix, null, 2)}\n`);
+}
+
+function benchmarkMatrixPath(root) {
+  return path.join(root, "benchmarks", "runs", "2026-05-17-batch-01", "execution-matrix.json");
+}
+
 function runResearchLifecycleCheck() {
   const result = spawnSync(process.execPath, ["scripts/ofone-research-check.mjs"], {
     cwd: repoRoot,
@@ -264,17 +373,27 @@ function runToolingContractCheck() {
     ["manifest independent review launch proof", Array.isArray(manifest.review_plan?.independent_review_launch?.launch_proof)],
     ["manifest independent review result", manifest.review_plan?.independent_review_result === "research/results/2026-05-17-06-ofone-batch01-independent-review-result.md"],
     ["manifest excluded-run log", manifest.results_plan?.excluded_run_log === "benchmarks/results/2026-05-17-batch-01-excluded-runs.md"],
+    ["manifest checker attestation", manifest.results_plan?.checker_attestation_file === "benchmarks/results/2026-05-17-batch-01-checker-attestation.json"],
     ["benchmark launch metadata validator", benchmarkScript.includes("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH")],
     ["benchmark case-binding validator", benchmarkScript.includes("BENCH_BATCH_RUN_CASE_BINDING")],
+    ["benchmark trace validator", benchmarkScript.includes("BENCH_BATCH_RUN_BENCHMARK_TRACE")],
+    ["benchmark rerun-policy validator", benchmarkScript.includes("BENCH_BATCH_RERUN_POLICY")],
+    ["benchmark attestation validator", benchmarkScript.includes("BENCH_BATCH_CHECKER_ATTESTATION")],
+    ["benchmark released-evidence readiness", benchmarkScript.includes("releasedAggregateEvidence")],
     ["benchmark pre-score validator", benchmarkScript.includes("BENCH_BATCH_RUN_PRE_SCORE")],
     ["index Run 06 result link", index.includes("./research/results/2026-05-17-06-ofone-batch01-independent-review-result.md")],
     ["index excluded runs link", index.includes("./benchmarks/results/2026-05-17-batch-01-excluded-runs.md")],
+    ["index checker attestation link", index.includes("./benchmarks/results/2026-05-17-batch-01-checker-attestation.json")],
     ["index Run 07 prompt link", index.includes("./research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md")],
     ["index Run 07 context link", index.includes("./research/ofone-post-run06-hardening-context.md")],
     ["index Run 07 status ledger link", index.includes("./research/status/2026-05-17-07-ofone-post-run06-hardening-review.md")],
+    ["index Run 07 result link", index.includes("./research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md")],
+    ["index Run 07 synthesis link", index.includes("./research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md")],
     ["index recursive loop link", index.includes("./research/recursive-improvement-loop.md")],
     ["index research watchdog item", index.includes("Research Watchdog")],
     ["README Run 07 status ledger link", readme.includes("research/status/2026-05-17-07-ofone-post-run06-hardening-review.md")],
+    ["README Run 07 result link", readme.includes("research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md")],
+    ["README checker attestation link", readme.includes("benchmarks/results/2026-05-17-batch-01-checker-attestation.json")],
     ["README recursive loop link", readme.includes("research/recursive-improvement-loop.md")],
     ["README active research watchdog note", readme.includes("The Active Research Watchdog keeps live external research")],
     ["Pages v08 context link", index.includes("./research/ofone-v08-convergence-context-brief.md")]

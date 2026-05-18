@@ -109,7 +109,8 @@
     "failure_analysis_file": "benchmarks/results/2026-05-17-batch-01-failure-analysis.md",
     "raw_output_dir": "benchmarks/runs/2026-05-17-batch-01/outputs",
     "status": "in_progress",
-    "excluded_run_log": "benchmarks/results/2026-05-17-batch-01-excluded-runs.md"
+    "excluded_run_log": "benchmarks/results/2026-05-17-batch-01-excluded-runs.md",
+    "checker_attestation_file": "benchmarks/results/2026-05-17-batch-01-checker-attestation.json"
   },
   "release_guard": {
     "superiority_claims_allowed": false,

@@ -1,0 +1,597 @@
+{
+  "passed": true,
+  "suite_id": "ofone-v0.5-three-arm-evaluation",
+  "superiority_ready": {
+    "ready": false,
+    "reasons": [
+      "strategic has 2/3 cases",
+      "scientific has 2/3 cases",
+      "formal has 1/3 cases",
+      "normative has 2/3 cases",
+      "hybrid has 2/3 cases",
+      "total cases 5/21",
+      "no released benchmark results",
+      "no released aggregate-eligible benchmark run slots",
+      "released model families 0/2",
+      "released repeats per case/arm max 0/3",
+      "failure analysis not published"
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "info",
+      "code": "BENCH_ARM",
+      "message": "benchmark arms cover direct_answer, light_structured, full_ofone"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_FAMILY",
+      "message": "task families cover strategic, scientific, formal, normative, hybrid, update_patch"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_METRIC",
+      "message": "metrics cover decision_quality, evidence_grounding_precision, uncertainty_calibration, trace_completeness, auditability, update_quality, cost, inter_run_stability"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARMS",
+      "message": "case-strategic-gated-diligence-001 arms cover direct_answer, light_structured, full_ofone"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_FILE",
+      "message": "case-strategic-gated-diligence-001 case_file exists at benchmarks/cases/strategic-gated-diligence.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_RUBRIC",
+      "message": "case-strategic-gated-diligence-001 rubric exists at benchmarks/rubrics/decision-map-rubric.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARTIFACT",
+      "message": "case-strategic-gated-diligence-001 OfOne artifact exists at examples/strategy-micro.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARMS",
+      "message": "case-regulated-wastewater-market-entry-001 arms cover direct_answer, light_structured, full_ofone"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_FILE",
+      "message": "case-regulated-wastewater-market-entry-001 case_file exists at benchmarks/cases/regulated-wastewater-market-entry.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_RUBRIC",
+      "message": "case-regulated-wastewater-market-entry-001 rubric exists at benchmarks/rubrics/decision-map-rubric.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARTIFACT",
+      "message": "case-regulated-wastewater-market-entry-001 OfOne artifact exists at examples/source-backed-wastewater-map.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARMS",
+      "message": "case-formal-proof-search-001 arms cover direct_answer, light_structured, full_ofone"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_FILE",
+      "message": "case-formal-proof-search-001 case_file exists at benchmarks/cases/formal-proof-search.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_RUBRIC",
+      "message": "case-formal-proof-search-001 rubric exists at benchmarks/rubrics/decision-map-rubric.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARTIFACT",
+      "message": "case-formal-proof-search-001 OfOne artifact exists at examples/formal-proof-map.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARMS",
+      "message": "case-public-sector-ai-policy-audit-001 arms cover direct_answer, light_structured, full_ofone"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_FILE",
+      "message": "case-public-sector-ai-policy-audit-001 case_file exists at benchmarks/cases/public-sector-ai-policy-audit.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_RUBRIC",
+      "message": "case-public-sector-ai-policy-audit-001 rubric exists at benchmarks/rubrics/decision-map-rubric.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARTIFACT",
+      "message": "case-public-sector-ai-policy-audit-001 OfOne artifact exists at examples/hybrid-policy-audit.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARMS",
+      "message": "case-scientific-mechanism-check-001 arms cover direct_answer, light_structured, full_ofone"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_FILE",
+      "message": "case-scientific-mechanism-check-001 case_file exists at benchmarks/cases/scientific-mechanism-check.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_RUBRIC",
+      "message": "case-scientific-mechanism-check-001 rubric exists at benchmarks/rubrics/decision-map-rubric.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_ARTIFACT",
+      "message": "case-scientific-mechanism-check-001 OfOne artifact exists at examples/scientific-mechanism-map.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_CASE_FAMILY_COVERAGE",
+      "message": "case family coverage cover strategic, scientific, formal, normative, hybrid, update_patch"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_DECLARED",
+      "message": "1 benchmark batch manifest(s) declared"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MANIFEST",
+      "message": "2026-05-17-batch-01 manifest exists at benchmarks/runs/2026-05-17-batch-01/manifest.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_ID_MATCH",
+      "message": "2026-05-17-batch-01 manifest ID matches suite reference"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_SUITE_MATCH",
+      "message": "2026-05-17-batch-01 targets ofone-v0.5-three-arm-evaluation"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_STATUS_MATCH",
+      "message": "2026-05-17-batch-01 status is in_progress"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_CASE_REF",
+      "message": "2026-05-17-batch-01 references 5 known case(s)"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_ARMS",
+      "message": "2026-05-17-batch-01 batch arms cover direct_answer, light_structured, full_ofone"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_PROMPT",
+      "message": "2026-05-17-batch-01 direct_answer prompt exists at benchmarks/runs/2026-05-17-batch-01/prompts/direct_answer.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_ARM_OUTPUTS",
+      "message": "2026-05-17-batch-01 direct_answer required outputs cover answer, confidence_or_uncertainty, source_or_gap_notes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_PROMPT",
+      "message": "2026-05-17-batch-01 light_structured prompt exists at benchmarks/runs/2026-05-17-batch-01/prompts/light_structured.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_ARM_OUTPUTS",
+      "message": "2026-05-17-batch-01 light_structured required outputs cover structured_answer, risks_or_unknowns, recommendation"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_PROMPT",
+      "message": "2026-05-17-batch-01 full_ofone prompt exists at benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_ARM_OUTPUTS",
+      "message": "2026-05-17-batch-01 full_ofone required outputs cover artifact_json, validator_result, rendering, patch_report_if_update_case"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUNS_PER_ARM",
+      "message": "2026-05-17-batch-01 plans 3 run(s) per case/arm"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MODEL_FAMILIES",
+      "message": "2026-05-17-batch-01 plans 2 model family/families"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX",
+      "message": "2026-05-17-batch-01 execution matrix exists at benchmarks/runs/2026-05-17-batch-01/execution-matrix.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_ID_MATCH",
+      "message": "2026-05-17-batch-01 execution matrix matches batch ID"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_SUITE_MATCH",
+      "message": "2026-05-17-batch-01 execution matrix targets ofone-v0.5-three-arm-evaluation"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_CASES",
+      "message": "2026-05-17-batch-01 execution matrix cases match the batch manifest"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_ARMS",
+      "message": "2026-05-17-batch-01 execution matrix arms match the batch manifest"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_MODEL_FAMILIES",
+      "message": "2026-05-17-batch-01 execution matrix model families match the batch manifest"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_REPEATS",
+      "message": "2026-05-17-batch-01 execution matrix repeats match the batch manifest"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_RUN_COUNT",
+      "message": "2026-05-17-batch-01 predeclares 90 run slot(s)"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_RUN_ID_TEMPLATE",
+      "message": "2026-05-17-batch-01 run_id_template identifies batch, case, arm, model family, and repeat"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_COMPLETION",
+      "message": "2026-05-17-batch-01 completion covers 90 predeclared slot(s) without double-counting reviewed/excluded overlaps"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_REVIEW_IMPLIES_COMPLETED",
+      "message": "2026-05-17-batch-01 reviewed runs are also represented as completed raw outputs"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_EXCLUDED_REVIEWED",
+      "message": "2026-05-17-batch-01 excluded runs remain visible in reviewed_runs for audit history"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_STATE_SEMANTICS",
+      "message": "2026-05-17-batch-01 documents overlapping completion/review/exclusion semantics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RERUN_POLICY",
+      "message": "2026-05-17-batch-01 declares immutable rerun semantics for excluded slots"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_COMPLETED_RUNS",
+      "message": "2026-05-17-batch-01 lists 3 completed run record(s)"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "warning",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 case-binding mismatch is captured by pre-score auto-reject: artifact_identity.case_id=case-strategy-micro-001 expected case-strategic-gated-diligence-001; benchmark_trace.case_file=(missing) expected benchmarks/cases/strategic-gated-diligence.md; benchmark_trace.case_file_sha256=(missing) expected sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942; benchmark_trace.prompt_file=(missing) expected benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md; benchmark_trace.prompt_file_sha256=(missing) expected sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e; benchmark_trace.input_bundle_sha256=(missing) expected sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 validator_json hash matches sha256:4ba12cd353b24ee34e57f28ffb407cceebf1c11c07eece6c1969e30e80782a04"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 patch_json hash matches sha256:8abecdbe35662f35aedc1d5f6eabe4e468e7dfa10e3c48393eccc804e1c83f55"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_REVIEWED_RUNS",
+      "message": "2026-05-17-batch-01 lists 3 reviewed run record(s)"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "warning",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 case-binding mismatch is captured by pre-score auto-reject: artifact_identity.case_id=case-strategy-micro-001 expected case-strategic-gated-diligence-001; benchmark_trace.case_file=(missing) expected benchmarks/cases/strategic-gated-diligence.md; benchmark_trace.case_file_sha256=(missing) expected sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942; benchmark_trace.prompt_file=(missing) expected benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md; benchmark_trace.prompt_file_sha256=(missing) expected sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e; benchmark_trace.input_bundle_sha256=(missing) expected sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 validator_json hash matches sha256:4ba12cd353b24ee34e57f28ffb407cceebf1c11c07eece6c1969e30e80782a04"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 patch_json hash matches sha256:8abecdbe35662f35aedc1d5f6eabe4e468e7dfa10e3c48393eccc804e1c83f55"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_EXCLUDED_RUNS",
+      "message": "2026-05-17-batch-01 lists 1 excluded run record(s)"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "warning",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 case-binding mismatch is captured by pre-score auto-reject: artifact_identity.case_id=case-strategy-micro-001 expected case-strategic-gated-diligence-001; benchmark_trace.case_file=(missing) expected benchmarks/cases/strategic-gated-diligence.md; benchmark_trace.case_file_sha256=(missing) expected sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942; benchmark_trace.prompt_file=(missing) expected benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md; benchmark_trace.prompt_file_sha256=(missing) expected sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e; benchmark_trace.input_bundle_sha256=(missing) expected sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 validator_json hash matches sha256:4ba12cd353b24ee34e57f28ffb407cceebf1c11c07eece6c1969e30e80782a04"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 patch_json hash matches sha256:8abecdbe35662f35aedc1d5f6eabe4e468e7dfa10e3c48393eccc804e1c83f55"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_RERUN_PLAN",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 excluded run has explicit rerun semantics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_EXCLUDED_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 independent adjudication result exists at research/results/2026-05-17-06-ofone-batch01-independent-review-result.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_EXCLUDED",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 excluded from aggregate scoring with independent adjudication"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_RELEASE_GUARD",
+      "message": "2026-05-17-batch-01 execution matrix release guard blocks unsupported claims"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUBRIC",
+      "message": "2026-05-17-batch-01 review rubric exists at benchmarks/rubrics/decision-map-rubric.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_REVIEW_TEMPLATE",
+      "message": "2026-05-17-batch-01 review template exists at benchmarks/reviews/2026-05-17-batch-01-review-template.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_REVIEW_TEMPLATE_GATE",
+      "message": "2026-05-17-batch-01 review template includes pre-score compliance and semantic fidelity fields"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_INDEPENDENT_REVIEW_HANDOFF",
+      "message": "2026-05-17-batch-01 independent review handoff exists at benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_INDEPENDENT_REVIEW_PROMPT",
+      "message": "2026-05-17-batch-01 independent review prompt exists at research/prompts/2026-05-17-06-ofone-batch01-independent-review.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_INDEPENDENT_REVIEW_CONTEXT",
+      "message": "2026-05-17-batch-01 independent review context exists at research/ofone-batch01-independent-review-context.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_INDEPENDENT_REVIEW_STATUS_LEDGER",
+      "message": "2026-05-17-batch-01 independent review status ledger exists at research/status/2026-05-17-06-ofone-batch01-independent-review.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH",
+      "message": "2026-05-17-batch-01 independent review launch proof recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_INDEPENDENT_REVIEW_STATUS",
+      "message": "2026-05-17-batch-01 independent review status is integrated"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RESULT_SUMMARY",
+      "message": "2026-05-17-batch-01 result summary placeholder exists at benchmarks/results/2026-05-17-batch-01-summary.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_FAILURE_ANALYSIS",
+      "message": "2026-05-17-batch-01 failure-analysis placeholder exists at benchmarks/results/2026-05-17-batch-01-failure-analysis.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_EXCLUDED_RUN_LOG",
+      "message": "2026-05-17-batch-01 excluded-run log exists at benchmarks/results/2026-05-17-batch-01-excluded-runs.md"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_CHECKER_ATTESTATION",
+      "message": "2026-05-17-batch-01 benchmark checker attestation exists at benchmarks/results/2026-05-17-batch-01-checker-attestation.json"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RAW_OUTPUT_DIR",
+      "message": "2026-05-17-batch-01 raw output dir exists at benchmarks/runs/2026-05-17-batch-01/outputs"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RELEASE_GUARD",
+      "message": "2026-05-17-batch-01 release guard blocks unsupported superiority claims"
+    },
+    {
+      "severity": "warning",
+      "code": "BENCH_SUPERIORITY_READY",
+      "message": "not ready for superiority claims: strategic has 2/3 cases; scientific has 2/3 cases; formal has 1/3 cases; normative has 2/3 cases; hybrid has 2/3 cases; total cases 5/21; no released benchmark results; no released aggregate-eligible benchmark run slots; released model families 0/2; released repeats per case/arm max 0/3; failure analysis not published"
+    }
+  ]
+}

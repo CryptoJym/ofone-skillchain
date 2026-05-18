@@ -54,5 +54,7 @@ Aggregate scoring and superiority claims remain blocked.
 npm run benchmark
 ```
 
-The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, execution matrices, prompt files, review templates, result placeholders, model-family plans, release guards, pre-score compliance gates, full-OfOne case binding, machine-artifact hashes, semantic-fidelity fields, and excluded-run state.
+The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, execution matrices, prompt files, review templates, result placeholders, model-family plans, release guards, pre-score compliance gates, full-OfOne case binding, benchmark trace hashes, machine-artifact hashes, semantic-fidelity fields, excluded-run state, rerun semantics, and public checker attestations.
+
+Batch 01 currently publishes a machine-readable checker attestation at [`benchmarks/results/2026-05-17-batch-01-checker-attestation.json`](./results/2026-05-17-batch-01-checker-attestation.json). The attestation is proof of the current benchmark-control state, not proof of empirical superiority.
 It intentionally warns until the suite reaches the declared case/run/model-family minimums and releases failure analysis.

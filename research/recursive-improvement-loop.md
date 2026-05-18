@@ -84,8 +84,10 @@ Convergence does not mean OfOne can never improve. It means the current objectiv
 
 ## Current Active Run
 
-- Run: 07, OfOne Post-Run06 Benchmark Hardening Review.
+- Latest run: 07, OfOne Post-Run06 Benchmark Hardening Review.
 - Conversation: https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a
 - Status ledger: `research/status/2026-05-17-07-ofone-post-run06-hardening-review.md`
 - Target result: `research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md`
-- Current mode: `waiting_on_external_research`.
+- Local synthesis: `research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md`
+- Current mode: `benchmark_handoff`.
+- Next bounded action: run the remedial `full_ofone` benchmark slot for `case-strategic-gated-diligence-001` under the hardened provenance/rerun protocol before broader Batch 01 execution resumes.

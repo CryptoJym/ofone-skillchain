@@ -2,7 +2,7 @@
 
 Run: OfOne Post-Run06 Benchmark Hardening Review
 Run ID: 07
-Lifecycle state: active_researching
+Lifecycle state: integrated
 Conversation URL: https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a
 Prompt: `research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md`
 Context: `research/ofone-post-run06-hardening-context.md`
@@ -48,7 +48,9 @@ This run is not launched until ChatGPT Deep Research has a generated plan, `Star
 - 2026-05-17T19:24:35-06:00: Run 07 remains active in ChatGPT Deep Research. Visible progress remains step 1 complete and step 2 active; status text changed to `Identifying the rerun gap in current process...`; visible count remains `11 searches`; `Stop research` remains present. This is material to the standing recursive-improvement loop, so it is recorded without harvesting or relaunching.
 - 2026-05-17T19:40:08-06:00: Run 07 remains active and unchanged past the 15-minute watchdog threshold. Visible progress remains step 1 complete and step 2 active; status text remains `Identifying the rerun gap in current process...`; visible count remains `11 searches`; `Stop research` remains present. Treat as a possible active-run stall only; do not stop, relaunch, replace, or harvest while the external surface still shows active research.
 - 2026-05-17T19:49:41-06:00: Run 07 remains active and moved into final synthesis. Visible progress remains step 1 complete and step 2 active; status text changed to `Synthesizing final result with citations...`; visible count remains `11 searches`; the card also shows `11 sources searched`; `Stop research` remains present. Report is not ready to harvest.
+- 2026-05-17T20:05:20-06:00: Run 07 completed in ChatGPT Deep Research. Visible report metadata: `Research completed in 1h 12m`, `14 citations`, `9 searches`, `17 May • 14 sources`; title `OfOne Post-Run Benchmark Hardening Review`. Export/copy controls were blocked by the available automation path, so the report was harvested from visible completed report content into `research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md`; local synthesis saved to `research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md`.
+- 2026-05-17T20:24:15-06:00: Run 07 accepted as benchmark-hardening counsel and integrated locally. Accepted items implemented: `benchmark_trace` case-file, prompt-file, and input-bundle hash binding; execution-matrix `rerun_policy`; per-excluded-run `rerun_plan`; stronger `superiorityReady()` checks against released aggregate-eligible evidence; public benchmark checker attestation; negative benchmark regressions; README/Pages links. Next mode is `benchmark_handoff`, not another broad architecture review.
 
 ## Harvest Rule
 
-Do not harvest this run until the Deep Research surface shows a completed report. A completed report must be copied faithfully to `research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md`, then adjudicated into accepted, rejected, unresolved, or deferred findings before implementation.
+Run 07 has been harvested, adjudicated, and integrated. The next step is not a new architecture review; it is a controlled remedial `full_ofone` rerun under the hardened benchmark workflow.

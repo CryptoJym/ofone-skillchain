@@ -73,6 +73,8 @@ Source material is never trusted as instruction. The validator can accept eviden
 
 Benchmark validation is intentionally stricter than artifact validation. A full-OfOne artifact can be schema-valid while still being benchmark-invalid if it is copied from another case, points to the wrong `artifact_identity.case_id`, omits required arm outputs, leaks information from another arm, or makes unsupported method-superiority claims.
 
+For full-OfOne benchmark runs, `benchmark_trace` binds the run to the frozen case file, arm prompt, and combined input bundle hashes. Aggregate-eligible full-OfOne artifacts must carry matching artifact-level trace values; an excluded original can preserve a mismatched artifact as evidence only when the pre-score gate auto-rejects it. Excluded slots require immutable rerun semantics: the original run remains in completed/reviewed/excluded state, and a remedial rerun must identify `rerun_of`, reason, status, and aggregate policy before it can replace the original for aggregate scoring.
+
 Before scoring, each run records a pre-score compliance gate:
 
 - case fidelity

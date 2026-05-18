@@ -293,7 +293,7 @@
 
       <section id="lifecycle">
         <h2>Decision Lifecycle</h2>
-        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, review sidecars, benchmark-case binding, pre-score auto-reject gates, and excluded-run state. Review-round labels such as v0.7 and v0.8 describe Deep Research cycles, not package or artifact versions.</p>
+        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, review sidecars, benchmark-case binding, pre-score auto-reject gates, excluded-run state, and immutable rerun semantics. Review-round labels such as v0.7 and v0.8 describe Deep Research cycles, not package or artifact versions.</p>
         <div class="grid">
           <div class="item"><h3>Identity</h3><p>Objective head, scope hash, config hash, active evidence hashes, created-at marker, and lifecycle status.</p></div>
           <div class="item"><h3>Criteria</h3><p>Decision standards with priority, threshold, owner, and review implications.</p></div>
@@ -307,15 +307,16 @@
           <div class="item"><h3>Research Watchdog</h3><p>Active runs update ledgers only on material visible changes; ordinary unchanged polling makes no file changes, and stop-control blocks duplicate launches.</p></div>
           <div class="item"><h3>Status Isolation</h3><p>Active external runs use run-scoped ledgers so launch, progress, harvest, and acceptance state cannot be confused across review cycles.</p></div>
           <div class="item"><h3>Convergence Gate</h3><p>Architecture recursion stops or hands off to benchmarks when blockers are gone and remaining uncertainty is empirical.</p></div>
-          <div class="item"><h3>Benchmark Trace</h3><p>Benchmark readiness is explicit, so scaffold checks are not mistaken for empirical superiority.</p></div>
-          <div class="item"><h3>Case Binding</h3><p>Full-OfOne benchmark artifacts must bind to the exact case and run before any metric score can enter aggregate comparison.</p></div>
+          <div class="item"><h3>Benchmark Trace</h3><p>Benchmark readiness is explicit, and full-OfOne runs bind to case-file, prompt-file, and input-bundle hashes.</p></div>
+          <div class="item"><h3>Case Binding</h3><p>Full-OfOne benchmark artifacts must bind to the exact case, run, dossier, and prompt before any metric score can enter aggregate comparison.</p></div>
           <div class="item"><h3>Auto-Reject</h3><p>Wrong-case artifacts, copied examples, required-output failures, leakage, or unsupported superiority claims are rejected before scoring.</p></div>
+          <div class="item"><h3>Rerun Semantics</h3><p>Excluded originals stay immutable; remedial reruns link back with explicit aggregate policy and cannot silently overwrite history.</p></div>
         </div>
       </section>
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, standing loop controller, research lifecycle checker, GitHub Pages parity checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, executable benchmark suite manifest, frozen first benchmark batch plan, predeclared run-slot matrix, first locally reviewed raw benchmark slice, harvested independent-review result, immutable validator/patch artifacts, and excluded-run log.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, standing loop controller, research lifecycle checker, GitHub Pages parity checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, executable benchmark suite manifest, frozen first benchmark batch plan, predeclared run-slot matrix, first locally reviewed raw benchmark slice, harvested independent-review result, post-Run06 hardening review, immutable validator/patch artifacts, checker attestation, rerun semantics, and excluded-run log.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -350,9 +351,12 @@
           <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md">Independent Review Handoff</a>
           <a class="button" href="./research/results/2026-05-17-06-ofone-batch01-independent-review-result.md">Run 06 Result</a>
           <a class="button" href="./benchmarks/results/2026-05-17-batch-01-excluded-runs.md">Excluded Runs</a>
+          <a class="button" href="./benchmarks/results/2026-05-17-batch-01-checker-attestation.json">Checker Attestation</a>
           <a class="button" href="./research/ofone-post-run06-hardening-context.md">Run 07 Context</a>
           <a class="button" href="./research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md">Run 07 Prompt</a>
           <a class="button" href="./research/status/2026-05-17-07-ofone-post-run06-hardening-review.md">Run 07 Status Ledger</a>
+          <a class="button" href="./research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md">Run 07 Result</a>
+          <a class="button" href="./research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md">Run 07 Synthesis</a>
           <a class="button" href="./research/TRACKER.md">Research Tracker</a>
           <a class="button" href="./research/status/2026-05-17-06-ofone-batch01-independent-review.md">Run 06 Status Ledger</a>
           <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01-review-template.md">Batch 01 Review Template</a>
@@ -363,7 +367,7 @@
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Benchmark runs are checked separately for case fidelity, required outputs, independence, no-superiority compliance, machine-artifact hashes, and excluded-run handling, because schema-valid is not benchmark-valid.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Benchmark runs are checked separately for case fidelity, benchmark trace hashes, required outputs, independence, no-superiority compliance, machine-artifact hashes, excluded-run handling, rerun policy, and public checker attestations, because schema-valid is not benchmark-valid.</p>
         <code class="rule">npm run validate
 npm run schema:check
 npm run review:check

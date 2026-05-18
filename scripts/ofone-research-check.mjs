@@ -17,6 +17,7 @@ const resultRel = "research/results/2026-05-17-06-ofone-batch01-independent-revi
 const run07StatusRel = "research/status/2026-05-17-07-ofone-post-run06-hardening-review.md";
 const run07StatusPath = path.join(repoRoot, run07StatusRel);
 const run07ResultRel = "research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md";
+const run07SynthesisRel = "research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md";
 const loopRel = "research/recursive-improvement-loop.md";
 const loopPath = path.join(repoRoot, loopRel);
 
@@ -130,13 +131,14 @@ function validateRun07Status({ tracker, status }) {
   const url = "https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a";
   const trackerRow = tracker.split("\n").find((line) => line.startsWith("| 07 |")) || "";
   const resultPath = path.join(repoRoot, run07ResultRel);
+  const synthesisPath = path.join(repoRoot, run07SynthesisRel);
 
   check(
     trackerRow.includes("| OfOne Post-Run06 Benchmark Hardening Review |") &&
-      trackerRow.includes("| active_researching |") &&
+      trackerRow.includes("| integrated |") &&
       trackerRow.includes(`| ${url} |`),
     "OFONE_RESEARCH_RUN07_TRACKER_ROW",
-    "tracker Run 07 row is active_researching with the expected ChatGPT URL"
+    "tracker Run 07 row is integrated with the expected ChatGPT URL"
   );
   check(
     tracker.includes(run07StatusRel),
@@ -145,10 +147,10 @@ function validateRun07Status({ tracker, status }) {
   );
   check(
     status.includes("Run ID: 07") &&
-      status.includes("Lifecycle state: active_researching") &&
+      status.includes("Lifecycle state: integrated") &&
       status.includes(`Conversation URL: ${url}`),
     "OFONE_RESEARCH_RUN07_STATUS_STATE",
-    "Run 07 ledger identifies the active Deep Research conversation"
+    "Run 07 ledger identifies the integrated Deep Research conversation"
   );
   check(
     status.includes("Pasted markdown.md") &&
@@ -156,31 +158,39 @@ function validateRun07Status({ tracker, status }) {
       status.includes("Researching...") &&
       status.includes("Stop research"),
     "OFONE_RESEARCH_RUN07_LAUNCH_PROOF",
-    "Run 07 ledger preserves launch proof and active research affordances"
+    "Run 07 ledger preserves launch proof and original active research affordances"
   );
   check(
-    status.includes("Synthesizing final result with citations...") &&
-      tracker.includes("Synthesizing final result with citations...") &&
-      status.includes("11 sources searched") &&
-      tracker.includes("11 sources searched"),
-    "OFONE_RESEARCH_RUN07_MATERIAL_STATUS_SYNC",
-    "Run 07 latest material status is recorded in both ledger and tracker"
+    status.includes("Research completed in 1h 12m") &&
+      status.includes("14 citations") &&
+      status.includes("9 searches") &&
+      status.includes(run07ResultRel),
+    "OFONE_RESEARCH_RUN07_HARVEST_PROOF",
+    "Run 07 ledger records completion metadata and harvested result path"
   );
   check(
-    status.includes("Report is not ready to harvest") &&
-      status.includes(run07ResultRel) &&
-      !fs.existsSync(resultPath),
-    "OFONE_RESEARCH_RUN07_HARVEST_BOUNDARY",
-    "Run 07 remains unharvested while active research is still visible"
+    fs.existsSync(resultPath) && fs.existsSync(synthesisPath) &&
+      tracker.includes(run07ResultRel) &&
+      tracker.includes(run07SynthesisRel),
+    "OFONE_RESEARCH_RUN07_RESULT_PRESENT",
+    "Run 07 harvested result and local synthesis are present and linked from the tracker"
+  );
+  check(
+    status.includes("benchmark_trace") &&
+      status.includes("rerun_policy") &&
+      status.includes("checker attestation") &&
+      status.includes("benchmark_handoff"),
+    "OFONE_RESEARCH_RUN07_INTEGRATION_PROOF",
+    "Run 07 accepted hardening items and next benchmark-handoff mode are recorded"
   );
 }
 
 function validateRecursiveLoop({ tracker, loopDoc }) {
   check(
     tracker.includes("OfOne Post-Run06 Benchmark Hardening Review") &&
-      tracker.includes("active_researching"),
-    "OFONE_RESEARCH_LOOP_ACTIVE_RUN",
-    "tracker exposes the current active recursive research run"
+      tracker.includes("integrated"),
+    "OFONE_RESEARCH_LOOP_CURRENT_RUN",
+    "tracker exposes the latest integrated recursive research run"
   );
   check(
     loopDoc.includes("The loop may stay alive under a heartbeat") &&
@@ -204,9 +214,10 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
   );
   check(
     loopDoc.includes(run07StatusRel) &&
-      loopDoc.includes(run07ResultRel),
+      loopDoc.includes(run07ResultRel) &&
+      loopDoc.includes("Current mode: `benchmark_handoff`"),
     "OFONE_RESEARCH_LOOP_CURRENT_RUN",
-    "recursive loop doc points to the active Run 07 ledger and result target"
+    "recursive loop doc points to the Run 07 ledger/result and benchmark-handoff mode"
   );
 }
 
