@@ -63,6 +63,12 @@ The scientific mechanism repeat-2 slice adds the first repeated-run check for th
 - Light structured answer: improves decision usability with a validation checklist, but measurement, confounder, and update dependencies remain non-addressable.
 - Full OfOne answer: preserves measurement quality, mechanism confidence, hidden-variable pressure, criteria, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-scientific-mechanism-check-001` repeat 2; remaining limitation is still the abstract scenario-level evidence rather than real measurement and replication data.
 
+The regulated wastewater repeat-2 slice adds a repeated-run check for the hybrid wastewater case:
+
+- Direct answer: again blocks operational launch while allowing diligence, but leaves permit, pilot, partner, and customer dependencies as prose.
+- Light structured answer: clarifies decision posture, approval condition, and evidence gaps in a compact table, but still lacks typed criteria, gate state, and patch closure.
+- Full OfOne answer: preserves generic public EPA evidence identity, case-native benchmark trace, launch-blocking unknowns, criteria, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-regulated-wastewater-market-entry-001` repeat 2; remaining limitation is still that generic source-backed evidence cannot resolve jurisdiction-specific launch authority.
+
 Minimum sections once runs exist:
 
 - validation failures

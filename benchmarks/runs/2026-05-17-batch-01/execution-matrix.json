@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 69,
-    "completed": 21,
-    "reviewed": 21,
+    "queued": 66,
+    "completed": 24,
+    "reviewed": 24,
     "excluded": 1,
-    "aggregate_eligible": 21,
+    "aggregate_eligible": 24,
     "remedial": 1
   },
   "completed_runs": [
@@ -702,6 +702,99 @@
         "patch_sha256": "sha256:eff1d5c2827d9e4bb1264bc66529476aa6ad0c20e0dfe89bf4afa66aed1b437e",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.rendering.md",
         "rendering_sha256": "sha256:a6acfe15047399bdea022dca8d641e291b8aace8bb05017121d936edcebaaa28"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for lightweight structured arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "generic public EPA source identity plus scenario-level benchmark unknowns with stable content hashes, chain-of-custody notes, and explicit launch gates",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the regulated wastewater repeat-2 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-regulated-wastewater-market-entry-001",
+        "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2",
+        "case_file": "benchmarks/cases/regulated-wastewater-market-entry.md",
+        "case_file_sha256": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:2849a7b8ab7af3553a448c44916d236e5cdd8dc4c4e37dd9fc5e3a18e4398b0b"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.validator.json",
+        "validator_sha256": "sha256:a1984569f62829fc7c4c7999e440718659140fb9bff4f5948d9eee407740a587",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.patch.json",
+        "patch_sha256": "sha256:83e31e6be1b2d580793b1137ea0e8116ec808aaafd289daf22621b3d81838d76",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.rendering.md",
+        "rendering_sha256": "sha256:4ea403c1ed03bedb99da6db3e66328925b3fa3c251ef5642e723635a0dc1e9ed"
       }
     }
   ],
@@ -1371,12 +1464,105 @@
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.rendering.md",
         "rendering_sha256": "sha256:a6acfe15047399bdea022dca8d641e291b8aace8bb05017121d936edcebaaa28"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for lightweight structured arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "generic public EPA source identity plus scenario-level benchmark unknowns with stable content hashes, chain-of-custody notes, and explicit launch gates",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the regulated wastewater repeat-2 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-regulated-wastewater-market-entry-001",
+        "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2",
+        "case_file": "benchmarks/cases/regulated-wastewater-market-entry.md",
+        "case_file_sha256": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:2849a7b8ab7af3553a448c44916d236e5cdd8dc4c4e37dd9fc5e3a18e4398b0b"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.validator.json",
+        "validator_sha256": "sha256:a1984569f62829fc7c4c7999e440718659140fb9bff4f5948d9eee407740a587",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.patch.json",
+        "patch_sha256": "sha256:83e31e6be1b2d580793b1137ea0e8116ec808aaafd289daf22621b3d81838d76",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.rendering.md",
+        "rendering_sha256": "sha256:4ea403c1ed03bedb99da6db3e66328925b3fa3c251ef5642e723635a0dc1e9ed"
+      }
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
     "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
-    "allowed_claim": "Batch 01 has twenty-one completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
+    "allowed_claim": "Batch 01 has 24 completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
   },
   "excluded_runs": [
     {

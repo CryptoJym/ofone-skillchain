@@ -291,7 +291,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_COMPLETED_RUNS",
-      "message": "2026-05-17-batch-01 lists 21 completed run record(s)"
+      "message": "2026-05-17-batch-01 lists 24 completed run record(s)"
     },
     {
       "severity": "info",
@@ -785,8 +785,78 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 validator_json hash matches sha256:a1984569f62829fc7c4c7999e440718659140fb9bff4f5948d9eee407740a587"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 patch_json hash matches sha256:83e31e6be1b2d580793b1137ea0e8116ec808aaafd289daf22621b3d81838d76"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_REVIEWED_RUNS",
-      "message": "2026-05-17-batch-01 lists 21 reviewed run record(s)"
+      "message": "2026-05-17-batch-01 lists 24 reviewed run record(s)"
     },
     {
       "severity": "info",
@@ -1382,6 +1452,91 @@
       "severity": "info",
       "code": "BENCH_BATCH_RUN_REVIEW",
       "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 validator_json hash matches sha256:a1984569f62829fc7c4c7999e440718659140fb9bff4f5948d9eee407740a587"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 patch_json hash matches sha256:83e31e6be1b2d580793b1137ea0e8116ec808aaafd289daf22621b3d81838d76"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 review file exists and covers required metrics"
     },
     {
       "severity": "info",
