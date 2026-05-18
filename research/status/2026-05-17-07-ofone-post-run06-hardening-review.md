@@ -39,6 +39,11 @@ This run is not launched until ChatGPT Deep Research has a generated plan, `Star
 - Start action: clicked `Start` on the Deep Research plan card.
 - Active proof: card shows `Researching...`; `Stop research` button is visible.
 
+## Status Updates
+
+- 2026-05-17T18:53:48-06:00: Run 07 remains active in ChatGPT Deep Research. Visible status text changed to `Opening execution matrix lines...`; step 1 (`Collect Run06 benchmark results and related artifacts from provided sources`) is active; `Stop research` remains present. Report is not ready to harvest.
+- 2026-05-17T18:55:52-06:00: Run 07 remains active. Visible progress: step 1 complete, step 2 active (`Analyze Run06 failures and performance regressions against benchmarks`), status text `Inspecting case file and benchmark for artifact mismatch...`, visible count `11 searches`, and `Stop research` remains present. Report is not ready to harvest.
+
 ## Harvest Rule
 
 Do not harvest this run until the Deep Research surface shows a completed report. A completed report must be copied faithfully to `research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md`, then adjudicated into accepted, rejected, unresolved, or deferred findings before implementation.
