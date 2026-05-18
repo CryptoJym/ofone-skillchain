@@ -1,0 +1,239 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "review_required"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "human_review",
+      "affected_objects": [
+        "G1",
+        "C2"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C2",
+      "type": "claim",
+      "label": "Rights and legitimacy exposure require human review gates before live release."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "Repeat-2 council result again blocks live deployment and returns the policy for model evidence, rights/appeal evidence, stakeholder exposure review, and review-log proof."
+    },
+    {
+      "id": "G1",
+      "type": "gate",
+      "label": "rights and public-policy release gate for high-risk public-sector AI deployment"
+    },
+    {
+      "id": "KT1",
+      "type": "kill_test",
+      "label": "Gate escalation or stakeholder objection shows the proposed review design lacks meaningful contestability."
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "L2",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "L3",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS3",
+      "type": "lens",
+      "label": "normative legitimacy lens"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "defer"
+    },
+    {
+      "id": "O2",
+      "type": "option_move",
+      "label": "test"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Block live deployment and continue only with a gated audit / controlled evaluation path."
+    },
+    {
+      "id": "RL1",
+      "type": "review_log",
+      "label": ""
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "X3",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X6",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X7",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C2"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "gate": [
+      "G1"
+    ],
+    "kill_test": [
+      "KT1"
+    ],
+    "loop": [
+      "L1",
+      "L2",
+      "L3"
+    ],
+    "lens": [
+      "LENS3"
+    ],
+    "option_move": [
+      "O1",
+      "O2"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "review_log": [
+      "RL1"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "edge": [
+      "X3",
+      "X4",
+      "X5",
+      "X6",
+      "X7"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "evidential",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C2"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [
+    {
+      "gate_id": "G1",
+      "status": "open",
+      "reviewer": "A1 public agency decision owner with A2 technical reviewer and A3 affected-party representation",
+      "required_decision": "approve, block, narrow, or return for model evidence, rights evidence, and review-log proof"
+    },
+    {
+      "gate_id": "G2",
+      "status": "open",
+      "reviewer": "A2 technical and policy reviewer",
+      "required_decision": "approve test-only evaluation, block release, or require additional measurement evidence"
+    }
+  ],
+  "suggested_transition": "human_review",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 18 downstream object(s) are in closure, so the current decision rendering must be regenerated. human review blocks release.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "review_log_check",
+    "rendering_regeneration",
+    "human_gate_review"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C2"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "collect_approvals",
+      "targets": [
+        "G1",
+        "G2"
+      ],
+      "effect": "Route changed decision state to named reviewers."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 18 downstream object(s); transition=human_review; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C2",
+      "collect required approvals: G1:A1 public agency decision owner with A2 technical reviewer and A3 affected-party representation, G2:A2 technical and policy reviewer",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log",
+      "route through the required human gate before release"
+    ]
+  }
+}

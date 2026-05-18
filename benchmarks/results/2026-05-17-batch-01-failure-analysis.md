@@ -75,6 +75,12 @@ The formal proof-search repeat-2 slice adds a repeated-run check for the formal-
 - Light structured answer: clarifies lemma, checker, and countermodel tasks, but cannot expose dependency closure from a changed checker result to the recommendation.
 - Full OfOne answer: preserves formal evidence identity, proof-certificate absence, candidate lemma obligation, countermodel pressure, criteria, trigger closure, Map rendering, validator, and patch artifacts for `case-formal-proof-search-001` repeat 2; remaining limitation is still that the benchmark dossier lacks actual axiom, theorem, checker, or countermodel artifacts.
 
+The public-sector AI policy audit repeat-2 slice adds a repeated-run check for the high-risk hybrid/normative case:
+
+- Direct answer: again blocks live deployment and names model, rights, appeal, and review-log gaps, but remains prose-only.
+- Light structured answer: improves the gated audit checklist and release conditions, but rights, stakeholder, model-evidence, and review-log dependencies remain non-addressable.
+- Full OfOne answer: preserves model evidence gaps, rights and legitimacy claims, stakeholder exposure, gates, review-log objects, trigger closure, Audit rendering, validator, and patch artifacts for `case-public-sector-ai-policy-audit-001` repeat 2; remaining limitation is still that the benchmark dossier lacks real external policy, model validation, subgroup, appeal-access, and operational-monitoring artifacts.
+
 Minimum sections once runs exist:
 
 - validation failures

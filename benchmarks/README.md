@@ -44,7 +44,7 @@ The source-backed example at `../examples/source-backed-wastewater-map.json` is 
 `runs/2026-05-17-batch-01/manifest.json` freezes the first five-case execution plan before any model outputs are collected.
 It declares the three benchmark arms, frozen arm prompts, repeated-run and model-family plan, review template, result placeholders, raw-output directory, and release guard.
 `runs/2026-05-17-batch-01/execution-matrix.json` predeclares 90 run slots across 5 cases, 3 arms, 2 model families, and 3 repeats.
-Its status is `in_progress`; twenty-seven local `agentic_coding` raw outputs have unblinded local reviews across the strategic gated diligence repeat-1 and repeat-2 slices, scientific mechanism repeat-1 and repeat-2 slices, regulated wastewater repeat-1 and repeat-2 slices, formal proof-search repeat-1 and repeat-2 slices, and public-sector AI policy audit slice.
+Its status is `in_progress`; thirty local `agentic_coding` raw outputs have unblinded local reviews across the strategic gated diligence repeat-1 and repeat-2 slices, scientific mechanism repeat-1 and repeat-2 slices, regulated wastewater repeat-1 and repeat-2 slices, formal proof-search repeat-1 and repeat-2 slices, and public-sector AI policy audit repeat-1 and repeat-2 slices.
 Run 06 independently reviewed the first slice and accepted the direct-answer and light-structured slots while excluding the full-OfOne slot from aggregate scoring because its artifact identity was copied from another case.
 Run 07 hardened the workflow, and the full-OfOne slot now has a reviewed remedial rerun at `runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md` with companion artifact, validator, rendering, patch report, and local review files.
 The scientific mechanism slice now has direct, light-structured, and full-OfOne repeat-1 outputs; the full-OfOne artifact is case-native and includes validator, rendering, patch report, and local review files.
@@ -55,6 +55,7 @@ The strategic gated diligence repeat-2 slice now has direct, light-structured, a
 The scientific mechanism repeat-2 slice now has direct, light-structured, and full-OfOne outputs; the full-OfOne artifact is case-native and includes validator, Map rendering, patch report, and local review files.
 The regulated wastewater repeat-2 slice now has direct, light-structured, and full-OfOne outputs; the full-OfOne artifact is case-native and includes validator, Map rendering, patch report, and local review files.
 The formal proof-search repeat-2 slice now has direct, light-structured, and full-OfOne outputs; the full-OfOne artifact is case-native and includes validator, Map rendering, patch report, and local review files.
+The public-sector AI policy audit repeat-2 slice now has direct, light-structured, and full-OfOne outputs; the full-OfOne artifact is case-native and includes validator, Audit rendering, patch report, review-log objects, and local review files.
 The harvested independent review is stored at `../research/results/2026-05-17-06-ofone-batch01-independent-review-result.md`; the excluded-run log is `results/2026-05-17-batch-01-excluded-runs.md`.
 Aggregate scoring and superiority claims remain blocked.
 
