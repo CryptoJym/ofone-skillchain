@@ -61,7 +61,7 @@ The regulated wastewater repeat-2 slice completed after the scientific repeat-2 
 
 The formal proof-search repeat-2 slice completed after the regulated wastewater repeat-2 slice. All three formal repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne formal repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. The slice is published and Pages-confirmed after public commit `2287da0`.
 
-The public-sector AI policy audit repeat-2 slice completed after the formal proof-search repeat-2 slice. All three policy-audit repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne policy repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Audit rendering, patch, review-log objects, and local review artifacts. Publication and Pages parity are still pending until this batch is committed and pushed.
+The public-sector AI policy audit repeat-2 slice completed after the formal proof-search repeat-2 slice. All three policy-audit repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne policy repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Audit rendering, patch, review-log objects, and local review artifacts. The slice is published and Pages-confirmed after public commit `4499601`.
 
 Current aggregate eligibility among reviewed local slots:
 
