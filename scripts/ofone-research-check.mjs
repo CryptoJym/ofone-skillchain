@@ -193,6 +193,14 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
     "recursive loop doc prevents relaunch before implementation/publication or while a run is active"
   );
   check(
+    loopDoc.includes("## Active Research Watchdog") &&
+      loopDoc.includes("Material progress means at least one visible research-state field changed") &&
+      loopDoc.includes("The default stall threshold is 15 minutes") &&
+      loopDoc.includes("stop-control still present -> do not stop, relaunch, or open a replacement run"),
+    "OFONE_RESEARCH_LOOP_WATCHDOG",
+    "recursive loop doc distinguishes active-run observation, material progress, stall notes, and relaunch prevention"
+  );
+  check(
     loopDoc.includes(run07StatusRel) &&
       loopDoc.includes(run07ResultRel),
     "OFONE_RESEARCH_LOOP_CURRENT_RUN",

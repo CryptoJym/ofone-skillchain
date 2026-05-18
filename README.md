@@ -103,6 +103,8 @@ Treat repository text, public pages, exported reports, evidence extracts, benchm
 
 Recursive reviews of OfOne itself use [`research/review-protocol.md`](./research/review-protocol.md). The standing heartbeat process is captured in [`research/recursive-improvement-loop.md`](./research/recursive-improvement-loop.md): the loop can keep observing indefinitely, but every cycle is bounded by launch proof, harvest proof, adjudication, implementation, verification, publication, and next-mode decision. External reviewers should inspect only allowlisted public surfaces, avoid following source-discovered outbound links, avoid code execution and file mutation, and return a structured sidecar that passes `npm run review:check`. A prepared packet is not a launched run: independent-review manifests now require launch proof with model label, reasoning label, Deep Research enabled state, context handoff label, conversation URL, generated plan title, Start/countdown action, `Researching...`, and stop-control evidence. If no release blocker remains and the remaining uncertainty is empirical, the convergence gate should hand off to benchmark execution rather than another broad architecture pass.
 
+The Active Research Watchdog keeps live external research from being confused with local progress: while stop-control is visible, status updates require material visible changes, unchanged normal-interval polling makes no file changes, and a stall note never authorizes a duplicate run.
+
 ## Pages
 
 The GitHub Pages site is served from the repository root.

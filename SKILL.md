@@ -231,6 +231,8 @@ The run is only `launched` after the external system shows a generated research 
 
 For standing recursive improvement loops, separate the heartbeat from the review cycle. A heartbeat may continue indefinitely, but a cycle must end in one of: harvested report, accepted implementation, rejected/deferred finding, benchmark handoff, converged state, blocked state, or no-op status proof. Do not launch a fresh external review while a prior Deep Research run is active, while accepted findings are unimplemented, or while the public repo/Pages surface has not caught up to the implementation.
 
+When observing an active external run, apply the Active Research Watchdog: harvest only when a completed report is visible; record status only when plan title, step completion, active step, status text, search/source count, report metadata, error/auth state, or stop-control availability changes; leave files untouched when the run is unchanged inside the normal interval; record a possible stall only after the stall threshold; never stop, relaunch, or replace a run while stop-control remains visible unless the operator explicitly changes the run state.
+
 ## Minimal Schemas
 
 Use stable IDs. Keep evidence, claims, graph objects, and renderings separate.

@@ -58,6 +58,14 @@ A prepared packet is not a launched run. A submitted normal chat response is not
 
 Use `npm run research:check` to verify the active-run ledger, tracker row, manifest launch state, live conversation URL, launch proof, harvest boundary, and absence of premature result files.
 
+## Active Research Watchdog
+
+While a run is `active_researching`, the review operator must distinguish observation from state transition.
+
+Record a status update only when one of these visible fields changes: plan title, plan step completion, active step label, status text, search/source count, completed-report metadata, error/auth state, or stop-control availability. If none changed and the last material update is recent, leave the tracker untouched. If none changed for the stall threshold, add a concise possible-stall note to the run ledger and tracker, but do not stop, relaunch, or replace the run while stop-control remains visible.
+
+Default stall threshold: 15 minutes since the last material status update. Longer stalls move to `blocked` only when browser access is unavailable, the external surface reports an unrecoverable error, or an operator explicitly changes the run state.
+
 ## Evidence Classification
 
 Separate these classes in every report:

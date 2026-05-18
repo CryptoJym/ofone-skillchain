@@ -143,6 +143,8 @@ The important invariant is proof of state transition. A prompt file or context p
 
 The standing loop is intentionally indefinite at the heartbeat level and finite at the cycle level. `research/recursive-improvement-loop.md` controls that boundary: watch, harvest, adjudicate, implement, verify, publish, resubmit, or switch to benchmark/converged/blocked/observe mode. A new outside review cannot be launched merely because a heartbeat fired; accepted findings must first be integrated and made publicly visible.
 
+Active research has its own watchdog boundary. If the external surface still shows stop-control, the operator records only material progress changes: plan title, step completion, active step, status text, search/source count, completed-report metadata, error/auth state, or stop-control availability. Unchanged active research inside the normal interval produces no repo edits. Unchanged active research beyond the stall threshold produces a possible-stall note, not a relaunch.
+
 ---
 
 ## Adapter Algebra

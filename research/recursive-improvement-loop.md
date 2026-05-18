@@ -41,20 +41,40 @@ no new high-value finding -> mark converged for this objective and move to obser
 active external run still researching -> update ledger only on material status change
 ```
 
+## Active Research Watchdog
+
+Active external research is a live dependency, not a work item to restart.
+
+Use this watchdog whenever the external surface still shows active research or stop-control:
+
+```text
+completed report visible -> harvest faithfully
+auth/browser access blocked -> record blocked observation and stop local speculation
+material progress changed -> update run ledger and tracker
+unchanged but within normal interval -> make no file changes
+unchanged after stall threshold -> record possible active-run stall, keep observing
+stop-control still present -> do not stop, relaunch, or open a replacement run
+```
+
+Material progress means at least one visible research-state field changed: plan title, plan step completion, active step label, status text, search/source count, completed-report metadata, error/auth state, or stop-control availability.
+
+The default stall threshold is 15 minutes since the last material status update while the run still shows active research. A stall note is status evidence only; it does not authorize stopping the run or launching a replacement. A long stall can move the loop to `blocked` only when browser access is unavailable, the external surface reports an unrecoverable error, or an operator explicitly changes the run state.
+
 ## Heartbeat Contract
 
 On every heartbeat:
 
 1. Read the tracker and the active run-scoped status ledger.
 2. Inspect the live external research surface when available.
-3. If the visible status materially changed, update the status ledger first, then the tracker summary.
-4. If complete, harvest faithfully before synthesis.
-5. Adjudicate findings before implementation.
-6. Implement only accepted, high-value findings whose evidence survives local verification.
-7. Run the required local checks.
-8. Commit and push accepted changes.
-9. Confirm public visibility before resubmission.
-10. Decide the next mode: `resubmit`, `benchmark_handoff`, `converged`, `blocked`, or `observe`.
+3. Apply the Active Research Watchdog before editing files.
+4. If the visible status materially changed, update the status ledger first, then the tracker summary.
+5. If complete, harvest faithfully before synthesis.
+6. Adjudicate findings before implementation.
+7. Implement only accepted, high-value findings whose evidence survives local verification.
+8. Run the required local checks.
+9. Commit and push accepted changes.
+10. Confirm public visibility before resubmission.
+11. Decide the next mode: `resubmit`, `benchmark_handoff`, `converged`, `blocked`, or `observe`.
 
 ## Convergence Boundary
 
@@ -69,4 +89,3 @@ Convergence does not mean OfOne can never improve. It means the current objectiv
 - Status ledger: `research/status/2026-05-17-07-ofone-post-run06-hardening-review.md`
 - Target result: `research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md`
 - Current mode: `waiting_on_external_research`.
-
