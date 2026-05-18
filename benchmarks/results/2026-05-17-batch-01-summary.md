@@ -46,7 +46,7 @@ The public-sector AI policy audit slice completed after the formal proof-search 
 
 The strategic gated diligence repeat-2 slice completed after the policy-audit slice. All three strategic repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne strategic repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. The slice is published and Pages-confirmed after public commit `732c6c8`.
 
-The scientific mechanism repeat-2 slice completed after the strategic repeat-2 slice. All three scientific repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne scientific repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. Publication and Pages parity are still pending until this batch is committed, pushed, and deployed.
+The scientific mechanism repeat-2 slice completed after the strategic repeat-2 slice. All three scientific repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne scientific repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. The slice is published and Pages-confirmed after public commit `7694e7f`.
 
 Current aggregate eligibility among reviewed local slots:
 
