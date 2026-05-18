@@ -21,6 +21,7 @@ This run asks GPT 5.5 Pro / ChatGPT Deep Research to review the public repositor
 - 2026-05-17T18:40:37-06:00: `npm run pages:check` passed against GitHub Pages.
 - 2026-05-17T18:44:23-06:00: Packet wiring prepared locally; `npm run schema:check`, `npm run validate`, `npm run review:check`, `npm run research:check`, `npm run benchmark`, and `npm test` passed. Pages parity is intentionally held until the packet is committed, pushed, and published.
 - 2026-05-17T18:45:00-06:00: Packet committed and pushed to `main` as `e1d14c6`.
+- 2026-05-17T18:47:22-06:00: Prompt updated with the `chatgpt-deep-research-pro` research protocol block before launch.
 
 ## Launch Rule
 
