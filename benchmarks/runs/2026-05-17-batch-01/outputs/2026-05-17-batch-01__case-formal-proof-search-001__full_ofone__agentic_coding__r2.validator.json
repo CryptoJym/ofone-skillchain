@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "validator": {
+    "schema_draft": "https://json-schema.org/draft/2020-12/schema",
+    "ajv_strict": false
+  },
+  "results": [
+    {
+      "file": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.artifact.json",
+      "passed": true,
+      "diagnostics": [
+        {
+          "code": "OFONE_JSON_SCHEMA",
+          "severity": "info",
+          "check": "json_schema",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "Map artifact matches executable JSON Schema profile",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_ADAPTER_CONTRACT",
+          "severity": "info",
+          "check": "adapter_contract",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "formal adapter contract loaded",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_BENCHMARK_TRACE",
+          "severity": "warning",
+          "check": "benchmark_trace",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "benchmark_trace BT-2026-05-17-B01-FORMAL-FULL-R2 is not superiority-ready",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_DEPENDENCY_CLOSURE",
+          "severity": "info",
+          "check": "dependency_closure",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "trigger T1: L2, O2, R1, T1, TS1, X3 [includes rendering]",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_DEPENDENCY_CLOSURE",
+          "severity": "info",
+          "check": "dependency_closure",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "trigger T2: C1, C2, C3, COUNCIL, KT1, KT2, L1, L2, LENS1, O1, O2, O3, R1, SS1, SS3, T1, T2, TS1, X1, X2, X3, X4, X5 [includes rendering]",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_SEMANTIC_VALIDATION",
+          "severity": "info",
+          "check": "semantic_validation",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "semantic graph checks completed",
+          "repair_hint": null
+        }
+      ]
+    }
+  ]
+}

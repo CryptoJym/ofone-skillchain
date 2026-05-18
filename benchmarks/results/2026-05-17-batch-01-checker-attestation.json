@@ -291,7 +291,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_COMPLETED_RUNS",
-      "message": "2026-05-17-batch-01 lists 24 completed run record(s)"
+      "message": "2026-05-17-batch-01 lists 27 completed run record(s)"
     },
     {
       "severity": "info",
@@ -855,8 +855,78 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 validator_json hash matches sha256:f4bcbc7b386060cd1e128d468f3d79c07aa04abe2f34fbdb7b5b8ecd2a98eac7"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 patch_json hash matches sha256:0fd2c26dfbfc7981e490300036592df95d5d664efcb2455e136015f06acdd3b9"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_REVIEWED_RUNS",
-      "message": "2026-05-17-batch-01 lists 24 reviewed run record(s)"
+      "message": "2026-05-17-batch-01 lists 27 reviewed run record(s)"
     },
     {
       "severity": "info",
@@ -1537,6 +1607,91 @@
       "severity": "info",
       "code": "BENCH_BATCH_RUN_REVIEW",
       "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 validator_json hash matches sha256:f4bcbc7b386060cd1e128d468f3d79c07aa04abe2f34fbdb7b5b8ecd2a98eac7"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 patch_json hash matches sha256:0fd2c26dfbfc7981e490300036592df95d5d664efcb2455e136015f06acdd3b9"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2 review file exists and covers required metrics"
     },
     {
       "severity": "info",

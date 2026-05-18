@@ -1,0 +1,1035 @@
+{
+  "ofone_version": "0.6.0",
+  "mode": "Map",
+  "charter": {
+    "objective": "Map formal proof search as a repeat-2 unresolved proof state, separating candidate lemma obligation, countermodel pressure, certificate absence, timeout risk, and update triggers.",
+    "scope": [
+      "formal proof search",
+      "candidate lemma validation",
+      "countermodel testing",
+      "update behavior after lemma failure"
+    ],
+    "horizon": "bounded proof-search cycle",
+    "stakes": [
+      "soundness",
+      "false proof risk",
+      "wrong non-provability conclusion"
+    ],
+    "risk_tier": "medium",
+    "movement_jobs": [
+      "BOUND",
+      "TEST",
+      "WARN"
+    ]
+  },
+  "artifact_identity": {
+    "artifact_id": "OFONE-2026-05-18-B01-FORMAL-FULL-R2",
+    "case_id": "case-formal-proof-search-001",
+    "objective_head": "formal proof-search map with lemma and countermodel pressure repeat 2",
+    "scope_hash": "sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756",
+    "config_hash": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "active_evidence_hashes": [
+      "sha256:34f661606d2f46ef1ac0c5fb0c536824b1bc385ae374484aea3c56c65d81395a",
+      "sha256:c797b129856f6055e9cb81eb9c3eb764dd839b8edaeb93109db0f1337f2b98ff"
+    ],
+    "created_at": "2026-05-18T09:07:00Z",
+    "status": "draft",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "formal",
+    "axes": {
+      "formal": [
+        "axioms",
+        "inference system",
+        "candidate lemma",
+        "proof obligation",
+        "countermodel",
+        "checker output"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "LINK"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "logical",
+        "assumptions": [
+          "The theorem is evaluated only under the declared axiom set and inference rules."
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "evidential",
+        "assumptions": [
+          "Proof attempts, proof certificates, and countermodels must stay separate from interpretive claims."
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "type": "temporal",
+        "assumptions": [
+          "A failed lemma or changed formalization can invalidate downstream proof-path choices."
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "K1",
+        "kind": "entity",
+        "label": "axiom set A"
+      },
+      {
+        "token_id": "K2",
+        "kind": "entity",
+        "label": "target theorem T"
+      },
+      {
+        "token_id": "K3",
+        "kind": "entity",
+        "label": "candidate lemma L"
+      },
+      {
+        "token_id": "K4",
+        "kind": "constraint",
+        "label": "inference system R"
+      },
+      {
+        "token_id": "K5",
+        "kind": "uncertainty",
+        "label": "possible countermodel"
+      },
+      {
+        "token_id": "K6",
+        "kind": "uncertainty",
+        "label": "bounded solver timeout"
+      }
+    ],
+    "state_variables": [
+      "proof frontier",
+      "candidate lemma status",
+      "countermodel status",
+      "formal encoding stability"
+    ],
+    "observed_variables": [
+      "case dossier prompt",
+      "expected formal pressure points"
+    ],
+    "hidden_variables": [
+      "axiom mismatch",
+      "unproved lemma",
+      "countermodel outside search bounds",
+      "inference-rule mismatch"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "TEST"
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "parent_scene": "S1",
+        "purpose": "proof_step",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "entry_conditions": [
+          "formal target and candidate lemma are under review"
+        ],
+        "exit_conditions": [
+          "proof obligation is certified, rejected, or marked unresolved"
+        ],
+        "movement_jobs": [
+          "CLAIM",
+          "TEST"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "parent_scene": "S1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "K5",
+          "K6"
+        ],
+        "entry_conditions": [
+          "countermodel pressure or bounded search ambiguity is present"
+        ],
+        "exit_conditions": [
+          "countermodel artifact, proof certificate, or timeout status is recorded"
+        ],
+        "movement_jobs": [
+          "GROUND",
+          "TEST"
+        ]
+      },
+      {
+        "subscene_id": "SS3",
+        "parent_scene": "S1",
+        "purpose": "review_gate",
+        "frames": [
+          "F3"
+        ],
+        "tokens": [
+          "K3",
+          "K4"
+        ],
+        "entry_conditions": [
+          "lemma or encoding changes could invalidate the path"
+        ],
+        "exit_conditions": [
+          "proof map is patched or scoped rerun is triggered"
+        ],
+        "movement_jobs": [
+          "TRIGGER",
+          "WARN"
+        ]
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/formal-proof-search.md#Prompt",
+      "provenance": "frozen benchmark case dossier",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:34f661606d2f46ef1ac0c5fb0c536824b1bc385ae374484aea3c56c65d81395a",
+      "retrieved_at": "2026-05-18T04:20:00Z",
+      "extract": "The formal proof-search case states that an incomplete proof path has a candidate lemma and possible countermodel pressure.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "Read from frozen local benchmark case during full_ofone formal run construction.",
+      "supports": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "risks": [
+        "scenario_level_only",
+        "no_actual_axiom_or_theorem_text"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "BOUND"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/formal-proof-search.md#Expected-OfOne-Pressure-Points",
+      "provenance": "frozen benchmark case dossier",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:c797b129856f6055e9cb81eb9c3eb764dd839b8edaeb93109db0f1337f2b98ff",
+      "retrieved_at": "2026-05-18T04:20:00Z",
+      "extract": "Expected pressure points require separation of axioms, claims, proof obligations, countermodel tests, unknowns, and update behavior when a lemma is disproven.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "Read from frozen local benchmark case during full_ofone formal run construction.",
+      "supports": [
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "risks": [
+        "requirements_are_not_checker_outputs"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "TEST"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "The theorem should remain unresolved until a checkable proof certificate or proof path under R is available.",
+      "type": "formal",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "K2",
+        "K4"
+      ],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "wrong_inference_system",
+          "misencoded_axioms"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "TEST"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "The candidate lemma is a separate proof obligation, not evidence for the theorem until it is proved or checked.",
+      "type": "formal",
+      "supports": [
+        "E1",
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "K3",
+        "K4"
+      ],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "unproved_lemma",
+          "inference_rule_mismatch"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "LINK"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "text": "A verified countermodel under the same formalization would block the theorem entailment claim.",
+      "type": "formal",
+      "supports": [
+        "E1",
+        "E2"
+      ],
+      "contradicts": [
+        "C1"
+      ],
+      "depends_on": [
+        "K1",
+        "K2",
+        "K5"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "mechanism_fit",
+          "contradiction_load",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "model_scope_mismatch",
+          "bounded_search_only"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "TEST",
+        "WARN"
+      ]
+    },
+    {
+      "claim_id": "C4",
+      "text": "A bounded search timeout is not by itself a proof of non-provability.",
+      "type": "formal",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "K6"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "decidability_boundary",
+          "solver_timeout_misread"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "WARN"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_evidence",
+      "description": "No checked proof certificate or countermodel artifact is present.",
+      "blocks": [
+        "O1",
+        "O2",
+        "R1"
+      ],
+      "resolution_move": "Run proof checker and countermodel search with retained artifacts.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "kind": "missing_evidence",
+      "description": "The candidate lemma has not been proved as a separate obligation.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Prove, reject, or replace candidate lemma L before using it downstream.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C1",
+      "test_type": "countermodel",
+      "condition": "A valid countermodel exists for theorem T under axiom set A and inference system R.",
+      "falsifies": [
+        "C1"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    },
+    {
+      "test_id": "KT2",
+      "target": "C2",
+      "test_type": "counterexample",
+      "condition": "A failed proof obligation for candidate lemma L shows the lemma is false, irrelevant, or inconsistent with axiom set A.",
+      "falsifies": [
+        "C2"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Proof-certificate validity",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not render theorem T proved without a checkable certificate or explicit proof path under R.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Countermodel exclusion",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "A verified countermodel defeats the entailment claim under the same formalization.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Lemma obligation isolation",
+      "kind": "constraint",
+      "priority": "should",
+      "threshold": "Keep candidate lemma status separate from theorem status until the lemma obligation is resolved.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "LINK",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "proof reviewer",
+      "role": "reviewer",
+      "incentives": [
+        "avoid false proof acceptance",
+        "avoid false non-provability conclusion"
+      ],
+      "exposures": [
+        "formal error",
+        "benchmark scoring error"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "responsibility for proof-certificate review",
+      "movement_jobs": [
+        "BOUND",
+        "GATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1",
+      "O2",
+      "O3"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR3"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "U2",
+      "T1",
+      "T2"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "bounded proof-search cycle",
+    "decision_deadline": "before declaring proved or not entailed",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "case dossier changes",
+        "staleness_trigger": "formal proof-search case prompt changes"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "case dossier changes",
+        "staleness_trigger": "formal pressure-point requirements change"
+      }
+    ],
+    "update_cadence": "after every proof-checker or countermodel result",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "bounded compute run",
+      "risk_reduction": "high",
+      "recommended_next_query": "Run proof checker and countermodel search under the same formalization and retain artifacts.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "bounded compute run",
+      "risk_reduction": "high",
+      "recommended_next_query": "Resolve candidate lemma L as a separate proof obligation before using it in theorem proof path.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "formal proof lens",
+      "adapter_axis": "formal",
+      "questions": [
+        "What can be concluded from axioms, inference rules, and proof obligations only?"
+      ],
+      "claims_examined": [
+        "C1",
+        "C2"
+      ],
+      "blind_spots": [
+        "actual axiom and theorem text are absent"
+      ],
+      "contention": [
+        "U2 blocks using the lemma as proof support"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "formal"
+    ],
+    "missing_lenses": [],
+    "major_dissent": [
+      "U1 and U2 block the rendered proof conclusion"
+    ],
+    "decision_effect": "Return unresolved until proof certificate, countermodel, and candidate lemma status are recorded.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "K4",
+      "to": "C1",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "C2",
+      "to": "C1",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X3",
+      "from": "C3",
+      "to": "C1",
+      "relation_family": "argumentative",
+      "relation": "contradicts",
+      "evidence_refs": [
+        "E1",
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "TEST"
+      ]
+    },
+    {
+      "edge_id": "X4",
+      "from": "U1",
+      "to": "O1",
+      "relation_family": "workflow_state",
+      "relation": "blocks",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X5",
+      "from": "U2",
+      "to": "O1",
+      "relation_family": "workflow_state",
+      "relation": "blocks",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "WARN",
+        "TEST"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "learning",
+      "edges": [
+        "X1",
+        "X2"
+      ],
+      "failure_mode": "search refinements are mistaken for proof progress without a checked certificate",
+      "polarity": "unknown",
+      "delay": "medium",
+      "gain": "unknown",
+      "control_points": [
+        "proof checker run",
+        "lemma obligation isolation"
+      ],
+      "observable_cues": [
+        "new derived obligations, proof frontier changes, checker diagnostics"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    },
+    {
+      "loop_id": "L2",
+      "type": "contradiction",
+      "edges": [
+        "X3"
+      ],
+      "failure_mode": "proof and countermodel artifacts are produced under different encodings and falsely compared",
+      "polarity": "mixed",
+      "delay": "unknown",
+      "gain": "high",
+      "control_points": [
+        "shared formal encoding",
+        "countermodel verification"
+      ],
+      "observable_cues": [
+        "countermodel pressure conflicts with a claimed proof path"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "prove",
+      "preconditions": [
+        "C1",
+        "C2"
+      ],
+      "expected_effects": [
+        "X1",
+        "X2"
+      ],
+      "tradeoffs": [
+        "strongest settlement if certificate checks",
+        "can time out without resolving truth value"
+      ],
+      "blocking_unknowns": [
+        "U1",
+        "U2"
+      ],
+      "review_gate": "none",
+      "movement_jobs": [
+        "MOVE",
+        "TEST"
+      ]
+    },
+    {
+      "option_id": "O2",
+      "move_type": "test",
+      "preconditions": [
+        "C3"
+      ],
+      "expected_effects": [
+        "X3"
+      ],
+      "tradeoffs": [
+        "fast disproof if valid countermodel exists",
+        "bounded search may miss models"
+      ],
+      "blocking_unknowns": [
+        "U1"
+      ],
+      "review_gate": "none",
+      "movement_jobs": [
+        "MOVE",
+        "TEST"
+      ]
+    },
+    {
+      "option_id": "O3",
+      "move_type": "revise",
+      "preconditions": [
+        "C4"
+      ],
+      "expected_effects": [
+        "X5"
+      ],
+      "tradeoffs": [
+        "keeps unresolved status honest",
+        "requires additional proof-engineering effort"
+      ],
+      "blocking_unknowns": [
+        "U2"
+      ],
+      "review_gate": "none",
+      "movement_jobs": [
+        "MOVE",
+        "WARN"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "C3"
+      ],
+      "transition": "patch",
+      "movement_jobs": [
+        "TRIGGER"
+      ]
+    },
+    {
+      "trigger_id": "T2",
+      "condition": "scope_change",
+      "affected_objects": [
+        "K4"
+      ],
+      "transition": "scoped_rerun",
+      "movement_jobs": [
+        "TRIGGER",
+        "WARN"
+      ]
+    }
+  ],
+  "gates": [],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "high",
+    "contradiction_load": "medium",
+    "hidden_variable_risk": "medium",
+    "adversarial_risk": "low",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "rendering_id": "R1",
+    "summary": "Repeat-2 Map rendering: keep theorem status unresolved; require a checked proof certificate for proved status or a verified countermodel for not-entailed status under the frozen formalization.",
+    "recommendation": "Run proof-certificate search and countermodel search against the same frozen encoding; patch on lemma or countermodel evidence and scoped-rerun if axioms or inference rules change.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "U1",
+      "U2",
+      "O1",
+      "O2",
+      "O3",
+      "TS1",
+      "L1",
+      "L2",
+      "COUNCIL",
+      "BT-2026-05-17-B01-FORMAL-FULL-R2"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TEST",
+      "WARN"
+    ]
+  },
+  "review_log": [],
+  "benchmark_trace": {
+    "trace_id": "BT-2026-05-17-B01-FORMAL-FULL-R2",
+    "suite_id": "ofone-v0.5-three-arm-evaluation",
+    "cases_run": 1,
+    "arms_run": [
+      "full_ofone"
+    ],
+    "model_families": 1,
+    "superiority_ready": false,
+    "diagnostics": [
+      "single repeat-2 benchmark run only",
+      "no empirical superiority claim supported",
+      "Batch 01 remains below release minimums"
+    ],
+    "case_id": "case-formal-proof-search-001",
+    "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2",
+    "case_file": "benchmarks/cases/formal-proof-search.md",
+    "case_file_sha256": "sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756",
+    "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+    "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "input_bundle_sha256": "sha256:fc0b94ca224173ad518f3f527356dbe998f29d3eb7ca6d4756e2b343def39c64",
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "TRIGGER"
+    ]
+  },
+  "validator_result": {
+    "passed": true,
+    "diagnostics": [
+      {
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info",
+        "check": "json_schema",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "Map artifact matches executable JSON Schema profile",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info",
+        "check": "adapter_contract",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "formal adapter contract loaded",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_BENCHMARK_TRACE",
+        "severity": "warning",
+        "check": "benchmark_trace",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "benchmark_trace BT-2026-05-17-B01-FORMAL-FULL-R2 is not superiority-ready",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T1: L2, O2, R1, T1, TS1, X3 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T2: C1, C2, C3, COUNCIL, KT1, KT2, L1, L2, LENS1, O1, O2, O3, R1, SS1, SS3, T1, T2, TS1, X1, X2, X3, X4, X5 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info",
+        "check": "semantic_validation",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "semantic graph checks completed",
+        "repair_hint": null
+      }
+    ],
+    "checks": [
+      {
+        "check": "json_schema",
+        "passed": true,
+        "notes": "Map artifact matches executable JSON Schema profile",
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_contract",
+        "passed": true,
+        "notes": "formal adapter contract loaded",
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info"
+      },
+      {
+        "check": "benchmark_trace",
+        "passed": true,
+        "notes": "benchmark_trace BT-2026-05-17-B01-FORMAL-FULL-R2 is not superiority-ready",
+        "code": "OFONE_BENCHMARK_TRACE",
+        "severity": "warning"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T1: L2, O2, R1, T1, TS1, X3 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T2: C1, C2, C3, COUNCIL, KT1, KT2, L1, L2, LENS1, O1, O2, O3, R1, SS1, SS3, T1, T2, TS1, X1, X2, X3, X4, X5 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "semantic_validation",
+        "passed": true,
+        "notes": "semantic graph checks completed",
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info"
+      }
+    ]
+  }
+}

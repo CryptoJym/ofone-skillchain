@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 66,
-    "completed": 24,
-    "reviewed": 24,
+    "queued": 63,
+    "completed": 27,
+    "reviewed": 27,
     "excluded": 1,
-    "aggregate_eligible": 24,
+    "aggregate_eligible": 27,
     "remedial": 1
   },
   "completed_runs": [
@@ -795,6 +795,99 @@
         "patch_sha256": "sha256:83e31e6be1b2d580793b1137ea0e8116ec808aaafd289daf22621b3d81838d76",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.rendering.md",
         "rendering_sha256": "sha256:4ea403c1ed03bedb99da6db3e66328925b3fa3c251ef5642e723635a0dc1e9ed"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for lightweight structured arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level formal benchmark evidence with stable content hashes, chain-of-custody notes, and explicit proof/countermodel gates",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the formal proof-search repeat-2 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-formal-proof-search-001",
+        "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2",
+        "case_file": "benchmarks/cases/formal-proof-search.md",
+        "case_file_sha256": "sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:fc0b94ca224173ad518f3f527356dbe998f29d3eb7ca6d4756e2b343def39c64"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.validator.json",
+        "validator_sha256": "sha256:f4bcbc7b386060cd1e128d468f3d79c07aa04abe2f34fbdb7b5b8ecd2a98eac7",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.patch.json",
+        "patch_sha256": "sha256:0fd2c26dfbfc7981e490300036592df95d5d664efcb2455e136015f06acdd3b9",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.rendering.md",
+        "rendering_sha256": "sha256:c0100c398ee5caf55d04ed9999ad997d69c212261dfdb9ed2d51428674dd8127"
       }
     }
   ],
@@ -1557,12 +1650,105 @@
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.rendering.md",
         "rendering_sha256": "sha256:4ea403c1ed03bedb99da6db3e66328925b3fa3c251ef5642e723635a0dc1e9ed"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for lightweight structured arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 2,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level formal benchmark evidence with stable content hashes, chain-of-custody notes, and explicit proof/countermodel gates",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the formal proof-search repeat-2 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-formal-proof-search-001",
+        "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2",
+        "case_file": "benchmarks/cases/formal-proof-search.md",
+        "case_file_sha256": "sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:fc0b94ca224173ad518f3f527356dbe998f29d3eb7ca6d4756e2b343def39c64"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.validator.json",
+        "validator_sha256": "sha256:f4bcbc7b386060cd1e128d468f3d79c07aa04abe2f34fbdb7b5b8ecd2a98eac7",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.patch.json",
+        "patch_sha256": "sha256:0fd2c26dfbfc7981e490300036592df95d5d664efcb2455e136015f06acdd3b9",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.rendering.md",
+        "rendering_sha256": "sha256:c0100c398ee5caf55d04ed9999ad997d69c212261dfdb9ed2d51428674dd8127"
+      }
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
     "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
-    "allowed_claim": "Batch 01 has 24 completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
+    "allowed_claim": "Batch 01 has 27 completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
   },
   "excluded_runs": [
     {

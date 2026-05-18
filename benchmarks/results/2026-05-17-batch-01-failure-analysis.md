@@ -69,6 +69,12 @@ The regulated wastewater repeat-2 slice adds a repeated-run check for the hybrid
 - Light structured answer: clarifies decision posture, approval condition, and evidence gaps in a compact table, but still lacks typed criteria, gate state, and patch closure.
 - Full OfOne answer: preserves generic public EPA evidence identity, case-native benchmark trace, launch-blocking unknowns, criteria, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-regulated-wastewater-market-entry-001` repeat 2; remaining limitation is still that generic source-backed evidence cannot resolve jurisdiction-specific launch authority.
 
+The formal proof-search repeat-2 slice adds a repeated-run check for the formal-adapter case:
+
+- Direct answer: again identifies proof and countermodel obligations, but proof state, timeout risk, and falsification pressure remain prose-only.
+- Light structured answer: clarifies lemma, checker, and countermodel tasks, but cannot expose dependency closure from a changed checker result to the recommendation.
+- Full OfOne answer: preserves formal evidence identity, proof-certificate absence, candidate lemma obligation, countermodel pressure, criteria, trigger closure, Map rendering, validator, and patch artifacts for `case-formal-proof-search-001` repeat 2; remaining limitation is still that the benchmark dossier lacks actual axiom, theorem, checker, or countermodel artifacts.
+
 Minimum sections once runs exist:
 
 - validation failures
