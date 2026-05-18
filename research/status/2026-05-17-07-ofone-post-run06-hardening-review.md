@@ -43,6 +43,7 @@ This run is not launched until ChatGPT Deep Research has a generated plan, `Star
 
 - 2026-05-17T18:53:48-06:00: Run 07 remains active in ChatGPT Deep Research. Visible status text changed to `Opening execution matrix lines...`; step 1 (`Collect Run06 benchmark results and related artifacts from provided sources`) is active; `Stop research` remains present. Report is not ready to harvest.
 - 2026-05-17T18:55:52-06:00: Run 07 remains active. Visible progress: step 1 complete, step 2 active (`Analyze Run06 failures and performance regressions against benchmarks`), status text `Inspecting case file and benchmark for artifact mismatch...`, visible count `11 searches`, and `Stop research` remains present. Report is not ready to harvest.
+- 2026-05-17T19:13:57-06:00: Run 07 remains active after extended polling. Visible progress is still step 1 complete and step 2 active; status text is now `Reviewing Run07 and available pages...`; visible count remains `11 searches`; `Stop research` remains present. Treat as a possible active-run stall, but do not stop or relaunch while ChatGPT still shows active research.
 
 ## Harvest Rule
 
