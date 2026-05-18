@@ -1,0 +1,306 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "E2",
+        "C2",
+        "C3",
+        "C4",
+        "U1",
+        "U2",
+        "G1",
+        "O1",
+        "O2",
+        "TS1"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C2",
+      "type": "claim",
+      "label": "Possible confounding creates hidden-variable risk for the mechanism claim."
+    },
+    {
+      "id": "C3",
+      "type": "claim",
+      "label": "The proposed intervention should remain gated until measurement and confounder checks support the mechanism."
+    },
+    {
+      "id": "C4",
+      "type": "claim",
+      "label": "A contradictory new measurement should patch the mechanism claim and the intervention recommendation."
+    },
+    {
+      "id": "C5",
+      "type": "claim",
+      "label": "The highest-value next move is a measurement and confounder validation step, not immediate intervention reliance."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "run measurement/confounder validation first and keep intervention gated"
+    },
+    {
+      "id": "E2",
+      "type": "evidence",
+      "label": "file"
+    },
+    {
+      "id": "G1",
+      "type": "gate",
+      "label": "Intervention reliance requires validation reviewer approval after measurement adequacy and confounder pressure are addressed."
+    },
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "What measurement protocol and observed result would support or contradict the mechanism?"
+    },
+    {
+      "id": "IV:U2",
+      "type": "information_value",
+      "label": "Which hidden variable or confounder could explain the observed pattern without the proposed mechanism?"
+    },
+    {
+      "id": "KT1",
+      "type": "kill_test",
+      "label": "measurement invalidation: new measurements fail to show the predicted pattern when likely confounders are controlled"
+    },
+    {
+      "id": "KT2",
+      "type": "kill_test",
+      "label": "failed replication: the mechanism does not replicate under the planned measurement protocol"
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "L2",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS1",
+      "type": "lens",
+      "label": "measurement adequacy"
+    },
+    {
+      "id": "LENS2",
+      "type": "lens",
+      "label": "confounder pressure"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "test"
+    },
+    {
+      "id": "O2",
+      "type": "option_move",
+      "label": "act"
+    },
+    {
+      "id": "OFONE-2026-05-18-B01-SCI-FULL-R2",
+      "type": "artifact_identity",
+      "label": "scientific mechanism check before intervention"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Run a targeted validation cycle before any intervention reliance."
+    },
+    {
+      "id": "TEMPORAL",
+      "type": "temporal_model",
+      "label": "one validation cycle before intervention reliance"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "The case does not specify the measurement protocol, instrument quality, sample context, or replication evidence."
+    },
+    {
+      "id": "U2",
+      "type": "unknown",
+      "label": "The possible confounder is acknowledged but unnamed and untested."
+    },
+    {
+      "id": "X2",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X3",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X6",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X7",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C2",
+      "C3",
+      "C4",
+      "C5"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "evidence": [
+      "E2"
+    ],
+    "gate": [
+      "G1"
+    ],
+    "information_value": [
+      "IV:U1",
+      "IV:U2"
+    ],
+    "kill_test": [
+      "KT1",
+      "KT2"
+    ],
+    "loop": [
+      "L1",
+      "L2"
+    ],
+    "lens": [
+      "LENS1",
+      "LENS2"
+    ],
+    "option_move": [
+      "O1",
+      "O2"
+    ],
+    "artifact_identity": [
+      "OFONE-2026-05-18-B01-SCI-FULL-R2"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "temporal_model": [
+      "TEMPORAL"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1",
+      "U2"
+    ],
+    "edge": [
+      "X2",
+      "X3",
+      "X4",
+      "X5",
+      "X6",
+      "X7"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "evidential",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C2",
+    "C3",
+    "C4",
+    "C5"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [],
+  "suggested_transition": "human_review",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 29 downstream object(s) are in closure, so the current decision rendering must be regenerated. human review blocks release.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "temporal_validity_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "review_log_check",
+    "rendering_regeneration",
+    "human_gate_review"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 29 downstream object(s); transition=human_review; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C2, C3, C4, C5",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log",
+      "route through the required human gate before release"
+    ]
+  }
+}

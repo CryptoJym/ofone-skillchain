@@ -57,6 +57,12 @@ The strategic gated diligence repeat-2 slice adds the first non-remedial repeate
 - Light structured answer: clarifies gate, unknowns, and guardrails in a table, but still lacks addressable criteria, review gate state, and dependency closure.
 - Full OfOne answer: preserves evidence hashes, claims, actors, criteria, open unknowns, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-strategic-gated-diligence-001` repeat 2; remaining limitation is that the benchmark dossier still provides only scenario-level evidence rather than a real launch checklist or named reviewer.
 
+The scientific mechanism repeat-2 slice adds the first repeated-run check for the scientific case:
+
+- Direct answer: again blocks intervention reliance and states the evidence gaps, but remains prose-only and cannot expose dependency closure.
+- Light structured answer: improves decision usability with a validation checklist, but measurement, confounder, and update dependencies remain non-addressable.
+- Full OfOne answer: preserves measurement quality, mechanism confidence, hidden-variable pressure, criteria, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-scientific-mechanism-check-001` repeat 2; remaining limitation is still the abstract scenario-level evidence rather than real measurement and replication data.
+
 Minimum sections once runs exist:
 
 - validation failures

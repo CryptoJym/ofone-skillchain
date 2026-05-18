@@ -291,7 +291,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_COMPLETED_RUNS",
-      "message": "2026-05-17-batch-01 lists 18 completed run record(s)"
+      "message": "2026-05-17-batch-01 lists 21 completed run record(s)"
     },
     {
       "severity": "info",
@@ -715,8 +715,78 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 validator_json hash matches sha256:c47e955d4b1287621c3ddfdc962395a38f3f3ddce83a74bd685c47cded0be351"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 patch_json hash matches sha256:eff1d5c2827d9e4bb1264bc66529476aa6ad0c20e0dfe89bf4afa66aed1b437e"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_REVIEWED_RUNS",
-      "message": "2026-05-17-batch-01 lists 18 reviewed run record(s)"
+      "message": "2026-05-17-batch-01 lists 21 reviewed run record(s)"
     },
     {
       "severity": "info",
@@ -1227,6 +1297,91 @@
       "severity": "info",
       "code": "BENCH_BATCH_RUN_REVIEW",
       "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 validator_json hash matches sha256:c47e955d4b1287621c3ddfdc962395a38f3f3ddce83a74bd685c47cded0be351"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 patch_json hash matches sha256:eff1d5c2827d9e4bb1264bc66529476aa6ad0c20e0dfe89bf4afa66aed1b437e"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2 review file exists and covers required metrics"
     },
     {
       "severity": "info",
