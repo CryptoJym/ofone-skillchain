@@ -99,6 +99,12 @@ The regulated wastewater repeat-3 slice adds the final local `agentic_coding` re
 - Light structured answer: keeps regulatory, technical, commercial, execution, and public-risk categories scannable, but does not make criteria, gates, or patch effects machine-addressable.
 - Full OfOne answer: preserves generic public EPA evidence identity, case-native benchmark trace, launch-blocking unknowns, criteria, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-regulated-wastewater-market-entry-001` repeat 3; remaining limitation is still that generic source-backed evidence cannot resolve jurisdiction-specific launch authority.
 
+The formal proof-search repeat-3 slice adds the final local `agentic_coding` repeated-run check for the formal-adapter case:
+
+- Direct answer: again refuses proved/not-entailed status without a certificate or countermodel, but leaves proof-state closure as prose.
+- Light structured answer: keeps theorem status, lemma obligation, countermodel pressure, timeout handling, and update conditions scannable, but does not make proof obligations machine-addressable.
+- Full OfOne answer: preserves formal evidence identity, proof-certificate absence, candidate lemma obligation, countermodel pressure, criteria, trigger closure, Map rendering, validator, and patch artifacts for `case-formal-proof-search-001` repeat 3; remaining limitation is still that the benchmark dossier lacks actual axiom, theorem, checker, certificate, or countermodel artifacts.
+
 Minimum sections once runs exist:
 
 - validation failures
