@@ -141,6 +141,8 @@ prepared packet -> launch proof -> active research -> harvested report -> adjudi
 
 The important invariant is proof of state transition. A prompt file or context packet is only `prepared`. A run is only `launched` after the external system exposes a research plan, Start/countdown has occurred, and the UI shows `Researching...` or an equivalent stop-control state. Active runs keep run-scoped status ledgers so launch, progress, harvest, and acceptance state do not blur across review cycles. This prevents recursive learning from becoming self-reported progress.
 
+The standing loop is intentionally indefinite at the heartbeat level and finite at the cycle level. `research/recursive-improvement-loop.md` controls that boundary: watch, harvest, adjudicate, implement, verify, publish, resubmit, or switch to benchmark/converged/blocked/observe mode. A new outside review cannot be launched merely because a heartbeat fired; accepted findings must first be integrated and made publicly visible.
+
 ---
 
 ## Adapter Algebra

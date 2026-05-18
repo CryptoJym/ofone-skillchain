@@ -125,3 +125,7 @@ When the review finds no release-blocking architecture mismatch and the remainin
 - compare trace completeness, grounding precision, uncertainty calibration, update quality, cost, and inter-run stability
 
 Further ontology expansion is deferred unless benchmark results expose a missing invariant, validation rule, renderer affordance, or workflow state transition.
+
+## Standing Loop
+
+The standing heartbeat loop is defined in `research/recursive-improvement-loop.md`. A heartbeat may keep watching indefinitely, but each review cycle remains bounded by launch proof, harvest proof, adjudication, implementation, verification, publication, and an explicit next-mode decision.

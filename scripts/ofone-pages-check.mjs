@@ -37,6 +37,7 @@ const targets = [
   { label: "run 07 context", local: "research/ofone-post-run06-hardening-context.md", remote: "/research/ofone-post-run06-hardening-context.md" },
   { label: "run 07 status ledger", local: "research/status/2026-05-17-07-ofone-post-run06-hardening-review.md", remote: "/research/status/2026-05-17-07-ofone-post-run06-hardening-review.md" },
   { label: "review protocol", local: "research/review-protocol.md", remote: "/research/review-protocol.md" },
+  { label: "recursive improvement loop", local: "research/recursive-improvement-loop.md", remote: "/research/recursive-improvement-loop.md" },
   { label: "batch 01 review template", local: "benchmarks/reviews/2026-05-17-batch-01-review-template.md", remote: "/benchmarks/reviews/2026-05-17-batch-01-review-template.md" },
   { label: "v08 context brief", local: "research/ofone-v08-convergence-context-brief.md", remote: "/research/ofone-v08-convergence-context-brief.md" }
 ];

@@ -80,8 +80,12 @@ The public GitHub Pages site was checked and contains references to the latest v
 - Run 06 independent-review prompt: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`
 - Run 06 independent-review context: `research/ofone-batch01-independent-review-context.md`
 - Run 06 benchmark handoff: `benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`
-- Run 06 launch state: active ChatGPT Deep Research URL `https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93`; launch proof is recorded in `research/TRACKER.md`, `research/status/2026-05-17-06-ofone-batch01-independent-review.md`, and `benchmarks/runs/2026-05-17-batch-01/manifest.json`.
+- Run 06 result: `research/results/2026-05-17-06-ofone-batch01-independent-review-result.md`
+- Run 07 prompt: `research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md`
+- Run 07 context: `research/ofone-post-run06-hardening-context.md`
+- Run 07 active state: active ChatGPT Deep Research URL `https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a`; launch proof and material status changes are recorded in `research/TRACKER.md` and `research/status/2026-05-17-07-ofone-post-run06-hardening-review.md`.
 - Stable recursive review protocol: `research/review-protocol.md`
+- Standing recursive improvement loop: `research/recursive-improvement-loop.md`
 - Source register: `research/source-register.md`
 - Acceptance caveat: ChatGPT reported that it could read the attached context brief but could not directly fetch the public repo/docs; repo-specific findings were locally checked before synthesis.
 - Run 03 acceptance caveat: ChatGPT reported direct public-surface inspection but the export showed only one visible citation; treat it as external review counsel and keep local verification authoritative.

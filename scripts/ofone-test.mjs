@@ -272,7 +272,9 @@ function runToolingContractCheck() {
     ["index Run 07 prompt link", index.includes("./research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md")],
     ["index Run 07 context link", index.includes("./research/ofone-post-run06-hardening-context.md")],
     ["index Run 07 status ledger link", index.includes("./research/status/2026-05-17-07-ofone-post-run06-hardening-review.md")],
+    ["index recursive loop link", index.includes("./research/recursive-improvement-loop.md")],
     ["README Run 07 status ledger link", readme.includes("research/status/2026-05-17-07-ofone-post-run06-hardening-review.md")],
+    ["README recursive loop link", readme.includes("research/recursive-improvement-loop.md")],
     ["Pages v08 context link", index.includes("./research/ofone-v08-convergence-context-brief.md")]
   ];
   const missing = required.filter(([, passed]) => !passed).map(([name]) => name);

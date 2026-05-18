@@ -27,6 +27,7 @@ Date: 2026-05-17
 - `Pasted text(6).txt` and `Pasted text(7).txt` in ChatGPT Run 05 - pasted prompt/context documents used by the active launch instruction.
 - `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md` - harvested Run 05 Markdown export.
 - `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md` - local synthesis and accepted benchmark-handoff backlog from Run 05.
+- `research/recursive-improvement-loop.md` - standing heartbeat and resubmission control plane for recursive OfOne improvement cycles.
 
 ## Repo Context
 

@@ -229,6 +229,8 @@ prepared -> launched -> active_researching -> harvested -> accepted|rejected -> 
 
 The run is only `launched` after the external system shows a generated research plan, the operator clicks `Start` or an explicit countdown begins, and a visible `Researching...` / stop-control state is present. Record model label, reasoning label, Deep Research flag, prompt/context paths, pasted/uploaded context label, URL, public repo or Pages state, and launch proof. Active external runs must also keep a run-scoped status ledger so progress, harvest, acceptance, and implementation evidence cannot be confused with other review cycles. Resubmit only after accepted findings have been implemented, verified, committed, pushed, and made visible to the external reviewer.
 
+For standing recursive improvement loops, separate the heartbeat from the review cycle. A heartbeat may continue indefinitely, but a cycle must end in one of: harvested report, accepted implementation, rejected/deferred finding, benchmark handoff, converged state, blocked state, or no-op status proof. Do not launch a fresh external review while a prior Deep Research run is active, while accepted findings are unimplemented, or while the public repo/Pages surface has not caught up to the implementation.
+
 ## Minimal Schemas
 
 Use stable IDs. Keep evidence, claims, graph objects, and renderings separate.
@@ -495,6 +497,7 @@ Before recommending action:
 14. Log benchmark trace fields: mode, validator pass/fail, diagnostic codes, patch count, render mode, and gate status.
 15. For recursive improvement cycles, record accepted, rejected, unresolved, implemented, and stop-condition findings as typed review state before resubmitting to outside research.
 16. For active outside research, update the run-scoped status ledger before tracker summaries whenever material status changes.
+17. For standing recursive loops, decide the next mode after each cycle: resubmit, benchmark handoff, converged, blocked, observe, or waiting on external research/publication.
 
 ## Idempotency Rule
 
