@@ -159,8 +159,10 @@ function validateRun07Status({ tracker, status }) {
     "Run 07 ledger preserves launch proof and active research affordances"
   );
   check(
-    status.includes("Identifying the rerun gap in current process...") &&
-      tracker.includes("Identifying the rerun gap in current process..."),
+    status.includes("Synthesizing final result with citations...") &&
+      tracker.includes("Synthesizing final result with citations...") &&
+      status.includes("11 sources searched") &&
+      tracker.includes("11 sources searched"),
     "OFONE_RESEARCH_RUN07_MATERIAL_STATUS_SYNC",
     "Run 07 latest material status is recorded in both ledger and tracker"
   );
