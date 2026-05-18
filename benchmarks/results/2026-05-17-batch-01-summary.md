@@ -88,6 +88,8 @@ The formal proof-search repeat-3 slice completed after the regulated wastewater 
 
 The public-sector AI policy audit repeat-3 slice completed after the formal proof-search repeat-3 slice. All three policy-audit repeat-3 `agentic_coding` arms passed local pre-score compliance. The full-OfOne policy repeat-3 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Audit rendering, patch, review-log objects, and local review artifacts. The slice is published and Pages-confirmed after public commit `bb8b474`.
 
+The next predeclared model family is `frontier_reasoning`. A paste-ready strategic gated diligence repeat-1 packet has been prepared at `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-18-strategic-gated-diligence-frontier-r1.md` for separate direct-answer, light-structured, and full-OfOne frontier runs. It is a prepared packet only; no `frontier_reasoning` raw output has been harvested, no frontier run slot is complete, and no frontier evidence is aggregate-eligible.
+
 Current aggregate eligibility among reviewed local slots:
 
 | Run slot | Eligibility | Reason |

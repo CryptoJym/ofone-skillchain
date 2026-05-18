@@ -61,6 +61,7 @@ The formal proof-search repeat-2 slice now has direct, light-structured, and ful
 The formal proof-search repeat-3 slice now has direct, light-structured, and full-OfOne outputs; the full-OfOne artifact is case-native and includes validator, Map rendering, patch report, and local review files.
 The public-sector AI policy audit repeat-2 slice now has direct, light-structured, and full-OfOne outputs; the full-OfOne artifact is case-native and includes validator, Audit rendering, patch report, review-log objects, and local review files.
 The public-sector AI policy audit repeat-3 slice now has direct, light-structured, and full-OfOne outputs; the full-OfOne artifact is case-native and includes validator, Audit rendering, patch report, review-log objects, and local review files.
+The next model family is `frontier_reasoning`. A prepared strategic gated diligence repeat-1 packet is available at `runs/2026-05-17-batch-01/frontier-run-packets/2026-05-18-strategic-gated-diligence-frontier-r1.md`, but it is not a launched run, harvested output, or aggregate-eligible result.
 The harvested independent review is stored at `../research/results/2026-05-17-06-ofone-batch01-independent-review-result.md`; the excluded-run log is `results/2026-05-17-batch-01-excluded-runs.md`.
 Aggregate scoring and superiority claims remain blocked.
 
