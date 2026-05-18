@@ -90,5 +90,5 @@ Convergence does not mean OfOne can never improve. It means the current objectiv
 - Target result: `research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md`
 - Local synthesis: `research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md`
 - Current mode: `benchmark_handoff`.
-- Latest bounded action: remedial `full_ofone` benchmark rerun 1 for `case-strategic-gated-diligence-001` was published and Pages-confirmed. The next Batch 01 benchmark slice for `case-scientific-mechanism-check-001` has been produced locally across direct, light-structured, and full-OfOne `agentic_coding` repeat-1 arms with local reviews.
-- Next bounded action: verify, publish, and Pages-confirm the scientific mechanism slice, then continue broader Batch 01 benchmark execution rather than launching another broad architecture review.
+- Latest bounded action: remedial `full_ofone` benchmark rerun 1 for `case-strategic-gated-diligence-001` and the next Batch 01 `case-scientific-mechanism-check-001` / `agentic_coding` repeat-1 slice have both been published and Pages-confirmed.
+- Next bounded action: continue broader Batch 01 benchmark execution under the hardened workflow rather than launching another broad architecture review.
