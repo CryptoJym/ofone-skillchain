@@ -20,19 +20,21 @@
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
     "queued": 87,
-    "completed": 3,
-    "reviewed": 0,
+    "completed": 0,
+    "reviewed": 3,
     "excluded": 0
   },
-  "completed_runs": [
+  "completed_runs": [],
+  "reviewed_runs": [
     {
       "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1",
       "case_id": "case-strategic-gated-diligence-001",
       "arm_id": "direct_answer",
       "model_family": "agentic_coding",
       "repeat": 1,
-      "status": "completed",
-      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1.md"
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r1.md"
     },
     {
       "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1",
@@ -40,8 +42,9 @@
       "arm_id": "light_structured",
       "model_family": "agentic_coding",
       "repeat": 1,
-      "status": "completed",
-      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1.md"
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r1.md"
     },
     {
       "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
@@ -49,14 +52,15 @@
       "arm_id": "full_ofone",
       "model_family": "agentic_coding",
       "repeat": 1,
-      "status": "completed",
+      "status": "reviewed",
       "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md",
-      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json"
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md"
     }
   ],
   "release_guard": {
     "aggregate_scoring_allowed": false,
     "superiority_claims_allowed": false,
-    "reason": "Only 3 of 90 raw benchmark outputs have been collected, and no reviews or aggregate scoring have been completed."
+    "reason": "Only 3 of 90 run slots have local unblinded reviews, and no aggregate scoring or independent review has been completed."
   }
 }

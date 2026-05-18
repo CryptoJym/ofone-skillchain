@@ -40,7 +40,7 @@ The source-backed example at `../examples/source-backed-wastewater-map.json` is 
 `runs/2026-05-17-batch-01/manifest.json` freezes the first five-case execution plan before any model outputs are collected.
 It declares the three benchmark arms, frozen arm prompts, repeated-run and model-family plan, review template, result placeholders, raw-output directory, and release guard.
 `runs/2026-05-17-batch-01/execution-matrix.json` predeclares 90 run slots across 5 cases, 3 arms, 2 model families, and 3 repeats.
-Its status is `in_progress`; three local `agentic_coding` raw outputs have been collected, with reviews and aggregate scoring still blocked.
+Its status is `in_progress`; three local `agentic_coding` raw outputs have unblinded local reviews, with independent review and aggregate scoring still blocked.
 
 ## Validate The Suite
 

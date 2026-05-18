@@ -4,13 +4,13 @@ Status: `in_progress`
 
 This file is reserved for aggregate findings from `2026-05-17-batch-01`.
 
-Raw output collection has started. Three of 90 predeclared run slots have completed for the first local `agentic_coding` slice:
+Raw output collection and local unblinded review have started. Three of 90 predeclared run slots have been reviewed for the first local `agentic_coding` slice:
 
 - `case-strategic-gated-diligence-001` / `direct_answer` / `agentic_coding` / repeat 1
 - `case-strategic-gated-diligence-001` / `light_structured` / `agentic_coding` / repeat 1
 - `case-strategic-gated-diligence-001` / `full_ofone` / `agentic_coding` / repeat 1
 
-No reviews, adjudication, aggregate scoring, or performance comparison have been completed. No performance or superiority claim is supported by this in-progress state.
+These reviews are local and unblinded. No independent review, aggregate scoring, or performance comparison has been completed. No performance or superiority claim is supported by this in-progress state.
 
 Required before this file can move beyond `in_progress`:
 

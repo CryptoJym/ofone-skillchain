@@ -120,4 +120,4 @@ Current benchmark execution plan:
 - [`benchmarks/runs/2026-05-17-batch-01/manifest.json`](./benchmarks/runs/2026-05-17-batch-01/manifest.json)
 - [`benchmarks/runs/2026-05-17-batch-01/execution-matrix.json`](./benchmarks/runs/2026-05-17-batch-01/execution-matrix.json)
 - [`benchmarks/reviews/2026-05-17-batch-01-review-template.md`](./benchmarks/reviews/2026-05-17-batch-01-review-template.md)
-- First completed raw slice: `case-strategic-gated-diligence-001`, `agentic_coding`, repeat 1, across direct-answer, light-structured, and full-OfOne arms. These outputs are unreviewed and do not support aggregate benchmark claims.
+- First locally reviewed slice: `case-strategic-gated-diligence-001`, `agentic_coding`, repeat 1, across direct-answer, light-structured, and full-OfOne arms. These reviews are unblinded, not independent, and do not support aggregate benchmark claims.

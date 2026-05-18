@@ -293,7 +293,7 @@ function validateBatchExecutionMatrix(manifest) {
     pass("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion totals match predeclared run count`);
   }
 
-  validateCompletedRuns(manifest, matrix);
+  validateRunRecords(manifest, matrix);
 
   if (!matrix.release_guard || matrix.release_guard.superiority_claims_allowed !== false) {
     fail("BENCH_BATCH_MATRIX_RELEASE_GUARD", `${manifest.batch_id} execution matrix must block superiority claims until results are reviewed`);
@@ -302,43 +302,55 @@ function validateBatchExecutionMatrix(manifest) {
   }
 }
 
-function validateCompletedRuns(manifest, matrix) {
-  const completedRuns = matrix.completed_runs || [];
-  const completedCount = matrix.completion?.completed || 0;
-  if (completedRuns.length !== completedCount) {
-    fail("BENCH_BATCH_COMPLETED_RUNS", `${manifest.batch_id} lists ${completedRuns.length}/${completedCount} completed run record(s)`);
+function validateRunRecords(manifest, matrix) {
+  const seen = new Set();
+  validateRunRecordState(manifest, matrix, "completed", seen);
+  validateRunRecordState(manifest, matrix, "reviewed", seen);
+}
+
+function validateRunRecordState(manifest, matrix, state, seen) {
+  const recordKey = `${state}_runs`;
+  const runs = matrix[recordKey] || [];
+  const expectedCount = matrix.completion?.[state] || 0;
+  const diagnosticCode = state === "completed" ? "BENCH_BATCH_COMPLETED_RUNS" : "BENCH_BATCH_REVIEWED_RUNS";
+  if (runs.length !== expectedCount) {
+    fail(diagnosticCode, `${manifest.batch_id} lists ${runs.length}/${expectedCount} ${state} run record(s)`);
     return;
   }
-  pass("BENCH_BATCH_COMPLETED_RUNS", `${manifest.batch_id} lists ${completedRuns.length} completed run record(s)`);
+  pass(diagnosticCode, `${manifest.batch_id} lists ${runs.length} ${state} run record(s)`);
 
-  const seen = new Set();
   const validCases = new Set(manifest.case_ids || []);
   const validArms = new Set((manifest.arms || []).map((arm) => arm.arm_id));
   const validModelFamilies = new Set((manifest.model_plan?.model_families || []).map((family) => family.family_id));
   const maxRepeat = manifest.model_plan?.runs_per_case_per_arm || 0;
 
-  for (const run of completedRuns) {
-    const label = run.run_id || "(missing run_id)";
-    if (!run.run_id) fail("BENCH_BATCH_RUN_ID", `${manifest.batch_id} completed run missing run_id`);
-    if (seen.has(run.run_id)) fail("BENCH_BATCH_RUN_ID_UNIQUE", `${manifest.batch_id} duplicate completed run_id ${run.run_id}`);
-    seen.add(run.run_id);
-
-    if (!validCases.has(run.case_id)) fail("BENCH_BATCH_RUN_CASE", `${label} has unknown case_id ${run.case_id || "(missing)"}`);
-    if (!validArms.has(run.arm_id)) fail("BENCH_BATCH_RUN_ARM", `${label} has unknown arm_id ${run.arm_id || "(missing)"}`);
-    if (!validModelFamilies.has(run.model_family)) fail("BENCH_BATCH_RUN_MODEL_FAMILY", `${label} has unknown model_family ${run.model_family || "(missing)"}`);
-    if (!Number.isInteger(run.repeat) || run.repeat < 1 || run.repeat > maxRepeat) {
-      fail("BENCH_BATCH_RUN_REPEAT", `${label} repeat ${run.repeat || "(missing)"} outside 1..${maxRepeat}`);
-    }
-
-    const expectedRunId = `${manifest.batch_id}__${run.case_id}__${run.arm_id}__${run.model_family}__r${run.repeat}`;
-    if (run.run_id !== expectedRunId) {
-      fail("BENCH_BATCH_RUN_ID_FORMAT", `${label} should be ${expectedRunId}`);
-    }
-
-    if (run.status !== "completed") fail("BENCH_BATCH_RUN_STATUS", `${label} status must be completed`);
-    checkRunOutput(run);
-    if (run.arm_id === "full_ofone") checkRunArtifact(run);
+  for (const run of runs) {
+    validateRunRecord(manifest, run, state, seen, validCases, validArms, validModelFamilies, maxRepeat);
   }
+}
+
+function validateRunRecord(manifest, run, expectedStatus, seen, validCases, validArms, validModelFamilies, maxRepeat) {
+  const label = run.run_id || "(missing run_id)";
+  if (!run.run_id) fail("BENCH_BATCH_RUN_ID", `${manifest.batch_id} ${expectedStatus} run missing run_id`);
+  if (seen.has(run.run_id)) fail("BENCH_BATCH_RUN_ID_UNIQUE", `${manifest.batch_id} duplicate run_id ${run.run_id}`);
+  seen.add(run.run_id);
+
+  if (!validCases.has(run.case_id)) fail("BENCH_BATCH_RUN_CASE", `${label} has unknown case_id ${run.case_id || "(missing)"}`);
+  if (!validArms.has(run.arm_id)) fail("BENCH_BATCH_RUN_ARM", `${label} has unknown arm_id ${run.arm_id || "(missing)"}`);
+  if (!validModelFamilies.has(run.model_family)) fail("BENCH_BATCH_RUN_MODEL_FAMILY", `${label} has unknown model_family ${run.model_family || "(missing)"}`);
+  if (!Number.isInteger(run.repeat) || run.repeat < 1 || run.repeat > maxRepeat) {
+    fail("BENCH_BATCH_RUN_REPEAT", `${label} repeat ${run.repeat || "(missing)"} outside 1..${maxRepeat}`);
+  }
+
+  const expectedRunId = `${manifest.batch_id}__${run.case_id}__${run.arm_id}__${run.model_family}__r${run.repeat}`;
+  if (run.run_id !== expectedRunId) {
+    fail("BENCH_BATCH_RUN_ID_FORMAT", `${label} should be ${expectedRunId}`);
+  }
+
+  if (run.status !== expectedStatus) fail("BENCH_BATCH_RUN_STATUS", `${label} status must be ${expectedStatus}`);
+  checkRunOutput(run);
+  if (run.arm_id === "full_ofone") checkRunArtifact(run);
+  if (expectedStatus === "reviewed") checkRunReview(run);
 }
 
 function checkRunOutput(run) {
@@ -377,6 +389,33 @@ function checkRunArtifact(run) {
     return;
   }
   pass("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} full_ofone artifact JSON exists and parses`);
+}
+
+function checkRunReview(run) {
+  if (!run.review_file) {
+    fail("BENCH_BATCH_RUN_REVIEW", `${run.run_id} reviewed run missing review_file`);
+    return;
+  }
+  const reviewPath = path.join(repoRoot, run.review_file);
+  if (!fs.existsSync(reviewPath)) {
+    fail("BENCH_BATCH_RUN_REVIEW", `${run.run_id} review file not found at ${run.review_file}`);
+    return;
+  }
+  const reviewText = fs.readFileSync(reviewPath, "utf8");
+  const requiredText = [
+    run.run_id,
+    `Case ID: \`${run.case_id}\``,
+    `Arm ID: \`${run.arm_id}\``,
+    `Blinding status:`,
+    `Accept run for aggregate scoring:`
+  ];
+  const missingRequired = requiredText.filter((needle) => !reviewText.includes(needle));
+  const missingMetrics = requiredMetrics.filter((metric) => !reviewText.includes(metric));
+  if (missingRequired.length > 0 || missingMetrics.length > 0) {
+    fail("BENCH_BATCH_RUN_REVIEW", `${run.run_id} review missing ${[...missingRequired, ...missingMetrics].join(", ")}`);
+    return;
+  }
+  pass("BENCH_BATCH_RUN_REVIEW", `${run.run_id} review file exists and covers required metrics`);
 }
 
 function checkArrayExact(code, expected, actual, label) {
