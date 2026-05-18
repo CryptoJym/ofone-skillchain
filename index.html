@@ -4,33 +4,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OfOne Skillchain</title>
-    <meta name="description" content="A typed causal-geometry compiler for high-fidelity decision maps.">
+    <meta name="description" content="OfOne is a typed decision-state compiler for bounded inquiry, validation, rendering, patching, review, and benchmarked improvement.">
     <style>
       :root {
         color-scheme: light;
-        --ink: #121417;
-        --muted: #5b6472;
-        --line: #d9dee7;
-        --panel: #f7f8fa;
-        --accent: #0f766e;
-        --accent-2: #b45309;
-        --bg: #ffffff;
+        --ink: #111318;
+        --muted: #596272;
+        --quiet: #7b8493;
+        --line: #d9dee8;
+        --panel: #f7f8fb;
+        --panel-strong: #eef3f7;
+        --teal: #0f766e;
+        --blue: #1d4ed8;
+        --amber: #b45309;
+        --rose: #b91c1c;
+        --green: #15803d;
+        --white: #ffffff;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--ink);
-        background: var(--bg);
+        background: var(--white);
         line-height: 1.5;
       }
 
       a {
-        color: var(--accent);
+        color: var(--teal);
         text-decoration-thickness: 1px;
         text-underline-offset: 3px;
       }
@@ -38,19 +47,19 @@
       header {
         position: sticky;
         top: 0;
-        z-index: 10;
+        z-index: 20;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 24px;
-        padding: 18px clamp(20px, 5vw, 72px);
+        padding: 16px clamp(20px, 5vw, 72px);
         border-bottom: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.94);
+        background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(16px);
       }
 
       .brand {
-        font-weight: 750;
+        font-weight: 760;
         letter-spacing: 0;
       }
 
@@ -58,50 +67,73 @@
         display: flex;
         flex-wrap: wrap;
         gap: 16px;
-        font-size: 0.94rem;
+        font-size: 0.93rem;
       }
 
       .hero {
-        min-height: 72vh;
+        min-height: 78vh;
         display: grid;
         align-content: center;
-        gap: 36px;
-        padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 72px) 42px;
+        gap: 32px;
+        padding: clamp(52px, 8vw, 104px) clamp(20px, 5vw, 72px) 44px;
         border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(247, 248, 251, 0.96), rgba(255, 255, 255, 1)),
+          linear-gradient(90deg, rgba(15, 118, 110, 0.12), rgba(180, 83, 9, 0.08), rgba(29, 78, 216, 0.08));
       }
 
-      .hero h1 {
-        max-width: 980px;
+      .hero-inner {
+        max-width: 1160px;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--teal);
+        font-weight: 760;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        font-size: 0.78rem;
+      }
+
+      h1 {
+        max-width: 1060px;
         margin: 0;
-        font-size: clamp(3.4rem, 9vw, 8.5rem);
-        line-height: 0.9;
+        font-size: clamp(3.2rem, 8vw, 8rem);
+        line-height: 0.91;
         letter-spacing: 0;
       }
 
       .hero p {
-        max-width: 780px;
-        margin: 0;
-        font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+        max-width: 820px;
+        margin: 22px 0 0;
+        font-size: clamp(1.12rem, 2.1vw, 1.52rem);
         color: var(--muted);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
       }
 
       .chain {
         display: grid;
-        grid-template-columns: repeat(14, minmax(86px, 1fr));
+        grid-template-columns: repeat(14, minmax(92px, 1fr));
         gap: 10px;
         overflow-x: auto;
-        padding: 6px 2px 14px;
+        padding: 2px 2px 14px;
       }
 
       .node {
-        min-height: 88px;
+        min-height: 94px;
         display: grid;
         align-content: center;
         gap: 7px;
         padding: 12px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: var(--panel);
+        background: rgba(255, 255, 255, 0.9);
       }
 
       .node strong {
@@ -110,26 +142,26 @@
       }
 
       .node span {
-        color: var(--muted);
-        font-size: 0.75rem;
+        color: var(--quiet);
+        font-size: 0.74rem;
         text-transform: uppercase;
         letter-spacing: 0.08em;
       }
 
       main {
-        padding: 0 clamp(20px, 5vw, 72px) 72px;
+        padding: 0 clamp(20px, 5vw, 72px) 76px;
       }
 
       section {
-        max-width: 1100px;
+        max-width: 1140px;
         margin: 0 auto;
-        padding: 64px 0;
+        padding: 68px 0;
         border-bottom: 1px solid var(--line);
       }
 
       h2 {
         margin: 0 0 18px;
-        font-size: clamp(1.9rem, 4vw, 3rem);
+        font-size: clamp(1.9rem, 4vw, 3.1rem);
         line-height: 1;
         letter-spacing: 0;
       }
@@ -138,15 +170,19 @@
         margin: 0 0 8px;
       }
 
+      p {
+        margin: 0;
+      }
+
       .lead {
-        max-width: 780px;
+        max-width: 800px;
         color: var(--muted);
         font-size: 1.12rem;
       }
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 18px;
         margin-top: 28px;
       }
@@ -155,47 +191,199 @@
         padding: 18px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: #fff;
+        background: var(--white);
       }
 
-      .item p {
-        margin: 0;
+      .item p,
+      .step p,
+      .artifact-group li {
         color: var(--muted);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        background: var(--panel);
+        font-size: 0.77rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
       }
 
       .rule {
         display: block;
         margin-top: 24px;
         padding: 18px;
-        border-left: 4px solid var(--accent);
+        border-left: 4px solid var(--teal);
         background: var(--panel);
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         white-space: pre-wrap;
-      }
-
-      .links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 26px;
+        overflow-x: auto;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         min-height: 42px;
         padding: 0 14px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: #fff;
+        background: var(--white);
         color: var(--ink);
         text-decoration: none;
+        font-weight: 680;
       }
 
       .button.primary {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: #fff;
+        border-color: var(--teal);
+        background: var(--teal);
+        color: var(--white);
+      }
+
+      .walkthrough {
+        display: grid;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 90px 1fr 170px;
+        gap: 18px;
+        align-items: start;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .step-number {
+        color: var(--quiet);
+        font-weight: 780;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .step-output {
+        color: var(--teal);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.84rem;
+      }
+
+      .hyperframe {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+        gap: 10px;
+      }
+
+      .frame {
+        min-height: 146px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--white);
+        position: relative;
+      }
+
+      .frame::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 5px;
+        border-radius: 8px 8px 0 0;
+        background: var(--teal);
+      }
+
+      .frame[data-tone="blue"]::before {
+        background: var(--blue);
+      }
+
+      .frame[data-tone="amber"]::before {
+        background: var(--amber);
+      }
+
+      .frame[data-tone="rose"]::before {
+        background: var(--rose);
+      }
+
+      .frame[data-tone="green"]::before {
+        background: var(--green);
+      }
+
+      .frame b {
+        display: block;
+        margin-top: 7px;
+      }
+
+      .frame span {
+        display: block;
+        margin-top: 9px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .artifact-groups {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 18px;
+        margin-top: 28px;
+      }
+
+      .artifact-group {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--white);
+      }
+
+        .artifact-group ul {
+          margin: 12px 0 0;
+          padding-left: 19px;
+        }
+
+      .audit-index {
+        margin-top: 18px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .audit-index summary {
+        cursor: pointer;
+        font-weight: 760;
+      }
+
+      .audit-index ul {
+        columns: 2;
+        column-gap: 34px;
+        margin: 16px 0 0;
+        padding-left: 19px;
+      }
+
+      .audit-index li {
+        break-inside: avoid;
+        margin-bottom: 7px;
+        color: var(--muted);
+      }
+
+      .status {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .status .item {
+        background: var(--panel-strong);
       }
 
       footer {
@@ -203,7 +391,21 @@
         color: var(--muted);
       }
 
-      @media (max-width: 760px) {
+      @media (max-width: 900px) {
+        .chain {
+          grid-template-columns: repeat(14, 128px);
+        }
+
+        .hyperframe {
+          grid-template-columns: repeat(2, minmax(140px, 1fr));
+        }
+
+        .step {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
         header {
           align-items: flex-start;
           flex-direction: column;
@@ -213,8 +415,8 @@
           min-height: auto;
         }
 
-        .chain {
-          grid-template-columns: repeat(14, 128px);
+        .hyperframe {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -223,18 +425,27 @@
     <header>
       <div class="brand">OfOne</div>
       <nav aria-label="Primary">
-        <a href="#framing">Framing</a>
+        <a href="#what">What</a>
+        <a href="#operate">Operate</a>
+        <a href="#hyperframe">Hyperframe</a>
         <a href="#compiler">Compiler</a>
-        <a href="#kernel">Kernel</a>
-        <a href="#lifecycle">Lifecycle</a>
+        <a href="#state">State</a>
         <a href="#artifacts">Artifacts</a>
       </nav>
     </header>
 
     <div class="hero">
-      <h1>OfOne</h1>
-      <p>A typed causal-geometry compiler for turning bounded objectives into auditable, patchable decision states.</p>
-      <div class="chain" aria-label="OfOne skillchain">
+      <div class="hero-inner">
+        <p class="eyebrow">Typed inquiry state, not answer theater</p>
+        <h1>OfOne turns complex questions into validated decision maps.</h1>
+        <p>It takes a bounded objective, projects the domain into abstract geometry, separates evidence from claims, validates the graph, renders a decision view, and patches only the affected state when new evidence arrives.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="./docs/walkthroughs/ofone-operating-walkthrough.md">Read the walkthrough</a>
+          <a class="button" href="./media/hyperframes/ofone-walkthrough.hyperframe.json">Open the hyperframe</a>
+          <a class="button" href="./media/remotion/README.md">Build the Remotion walkthrough</a>
+        </div>
+      </div>
+      <div class="chain" aria-label="OfOne compiler traversal">
         <div class="node"><span>00</span><strong>Charter</strong></div>
         <div class="node"><span>01</span><strong>Geometry</strong></div>
         <div class="node"><span>02</span><strong>Adapter</strong></div>
@@ -253,257 +464,255 @@
     </div>
 
     <main>
-      <section id="framing">
-        <h2>Architecture</h2>
-        <p class="lead">OfOne compiles domain language into scenes, frames, tokens, moves, edges, loops, invariants, gates, criteria, tradeoff surfaces, and reviewable renderings. Adapters project domain semantics onto that geometry.</p>
-        <code class="rule">bounded objective + geometry primitives + adapter projection + scene map + evidence ledger + claim graph + causal graph + loop map + option moves + decision surface + update triggers + gates
-= decision rendering</code>
+      <section id="what">
+        <h2>What It Is</h2>
+        <p class="lead">OfOne is a Codex skillchain and repository toolchain for representing bounded inquiry as typed, auditable, patchable state. The public answer is only a rendering of the map.</p>
+        <div class="grid">
+          <div class="item">
+            <span class="tag">IR</span>
+            <h3>Decision-state intermediate representation</h3>
+            <p>Charters, evidence, claims, unknowns, criteria, tradeoffs, edges, loops, gates, triggers, and renderings live as addressable objects.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Geometry</span>
+            <h3>Abstract structure before domain language</h3>
+            <p>Scenes, frames, tokens, moves, loops, invariants, and gates are the base. Adapters project domain semantics onto that base.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Compiler</span>
+            <h3>Validate, render, patch, review</h3>
+            <p>The toolchain checks schema and semantic validity, renders human views, computes patch impact, and preserves benchmark boundaries.</p>
+          </div>
+        </div>
+        <code class="rule">objective -> adapter projection -> typed geometry -> object graph -> validation -> rendering -> patch closure -> review or benchmark</code>
+      </section>
+
+      <section id="operate">
+        <h2>How To Operate It</h2>
+        <p class="lead">Use OfOne when the cost of hidden assumptions is higher than the cost of mapping. Do not use it for simple answers, casual explanations, or high-stakes advice without human review.</p>
+        <div class="walkthrough">
+          <div class="step">
+            <div class="step-number">Step 01</div>
+            <div>
+              <h3>Write a bounded charter</h3>
+              <p>Name the decision, scope, criteria, stakes, time horizon, and what would count as a useful output.</p>
+            </div>
+            <div class="step-output">charter</div>
+          </div>
+          <div class="step">
+            <div class="step-number">Step 02</div>
+            <div>
+              <h3>Project the domain into geometry</h3>
+              <p>Select or mix adapters, then represent the problem as scenes, frames, tokens, moves, loops, and gates.</p>
+            </div>
+            <div class="step-output">adapter + scene</div>
+          </div>
+          <div class="step">
+            <div class="step-number">Step 03</div>
+            <div>
+              <h3>Separate evidence from claims</h3>
+              <p>Evidence carries source identity and risks. Claims stay atomic, typed, supported, contradicted, or disputed.</p>
+            </div>
+            <div class="step-output">evidence + claims</div>
+          </div>
+          <div class="step">
+            <div class="step-number">Step 04</div>
+            <div>
+              <h3>Build the decision surface</h3>
+              <p>Connect options to criteria, tradeoffs, unknowns, stakeholders, temporal validity, and information value.</p>
+            </div>
+            <div class="step-output">criteria + tradeoffs</div>
+          </div>
+          <div class="step">
+            <div class="step-number">Step 05</div>
+            <div>
+              <h3>Validate before release</h3>
+              <p>Run schema and semantic checks. Unsupported claims, illegal edges, missing gates, and stale dependencies block confidence.</p>
+            </div>
+            <div class="step-output">validator_result</div>
+          </div>
+          <div class="step">
+            <div class="step-number">Step 06</div>
+            <div>
+              <h3>Render, patch, and benchmark</h3>
+              <p>Render the answer for the audience. When evidence changes, patch the affected closure. Benchmark before claiming superiority.</p>
+            </div>
+            <div class="step-output">decision pack</div>
+          </div>
+        </div>
+        <details class="audit-index">
+          <summary>Public audit index for Pages parity, benchmark traceability, Launch Proof, and Research Watchdog evidence</summary>
+          <ul>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/execution-matrix.json">Batch 01 execution matrix</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md">Strategic r1 raw full output</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md">Strategic r1 full review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json">Strategic remedial artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md">Strategic remedial review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.artifact.json">Strategic r2 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md">Strategic r2 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.artifact.json">Strategic r3 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.md">Strategic r3 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.artifact.json">Scientific r1 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.md">Scientific r1 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.artifact.json">Scientific r2 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.md">Scientific r2 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.artifact.json">Scientific r3 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.md">Scientific r3 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.artifact.json">Wastewater r1 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.md">Wastewater r1 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.artifact.json">Wastewater r2 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.md">Wastewater r2 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.artifact.json">Wastewater r3 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.md">Wastewater r3 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.artifact.json">Formal r1 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.md">Formal r1 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.artifact.json">Formal r2 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.md">Formal r2 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.artifact.json">Formal r3 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.md">Formal r3 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.artifact.json">Policy r1 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.md">Policy r1 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.artifact.json">Policy r2 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.md">Policy r2 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.artifact.json">Policy r3 artifact</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.md">Policy r3 review</a></li>
+            <li><a href="./benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-18-strategic-gated-diligence-frontier-r1.md">Frontier packet</a></li>
+            <li><a href="./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md">Independent review handoff</a></li>
+            <li><a href="./research/status/2026-05-17-06-ofone-batch01-independent-review.md">Run 06 status ledger</a></li>
+            <li><a href="./research/results/2026-05-17-06-ofone-batch01-independent-review-result.md">Run 06 result</a></li>
+            <li><a href="./benchmarks/results/2026-05-17-batch-01-excluded-runs.md">Excluded runs</a></li>
+            <li><a href="./benchmarks/results/2026-05-17-batch-01-checker-attestation.json">Checker attestation</a></li>
+            <li><a href="./research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md">Run 07 prompt</a></li>
+            <li><a href="./research/ofone-post-run06-hardening-context.md">Run 07 context</a></li>
+            <li><a href="./research/status/2026-05-17-07-ofone-post-run06-hardening-review.md">Run 07 status ledger</a></li>
+            <li><a href="./research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md">Run 07 result</a></li>
+            <li><a href="./research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md">Run 07 synthesis</a></li>
+            <li><a href="./research/ofone-v08-convergence-context-brief.md">v08 context brief</a></li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="hyperframe">
+        <h2>Visual Walkthrough</h2>
+        <p class="lead">The hyperframe is a frame-by-frame visual grammar for the Remotion walkthrough. It shows the inquiry moving from raw objective to validated rendering and then into patchable lifecycle state.</p>
+        <div class="hyperframe" aria-label="OfOne hyperframe sequence">
+          <div class="frame" data-tone="teal"><span>Frame 01</span><b>Objective Enters</b><span>A messy question is bounded into a charter.</span></div>
+          <div class="frame" data-tone="blue"><span>Frame 02</span><b>Geometry Kernel</b><span>The scene gains frames, tokens, moves, edges, loops, and gates.</span></div>
+          <div class="frame" data-tone="amber"><span>Frame 03</span><b>Adapter Projection</b><span>Domain language is mapped into the primitive geometry.</span></div>
+          <div class="frame" data-tone="green"><span>Frame 04</span><b>Evidence Ledger</b><span>Sources become traceable evidence objects with identity and risk.</span></div>
+          <div class="frame" data-tone="blue"><span>Frame 05</span><b>Claim Graph</b><span>Claims become atomic, supported, disputed, or killed.</span></div>
+          <div class="frame" data-tone="amber"><span>Frame 06</span><b>Loops And Gates</b><span>Feedback, temporal validity, and human review blocks become explicit.</span></div>
+          <div class="frame" data-tone="rose"><span>Frame 07</span><b>Validator</b><span>The compiler rejects unsupported, unsafe, or malformed state.</span></div>
+          <div class="frame" data-tone="green"><span>Frame 08</span><b>Rendering</b><span>The user sees a decision view, not raw graph noise.</span></div>
+          <div class="frame" data-tone="blue"><span>Frame 09</span><b>Patch Closure</b><span>New evidence updates only affected dependencies.</span></div>
+          <div class="frame" data-tone="teal"><span>Frame 10</span><b>Benchmark Boundary</b><span>Claims of superiority wait for controlled comparison.</span></div>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="./media/hyperframes/ofone-walkthrough.hyperframe.json">Hyperframe JSON</a>
+          <a class="button" href="./media/remotion/src/data/ofoneWalkthrough.ts">Remotion cue data</a>
+          <a class="button" href="./media/remotion/voiceover/ofone-walkthrough-voiceover.txt">Voiceover script</a>
+        </div>
       </section>
 
       <section id="compiler">
-        <h2>Compiler Loop</h2>
-        <p class="lead">The artifact is the source of truth. Prose is a rendering of validated state, and every implementation pass must be repairable, patchable, and measurable.</p>
-        <code class="rule">objective/context/sources
--> draft artifact objects
--> validate schema and semantic graph
--> repair artifact failures
--> render the smallest safe answer
--> record patch triggers and benchmark trace</code>
+        <h2>Compiler Contract</h2>
+        <p class="lead">OfOne is not done when it produces an impressive answer. It is done for a cycle when the artifact validates, renders, patches, and preserves the benchmark boundary.</p>
         <div class="grid">
-          <div class="item"><h3>Artifact First</h3><p>Claims, unknowns, criteria, gates, and recommendations must exist as addressable objects or explicit omissions.</p></div>
-          <div class="item"><h3>Structured Diagnostics</h3><p>Validator findings emit stable codes, severity, message, object metadata, path, and repair hints for CI, patching, and tests.</p></div>
-          <div class="item"><h3>Recursive Review</h3><p>Deep Research critique becomes typed sidecar state: inspected surfaces, accepted backlog, safety policy, convergence gate, and benchmark handoff.</p></div>
+          <div class="item">
+            <span class="tag">Validate</span>
+            <h3>Schema plus semantic checks</h3>
+            <p>Profiles, closed object definitions, movement jobs, references, adapter contracts, edge legality, gates, triggers, and review sidecars are checked.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Render</span>
+            <h3>Answer as projection</h3>
+            <p>Executive, Analyst, Audit, and Patch Impact views compress the map for a human without pretending the rendering is the full state.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Patch</span>
+            <h3>Incremental update discipline</h3>
+            <p>Changed evidence or claims propagate through closure to affected options, gates, renderings, and benchmark eligibility.</p>
+          </div>
         </div>
+        <code class="rule">npm run schema:check
+npm run validate
+npm run render -- examples/source-backed-wastewater-map.json Map
+npm run patch -- examples/source-backed-wastewater-map.json E1
+npm run benchmark
+npm test</code>
       </section>
 
-      <section id="kernel">
-        <h2>Primitive Geometry</h2>
-        <p class="lead">The system is a typed graph with loops. The visible chain is a traversal order, not a one-way checklist.</p>
-        <div class="grid">
-          <div class="item"><h3>Scene</h3><p>Bounded state-space snapshot: what exists, changes, and can be observed.</p></div>
-          <div class="item"><h3>Subscene</h3><p>Local scene for evidence acquisition, causal mechanism work, option decisions, proof steps, stakeholder context, or review gates.</p></div>
-          <div class="item"><h3>Frame</h3><p>Causal, logical, strategic, normative, temporal, or evidential coordinate system.</p></div>
-          <div class="item"><h3>Token</h3><p>Entity, variable, evidence item, claim, uncertainty, constraint, option, or trigger.</p></div>
-          <div class="item"><h3>Unknown</h3><p>Addressable absence: missing evidence, missing measurement, unresolved conflict, missing adapter, or unobserved variable.</p></div>
-          <div class="item"><h3>Move</h3><p>Infer, observe, test, intervene, decide, or revise.</p></div>
-          <div class="item"><h3>Edge</h3><p>Causal, evidential, argumentative, or workflow-state relation over cause, support, contradiction, constraint, update, block, or dependency.</p></div>
-          <div class="item"><h3>Loop</h3><p>Feedback, control, learning, incentive, measurement, contradiction, or review.</p></div>
-        </div>
-      </section>
-
-      <section id="lifecycle">
-        <h2>Decision Lifecycle</h2>
-        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, review sidecars, benchmark-case binding, pre-score auto-reject gates, excluded-run state, and immutable rerun semantics. Review-round labels such as v0.7 and v0.8 describe Deep Research cycles, not package or artifact versions.</p>
-        <div class="grid">
-          <div class="item"><h3>Identity</h3><p>Objective head, scope hash, config hash, active evidence hashes, created-at marker, and lifecycle status.</p></div>
-          <div class="item"><h3>Criteria</h3><p>Decision standards with priority, threshold, owner, and review implications.</p></div>
-          <div class="item"><h3>Tradeoff Surface</h3><p>Comparable options, dominant option, why it wins, and reversal conditions.</p></div>
-          <div class="item"><h3>Actors</h3><p>Decision owners, reviewers, affected parties, authority, incentives, exposures, and legitimacy basis.</p></div>
-          <div class="item"><h3>Time</h3><p>Decision horizon, deadline, evidence validity windows, staleness triggers, and update cadence.</p></div>
-          <div class="item"><h3>Information Value</h3><p>Which unknowns are worth resolving next, with impact, cost, time, and risk reduction.</p></div>
-          <div class="item"><h3>Recursive Review</h3><p>External critique becomes prepared, launched, researching, harvested, accepted, rejected, unresolved, implemented, and resubmitted state.</p></div>
-          <div class="item"><h3>Standing Loop</h3><p>A heartbeat may observe indefinitely, but each review cycle is bounded by harvest, adjudication, implementation, verification, publication, and next-mode decision.</p></div>
-          <div class="item"><h3>Launch Proof</h3><p>Deep Research handoffs require model, reasoning, context label, plan, Start, researching status, and stop-control evidence before they count as launched.</p></div>
-          <div class="item"><h3>Research Watchdog</h3><p>Active runs update ledgers only on material visible changes; ordinary unchanged polling makes no file changes, and stop-control blocks duplicate launches.</p></div>
-          <div class="item"><h3>Status Isolation</h3><p>Active external runs use run-scoped ledgers so launch, progress, harvest, and acceptance state cannot be confused across review cycles.</p></div>
-          <div class="item"><h3>Convergence Gate</h3><p>Architecture recursion stops or hands off to benchmarks when blockers are gone and remaining uncertainty is empirical.</p></div>
-          <div class="item"><h3>Benchmark Trace</h3><p>Benchmark readiness is explicit, and full-OfOne runs bind to case-file, prompt-file, and input-bundle hashes.</p></div>
-          <div class="item"><h3>Case Binding</h3><p>Full-OfOne benchmark artifacts must bind to the exact case, run, dossier, and prompt before any metric score can enter aggregate comparison.</p></div>
-          <div class="item"><h3>Auto-Reject</h3><p>Wrong-case artifacts, copied examples, required-output failures, leakage, or unsupported superiority claims are rejected before scoring.</p></div>
-          <div class="item"><h3>Rerun Semantics</h3><p>Excluded originals stay immutable; remedial reruns link back with explicit aggregate policy and cannot silently overwrite history.</p></div>
+      <section id="state">
+        <h2>Current Boundary</h2>
+        <p class="lead">OfOne has not reached a terminal state where no more improvement is possible. The current loop state is benchmark handoff: broad architecture iteration pauses while the system proves workflow value through controlled benchmark slices.</p>
+        <div class="status">
+          <div class="item">
+            <span class="tag">Done This Cycle</span>
+            <h3>Architecture hardening</h3>
+            <p>The core IR, validation, rendering, patching, review sidecars, and benchmark protocol are implemented enough to test.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Active Mode</span>
+            <h3>Benchmark handoff</h3>
+            <p>The next work is not more grand language. It is benchmark execution, negative evidence, and controlled comparison.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Blocked Claim</span>
+            <h3>No superiority claim yet</h3>
+            <p>OfOne can claim architectural coherence and working tooling. It should not claim empirical superiority until benchmarks support it.</p>
+          </div>
         </div>
       </section>
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, standing loop controller, research lifecycle checker, GitHub Pages parity checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, executable benchmark suite manifest, frozen first benchmark batch plan, predeclared run-slot matrix, first locally reviewed raw benchmark slice, harvested independent-review result, post-Run06 hardening review, immutable validator/patch artifacts, checker attestation, rerun semantics, remedial rerun artifacts, and excluded-run log.</p>
-        <div class="links">
-          <a class="button primary" href="./SKILL.md">Open Skill</a>
-          <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
-          <a class="button" href="./docs/research-basis.md">Research Basis</a>
-          <a class="button" href="./docs/object-schemas.md">Object Schemas</a>
-          <a class="button" href="./docs/validation-model.md">Validation Model</a>
-          <a class="button" href="./docs/adapter-contracts.md">Adapter Contracts</a>
-          <a class="button" href="./docs/dependency-closure.md">Dependency Closure</a>
-          <a class="button" href="./docs/loop-taxonomy.md">Loop Taxonomy</a>
-          <a class="button" href="./docs/confidence-model.md">Confidence Model</a>
-          <a class="button" href="./schemas/ofone.schema.json">JSON Schema</a>
-          <a class="button" href="./schemas/ofone.base.schema.json">Base Schema</a>
-          <a class="button" href="./schemas/ofone.review.schema.json">Review Sidecar Schema</a>
-          <a class="button" href="./schemas/ofone.audit.schema.json">Audit Schema</a>
-          <a class="button" href="./research/review-protocol.md">Review Protocol</a>
-          <a class="button" href="./research/recursive-improvement-loop.md">Recursive Loop</a>
-          <a class="button" href="./research/ofone-v08-convergence-context-brief.md">v0.8 Context Brief</a>
-          <a class="button" href="./research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md">Run 05 Result</a>
-          <a class="button" href="./examples/strategy-micro.json">Strategy Example</a>
-          <a class="button" href="./examples/scientific-mechanism-map.json">Scientific Example</a>
-          <a class="button" href="./examples/formal-proof-map.json">Formal Example</a>
-          <a class="button" href="./examples/hybrid-policy-audit.json">Hybrid Example</a>
-          <a class="button" href="./examples/source-backed-wastewater-map.json">Source-Backed Example</a>
-          <a class="button" href="./benchmarks/README.md">Benchmarks</a>
-          <a class="button" href="./benchmarks/suite.json">Benchmark Suite</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/manifest.json">Batch 01 Plan</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/execution-matrix.json">Batch 01 Matrix</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md">First Raw OfOne Output</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md">First OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.validator.json">First OfOne Validator Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.patch.json">First OfOne Patch Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md">Remedial OfOne Rerun</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json">Remedial OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.validator.json">Remedial OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.rendering.md">Remedial OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.patch.json">Remedial OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md">Remedial OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r2.md">Strategic R2 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r2.md">Strategic R2 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md">Strategic R2 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.artifact.json">Strategic R2 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.validator.json">Strategic R2 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.rendering.md">Strategic R2 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.patch.json">Strategic R2 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r2.md">Strategic R2 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__agentic_coding__r3.md">Strategic R3 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__agentic_coding__r3.md">Strategic R3 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.md">Strategic R3 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.artifact.json">Strategic R3 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.validator.json">Strategic R3 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.rendering.md">Strategic R3 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.patch.json">Strategic R3 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.md">Strategic R3 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r1.md">Scientific Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r1.md">Scientific Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.md">Scientific OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.artifact.json">Scientific OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.validator.json">Scientific OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.rendering.md">Scientific OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.patch.json">Scientific OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r1.md">Scientific OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r2.md">Scientific R2 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r2.md">Scientific R2 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.md">Scientific R2 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.artifact.json">Scientific R2 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.validator.json">Scientific R2 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.rendering.md">Scientific R2 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.patch.json">Scientific R2 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r2.md">Scientific R2 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r3.md">Scientific R3 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r3.md">Scientific R3 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.md">Scientific R3 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.artifact.json">Scientific R3 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.validator.json">Scientific R3 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.rendering.md">Scientific R3 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.patch.json">Scientific R3 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.md">Scientific R3 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r1.md">Wastewater Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r1.md">Wastewater Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.md">Wastewater OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.artifact.json">Wastewater OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.validator.json">Wastewater OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.rendering.md">Wastewater OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.patch.json">Wastewater OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r1.md">Wastewater OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r2.md">Wastewater R2 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r2.md">Wastewater R2 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.md">Wastewater R2 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.artifact.json">Wastewater R2 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.validator.json">Wastewater R2 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.rendering.md">Wastewater R2 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.patch.json">Wastewater R2 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r2.md">Wastewater R2 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__agentic_coding__r3.md">Wastewater R3 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__agentic_coding__r3.md">Wastewater R3 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.md">Wastewater R3 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.artifact.json">Wastewater R3 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.validator.json">Wastewater R3 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.rendering.md">Wastewater R3 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.patch.json">Wastewater R3 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__agentic_coding__r3.md">Wastewater R3 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r1.md">Formal Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r1.md">Formal Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.md">Formal OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.artifact.json">Formal OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.validator.json">Formal OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.rendering.md">Formal OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.patch.json">Formal OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.md">Formal OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r2.md">Formal R2 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r2.md">Formal R2 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.md">Formal R2 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.artifact.json">Formal R2 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.validator.json">Formal R2 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.rendering.md">Formal R2 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.patch.json">Formal R2 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r2.md">Formal R2 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__agentic_coding__r3.md">Formal R3 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__agentic_coding__r3.md">Formal R3 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.md">Formal R3 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.artifact.json">Formal R3 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.validator.json">Formal R3 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.rendering.md">Formal R3 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.patch.json">Formal R3 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r3.md">Formal R3 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r1.md">Policy Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r1.md">Policy Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.md">Policy OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.artifact.json">Policy OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.validator.json">Policy OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.rendering.md">Policy OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.patch.json">Policy OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.md">Policy OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r2.md">Policy R2 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r2.md">Policy R2 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.md">Policy R2 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.artifact.json">Policy R2 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.validator.json">Policy R2 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.rendering.md">Policy R2 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.patch.json">Policy R2 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r2.md">Policy R2 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r3.md">Policy R3 Direct Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r3.md">Policy R3 Light Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.md">Policy R3 OfOne Output</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.artifact.json">Policy R3 OfOne Artifact</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.validator.json">Policy R3 OfOne Validator</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.rendering.md">Policy R3 OfOne Rendering</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.patch.json">Policy R3 OfOne Patch</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.md">Policy R3 OfOne Review</a>
-          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-18-strategic-gated-diligence-frontier-r1.md">Frontier Strategic R1 Packet</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md">Independent Review Handoff</a>
-          <a class="button" href="./research/results/2026-05-17-06-ofone-batch01-independent-review-result.md">Run 06 Result</a>
-          <a class="button" href="./benchmarks/results/2026-05-17-batch-01-excluded-runs.md">Excluded Runs</a>
-          <a class="button" href="./benchmarks/results/2026-05-17-batch-01-checker-attestation.json">Checker Attestation</a>
-          <a class="button" href="./research/ofone-post-run06-hardening-context.md">Run 07 Context</a>
-          <a class="button" href="./research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md">Run 07 Prompt</a>
-          <a class="button" href="./research/status/2026-05-17-07-ofone-post-run06-hardening-review.md">Run 07 Status Ledger</a>
-          <a class="button" href="./research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md">Run 07 Result</a>
-          <a class="button" href="./research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md">Run 07 Synthesis</a>
-          <a class="button" href="./research/TRACKER.md">Research Tracker</a>
-          <a class="button" href="./research/status/2026-05-17-06-ofone-batch01-independent-review.md">Run 06 Status Ledger</a>
-          <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01-review-template.md">Batch 01 Review Template</a>
-          <a class="button" href="./benchmarks/cases/regulated-wastewater-market-entry.md">Starter Case</a>
-          <a class="button" href="./benchmarks/rubrics/decision-map-rubric.md">Rubric</a>
+        <p class="lead">The repository keeps method, type system, compiler tools, walkthrough, and benchmark evidence separate so the public site can explain the system without hiding the source of truth.</p>
+        <div class="artifact-groups">
+          <div class="artifact-group">
+            <h3>Core System</h3>
+            <ul>
+              <li><a href="./SKILL.md">Skill protocol</a></li>
+              <li><a href="./docs/architecture-framing.md">Architecture framing</a></li>
+              <li><a href="./docs/object-schemas.md">Object schemas</a></li>
+              <li><a href="./docs/validation-model.md">Validation model</a></li>
+              <li><a href="./docs/adapter-contracts.md">Adapter contracts</a></li>
+            </ul>
+          </div>
+          <div class="artifact-group">
+            <h3>Operate</h3>
+            <ul>
+              <li><a href="./docs/walkthroughs/ofone-operating-walkthrough.md">Operating walkthrough</a></li>
+              <li><a href="./schemas/ofone.schema.json">Schema dispatcher</a></li>
+              <li><a href="./examples/source-backed-wastewater-map.json">Source-backed example</a></li>
+              <li><a href="./scripts/ofone-render.mjs">Renderer</a></li>
+              <li><a href="./scripts/ofone-patch.mjs">Patch helper</a></li>
+            </ul>
+          </div>
+          <div class="artifact-group">
+            <h3>Visuals</h3>
+            <ul>
+              <li><a href="./media/hyperframes/ofone-walkthrough.hyperframe.json">Walkthrough hyperframe</a></li>
+              <li><a href="./media/remotion/README.md">Remotion flow</a></li>
+              <li><a href="./media/remotion/voiceover/ofone-walkthrough-voiceover.txt">OpenAI voiceover script</a></li>
+              <li><a href="./scripts/ofone-generate-voiceover.mjs">Voiceover generator</a></li>
+            </ul>
+          </div>
+          <div class="artifact-group">
+            <h3>Benchmark And Review</h3>
+            <ul>
+              <li><a href="./benchmarks/suite.json">Benchmark suite</a></li>
+              <li><a href="./benchmarks/runs/2026-05-17-batch-01/manifest.json">Batch 01 manifest</a></li>
+              <li><a href="./benchmarks/results/2026-05-17-batch-01-summary.md">Batch 01 summary</a></li>
+              <li><a href="./research/recursive-improvement-loop.md">Recursive loop protocol</a></li>
+              <li><a href="./research/TRACKER.md">Research tracker</a></li>
+            </ul>
+          </div>
         </div>
-      </section>
-
-      <section>
-        <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Benchmark runs are checked separately for case fidelity, benchmark trace hashes, required outputs, independence, no-superiority compliance, machine-artifact hashes, excluded-run handling, rerun policy, and public checker attestations, because schema-valid is not benchmark-valid.</p>
-        <code class="rule">npm run validate
-npm run schema:check
-npm run review:check
-npm run pages:check
-node scripts/ofone-validate.mjs --json examples/strategy-micro.json
-npm test
-npm run benchmark
-npm run render -- examples/strategy-micro.json Executive
-npm run render -- examples/strategy-micro.json PatchImpact X1
-npm run patch -- examples/strategy-micro.json --operation supersede_evidence E1
-npm run render -- examples/strategy-micro.json Micro
-npm run patch -- examples/strategy-micro.json E1</code>
       </section>
     </main>
 
     <footer>
-      OfOne skillchain. Built from local Codex skill work and Deep Research synthesis.
+      OfOne is a public skillchain and decision-state compiler substrate. Public claims remain bounded by validated artifacts and benchmark evidence.
     </footer>
   </body>
 </html>

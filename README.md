@@ -15,6 +15,7 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`docs/object-schemas.md`](./docs/object-schemas.md) - minimum object schemas.
 - [`docs/adapter-contracts.md`](./docs/adapter-contracts.md) - executable adapter semantics.
 - [`docs/validation-model.md`](./docs/validation-model.md) - schema, semantic, closure, and rendering validation model.
+- [`docs/walkthroughs/ofone-operating-walkthrough.md`](./docs/walkthroughs/ofone-operating-walkthrough.md) - operating walkthrough, hyperframe plan, Remotion flow, and voiceover path.
 - [`schemas/ofone.schema.json`](./schemas/ofone.schema.json) - profile dispatcher for Micro, Map, and Audit schemas.
 - [`schemas/ofone.base.schema.json`](./schemas/ofone.base.schema.json) - shared object definitions.
 - [`schemas/ofone.review.schema.json`](./schemas/ofone.review.schema.json) - recursive review sidecar schema.
@@ -24,6 +25,7 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`scripts/ofone-pages-check.mjs`](./scripts/ofone-pages-check.mjs) - maintainer-side GitHub Pages parity checker.
 - [`scripts/ofone-render.mjs`](./scripts/ofone-render.mjs) - human-readable Micro, Map, and Audit renderer.
 - [`scripts/ofone-patch.mjs`](./scripts/ofone-patch.mjs) - dependency-closure patch helper.
+- [`scripts/ofone-generate-voiceover.mjs`](./scripts/ofone-generate-voiceover.mjs) - OpenAI text-to-speech voiceover generator for the visual walkthrough.
 - [`scripts/ofone-test.mjs`](./scripts/ofone-test.mjs) - validator regression tests with negative fixtures.
 - [`research/recursive-improvement-loop.md`](./research/recursive-improvement-loop.md) - standing heartbeat and resubmission control plane.
 - [`examples/strategy-micro.json`](./examples/strategy-micro.json) - Micro strategy example.
@@ -35,6 +37,8 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`benchmarks/suite.json`](./benchmarks/suite.json) - three-arm benchmark suite manifest.
 - [`benchmarks/runs/2026-05-17-batch-01/manifest.json`](./benchmarks/runs/2026-05-17-batch-01/manifest.json) - frozen first benchmark batch plan.
 - [`benchmarks/runs/2026-05-17-batch-01/execution-matrix.json`](./benchmarks/runs/2026-05-17-batch-01/execution-matrix.json) - predeclared Batch 01 run-slot matrix.
+- [`media/hyperframes/ofone-walkthrough.hyperframe.json`](./media/hyperframes/ofone-walkthrough.hyperframe.json) - visual hyperframe for the OfOne operating walkthrough.
+- [`media/remotion/`](./media/remotion/) - Remotion walkthrough scaffold and voiceover source.
 - [`index.html`](./index.html) - GitHub Pages site.
 
 ## Skillchain
@@ -70,7 +74,7 @@ The schema checker verifies `$schema`/`$id`, dispatcher/profile compatibility, e
 The benchmark checker verifies the direct-answer, light-structured, and full-OfOne arms across strategic, scientific, formal, normative, hybrid, and update/patch task families with the required metric set, requires a concrete OfOne artifact for every full-OfOne arm, validates frozen batch manifests, execution matrices, prompts, review templates, result placeholders, model-family plans, and release guards, and reports whether the suite is ready to support superiority claims.
 It also enforces benchmark-case binding for full-OfOne artifacts, benchmark trace hashes for case files, prompts, and input bundles, pre-score compliance gates, auto-reject semantics, immutable validator/patch artifact hashes, semantic-fidelity review fields, excluded-run logging, explicit rerun semantics, public checker attestations, and matrix state semantics where reviewed/excluded states overlap completed raw outputs.
 The review checker validates recursive-review sidecars for inspected surfaces, allowlisted sources, no-follow/no-execute/no-write policy, evidence-class separation, ranked backlog, convergence gate, benchmark handoff, and final mode decision.
-The Pages checker compares the deployed GitHub Pages homepage, schemas, review checker script, strategy example, benchmark suite, Batch 01 manifest/review template, original rejected full-OfOne artifacts, remedial full-OfOne rerun artifacts, completed local benchmark slices, and run-specific review packets against the local repository. Run it after pushing a release when Pages has finished publishing.
+The Pages checker compares the deployed GitHub Pages homepage, walkthrough docs, hyperframe and Remotion source, schemas, review checker script, strategy example, benchmark suite, Batch 01 manifest/review template, original rejected full-OfOne artifacts, remedial full-OfOne rerun artifacts, completed local benchmark slices, and run-specific review packets against the local repository. Run it after pushing a release when Pages has finished publishing.
 Each validation finding also has a stable diagnostic object with `code`, `severity`, `message`, optional object metadata, and an optional repair hint. Use JSON output when another tool needs machine-readable diagnostics:
 
 ```bash
@@ -96,6 +100,34 @@ npm run patch -- examples/strategy-micro.json --operation supersede_evidence E1
 `render` produces decision-native views: Executive decision brief, Analyst map, Audit report, and Patch Impact view. These expose decision, confidence, why, blocking unknowns, change triggers, human gates, evidence identity, dissent, semantic graph layers, and patch impact where applicable. `patch` produces a structured patch report with affected objects, semantic layers, invalidated claims, reopened gates, required approvals, revalidation requirements, changed decision meaning, and rendering impact.
 
 Supported semantic patch operations include `add_supporting_evidence`, `supersede_evidence`, `downgrade_confidence`, `invalidate_criterion`, `open_gate`, `reopen_gate`, `trigger_re_review`, `supersede_artifact_identity`, `actor_reassignment`, `trigger_activation`, and `trigger_deactivation`. Trigger activation/deactivation expands through the trigger's declared affected objects before dependency closure, so a trigger patch reaches the evidence, claims, graph, and rendering it actually controls.
+
+## Visual Walkthrough
+
+The public site now includes a visual operating walkthrough that explains what OfOne does, how to operate it, where validation fits, and why the current loop is in benchmark handoff instead of endless architecture review.
+
+Source assets:
+
+- [`docs/walkthroughs/ofone-operating-walkthrough.md`](./docs/walkthroughs/ofone-operating-walkthrough.md)
+- [`media/hyperframes/ofone-walkthrough.hyperframe.json`](./media/hyperframes/ofone-walkthrough.hyperframe.json)
+- [`media/remotion/README.md`](./media/remotion/README.md)
+- [`media/remotion/voiceover/ofone-walkthrough-voiceover.txt`](./media/remotion/voiceover/ofone-walkthrough-voiceover.txt)
+
+Generate the OpenAI text-to-speech narration from the repository root:
+
+```bash
+npm run voiceover
+```
+
+The generator reads `OPENAI_API_KEY` from the environment and writes `media/remotion/public/audio/ofone-walkthrough.mp3`. Override `OPENAI_TTS_MODEL`, `OPENAI_TTS_VOICE`, `OPENAI_TTS_FORMAT`, or `OPENAI_TTS_SPEED` when needed. Generated audio and rendered videos are ignored by git.
+
+Preview and render the walkthrough:
+
+```bash
+cd media/remotion
+npm install
+npm run preview
+npm run render -- --props='{"audioSrc":"audio/ofone-walkthrough.mp3"}'
+```
 
 ## Untrusted Sources
 

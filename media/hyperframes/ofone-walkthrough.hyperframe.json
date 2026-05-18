@@ -1,0 +1,122 @@
+{
+  "hyperframe_id": "ofone-walkthrough-v1",
+  "title": "OfOne Operating Walkthrough",
+  "purpose": "Explain how OfOne turns bounded inquiry into validated, patchable decision state.",
+  "duration_seconds": 120,
+  "source_documents": [
+    "SKILL.md",
+    "docs/walkthroughs/ofone-operating-walkthrough.md",
+    "docs/architecture-framing.md",
+    "docs/validation-model.md",
+    "research/recursive-improvement-loop.md"
+  ],
+  "frames": [
+    {
+      "id": "HF01",
+      "time": "00:00-00:12",
+      "title": "Objective Enters",
+      "visual_focus": "A raw objective collapses into a bounded charter card.",
+      "narration": "OfOne starts with a bounded objective. The question is not answered yet. It is chartered.",
+      "objects": ["objective", "charter", "scope", "stakes"],
+      "transition": "raw text becomes a charter node",
+      "expected_artifact": "charter"
+    },
+    {
+      "id": "HF02",
+      "time": "00:12-00:24",
+      "title": "Geometry Kernel",
+      "visual_focus": "Scene, frame, token, move, edge, loop, invariant, and gate appear as primitives.",
+      "narration": "The system uses geometry first. Scenes, frames, tokens, moves, edges, loops, invariants, and gates become the base layer.",
+      "objects": ["scene", "frame", "token", "move", "edge", "loop", "gate"],
+      "transition": "charter expands into primitive geometry",
+      "expected_artifact": "scene"
+    },
+    {
+      "id": "HF03",
+      "time": "00:24-00:36",
+      "title": "Adapter Projection",
+      "visual_focus": "Domain labels flow into the geometry through adapter lenses.",
+      "narration": "Adapters project domain language onto the geometry. Strategy, science, proof search, and policy keep their semantics without breaking the common shape.",
+      "objects": ["adapter", "domain language", "projection"],
+      "transition": "domain terms become typed objects",
+      "expected_artifact": "adapter_projection"
+    },
+    {
+      "id": "HF04",
+      "time": "00:36-00:48",
+      "title": "Evidence Ledger",
+      "visual_focus": "Source cards become evidence objects with hashes, excerpts, permissions, and risks.",
+      "narration": "Evidence is not a claim. Sources are logged with identity, provenance, excerpts, recency, permission, and risks.",
+      "objects": ["evidence", "source", "content_hash", "retrieved_at", "extract"],
+      "transition": "sources become evidence objects",
+      "expected_artifact": "evidence"
+    },
+    {
+      "id": "HF05",
+      "time": "00:48-01:00",
+      "title": "Claim Graph",
+      "visual_focus": "Atomic claims link to support, contradiction, dependencies, and confidence basis.",
+      "narration": "Claims are atomized and connected. Each claim must show what supports it, what contradicts it, and what would break it.",
+      "objects": ["claim", "support", "contradiction", "confidence"],
+      "transition": "interpretations become claim graph nodes",
+      "expected_artifact": "claims"
+    },
+    {
+      "id": "HF06",
+      "time": "01:00-01:12",
+      "title": "Loops And Gates",
+      "visual_focus": "Feedback loops and human review gates attach to risky paths.",
+      "narration": "Real systems change through loops. OfOne names feedback, incentives, measurement, review, deception, and regime shifts, then blocks unsafe movement with gates.",
+      "objects": ["loop", "temporal_model", "gate", "review"],
+      "transition": "dynamic behavior becomes explicit",
+      "expected_artifact": "loops"
+    },
+    {
+      "id": "HF07",
+      "time": "01:12-01:24",
+      "title": "Validator",
+      "visual_focus": "A compiler pass flags malformed edges, unsupported claims, missing gates, and benchmark violations.",
+      "narration": "Before release, the map is validated. Schema checks run first. Semantic checks follow. A broken map cannot pretend to be a final decision.",
+      "objects": ["schema", "semantic validation", "diagnostic", "validator_result"],
+      "transition": "graph enters compiler check",
+      "expected_artifact": "validator_result"
+    },
+    {
+      "id": "HF08",
+      "time": "01:24-01:36",
+      "title": "Rendering",
+      "visual_focus": "The validated graph compresses into Executive, Analyst, Audit, or Patch Impact views.",
+      "narration": "The answer is a rendering of the state. The user sees the decision, confidence, why, blocking unknowns, gates, and update triggers.",
+      "objects": ["decision_rendering", "executive", "analyst", "audit", "patch impact"],
+      "transition": "valid graph becomes audience view",
+      "expected_artifact": "decision_rendering"
+    },
+    {
+      "id": "HF09",
+      "time": "01:36-01:48",
+      "title": "Patch Closure",
+      "visual_focus": "New evidence activates a dependency closure path through claims, edges, loops, options, gates, and rendering.",
+      "narration": "When evidence changes, OfOne does not rewrite blindly. It follows dependency closure and patches the affected state.",
+      "objects": ["trigger", "closure", "patch", "rendering impact"],
+      "transition": "changed evidence propagates through dependencies",
+      "expected_artifact": "patch_report"
+    },
+    {
+      "id": "HF10",
+      "time": "01:48-02:00",
+      "title": "Benchmark Boundary",
+      "visual_focus": "Validated artifacts enter a benchmark matrix while superiority claims remain blocked.",
+      "narration": "The system can be useful before it is proven superior. Superiority claims wait for controlled benchmark evidence.",
+      "objects": ["benchmark", "review", "claim boundary", "next mode"],
+      "transition": "decision state enters empirical comparison",
+      "expected_artifact": "benchmark_result"
+    }
+  ],
+  "rendering_notes": {
+    "visual_style": "Dense but calm decision-tool interface. Use geometric flow, not decorative abstraction.",
+    "primary_palette": ["#0f766e", "#1d4ed8", "#b45309", "#15803d", "#b91c1c"],
+    "accessibility": "Keep text short, high contrast, and non-overlapping across 16:9 and mobile preview crops.",
+    "audio": "OpenAI TTS voiceover generated from media/remotion/voiceover/ofone-walkthrough-voiceover.txt"
+  }
+}
+

@@ -9,6 +9,7 @@
     "schema:check": "node scripts/ofone-schema-check.mjs",
     "render": "node scripts/ofone-render.mjs",
     "patch": "node scripts/ofone-patch.mjs",
+    "voiceover": "node scripts/ofone-generate-voiceover.mjs",
     "benchmark": "node scripts/ofone-benchmark.mjs",
     "pages:check": "node scripts/ofone-pages-check.mjs",
     "research:check": "node scripts/ofone-research-check.mjs",

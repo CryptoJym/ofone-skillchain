@@ -2,3 +2,11 @@
 node_modules/
 dist/
 build/
+media/remotion/node_modules/
+media/remotion/out/
+media/remotion/public/audio/*.mp3
+media/remotion/public/audio/*.wav
+media/remotion/public/audio/*.aac
+media/remotion/public/audio/*.flac
+media/remotion/public/audio/*.opus
+!media/remotion/public/audio/.gitkeep

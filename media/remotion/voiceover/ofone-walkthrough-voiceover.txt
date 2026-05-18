@@ -1,0 +1,22 @@
+OfOne is a typed decision-state compiler.
+
+It starts with a bounded objective. The question is not answered immediately. It is chartered. The charter names the decision, scope, stakes, time horizon, criteria, and the conditions that would force human review.
+
+Then the system moves through a geometry kernel. The problem becomes a scene. Frames define how the scene is interpreted. Tokens name the objects that can be referenced. Edges define relations. Loops define recurring dynamics. Moves define transformations. Gates define blocked paths.
+
+Adapters project domain language onto that geometry. A strategy problem, a scientific mechanism check, a formal proof search, and a public policy audit do not share the same vocabulary. But they can share a stable object grammar.
+
+Evidence is separated from claims. Evidence carries source identity, provenance, content hash, retrieval time, excerpts, permissions, and risk. Claims stay atomic. A claim can be supported, contradicted, disputed, killed, or superseded.
+
+The map then becomes a decision surface. Options are evaluated against criteria. Unknowns are ranked by information value. Temporal validity tells the system when evidence goes stale. Stakeholders and review gates show who can approve, block, or bear risk.
+
+Before release, OfOne validates the artifact. Schema checks run first. Semantic graph checks follow. Unsupported claims, illegal edges, missing gates, unresolved blocking unknowns, and benchmark-trace violations cannot pass as a final decision.
+
+Only after validation does the system render an answer. The user sees a decision-native view: decision, confidence, why, blocking unknowns, human gates, change triggers, dissent, and evidence identity. The rendering is not the state. It is a projection of the state.
+
+When new evidence arrives, OfOne patches instead of rewriting blindly. The changed object activates dependency closure. Affected claims, edges, loops, options, gates, and renderings are identified and revalidated.
+
+The current system is not claiming empirical superiority. It is in benchmark handoff. The architecture is coherent, the tooling is real, and the next proof is controlled comparison against simpler methods.
+
+That is the point of OfOne: move from persuasive answers to auditable, typed, patchable decision state.
+

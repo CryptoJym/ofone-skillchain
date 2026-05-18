@@ -15,6 +15,13 @@ const repoRoot = path.resolve(__dirname, "..");
 
 const targets = [
   { label: "homepage", local: "index.html", remote: "/" },
+  { label: "operating walkthrough", local: "docs/walkthroughs/ofone-operating-walkthrough.md", remote: "/docs/walkthroughs/ofone-operating-walkthrough.md" },
+  { label: "walkthrough hyperframe", local: "media/hyperframes/ofone-walkthrough.hyperframe.json", remote: "/media/hyperframes/ofone-walkthrough.hyperframe.json", kind: "json" },
+  { label: "remotion walkthrough readme", local: "media/remotion/README.md", remote: "/media/remotion/README.md" },
+  { label: "remotion walkthrough data", local: "media/remotion/src/data/ofoneWalkthrough.ts", remote: "/media/remotion/src/data/ofoneWalkthrough.ts" },
+  { label: "remotion walkthrough component", local: "media/remotion/src/OfOneWalkthrough.tsx", remote: "/media/remotion/src/OfOneWalkthrough.tsx" },
+  { label: "voiceover source", local: "media/remotion/voiceover/ofone-walkthrough-voiceover.txt", remote: "/media/remotion/voiceover/ofone-walkthrough-voiceover.txt" },
+  { label: "voiceover generator", local: "scripts/ofone-generate-voiceover.mjs", remote: "/scripts/ofone-generate-voiceover.mjs" },
   { label: "base schema", local: "schemas/ofone.base.schema.json", remote: "/schemas/ofone.base.schema.json", kind: "json" },
   { label: "review sidecar schema", local: "schemas/ofone.review.schema.json", remote: "/schemas/ofone.review.schema.json", kind: "json" },
   { label: "review checker script", local: "scripts/ofone-review-check.mjs", remote: "/scripts/ofone-review-check.mjs" },
