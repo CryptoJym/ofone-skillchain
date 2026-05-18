@@ -235,6 +235,7 @@ function runToolingContractCheck() {
     ["index batch 01 matrix link", index.includes("./benchmarks/runs/2026-05-17-batch-01/execution-matrix.json")],
     ["index first raw output link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md")],
     ["index first review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md")],
+    ["index independent review handoff link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md")],
     ["Pages v08 context link", index.includes("./research/ofone-v08-convergence-context-brief.md")]
   ];
   const missing = required.filter(([, passed]) => !passed).map(([name]) => name);

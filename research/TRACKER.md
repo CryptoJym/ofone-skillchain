@@ -11,6 +11,7 @@ Date: 2026-05-17
 | 03 | OfOne v0.6 Recursive Compiler Review | foundation | integrated | https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746 | Completed in ChatGPT Deep Research after public commit `d2d71e33bc5776fa92dacace1609adcc5bdafcaf` integrated Run 02 backlog. Prompt: `research/prompts/2026-05-17-03-ofone-v06-recursive-review.md`. Context brief: `research/ofone-v06-context-brief.md`, pasted inline as `Pasted text(5).txt`. Result harvested to `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md`; accepted protocol-hardening synthesis saved to `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md`. |
 | 04 | OfOne v0.7 Recursive Review | foundation | integrated | https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc | Completed in ChatGPT Deep Research after public commit `00da3fe3d530f0fd8c96353dc52b8ff6a7146976` integrated Run 03 protocol-hardening backlog. Prompt: `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md`. Context brief: `research/ofone-v07-context-brief.md`; prompt pasted directly into the composer. Result harvested to `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md`; sidecar saved to `research/review-sidecars/2026-05-17-04-ofone-v07-recursive-review-sidecar.json`; local synthesis saved to `research/results/2026-05-17-04-ofone-v07-recursive-review-synthesis.md`. |
 | 05 | OfOne v0.8 Convergence / Benchmark-Handoff Review | convergence | integrated | https://chatgpt.com/c/6a0a4b1b-712c-83e8-8f52-671c899dbbd7 | Completed in ChatGPT Deep Research after public commit `fccb58ee035ab8d415fa0e1616dae8266a02f7e5` integrated Run 04 hardening. Prompt: `research/prompts/2026-05-17-05-ofone-v08-convergence-benchmark-handoff.md`. Context brief: `research/ofone-v08-convergence-context-brief.md`. Result harvested to `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`; local synthesis saved to `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md`. Accepted verdict implemented and pushed: benchmark doc harmonization, Pages parity checker, version/review-round traceability, public v08 context link. Public Pages parity passed after commit `b55ed2e7ac468d0a6e71852c3aa15ff0d28db170`. |
+| 06 | OfOne Batch 01 Independent Review | benchmark | prepared |  | Prepared but not launched. Prompt: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`. Context brief: `research/ofone-batch01-independent-review-context.md`. Target: independently review the first locally reviewed Batch 01 slice and decide whether repo changes are needed before broader benchmark execution continues. |
 
 ## Run 01 Launch Metadata
 
@@ -89,6 +90,16 @@ Date: 2026-05-17
 - Current state: `integrated`
 - Result file: `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`
 - Local synthesis: `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md`
+
+## Run 06 Preparation Metadata
+
+- Launch status: `prepared`
+- Prompt file: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`
+- Context brief: `research/ofone-batch01-independent-review-context.md`
+- Independent-review handoff: `benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`
+- Target public state: Batch 01 has 90 predeclared run slots; 3 slots have local unblinded reviews; no independent review or aggregate scoring is complete.
+- ChatGPT URL: not launched yet.
+- Deep Research status: not launched yet.
 
 ## Status Checks
 

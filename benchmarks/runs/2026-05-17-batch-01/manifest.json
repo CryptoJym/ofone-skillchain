@@ -50,7 +50,11 @@
     "rubric": "benchmarks/rubrics/decision-map-rubric.md",
     "review_template": "benchmarks/reviews/2026-05-17-batch-01-review-template.md",
     "blinding": "Hide arm labels from reviewers where practical. If blinding is not possible because full_ofone artifacts are obvious, record that limitation in the review notes.",
-    "adjudication_status": "in_progress"
+    "adjudication_status": "in_progress",
+    "independent_review_status": "prepared",
+    "independent_review_handoff": "benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md",
+    "independent_review_prompt": "research/prompts/2026-05-17-06-ofone-batch01-independent-review.md",
+    "independent_review_context": "research/ofone-batch01-independent-review-context.md"
   },
   "results_plan": {
     "summary_file": "benchmarks/results/2026-05-17-batch-01-summary.md",

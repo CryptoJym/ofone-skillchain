@@ -25,6 +25,7 @@ const requiredMetrics = [
 ];
 const validBatchStatuses = new Set(["not_started", "in_progress", "completed", "reviewed", "released", "accepted", "superseded"]);
 const validRunMatrixStatuses = new Set(["queued", "in_progress", "completed", "reviewed", "released", "superseded"]);
+const validIndependentReviewStatuses = new Set(["not_prepared", "prepared", "launched", "harvested", "accepted", "integrated", "blocked"]);
 
 const diagnostics = [];
 const fail = (code, message) => diagnostics.push({ severity: "error", code, message });
@@ -440,6 +441,31 @@ function validateBatchReviewPlan(manifest) {
   if (!reviewPlan.adjudication_status || !validBatchStatuses.has(reviewPlan.adjudication_status)) {
     fail("BENCH_BATCH_ADJUDICATION_STATUS", `${manifest.batch_id} review_plan.adjudication_status has invalid status ${reviewPlan.adjudication_status || "(missing)"}`);
   }
+  validateIndependentReviewPlan(manifest, reviewPlan);
+}
+
+function validateIndependentReviewPlan(manifest, reviewPlan) {
+  const status = reviewPlan.independent_review_status || "not_prepared";
+  if (!validIndependentReviewStatuses.has(status)) {
+    fail("BENCH_BATCH_INDEPENDENT_REVIEW_STATUS", `${manifest.batch_id} independent_review_status has invalid status ${status}`);
+    return;
+  }
+
+  if (status === "not_prepared") {
+    warn("BENCH_BATCH_INDEPENDENT_REVIEW_STATUS", `${manifest.batch_id} has no independent review handoff prepared`);
+    return;
+  }
+
+  checkFile("BENCH_BATCH_INDEPENDENT_REVIEW_HANDOFF", reviewPlan.independent_review_handoff, `${manifest.batch_id} independent review handoff`);
+  checkFile("BENCH_BATCH_INDEPENDENT_REVIEW_PROMPT", reviewPlan.independent_review_prompt, `${manifest.batch_id} independent review prompt`);
+  checkFile("BENCH_BATCH_INDEPENDENT_REVIEW_CONTEXT", reviewPlan.independent_review_context, `${manifest.batch_id} independent review context`);
+
+  if (["launched", "harvested", "accepted", "integrated"].includes(status) && !reviewPlan.independent_review_url) {
+    fail("BENCH_BATCH_INDEPENDENT_REVIEW_URL", `${manifest.batch_id} independent_review_url required when status is ${status}`);
+    return;
+  }
+
+  pass("BENCH_BATCH_INDEPENDENT_REVIEW_STATUS", `${manifest.batch_id} independent review status is ${status}`);
 }
 
 function validateBatchResultsPlan(manifest) {

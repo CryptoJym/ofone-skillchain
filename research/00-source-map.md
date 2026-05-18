@@ -77,6 +77,9 @@ The public GitHub Pages site was checked and contains references to the latest v
 - Run 05 result: `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`
 - Run 05 synthesis/backlog: `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md`
 - Run 05 context brief: `research/ofone-v08-convergence-context-brief.md`
+- Run 06 independent-review prompt: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`
+- Run 06 independent-review context: `research/ofone-batch01-independent-review-context.md`
+- Run 06 benchmark handoff: `benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`
 - Stable recursive review protocol: `research/review-protocol.md`
 - Source register: `research/source-register.md`
 - Acceptance caveat: ChatGPT reported that it could read the attached context brief but could not directly fetch the public repo/docs; repo-specific findings were locally checked before synthesis.

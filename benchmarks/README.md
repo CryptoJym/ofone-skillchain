@@ -41,6 +41,7 @@ The source-backed example at `../examples/source-backed-wastewater-map.json` is 
 It declares the three benchmark arms, frozen arm prompts, repeated-run and model-family plan, review template, result placeholders, raw-output directory, and release guard.
 `runs/2026-05-17-batch-01/execution-matrix.json` predeclares 90 run slots across 5 cases, 3 arms, 2 model families, and 3 repeats.
 Its status is `in_progress`; three local `agentic_coding` raw outputs have unblinded local reviews, with independent review and aggregate scoring still blocked.
+The independent frontier-review handoff is prepared at `reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`; it is not launched or harvested yet.
 
 ## Validate The Suite
 

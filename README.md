@@ -121,3 +121,4 @@ Current benchmark execution plan:
 - [`benchmarks/runs/2026-05-17-batch-01/execution-matrix.json`](./benchmarks/runs/2026-05-17-batch-01/execution-matrix.json)
 - [`benchmarks/reviews/2026-05-17-batch-01-review-template.md`](./benchmarks/reviews/2026-05-17-batch-01-review-template.md)
 - First locally reviewed slice: `case-strategic-gated-diligence-001`, `agentic_coding`, repeat 1, across direct-answer, light-structured, and full-OfOne arms. These reviews are unblinded, not independent, and do not support aggregate benchmark claims.
+- Independent frontier-review handoff prepared, not launched: [`benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`](./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md)
