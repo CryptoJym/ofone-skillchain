@@ -12,7 +12,7 @@ Date: 2026-05-17
 | 04 | OfOne v0.7 Recursive Review | foundation | integrated | https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc | Completed in ChatGPT Deep Research after public commit `00da3fe3d530f0fd8c96353dc52b8ff6a7146976` integrated Run 03 protocol-hardening backlog. Prompt: `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md`. Context brief: `research/ofone-v07-context-brief.md`; prompt pasted directly into the composer. Result harvested to `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md`; sidecar saved to `research/review-sidecars/2026-05-17-04-ofone-v07-recursive-review-sidecar.json`; local synthesis saved to `research/results/2026-05-17-04-ofone-v07-recursive-review-synthesis.md`. |
 | 05 | OfOne v0.8 Convergence / Benchmark-Handoff Review | convergence | integrated | https://chatgpt.com/c/6a0a4b1b-712c-83e8-8f52-671c899dbbd7 | Completed in ChatGPT Deep Research after public commit `fccb58ee035ab8d415fa0e1616dae8266a02f7e5` integrated Run 04 hardening. Prompt: `research/prompts/2026-05-17-05-ofone-v08-convergence-benchmark-handoff.md`. Context brief: `research/ofone-v08-convergence-context-brief.md`. Result harvested to `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`; local synthesis saved to `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md`. Accepted verdict implemented and pushed: benchmark doc harmonization, Pages parity checker, version/review-round traceability, public v08 context link. Public Pages parity passed after commit `b55ed2e7ac468d0a6e71852c3aa15ff0d28db170`. |
 | 06 | OfOne Batch 01 Independent Review | benchmark | integrated | https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93 | Completed in ChatGPT Deep Research and harvested to `research/results/2026-05-17-06-ofone-batch01-independent-review-result.md`. Independent adjudication accepted `direct_answer` and `light_structured`, rejected `full_ofone` from aggregate scoring, and triggered benchmark workflow hardening: case-binding checks, pre-score auto-reject, immutable validator/patch artifacts, semantic-fidelity fields, excluded-run log, and matrix state semantics. |
-| 07 | OfOne Post-Run06 Benchmark Hardening Review | benchmark | prepared | pending | Prepared after baseline implementation commit `579b14902c401611309322fdd89e1d136c8bae05` integrated Run 06. Prompt: `research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md`. Context brief: `research/ofone-post-run06-hardening-context.md`. Status ledger: `research/status/2026-05-17-07-ofone-post-run06-hardening-review.md`. Target: audit whether Run 06 remediation is sufficient before the next Batch 01 slice. |
+| 07 | OfOne Post-Run06 Benchmark Hardening Review | benchmark | active_researching | https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a | Launched in ChatGPT Deep Research after baseline implementation commit `579b14902c401611309322fdd89e1d136c8bae05` integrated Run 06 and public protocol commit `7ed31908f86397097441bc10079340c8be8eed42` published the Run 07 handoff. Prompt: `research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md`. Context brief: `research/ofone-post-run06-hardening-context.md`. Status ledger: `research/status/2026-05-17-07-ofone-post-run06-hardening-review.md`. Target: audit whether Run 06 remediation is sufficient before the next Batch 01 slice. |
 
 ## Run 01 Launch Metadata
 
@@ -109,8 +109,25 @@ Date: 2026-05-17
 - Current state: `integrated`
 - Target public state: Batch 01 has 90 predeclared run slots; 3 slots have local unblinded reviews; no independent review or aggregate scoring is complete.
 
+## Run 07 Launch Metadata
+
+- Observed model label: expanded model selector before launch showed `Latest • 5.5`; selected option showed `Pro • Extended`; composer showed `Pro` after Deep Research was enabled.
+- Observed thinking/reasoning label: `Pro • Extended`.
+- Deep Research: enabled; visible plan title `OfOne Run07 hardening review`; `Start` clicked; visible status changed to `Researching...`; `Stop research` button present.
+- Prompt file: `research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md`
+- Context brief: `research/ofone-post-run06-hardening-context.md`
+- Run-scoped status ledger: `research/status/2026-05-17-07-ofone-post-run06-hardening-review.md`
+- Attached/pasted context: ChatGPT received the combined prompt and context brief as a pasted document labeled `Pasted markdown.md`; active launch instruction explicitly referenced the attached pasted text as the full request/context.
+- ChatGPT project/workspace: none selected; clean normal ChatGPT conversation.
+- Applied connections: public web/GitHub/Pages URLs in prompt; no private account connections selected.
+- Browser surface: Chrome plugin unavailable through callable tools; launched with Computer Use on authenticated Chrome session.
+- URL: https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a
+- Current state: `active_researching`
+- Target public state: Run 06 benchmark-remediation implementation has been pushed live; Run 07 is reviewing that state before the next Batch 01 benchmark slice.
+
 ## Status Checks
 
+- 2026-05-17T18:50:56-06:00: Launched Run 07 in ChatGPT Deep Research at https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a. Model selector before launch showed `Latest • 5.5` and `Pro • Extended`; Deep Research was enabled; context was delivered as `Pasted markdown.md`; visible plan title `OfOne Run07 hardening review`; `Start` clicked; visible status is `Researching...`; `Stop research` is present.
 - 2026-05-17T18:12:12-06:00: Launched Run 06 in ChatGPT Deep Research at https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93. Model selector showed `Latest • 5.5` and `Pro • Extended`; Deep Research was enabled; context was delivered as `Pasted text(8).txt`; visible plan title `Independent OfOne Batch 01 Review`; `Start` clicked; visible status is `Researching...`; `Stop research` is present.
 - 2026-05-17T18:19:04-06:00: Run 06 still active in ChatGPT Deep Research. Visible plan title remains `Independent OfOne Batch 01 Review`; step 1 is checked complete, step 2 is active; visible status remains `Researching...`; visible count shows `5 searches`; `Stop research` remains present. Report is not ready to harvest.
 - 2026-05-17T18:25:00-06:00: Run 06 still active in ChatGPT Deep Research. Visible status changed to `Finalizing methodology and addressing inconsistencies...`; step 1 remains checked complete, step 2 remains active; visible count shows `5 searches`; `Stop research` remains present. Report is not ready to harvest.

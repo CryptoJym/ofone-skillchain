@@ -2,12 +2,13 @@
 
 Run: OfOne Post-Run06 Benchmark Hardening Review
 Run ID: 07
-Lifecycle state: prepared
-Conversation URL: pending
+Lifecycle state: active_researching
+Conversation URL: https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a
 Prompt: `research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md`
 Context: `research/ofone-post-run06-hardening-context.md`
 Baseline implementation commit under review: `579b14902c401611309322fdd89e1d136c8bae05`
 Packet publication commit: `e1d14c6`
+Latest public protocol commit before launch: `7ed31908f86397097441bc10079340c8be8eed42`
 
 ## Prepared Scope
 
@@ -22,10 +23,21 @@ This run asks GPT 5.5 Pro / ChatGPT Deep Research to review the public repositor
 - 2026-05-17T18:44:23-06:00: Packet wiring prepared locally; `npm run schema:check`, `npm run validate`, `npm run review:check`, `npm run research:check`, `npm run benchmark`, and `npm test` passed. Pages parity is intentionally held until the packet is committed, pushed, and published.
 - 2026-05-17T18:45:00-06:00: Packet committed and pushed to `main` as `e1d14c6`.
 - 2026-05-17T18:47:22-06:00: Prompt updated with the `chatgpt-deep-research-pro` research protocol block before launch.
+- 2026-05-17T18:50:56-06:00: Latest public protocol commit before launch was `7ed31908f86397097441bc10079340c8be8eed42`.
 
 ## Launch Rule
 
 This run is not launched until ChatGPT Deep Research has a generated plan, `Start` is clicked, and the UI shows active research with stop-control evidence. After launch, update this ledger, the tracker, and any relevant public status fields before harvest.
+
+## Launch Proof
+
+- 2026-05-17T18:50:56-06:00: Opened a clean ChatGPT root conversation and launched Run 07 at https://chatgpt.com/c/6a0a6259-357c-83e8-b67a-6db72e4af30a.
+- Observed model/mode before launch: expanded model selector showed `Latest • 5.5`; selected option showed `Pro • Extended`; composer showed `Pro` after Deep Research was enabled.
+- Deep Research was enabled before submit; the composer showed `Deep research, click to remove`.
+- Context handoff: combined prompt/context was delivered as a pasted document labeled `Pasted markdown.md`; the visible user message instructed ChatGPT to use the attached pasted text as the full Deep Research request and context.
+- Generated plan title: `OfOne Run07 hardening review`.
+- Start action: clicked `Start` on the Deep Research plan card.
+- Active proof: card shows `Researching...`; `Stop research` button is visible.
 
 ## Harvest Rule
 
