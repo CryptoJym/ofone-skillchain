@@ -1,0 +1,1017 @@
+{
+  "ofone_version": "0.6.0",
+  "mode": "Map",
+  "charter": {
+    "objective": "Decide how to handle a plausible scientific mechanism with limited measurements, possible confounding, and a proposed intervention.",
+    "scope": [
+      "scientific mechanism check",
+      "measurement validation",
+      "confounder review",
+      "intervention gating"
+    ],
+    "horizon": "one validation cycle before relying on the intervention",
+    "stakes": [
+      "mechanism validity",
+      "intervention misfire risk",
+      "measurement quality"
+    ],
+    "risk_tier": "medium",
+    "movement_jobs": [
+      "BOUND",
+      "TEST",
+      "GATE"
+    ]
+  },
+  "artifact_identity": {
+    "artifact_id": "OFONE-2026-05-18-B01-SCI-FULL-R3",
+    "case_id": "case-scientific-mechanism-check-001",
+    "objective_head": "scientific mechanism check before intervention",
+    "scope_hash": "sha256:cdb33da5247bb175b9655bd1fd8e402eb32cd3a82506aceb8dfb5de13caa62c8",
+    "config_hash": "sha256:3729b6ba39d84329c6fb569aa0ca170ff52ae991fea83d6f40a3fde4b18053c1",
+    "active_evidence_hashes": [
+      "sha256:1e8a179003b68c1e158877b688e56d3845a2d4ac9056e69d10eefb64835241d3",
+      "sha256:8234aa01407d60791bfc31bca2dcf5a8dcee355c18a156cc5bc6b3273dbe45e4"
+    ],
+    "created_at": "2026-05-18T09:52:00Z",
+    "status": "draft",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "scientific-explanatory",
+    "axes": {
+      "scientific-explanatory": [
+        "measurement quality",
+        "mechanism claim",
+        "confounder risk",
+        "contradictory-observation update"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "LINK"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "causal",
+        "assumptions": [
+          "The proposed mechanism should be represented as a causal hypothesis, not as established fact."
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "evidential",
+        "assumptions": [
+          "Limited measurements and possible confounding reduce the strength of any intervention recommendation."
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "type": "temporal",
+        "assumptions": [
+          "New contradictory measurement should trigger a patch before the intervention is relied on."
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "K1",
+        "kind": "entity",
+        "label": "research team"
+      },
+      {
+        "token_id": "K2",
+        "kind": "variable",
+        "label": "observed measurement pattern"
+      },
+      {
+        "token_id": "K3",
+        "kind": "claim",
+        "label": "plausible mechanism hypothesis"
+      },
+      {
+        "token_id": "K4",
+        "kind": "uncertainty",
+        "label": "possible confounder"
+      },
+      {
+        "token_id": "K5",
+        "kind": "option",
+        "label": "proposed intervention"
+      },
+      {
+        "token_id": "K6",
+        "kind": "gate",
+        "label": "validation gate before intervention reliance"
+      },
+      {
+        "token_id": "K7",
+        "kind": "trigger",
+        "label": "contradictory new measurement"
+      }
+    ],
+    "state_variables": [
+      "measurement quality",
+      "mechanism support",
+      "confounder status",
+      "intervention readiness"
+    ],
+    "observed_variables": [
+      "plausible mechanism",
+      "limited measurements",
+      "possible confounding",
+      "proposed intervention"
+    ],
+    "hidden_variables": [
+      "measurement error",
+      "selection bias",
+      "unobserved confounder",
+      "regime shift"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "TEST"
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "parent_scene": "S1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "K2",
+          "K4"
+        ],
+        "entry_conditions": [
+          "current measurements are limited"
+        ],
+        "exit_conditions": [
+          "measurement protocol and confounder screen are specified"
+        ],
+        "movement_jobs": [
+          "GROUND",
+          "TEST"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "parent_scene": "S1",
+        "purpose": "causal_mechanism",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K3",
+          "K5"
+        ],
+        "entry_conditions": [
+          "mechanism is plausible but not established"
+        ],
+        "exit_conditions": [
+          "mechanism survives measurement and confounder checks or is revised"
+        ],
+        "movement_jobs": [
+          "CLAIM",
+          "TEST"
+        ]
+      },
+      {
+        "subscene_id": "SS3",
+        "parent_scene": "S1",
+        "purpose": "review_gate",
+        "frames": [
+          "F3"
+        ],
+        "tokens": [
+          "K6",
+          "K7"
+        ],
+        "entry_conditions": [
+          "team wants to rely on the intervention"
+        ],
+        "exit_conditions": [
+          "validation reviewer approves, blocks, or requests replication"
+        ],
+        "movement_jobs": [
+          "GATE",
+          "TRIGGER"
+        ]
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/scientific-mechanism-check.md#Prompt",
+      "provenance": "frozen benchmark case dossier",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:1e8a179003b68c1e158877b688e56d3845a2d4ac9056e69d10eefb64835241d3",
+      "retrieved_at": "2026-05-18T09:52:00Z",
+      "extract": "Case dossier states there is a plausible mechanism, limited measurements, possible confounding, and a proposed intervention.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "Read from frozen local benchmark case during full_ofone scientific repeat-3 run construction.",
+      "supports": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "risks": [
+        "scenario_level_only",
+        "no_external_measurement_data"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "BOUND"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/scientific-mechanism-check.md#Expected-OfOne-Pressure-Points",
+      "provenance": "frozen benchmark case dossier",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:8234aa01407d60791bfc31bca2dcf5a8dcee355c18a156cc5bc6b3273dbe45e4",
+      "retrieved_at": "2026-05-18T09:52:00Z",
+      "extract": "Expected pressure points include measurement versus mechanism separation, confounder and hidden-variable visibility, testability, evidence validity windows, and update behavior when new measurement contradicts the mechanism.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "Read from frozen local benchmark case during full_ofone scientific repeat-3 run construction.",
+      "supports": [
+        "C4",
+        "C5"
+      ],
+      "risks": [
+        "pressure_points_are_requirements_not_empirical_findings"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "WARN"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "The proposed mechanism remains a hypothesis because the case gives limited measurements rather than mechanism-isolating evidence.",
+      "type": "descriptive",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "case dossier is abstract"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "BOUND"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "Possible confounding creates hidden-variable risk for the mechanism claim.",
+      "type": "causal",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "hidden_variable_risk",
+          "mechanism_fit"
+        ],
+        "failure_modes": [
+          "confounder is acknowledged but not named"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "WARN"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "text": "The intervention should stay behind a validation gate until measurement adequacy and confounder pressure are resolved.",
+      "type": "operational",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1",
+        "C2"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "mechanism_fit",
+          "hidden_variable_risk",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "validation threshold not specified"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "GATE"
+      ]
+    },
+    {
+      "claim_id": "C4",
+      "text": "A contradictory new measurement should patch the mechanism claim and the intervention recommendation.",
+      "type": "operational",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "new measurement may be noisy"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "TRIGGER"
+      ]
+    },
+    {
+      "claim_id": "C5",
+      "text": "The highest-value next move is a falsifiable validation cycle that specifies measurement protocol, confounder tests, and kill conditions.",
+      "type": "operational",
+      "supports": [
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "mechanism_fit",
+          "hidden_variable_risk"
+        ],
+        "failure_modes": [
+          "measurement protocol cost unknown"
+        ]
+      },
+      "status": "active",
+      "review_gate": false,
+      "movement_jobs": [
+        "CLAIM",
+        "MOVE",
+        "TEST"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_measurement",
+      "description": "The case does not specify the measurement protocol, instrument quality, sample context, or replication evidence.",
+      "blocks": [
+        "R1",
+        "O2"
+      ],
+      "resolution_move": "Define and run a measurement protocol or replication check before intervention reliance.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "GATE"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "kind": "unobserved_variable",
+      "description": "The possible confounder is acknowledged but unnamed and untested.",
+      "blocks": [
+        "O2"
+      ],
+      "resolution_move": "Identify likely confounders and test whether they explain the observed measurement pattern.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C2",
+      "test_type": "measurement",
+      "condition": "measurement invalidation: new measurements fail to show the predicted pattern when likely confounders are controlled",
+      "falsifies": [
+        "C2",
+        "C3",
+        "O2"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    },
+    {
+      "test_id": "KT2",
+      "target": "C3",
+      "test_type": "replication",
+      "condition": "failed replication: the mechanism does not replicate under the planned measurement protocol",
+      "falsifies": [
+        "C3",
+        "O2"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "GATE"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "research team",
+      "role": "operator",
+      "incentives": [
+        "resolve mechanism uncertainty",
+        "avoid acting on confounded evidence"
+      ],
+      "exposures": [
+        "measurement error",
+        "intervention misfire"
+      ],
+      "authority": "advise",
+      "legitimacy_basis": "owns measurement design and mechanism review",
+      "movement_jobs": [
+        "BOUND",
+        "TEST"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "validation reviewer",
+      "role": "reviewer",
+      "incentives": [
+        "block premature intervention reliance",
+        "require testable mechanism support"
+      ],
+      "exposures": [
+        "false causal inference",
+        "avoidable intervention cost"
+      ],
+      "authority": "block",
+      "legitimacy_basis": "reviews whether mechanism evidence is adequate before action",
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Measurement adequacy",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Mechanism support requires a specified measurement protocol and interpretable observations.",
+      "owned_by": [
+        "A1",
+        "A2"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "TEST"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Confounder pressure addressed",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "The intervention cannot be relied on while a plausible untested confounder could explain the observed pattern.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Patchability under contradiction",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Contradictory measurements should trigger a scoped revision of the mechanism and intervention recommendation.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "TRIGGER",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "E1",
+      "to": "C1",
+      "relation_family": "evidential",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GROUND"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "E1",
+      "to": "C2",
+      "relation_family": "evidential",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "edge_id": "X3",
+      "from": "C2",
+      "to": "C3",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X4",
+      "from": "U1",
+      "to": "R1",
+      "relation_family": "workflow_state",
+      "relation": "blocks",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X5",
+      "from": "U2",
+      "to": "O2",
+      "relation_family": "workflow_state",
+      "relation": "blocks",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X6",
+      "from": "T1",
+      "to": "C2",
+      "relation_family": "workflow_state",
+      "relation": "updates",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "TRIGGER",
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X7",
+      "from": "CR2",
+      "to": "O2",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E2"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "measurement",
+      "edges": [
+        "X1",
+        "X2",
+        "X6"
+      ],
+      "polarity": "balancing",
+      "delay": "medium",
+      "gain": "medium",
+      "control_points": [
+        "CR1",
+        "T1"
+      ],
+      "observable_cues": [
+        "new measurement contradicts mechanism",
+        "replication fails or supports predicted pattern"
+      ],
+      "failure_mode": "limited measurements are over-read as mechanism proof",
+      "movement_jobs": [
+        "TEST",
+        "TRIGGER",
+        "WARN"
+      ]
+    },
+    {
+      "loop_id": "L2",
+      "type": "contradiction",
+      "edges": [
+        "X4",
+        "X5",
+        "X6"
+      ],
+      "polarity": "mixed",
+      "delay": "unknown",
+      "gain": "high",
+      "control_points": [
+        "G1",
+        "KT1"
+      ],
+      "observable_cues": [
+        "confounder explains observation",
+        "intervention effect does not match mechanism"
+      ],
+      "failure_mode": "contradictory measurement is treated as noise without review",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "test",
+      "preconditions": [
+        "C1",
+        "C5"
+      ],
+      "expected_effects": [
+        "X1",
+        "X2",
+        "X6"
+      ],
+      "tradeoffs": [
+        "adds validation effort",
+        "reduces mechanism and intervention risk"
+      ],
+      "blocking_unknowns": [],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "TEST"
+      ]
+    },
+    {
+      "option_id": "O2",
+      "move_type": "act",
+      "preconditions": [
+        "C3"
+      ],
+      "expected_effects": [
+        "X5",
+        "X7"
+      ],
+      "tradeoffs": [
+        "faster intervention",
+        "higher risk of acting on confounded mechanism"
+      ],
+      "blocking_unknowns": [
+        "U1",
+        "U2"
+      ],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "GATE",
+        "WARN"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1",
+      "O2"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "U2",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "temporal_model": {
+    "time_horizon": "one validation cycle before intervention reliance",
+    "decision_deadline": "unknown",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "until benchmark case dossier changes",
+        "staleness_trigger": "case dossier changes or supplies new measurement data"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "until benchmark pressure points change",
+        "staleness_trigger": "case adds or removes contradiction/update requirement"
+      }
+    ],
+    "update_cadence": "patch immediately when contradictory measurement evidence arrives",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "one measurement-design and replication cycle",
+      "risk_reduction": "high",
+      "recommended_next_query": "What measurement protocol and observed result would support or contradict the mechanism?",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "one confounder-screen cycle",
+      "risk_reduction": "high",
+      "recommended_next_query": "Which hidden variable or confounder could explain the observed pattern without the proposed mechanism?",
+      "movement_jobs": [
+        "TEST",
+        "WARN",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "measurement adequacy",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "Are the observations sufficient to support the mechanism?",
+        "What measurement would contradict it?"
+      ],
+      "claims_examined": [
+        "C1",
+        "C4",
+        "C5"
+      ],
+      "blind_spots": [
+        "no actual sample, instrument, or control details in the case dossier"
+      ],
+      "contention": [
+        "limited measurement should not be treated as mechanism proof"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "confounder pressure",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "Could a hidden variable explain the observed pattern?",
+        "Does intervention reliance remain blocked?"
+      ],
+      "claims_examined": [
+        "C2",
+        "C3"
+      ],
+      "blind_spots": [
+        "confounder is possible but unnamed"
+      ],
+      "contention": [
+        "intervention should remain gated while U2 is open"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "scientific-explanatory"
+    ],
+    "missing_lenses": [
+      "domain-specific measurement specialist"
+    ],
+    "major_dissent": [
+      "Do not rely on the intervention until measurements and confounders are tested."
+    ],
+    "decision_effect": "run measurement/confounder validation first and keep intervention gated",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "E2",
+        "C2",
+        "C3",
+        "C4",
+        "U1",
+        "U2",
+        "G1",
+        "O1",
+        "O2",
+        "TS1"
+      ],
+      "transition": "patch",
+      "movement_jobs": [
+        "TRIGGER",
+        "TEST"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "Intervention reliance requires validation reviewer approval after measurement adequacy and confounder pressure are addressed.",
+      "reviewer": "A2",
+      "required_decision": "approve intervention reliance, block it, or require replication/confounder testing",
+      "status": "open",
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "low",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "rendering_id": "R1",
+    "summary": "Treat the mechanism as provisional; rely on the intervention only after measurement quality and confounder checks pass.",
+    "recommendation": "Run a falsifiable validation cycle and keep intervention reliance gated.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "C3",
+      "C5",
+      "U1",
+      "O1",
+      "TS1",
+      "G1",
+      "L1",
+      "COUNCIL"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "MOVE",
+      "GATE"
+    ]
+  },
+  "review_log": [],
+  "benchmark_trace": {
+    "trace_id": "BT-2026-05-17-B01-SCI-FULL-R3",
+    "suite_id": "ofone-v0.5-three-arm-evaluation",
+    "cases_run": 1,
+    "arms_run": [
+      "full_ofone"
+    ],
+    "model_families": 1,
+    "superiority_ready": false,
+    "diagnostics": [
+      "single repeat-3 benchmark run only",
+      "no empirical superiority claim supported",
+      "Batch 01 remains below release minimums"
+    ],
+    "case_id": "case-scientific-mechanism-check-001",
+    "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3",
+    "case_file": "benchmarks/cases/scientific-mechanism-check.md",
+    "case_file_sha256": "sha256:1126bb9ba5d97df4a9e82070d16df5ae4ffa61226d3d98a91b6c121671bb8efc",
+    "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+    "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "input_bundle_sha256": "sha256:5bae3d6429075001dc0feff579bd382810c9419b50bc4c5055272477bdc77b6d",
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "TRIGGER"
+    ]
+  }
+}

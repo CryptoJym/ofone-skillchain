@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 57,
-    "completed": 33,
-    "reviewed": 33,
+    "queued": 54,
+    "completed": 36,
+    "reviewed": 36,
     "excluded": 1,
-    "aggregate_eligible": 33,
+    "aggregate_eligible": 36,
     "remedial": 1
   },
   "completed_runs": [
@@ -1074,6 +1074,99 @@
         "patch_sha256": "sha256:a4d8ddea55c2ab8225d5f868447f5bc0cfefe2ec85a6c149b8b9228ab24c5313",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.rendering.md",
         "rendering_sha256": "sha256:e2a014e1b518a4e8a605156112829f1c56bad13e09384e81e8fec1606c2ee5e1"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r3",
+      "case_id": "case-scientific-mechanism-check-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 3,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r3.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r3.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r3",
+      "case_id": "case-scientific-mechanism-check-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 3,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r3.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r3.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3",
+      "case_id": "case-scientific-mechanism-check-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 3,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence with stable content hashes, chain-of-custody notes, and explicit measurement/confounder gates",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the scientific mechanism repeat-3 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-scientific-mechanism-check-001",
+        "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3",
+        "case_file": "benchmarks/cases/scientific-mechanism-check.md",
+        "case_file_sha256": "sha256:1126bb9ba5d97df4a9e82070d16df5ae4ffa61226d3d98a91b6c121671bb8efc",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:5bae3d6429075001dc0feff579bd382810c9419b50bc4c5055272477bdc77b6d"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.validator.json",
+        "validator_sha256": "sha256:9f41d603cef0b80d479f5f1d4b54589c55e234fcd5e03909e6dee74530c7450f",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.patch.json",
+        "patch_sha256": "sha256:7b26cdac7b856d044b7d2a1d5c14f3eb0d6c4d3e054ac153dcff1fb7d2fc3ddc",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.rendering.md",
+        "rendering_sha256": "sha256:59cdb6490bdbc2d540856a89e503fa038cab98c137324f50b059103307b4243d"
       }
     }
   ],
@@ -2115,12 +2208,105 @@
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r3.rendering.md",
         "rendering_sha256": "sha256:e2a014e1b518a4e8a605156112829f1c56bad13e09384e81e8fec1606c2ee5e1"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r3",
+      "case_id": "case-scientific-mechanism-check-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 3,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r3.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__direct_answer__agentic_coding__r3.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r3",
+      "case_id": "case-scientific-mechanism-check-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 3,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r3.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__light_structured__agentic_coding__r3.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level only; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3",
+      "case_id": "case-scientific-mechanism-check-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 3,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence with stable content hashes, chain-of-custody notes, and explicit measurement/confounder gates",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the scientific mechanism repeat-3 run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-scientific-mechanism-check-001",
+        "run_id": "2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3",
+        "case_file": "benchmarks/cases/scientific-mechanism-check.md",
+        "case_file_sha256": "sha256:1126bb9ba5d97df4a9e82070d16df5ae4ffa61226d3d98a91b6c121671bb8efc",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:5bae3d6429075001dc0feff579bd382810c9419b50bc4c5055272477bdc77b6d"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.validator.json",
+        "validator_sha256": "sha256:9f41d603cef0b80d479f5f1d4b54589c55e234fcd5e03909e6dee74530c7450f",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.patch.json",
+        "patch_sha256": "sha256:7b26cdac7b856d044b7d2a1d5c14f3eb0d6c4d3e054ac153dcff1fb7d2fc3ddc",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-scientific-mechanism-check-001__full_ofone__agentic_coding__r3.rendering.md",
+        "rendering_sha256": "sha256:59cdb6490bdbc2d540856a89e503fa038cab98c137324f50b059103307b4243d"
+      }
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
     "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
-    "allowed_claim": "Batch 01 has 33 completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
+    "allowed_claim": "Batch 01 has 36 completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
   },
   "excluded_runs": [
     {

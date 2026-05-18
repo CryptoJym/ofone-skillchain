@@ -87,6 +87,12 @@ The strategic gated diligence repeat-3 slice adds the final local `agentic_codin
 - Light structured answer: keeps approval, blocker, assumption, and update-path states scannable, but criteria and dependency closure remain prose.
 - Full OfOne answer: preserves evidence hashes, claims, unknowns, criteria, actors, gate, trigger closure, Map rendering, validator, and patch artifacts for `case-strategic-gated-diligence-001` repeat 3; remaining limitation is still the scenario-level case dossier rather than a real diligence checklist, named reviewer, or launch authority record.
 
+The scientific mechanism repeat-3 slice adds the final local `agentic_coding` repeated-run check for the scientific mechanism case:
+
+- Direct answer: again blocks intervention reliance and recommends a validation cycle, but cannot expose dependency closure from a contradictory measurement to the decision rendering.
+- Light structured answer: keeps mechanism status, hidden-variable pressure, intervention gate, and update rule visible, but remains prose-only.
+- Full OfOne answer: preserves measurement evidence hashes, mechanism claims, hidden-variable unknowns, kill tests, criteria, validation gate, trigger closure, Map rendering, validator, and patch artifacts for `case-scientific-mechanism-check-001` repeat 3; remaining limitation is still the abstract dossier rather than a real measurement protocol, sample, instrument, named confounder, or replication result.
+
 Minimum sections once runs exist:
 
 - validation failures
