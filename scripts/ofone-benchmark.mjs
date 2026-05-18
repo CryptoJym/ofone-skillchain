@@ -465,7 +465,41 @@ function validateIndependentReviewPlan(manifest, reviewPlan) {
     return;
   }
 
+  if (["launched", "harvested", "accepted", "integrated"].includes(status)) {
+    validateIndependentReviewLaunch(manifest, reviewPlan, status);
+  }
+
   pass("BENCH_BATCH_INDEPENDENT_REVIEW_STATUS", `${manifest.batch_id} independent review status is ${status}`);
+}
+
+function validateIndependentReviewLaunch(manifest, reviewPlan, status) {
+  const launch = reviewPlan.independent_review_launch;
+  if (!launch || typeof launch !== "object") {
+    fail("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH", `${manifest.batch_id} independent_review_launch required when status is ${status}`);
+    return;
+  }
+
+  for (const field of ["launched_at", "model_label", "reasoning_label", "pasted_context_label", "browser_surface"]) {
+    if (!launch[field]) fail("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH", `${manifest.batch_id} independent_review_launch.${field} missing`);
+  }
+  if (launch.deep_research_enabled !== true) {
+    fail("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH", `${manifest.batch_id} independent review must record deep_research_enabled=true`);
+  }
+  if (!Array.isArray(launch.launch_proof) || launch.launch_proof.length < 3) {
+    fail("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH", `${manifest.batch_id} independent_review_launch.launch_proof must include plan/start/researching proof`);
+    return;
+  }
+
+  const proofText = launch.launch_proof.join(" ").toLowerCase();
+  for (const requiredProof of ["plan", "start", "researching", "stop research"]) {
+    if (!proofText.includes(requiredProof)) {
+      fail("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH", `${manifest.batch_id} launch proof missing ${requiredProof}`);
+    }
+  }
+  if (reviewPlan.independent_review_url && !reviewPlan.independent_review_url.startsWith("https://chatgpt.com/c/")) {
+    warn("BENCH_BATCH_INDEPENDENT_REVIEW_URL", `${manifest.batch_id} independent_review_url is not a ChatGPT conversation URL`);
+  }
+  pass("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH", `${manifest.batch_id} independent review launch proof recorded`);
 }
 
 function validateBatchResultsPlan(manifest) {

@@ -155,3 +155,14 @@ Cross-surface and cross-domain research are validated through existing objects r
 - any accepted finding that changes the decision creates a `trigger`
 
 This keeps the compiler domain-independent while still making deep research auditable.
+
+External review cycles are validated as workflow state, not as core domain ontology. A cycle must distinguish:
+
+- `prepared`: prompt/context/handoff exist, but no external research is running.
+- `launched`: launch metadata exists and includes model label, reasoning label, Deep Research enabled state, conversation URL, context attachment or pasted-text label, plan title, start action, and visible researching/stop-control proof.
+- `active_researching`: the external UI still shows researching or stop-control state.
+- `harvested`: the final report has been faithfully copied into local results.
+- `accepted` / `rejected`: local adjudication separates actionable findings from unsupported or stale critique.
+- `integrated`: accepted findings have implementation commits and local checks.
+
+The validator treats launch metadata as a benchmark/review control-plane check. A prepared packet must never be reported as launched, and a normal chat answer must never be reported as Deep Research.

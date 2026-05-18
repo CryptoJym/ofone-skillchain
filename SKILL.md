@@ -221,6 +221,14 @@ Recommended lens split:
 
 Rule: OfOne owns the map. Cross-surface research feeds the map. Cross-domain transfer challenges the map. Synthesis renders the map.
 
+When OfOne is improved through external Deep Research or frontier-model review, record the run as a lifecycle state, not as loose narrative:
+
+```text
+prepared -> launched -> active_researching -> harvested -> accepted|rejected -> integrated|deferred -> resubmitted|converged|blocked
+```
+
+The run is only `launched` after the external system shows a generated research plan, the operator clicks `Start` or an explicit countdown begins, and a visible `Researching...` / stop-control state is present. Record model label, reasoning label, Deep Research flag, prompt/context paths, pasted/uploaded context label, URL, public repo or Pages state, and launch proof. Resubmit only after accepted findings have been implemented, verified, committed, pushed, and made visible to the external reviewer.
+
 ## Minimal Schemas
 
 Use stable IDs. Keep evidence, claims, graph objects, and renderings separate.

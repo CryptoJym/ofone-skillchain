@@ -133,6 +133,14 @@ cross-domain transfer -> hypotheses / kill tests / measurement ideas / options
 OfOne compiler -> map / confidence / synthesis / decision rendering
 ```
 
+External Deep Research and frontier-model review add another control loop around the compiler, but they still feed the same map:
+
+```text
+prepared packet -> launch proof -> active research -> harvested report -> adjudicated findings -> implemented patch -> public resubmission
+```
+
+The important invariant is proof of state transition. A prompt file or context packet is only `prepared`. A run is only `launched` after the external system exposes a research plan, Start/countdown has occurred, and the UI shows `Researching...` or an equivalent stop-control state. This prevents recursive learning from becoming self-reported progress.
+
 ---
 
 ## Adapter Algebra

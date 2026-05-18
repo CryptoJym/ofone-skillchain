@@ -11,7 +11,7 @@ Date: 2026-05-17
 | 03 | OfOne v0.6 Recursive Compiler Review | foundation | integrated | https://chatgpt.com/c/6a0a34eb-2e54-83e8-abf9-4ef0569af746 | Completed in ChatGPT Deep Research after public commit `d2d71e33bc5776fa92dacace1609adcc5bdafcaf` integrated Run 02 backlog. Prompt: `research/prompts/2026-05-17-03-ofone-v06-recursive-review.md`. Context brief: `research/ofone-v06-context-brief.md`, pasted inline as `Pasted text(5).txt`. Result harvested to `research/results/2026-05-17-03-ofone-v06-recursive-review-result.md`; accepted protocol-hardening synthesis saved to `research/results/2026-05-17-03-ofone-v06-recursive-review-synthesis.md`. |
 | 04 | OfOne v0.7 Recursive Review | foundation | integrated | https://chatgpt.com/c/6a0a43ac-5b18-83e8-8c05-b64f87ec48dc | Completed in ChatGPT Deep Research after public commit `00da3fe3d530f0fd8c96353dc52b8ff6a7146976` integrated Run 03 protocol-hardening backlog. Prompt: `research/prompts/2026-05-17-04-ofone-v07-recursive-review.md`. Context brief: `research/ofone-v07-context-brief.md`; prompt pasted directly into the composer. Result harvested to `research/results/2026-05-17-04-ofone-v07-recursive-review-result.md`; sidecar saved to `research/review-sidecars/2026-05-17-04-ofone-v07-recursive-review-sidecar.json`; local synthesis saved to `research/results/2026-05-17-04-ofone-v07-recursive-review-synthesis.md`. |
 | 05 | OfOne v0.8 Convergence / Benchmark-Handoff Review | convergence | integrated | https://chatgpt.com/c/6a0a4b1b-712c-83e8-8f52-671c899dbbd7 | Completed in ChatGPT Deep Research after public commit `fccb58ee035ab8d415fa0e1616dae8266a02f7e5` integrated Run 04 hardening. Prompt: `research/prompts/2026-05-17-05-ofone-v08-convergence-benchmark-handoff.md`. Context brief: `research/ofone-v08-convergence-context-brief.md`. Result harvested to `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`; local synthesis saved to `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md`. Accepted verdict implemented and pushed: benchmark doc harmonization, Pages parity checker, version/review-round traceability, public v08 context link. Public Pages parity passed after commit `b55ed2e7ac468d0a6e71852c3aa15ff0d28db170`. |
-| 06 | OfOne Batch 01 Independent Review | benchmark | prepared |  | Prepared but not launched. Prompt: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`. Context brief: `research/ofone-batch01-independent-review-context.md`. Target: independently review the first locally reviewed Batch 01 slice and decide whether repo changes are needed before broader benchmark execution continues. |
+| 06 | OfOne Batch 01 Independent Review | benchmark | active_researching | https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93 | Launched in ChatGPT Deep Research. Prompt: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`. Context brief: `research/ofone-batch01-independent-review-context.md`. Target: independently review the first locally reviewed Batch 01 slice and decide whether repo changes are needed before broader benchmark execution continues. |
 
 ## Run 01 Launch Metadata
 
@@ -91,17 +91,25 @@ Date: 2026-05-17
 - Result file: `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-result.md`
 - Local synthesis: `research/results/2026-05-17-05-ofone-v08-convergence-benchmark-handoff-synthesis.md`
 
-## Run 06 Preparation Metadata
+## Run 06 Launch Metadata
 
-- Launch status: `prepared`
+- Observed model label: expanded model selector showed `Latest • 5.5`; selected option showed `Pro • Extended` before Deep Research was enabled, and the Deep Research composer showed `Pro`.
+- Observed thinking/reasoning label: `Pro • Extended`.
+- Deep Research: enabled; visible plan title `Independent OfOne Batch 01 Review`; `Start` clicked; visible status changed to `Researching...`; `Stop research` button present.
 - Prompt file: `research/prompts/2026-05-17-06-ofone-batch01-independent-review.md`
 - Context brief: `research/ofone-batch01-independent-review-context.md`
 - Independent-review handoff: `benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`
+- Attached/pasted context: ChatGPT received the combined prompt and context brief as a pasted document labeled `Pasted text(8).txt`; active launch instruction explicitly referenced the attached pasted text as the full request/context.
+- ChatGPT project/workspace: none selected; clean normal ChatGPT conversation.
+- Applied connections: public web/GitHub/Pages URLs in prompt; no private account connections selected.
+- Browser surface: Chrome plugin unavailable through callable tools; launched with Computer Use on authenticated Chrome session.
+- URL: https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93
+- Current state: `active_researching`
 - Target public state: Batch 01 has 90 predeclared run slots; 3 slots have local unblinded reviews; no independent review or aggregate scoring is complete.
-- ChatGPT URL: not launched yet.
-- Deep Research status: not launched yet.
 
 ## Status Checks
+
+- 2026-05-17T18:12:12-06:00: Launched Run 06 in ChatGPT Deep Research at https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93. Model selector showed `Latest • 5.5` and `Pro • Extended`; Deep Research was enabled; context was delivered as `Pasted text(8).txt`; visible plan title `Independent OfOne Batch 01 Review`; `Start` clicked; visible status is `Researching...`; `Stop research` is present.
 
 - 2026-05-17T13:28:00-06:00: Still active in ChatGPT Deep Research. Visible status remains `Researching...`; step 1 is checked complete, steps 2-4 show active progress, and the report is not ready to harvest.
 - 2026-05-17T13:45:00-06:00: Completed in ChatGPT Deep Research. Visible report metadata: `Research completed in 19m`, `16 citations`, `66 searches`. Exported Markdown to `/Users/jamesbrady/Downloads/deep-research-report (16).md`, copied it into `research/results/2026-05-17-01-ofone-v04-skill-rd-result.md`, locally validated repo/tooling claims, ran `npm test` successfully, and accepted the report as research counsel with public-repo-fetch caveat.

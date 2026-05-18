@@ -37,6 +37,24 @@ Default allowlist for public OfOne reviews:
 - `https://raw.githubusercontent.com/CryptoJym/ofone-skillchain`
 - `https://cryptojym.github.io/ofone-skillchain`
 
+## External Research Cycle Lifecycle
+
+Recursive external review is not a chat note. Treat each run as auditable lifecycle state:
+
+```text
+prepared -> launched -> active_researching -> harvested -> accepted|rejected -> integrated|deferred -> resubmitted|converged|blocked
+```
+
+Required cycle fields:
+
+- prepared packet: prompt path, context path, public handoff URL, target public commit or Pages state.
+- launch proof: model label, reasoning label, Deep Research enabled flag, pasted/uploaded context label, conversation URL, plan title, `Start`/countdown action, `Researching...` status, and `Stop research` affordance.
+- harvest proof: exported report path, source/citation/search metadata when visible, and faithful local copy path.
+- adjudication: accepted findings, rejected findings with reason, unresolved blockers, deferred findings, implementation commits, and next trigger.
+- resubmission trigger: only resubmit after public repo/Pages state reflects the implemented closure, or after a documented blocker makes implementation impossible.
+
+A prepared packet is not a launched run. A submitted normal chat response is not a launched run. A Deep Research plan is not launched until `Start` is clicked or an explicit countdown begins and the UI shows `Researching...` or an equivalent stop-control state.
+
 ## Evidence Classification
 
 Separate these classes in every report:

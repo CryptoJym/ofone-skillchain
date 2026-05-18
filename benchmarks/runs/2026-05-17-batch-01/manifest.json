@@ -51,10 +51,25 @@
     "review_template": "benchmarks/reviews/2026-05-17-batch-01-review-template.md",
     "blinding": "Hide arm labels from reviewers where practical. If blinding is not possible because full_ofone artifacts are obvious, record that limitation in the review notes.",
     "adjudication_status": "in_progress",
-    "independent_review_status": "prepared",
+    "independent_review_status": "launched",
     "independent_review_handoff": "benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md",
     "independent_review_prompt": "research/prompts/2026-05-17-06-ofone-batch01-independent-review.md",
-    "independent_review_context": "research/ofone-batch01-independent-review-context.md"
+    "independent_review_context": "research/ofone-batch01-independent-review-context.md",
+    "independent_review_url": "https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93",
+    "independent_review_launch": {
+      "launched_at": "2026-05-17T18:12:12-06:00",
+      "model_label": "Latest • 5.5",
+      "reasoning_label": "Pro • Extended",
+      "deep_research_enabled": true,
+      "pasted_context_label": "Pasted text(8).txt",
+      "browser_surface": "Computer Use on authenticated Chrome session",
+      "launch_proof": [
+        "Deep Research plan title visible: Independent OfOne Batch 01 Review",
+        "Start clicked after plan generation",
+        "Visible status changed to Researching...",
+        "Stop research button present"
+      ]
+    }
   },
   "results_plan": {
     "summary_file": "benchmarks/results/2026-05-17-batch-01-summary.md",
