@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 78,
-    "completed": 12,
-    "reviewed": 12,
+    "queued": 75,
+    "completed": 15,
+    "reviewed": 15,
     "excluded": 1,
-    "aggregate_eligible": 12,
+    "aggregate_eligible": 15,
     "remedial": 1
   },
   "completed_runs": [
@@ -423,6 +423,99 @@
         "patch_sha256": "sha256:44db4bef99730609280120fa161755b40deb3b247c35d6d66c76853196ee0602",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.rendering.md",
         "rendering_sha256": "sha256:f0dc8f97b13762ec5483b8d01dd1c9c6ca9eea8e5c61aa1c502ffcdb0a759858"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r1",
+      "case_id": "case-public-sector-ai-policy-audit-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r1",
+      "case_id": "case-public-sector-ai-policy-audit-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence; acceptable for lightweight text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1",
+      "case_id": "case-public-sector-ai-policy-audit-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "completed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level public-sector benchmark case evidence with explicit model, rights, appeal, gate, and review-log unknowns",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the public-sector AI policy audit case and run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-public-sector-ai-policy-audit-001",
+        "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1",
+        "case_file": "benchmarks/cases/public-sector-ai-policy-audit.md",
+        "case_file_sha256": "sha256:eafc104563df8651821c28617ce84dc0c43119bd2c09d3fedd2e5fcba52f3178",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:171b27fd434b9cf2dc349fb0c2906778e83caf37a483741f5f39e1d067fc39f4"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.validator.json",
+        "validator_sha256": "sha256:746b26a3fb304aa5e08a5f9ae3192a5c8c405e80ff63e33f6c8ffb2f04704e3e",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.patch.json",
+        "patch_sha256": "sha256:a82115da73c8af320a65cf1a6cb629de9b6342239e37e0f6290580c47d0b7194",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.rendering.md",
+        "rendering_sha256": "sha256:3a69e6b93de919c50a5b5cf87cefcebcbd0e1c0bf550885b62f8aa61965a01e4"
       }
     }
   ],
@@ -813,12 +906,105 @@
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__agentic_coding__r1.rendering.md",
         "rendering_sha256": "sha256:f0dc8f97b13762ec5483b8d01dd1c9c6ca9eea8e5c61aa1c502ffcdb0a759858"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r1",
+      "case_id": "case-public-sector-ai-policy-audit-001",
+      "arm_id": "direct_answer",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__direct_answer__agentic_coding__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence; acceptable for baseline text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r1",
+      "case_id": "case-public-sector-ai-policy-audit-001",
+      "arm_id": "light_structured",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__light_structured__agentic_coding__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence; acceptable for lightweight text arm",
+        "artifact_source_identity": "raw Markdown output is bound to the benchmark run metadata."
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1",
+      "case_id": "case-public-sector-ai-policy-audit-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.md",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level public-sector benchmark case evidence with explicit model, rights, appeal, gate, and review-log unknowns",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the public-sector AI policy audit case and run."
+      },
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.artifact.json",
+      "benchmark_trace": {
+        "case_id": "case-public-sector-ai-policy-audit-001",
+        "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1",
+        "case_file": "benchmarks/cases/public-sector-ai-policy-audit.md",
+        "case_file_sha256": "sha256:eafc104563df8651821c28617ce84dc0c43119bd2c09d3fedd2e5fcba52f3178",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:171b27fd434b9cf2dc349fb0c2906778e83caf37a483741f5f39e1d067fc39f4"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.validator.json",
+        "validator_sha256": "sha256:746b26a3fb304aa5e08a5f9ae3192a5c8c405e80ff63e33f6c8ffb2f04704e3e",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.patch.json",
+        "patch_sha256": "sha256:a82115da73c8af320a65cf1a6cb629de9b6342239e37e0f6290580c47d0b7194",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.rendering.md",
+        "rendering_sha256": "sha256:3a69e6b93de919c50a5b5cf87cefcebcbd0e1c0bf550885b62f8aa61965a01e4"
+      }
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
     "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
-    "allowed_claim": "Batch 01 has twelve completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
+    "allowed_claim": "Batch 01 has fifteen completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
   },
   "excluded_runs": [
     {

@@ -45,6 +45,12 @@ The formal proof-search slice adds a formal-adapter case-binding proof:
 - Light structured answer: isolates candidate lemma, countermodel pressure, and update conditions, but does not make proof obligations and closure addressable.
 - Full OfOne answer: preserves proof certificate absence, candidate lemma obligation, countermodel pressure, bounded-timeout risk, criteria, trigger, rendering, validator, and patch artifacts for `case-formal-proof-search-001`; remaining limitation is that the benchmark dossier does not include actual axiom, theorem, checker, or countermodel artifacts.
 
+The public-sector AI policy audit slice adds a high-risk hybrid/normative case-binding proof:
+
+- Direct answer: correctly blocks live deployment and calls for a gated policy audit, but remains prose-only with no addressable gate or review-log state.
+- Light structured answer: makes release conditions, reviewer authority, and evidence gaps clearer, but still leaves rights, model, stakeholder, and review dependencies as text.
+- Full OfOne answer: preserves model evidence gaps, rights and legitimacy claims, stakeholder exposure, gates, review-log objects, trigger closure, Audit rendering, validator, and patch artifacts for `case-public-sector-ai-policy-audit-001`; remaining limitation is that the benchmark dossier lacks real external policy, model validation, subgroup, appeal-access, and operational-monitoring artifacts.
+
 Minimum sections once runs exist:
 
 - validation failures

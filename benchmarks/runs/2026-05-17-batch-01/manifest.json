@@ -115,6 +115,6 @@
   "release_guard": {
     "superiority_claims_allowed": false,
     "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
-    "allowed_claim": "Batch 01 has begun with three local first-slice reviews, one independent review, and one excluded run; no performance comparison is supported."
+    "allowed_claim": "Batch 01 has fifteen completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
   }
 }

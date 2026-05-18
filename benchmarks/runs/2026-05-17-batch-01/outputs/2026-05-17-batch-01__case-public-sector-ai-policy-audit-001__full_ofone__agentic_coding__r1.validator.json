@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "validator": {
+    "schema_draft": "https://json-schema.org/draft/2020-12/schema",
+    "ajv_strict": false
+  },
+  "results": [
+    {
+      "file": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r1.artifact.json",
+      "passed": true,
+      "diagnostics": [
+        {
+          "code": "OFONE_JSON_SCHEMA",
+          "severity": "info",
+          "check": "json_schema",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "Audit artifact matches executable JSON Schema profile",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_ADAPTER_CONTRACT",
+          "severity": "info",
+          "check": "adapter_contract",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "hybrid adapter contract loaded",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_ADAPTER_GATE_COVERAGE",
+          "severity": "info",
+          "check": "adapter_gate_coverage",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "gate coverage present for legal, safety, public-policy, rights",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_BENCHMARK_TRACE",
+          "severity": "warning",
+          "check": "benchmark_trace",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "benchmark_trace BT-2026-05-17-B01-POLICY-FULL-R1 is not superiority-ready",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_DEPENDENCY_CLOSURE",
+          "severity": "info",
+          "check": "dependency_closure",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "trigger T1: C2, COUNCIL, KT1, L1, L2, L3, LENS3, O1, O2, R1, RL1, T1, TS1, X3, X4, X5, X6, X7 [includes rendering]",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_DEPENDENCY_CLOSURE",
+          "severity": "info",
+          "check": "dependency_closure",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "trigger T2: C1, C2, C3, C4, COUNCIL, KT1, KT2, KT3, L1, L2, L3, LENS1, LENS2, LENS3, LENS4, O1, O2, OFONE-2026-05-18-B01-POLICY-FULL-R1, R1, T1, T2, T3, TEMPORAL, TS1, X1, X2, X3, X4, X5, X6, X7 [includes rendering]",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_DEPENDENCY_CLOSURE",
+          "severity": "info",
+          "check": "dependency_closure",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "trigger T3: C3, COUNCIL, KT2, L1, L2, L3, LENS2, O1, O2, R1, T3, TS1, X3, X4, X5, X6, X7 [includes rendering]",
+          "repair_hint": null
+        },
+        {
+          "code": "OFONE_SEMANTIC_VALIDATION",
+          "severity": "info",
+          "check": "semantic_validation",
+          "object_id": null,
+          "object_type": null,
+          "path": null,
+          "message": "semantic graph checks completed",
+          "repair_hint": null
+        }
+      ]
+    }
+  ]
+}
