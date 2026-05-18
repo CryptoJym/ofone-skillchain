@@ -7,7 +7,7 @@ Conversation URL: pending
 Prompt: `research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md`
 Context: `research/ofone-post-run06-hardening-context.md`
 Baseline implementation commit under review: `579b14902c401611309322fdd89e1d136c8bae05`
-Packet publication commit: pending
+Packet publication commit: `e1d14c6`
 
 ## Prepared Scope
 
@@ -20,6 +20,7 @@ This run asks GPT 5.5 Pro / ChatGPT Deep Research to review the public repositor
 - 2026-05-17T18:40:37-06:00: `npm run benchmark` passed.
 - 2026-05-17T18:40:37-06:00: `npm run pages:check` passed against GitHub Pages.
 - 2026-05-17T18:44:23-06:00: Packet wiring prepared locally; `npm run schema:check`, `npm run validate`, `npm run review:check`, `npm run research:check`, `npm run benchmark`, and `npm test` passed. Pages parity is intentionally held until the packet is committed, pushed, and published.
+- 2026-05-17T18:45:00-06:00: Packet committed and pushed to `main` as `e1d14c6`.
 
 ## Launch Rule
 
