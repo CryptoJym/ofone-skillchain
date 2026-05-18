@@ -1,0 +1,1418 @@
+{
+  "ofone_version": "0.6.0",
+  "mode": "Audit",
+  "charter": {
+    "objective": "Audit a public-sector AI-assisted decision process before release.",
+    "scope": [
+      "policy design",
+      "model performance evidence",
+      "rights and legitimacy",
+      "human review gates",
+      "operational monitoring"
+    ],
+    "horizon": "one policy cycle before live release",
+    "stakes": [
+      "rights",
+      "public-policy legitimacy",
+      "operational safety",
+      "legal exposure",
+      "public trust"
+    ],
+    "risk_tier": "high",
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "hybrid",
+    "axes": {
+      "strategic-agentic": [
+        "institutional incentives",
+        "caseworker behavior",
+        "review authority"
+      ],
+      "scientific-explanatory": [
+        "model performance",
+        "subgroup impact",
+        "measurement validity"
+      ],
+      "formal": [
+        "policy rules",
+        "eligibility logic",
+        "audit constraints"
+      ],
+      "normative-evaluative": [
+        "rights",
+        "legitimacy",
+        "contestability",
+        "distributional harm"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "LINK",
+      "EVALUATE"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "normative",
+        "assumptions": [
+          "affected people deserve notice, explanation, contestability, and meaningful review"
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "causal",
+        "assumptions": [
+          "AI assistance can alter caseworker behavior and error propagation"
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "type": "evidential",
+        "assumptions": [
+          "model evidence must match the deployment population and decision workflow"
+        ]
+      },
+      {
+        "frame_id": "F4",
+        "type": "strategic",
+        "assumptions": [
+          "public agencies need accountable release authority and visible legitimacy"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "K1",
+        "kind": "entity",
+        "label": "public-sector organization"
+      },
+      {
+        "token_id": "K2",
+        "kind": "entity",
+        "label": "affected people"
+      },
+      {
+        "token_id": "K3",
+        "kind": "variable",
+        "label": "deployment-population model performance"
+      },
+      {
+        "token_id": "K4",
+        "kind": "constraint",
+        "label": "rights, legitimacy, and contestability requirements"
+      },
+      {
+        "token_id": "K5",
+        "kind": "variable",
+        "label": "human review and override behavior"
+      },
+      {
+        "token_id": "K6",
+        "kind": "uncertainty",
+        "label": "subgroup impact and appeal accessibility"
+      }
+    ],
+    "state_variables": [
+      "decision outcome",
+      "model error rate",
+      "subgroup error rate",
+      "appeal outcome",
+      "caseworker override rate",
+      "review gate status"
+    ],
+    "observed_variables": [
+      "public-sector AI-assisted decision proposal",
+      "performance, rights, legitimacy, review, and operational constraints",
+      "benchmark requirement for separated map objects"
+    ],
+    "hidden_variables": [
+      "automation bias",
+      "unequal data quality",
+      "appeal accessibility",
+      "symbolic review risk",
+      "stakeholder trust"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "GATE"
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F3"
+        ],
+        "tokens": [
+          "K3",
+          "K6"
+        ],
+        "entry_conditions": [
+          "model evidence is absent or not deployment-population specific"
+        ],
+        "exit_conditions": [
+          "model performance, subgroup impact, and appeal-access evidence are recorded"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "LINK"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "purpose": "stakeholder_context",
+        "frames": [
+          "F1"
+        ],
+        "tokens": [
+          "K2",
+          "K4",
+          "K6"
+        ],
+        "entry_conditions": [
+          "public decision affects rights or access to public services"
+        ],
+        "exit_conditions": [
+          "notice, explanation, contestability, and affected-party exposure are reviewed"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "WARN"
+        ]
+      },
+      {
+        "subscene_id": "SS3",
+        "purpose": "review_gate",
+        "frames": [
+          "F2",
+          "F4"
+        ],
+        "tokens": [
+          "K1",
+          "K5"
+        ],
+        "entry_conditions": [
+          "agency considers moving from design to live release"
+        ],
+        "exit_conditions": [
+          "named reviewers approve, block, or return the policy for evidence"
+        ],
+        "parent_scene": "S1",
+        "movement_jobs": [
+          "BOUND",
+          "GATE"
+        ]
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/public-sector-ai-policy-audit.md",
+      "provenance": "frozen benchmark case file",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:eafc104563df8651821c28617ce84dc0c43119bd2c09d3fedd2e5fcba52f3178",
+      "retrieved_at": "2026-05-18T10:35:00Z",
+      "extract": "A public-sector organization is considering an AI-assisted decision process with performance, rights, legitimacy, review, and operational constraints.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "Local benchmark run read the frozen case file from the repository before artifact construction.",
+      "supports": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "risks": [
+        "scenario_level_evidence",
+        "no_external_policy_dossier"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "WARN"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "file",
+      "span_or_locator": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+      "provenance": "frozen full-OfOne benchmark prompt",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+      "retrieved_at": "2026-05-18T10:35:00Z",
+      "extract": "Full-OfOne arm must produce artifact JSON, validator result, rendering, and patch report while preserving case fidelity.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "Local benchmark run computed the full-OfOne prompt hash and included it in benchmark_trace.",
+      "supports": [
+        "C4"
+      ],
+      "risks": [
+        "benchmark_prompt_not_domain_source"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "LINK"
+      ]
+    },
+    {
+      "evidence_id": "E3",
+      "source": "observation",
+      "span_or_locator": "local benchmark case interpretation",
+      "provenance": "local Codex benchmark execution",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "internal",
+      "content_hash": "sha256:f8c670fa5a6bf20575d0c23f00b5485f56718e24cf53acec929ea1ebe8fcb079",
+      "retrieved_at": "2026-05-18T10:35:00Z",
+      "extract": "The case requires separation of model evidence, policy claims, stakeholder exposure, gates, and review logs.",
+      "source_owner": "local benchmark executor",
+      "chain_of_custody": "Executor translated the frozen benchmark prompt into typed OfOne objects without using other benchmark arm outputs.",
+      "supports": [
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "risks": [
+        "unblinded_local_execution"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "GATE"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "The proposal is a high-stakes public-sector AI-assisted decision process, not a low-risk automation.",
+      "type": "descriptive",
+      "supports": [
+        "E1"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "K1",
+        "K2"
+      ],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "case_abstraction",
+          "specific_program_missing"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "BOUND",
+        "WARN"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "Rights and legitimacy exposure require human review gates before live release.",
+      "type": "normative",
+      "supports": [
+        "E1",
+        "E3"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "K2",
+        "K4"
+      ],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "adapter_fit",
+          "hidden_variable_risk"
+        ],
+        "failure_modes": [
+          "jurisdiction_specific_rule_missing",
+          "symbolic_review"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "GATE",
+        "WARN"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "text": "Model performance, subgroup impact, appeal access, and override behavior are unresolved evidence dependencies.",
+      "type": "operational",
+      "supports": [
+        "E1",
+        "E3"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "K3",
+        "K5",
+        "K6"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "hidden_variable_risk",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "missing_measurement",
+          "selection_bias",
+          "automation_bias"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "WARN",
+        "TEST"
+      ]
+    },
+    {
+      "claim_id": "C4",
+      "text": "A valid audit must keep model evidence, policy claims, stakeholder exposure, gates, review logs, and final rendering separate.",
+      "type": "operational",
+      "supports": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "K1",
+        "K2",
+        "K4"
+      ],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "object_collapse",
+          "review_log_omission"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "LINK",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_measurement",
+      "description": "No deployment-population performance or subgroup-impact evidence is present.",
+      "blocks": [
+        "O1",
+        "O2",
+        "R1"
+      ],
+      "resolution_move": "Run model validation and subgroup-impact audit on the intended deployment population.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "kind": "missing_evidence",
+      "description": "No notice, explanation, appeal-access, or affected-party consultation evidence is present.",
+      "blocks": [
+        "O1",
+        "R1"
+      ],
+      "resolution_move": "Document contestability, appeal access, notice, explanation, and stakeholder exposure review.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    },
+    {
+      "unknown_id": "U3",
+      "kind": "missing_evidence",
+      "description": "No completed review-log decision or accountable release authority is present.",
+      "blocks": [
+        "O1",
+        "O2",
+        "R1"
+      ],
+      "resolution_move": "Assign reviewers and record gate decisions before any release.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C2",
+      "test_type": "stakeholder_objection",
+      "condition": "Gate escalation or stakeholder objection shows the proposed review design lacks meaningful contestability.",
+      "falsifies": [
+        "C2"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "test_id": "KT2",
+      "target": "C3",
+      "test_type": "measurement",
+      "condition": "Source contradiction or subgroup measurement failure shows model evidence does not match the deployment population.",
+      "falsifies": [
+        "C3"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    },
+    {
+      "test_id": "KT3",
+      "target": "C4",
+      "test_type": "adapter_conflict",
+      "condition": "Adapter conflict collapses evidence, policy claims, stakeholder exposure, gates, or review logs into one undifferentiated recommendation.",
+      "falsifies": [
+        "C4"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Rights and public-policy gate",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "No live release before rights, public-policy, and contestability gates are reviewed.",
+      "owned_by": [
+        "A1",
+        "A3"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Model evidence fit",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Model evidence must cover the deployment population, subgroup impact, and operational workflow.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "TEST"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Review-log accountability",
+      "kind": "constraint",
+      "priority": "must",
+      "threshold": "Gate decisions must name reviewer authority and produce review-log evidence before release.",
+      "owned_by": [
+        "A1",
+        "A2"
+      ],
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    },
+    {
+      "criterion_id": "CR4",
+      "name": "Legitimacy and affected-party exposure",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Prefer moves that surface affected-party exposure and preserve appeal access.",
+      "owned_by": [
+        "A3"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "WARN"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1",
+      "O2"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3",
+      "CR4"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "U2",
+      "U3",
+      "T1",
+      "T2"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "public agency decision owner",
+      "role": "decision_owner",
+      "incentives": [
+        "deliver public service while avoiding invalid release"
+      ],
+      "exposures": [
+        "legal exposure",
+        "public trust",
+        "rights"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "assigned accountability for public-sector release decision",
+      "movement_jobs": [
+        "BOUND",
+        "GATE",
+        "WARN"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "technical and policy reviewer",
+      "role": "reviewer",
+      "incentives": [
+        "verify model evidence and operational controls"
+      ],
+      "exposures": [
+        "operational safety",
+        "model validity",
+        "review quality"
+      ],
+      "authority": "block",
+      "legitimacy_basis": "assigned technical and policy review responsibility",
+      "movement_jobs": [
+        "BOUND",
+        "TEST",
+        "GATE"
+      ]
+    },
+    {
+      "actor_id": "A3",
+      "label": "affected-party representative",
+      "role": "affected_party",
+      "incentives": [
+        "avoid erroneous or inaccessible public decision outcomes"
+      ],
+      "exposures": [
+        "rights",
+        "appeal access",
+        "distributional harm"
+      ],
+      "authority": "observe",
+      "legitimacy_basis": "direct exposure to the decision outcome and legitimacy claim",
+      "movement_jobs": [
+        "BOUND",
+        "WARN"
+      ]
+    }
+  ],
+  "temporal_model": {
+    "time_horizon": "one policy cycle before live release",
+    "decision_deadline": "before any public deployment decision",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "case dossier or policy scope changes"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "benchmark full-OfOne prompt changes"
+      },
+      {
+        "evidence_id": "E3",
+        "valid_until": "unknown",
+        "staleness_trigger": "local benchmark interpretation is superseded by adjudication or external review"
+      }
+    ],
+    "update_cadence": "before release, on new model evidence, on stakeholder objection, and after any review decision",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "2 to 6 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Collect deployment-population performance, subgroup error, calibration, and monitoring evidence.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    },
+    {
+      "unknown_id": "U2",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "2 to 4 weeks",
+      "risk_reduction": "high",
+      "recommended_next_query": "Test notice, explanation, appeal access, and affected-party consultation evidence.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    },
+    {
+      "unknown_id": "U3",
+      "decision_impact": "high",
+      "resolution_cost": "low",
+      "time_to_resolve": "days to 2 weeks",
+      "risk_reduction": "medium",
+      "recommended_next_query": "Assign reviewer authority and record returned-for-evidence or blocked gate decisions.",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "GATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "strategic agency lens",
+      "adapter_axis": "strategic-agentic",
+      "questions": [
+        "Who can approve, block, or game the release decision?"
+      ],
+      "claims_examined": [
+        "C1",
+        "C4"
+      ],
+      "blind_spots": [
+        "agency incentives and caseworker override behavior are not evidenced"
+      ],
+      "contention": [
+        "U3 blocks release authority and review-log proof"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "model evidence lens",
+      "adapter_axis": "scientific-explanatory",
+      "questions": [
+        "Does model evidence fit the deployment population and subgroup risks?"
+      ],
+      "claims_examined": [
+        "C3"
+      ],
+      "blind_spots": [
+        "U1 blocks model validity and subgroup impact assessment"
+      ],
+      "contention": [
+        "performance evidence is not enough unless subgroup and appeal risks are visible"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS3",
+      "name": "normative legitimacy lens",
+      "adapter_axis": "normative-evaluative",
+      "questions": [
+        "Are rights, contestability, and affected-party exposure visible before release?"
+      ],
+      "claims_examined": [
+        "C2"
+      ],
+      "blind_spots": [
+        "U2 blocks rights and legitimacy review"
+      ],
+      "contention": [
+        "public-policy release without contestability evidence is gated"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "GATE"
+      ]
+    },
+    {
+      "lens_id": "LENS4",
+      "name": "formal policy-rule lens",
+      "adapter_axis": "formal",
+      "questions": [
+        "Are policy rules, audit constraints, and review-log states distinguishable?"
+      ],
+      "claims_examined": [
+        "C4"
+      ],
+      "blind_spots": [
+        "review log and gate state are not yet release evidence"
+      ],
+      "contention": [
+        "review records must not be collapsed into the recommendation text"
+      ],
+      "movement_jobs": [
+        "WARN",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "strategic-agentic",
+      "scientific-explanatory",
+      "formal",
+      "normative-evaluative"
+    ],
+    "missing_lenses": [
+      "program-specific legal counsel and affected-community validation remain outside this benchmark dossier"
+    ],
+    "major_dissent": [
+      "U1, U2, and U3 block release and rendering confidence"
+    ],
+    "decision_effect": "Repeat-3 council result again blocks live deployment and returns the policy for model evidence, rights/appeal evidence, stakeholder exposure review, and review-log proof.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "E1",
+      "to": "C1",
+      "relation_family": "evidential",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "GROUND",
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "E3",
+      "to": "C4",
+      "relation_family": "evidential",
+      "relation": "supports",
+      "evidence_refs": [
+        "E3"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "GROUND",
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X3",
+      "from": "C3",
+      "to": "C2",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1",
+        "E3"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "edge_id": "X4",
+      "from": "K4",
+      "to": "O1",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X5",
+      "from": "C4",
+      "to": "TS1",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E2",
+        "E3"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "EVALUATE"
+      ]
+    },
+    {
+      "edge_id": "X6",
+      "from": "G1",
+      "to": "O2",
+      "relation_family": "workflow_state",
+      "relation": "blocks",
+      "evidence_refs": [
+        "E3"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    },
+    {
+      "edge_id": "X7",
+      "from": "CR2",
+      "to": "TS1",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "EVALUATE",
+        "LINK"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "measurement",
+      "edges": [
+        "X1",
+        "X3"
+      ],
+      "polarity": "mixed",
+      "delay": "medium",
+      "gain": "unknown",
+      "control_points": [
+        "deployment-population validation",
+        "subgroup audit"
+      ],
+      "observable_cues": [
+        "performance evidence may not match affected-party population"
+      ],
+      "failure_mode": "aggregate model performance hides subgroup failure or appeal-access harm",
+      "movement_jobs": [
+        "WARN",
+        "LINK"
+      ]
+    },
+    {
+      "loop_id": "L2",
+      "type": "review",
+      "edges": [
+        "X4",
+        "X6"
+      ],
+      "polarity": "balancing",
+      "delay": "short",
+      "gain": "medium",
+      "control_points": [
+        "rights gate",
+        "review log",
+        "release authority"
+      ],
+      "observable_cues": [
+        "gate status determines whether release remains blocked"
+      ],
+      "failure_mode": "review becomes symbolic and fails to block invalid deployment",
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    },
+    {
+      "loop_id": "L3",
+      "type": "incentive",
+      "edges": [
+        "X3",
+        "X5"
+      ],
+      "polarity": "reinforcing",
+      "delay": "medium",
+      "gain": "medium",
+      "control_points": [
+        "caseworker override monitoring",
+        "reviewer independence"
+      ],
+      "observable_cues": [
+        "operational pressure may increase deference to model output"
+      ],
+      "failure_mode": "institutional pressure rewards throughput over contestability",
+      "movement_jobs": [
+        "WARN",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "defer",
+      "preconditions": [
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "expected_effects": [
+        "X4",
+        "X5"
+      ],
+      "tradeoffs": [
+        "delays release",
+        "preserves rights and legitimacy",
+        "requires additional evidence and review work"
+      ],
+      "blocking_unknowns": [
+        "U1",
+        "U2",
+        "U3"
+      ],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "option_id": "O2",
+      "move_type": "test",
+      "preconditions": [
+        "C1",
+        "C3",
+        "C4"
+      ],
+      "expected_effects": [
+        "X1",
+        "X2",
+        "X7"
+      ],
+      "tradeoffs": [
+        "keeps evaluation reversible",
+        "does not authorize live decisioning",
+        "requires technical and policy reviewer time"
+      ],
+      "blocking_unknowns": [
+        "U1",
+        "U3"
+      ],
+      "review_gate": "G2",
+      "movement_jobs": [
+        "MOVE",
+        "TEST",
+        "GATE"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "review_required",
+      "affected_objects": [
+        "G1",
+        "C2"
+      ],
+      "transition": "human_review",
+      "movement_jobs": [
+        "TRIGGER",
+        "GATE"
+      ]
+    },
+    {
+      "trigger_id": "T2",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "E1",
+        "E3"
+      ],
+      "transition": "scoped_rerun",
+      "movement_jobs": [
+        "TRIGGER",
+        "TEST"
+      ]
+    },
+    {
+      "trigger_id": "T3",
+      "condition": "claim_conflict",
+      "affected_objects": [
+        "C3"
+      ],
+      "transition": "patch",
+      "movement_jobs": [
+        "TRIGGER",
+        "WARN"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "rights and public-policy release gate for high-risk public-sector AI deployment",
+      "reviewer": "A1 public agency decision owner with A2 technical reviewer and A3 affected-party representation",
+      "required_decision": "approve, block, narrow, or return for model evidence, rights evidence, and review-log proof",
+      "status": "open",
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    },
+    {
+      "gate_id": "G2",
+      "condition": "model performance and operational safety gate before controlled pilot",
+      "reviewer": "A2 technical and policy reviewer",
+      "required_decision": "approve test-only evaluation, block release, or require additional measurement evidence",
+      "status": "open",
+      "movement_jobs": [
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "medium",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "medium",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "rendering_id": "R1",
+    "summary": "Repeat-3 Audit rendering: do not release the AI-assisted public-sector decision process; return it for model evidence, rights and legitimacy review, named human gates, and recorded review-log decisions.",
+    "recommendation": "Block live deployment and continue only with a gated audit / controlled evaluation path.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "U1",
+      "U2",
+      "U3",
+      "O1",
+      "O2",
+      "G1",
+      "G2",
+      "TS1",
+      "COUNCIL"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "GATE",
+      "MOVE"
+    ]
+  },
+  "artifact_identity": {
+    "artifact_id": "OFONE-2026-05-18-B01-POLICY-FULL-R3",
+    "case_id": "case-public-sector-ai-policy-audit-001",
+    "objective_head": "public-sector AI policy audit repeat 3 with rights, legitimacy, review, and operational gates",
+    "scope_hash": "sha256:eafc104563df8651821c28617ce84dc0c43119bd2c09d3fedd2e5fcba52f3178",
+    "config_hash": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "active_evidence_hashes": [
+      "sha256:eafc104563df8651821c28617ce84dc0c43119bd2c09d3fedd2e5fcba52f3178",
+      "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+      "sha256:f8c670fa5a6bf20575d0c23f00b5485f56718e24cf53acec929ea1ebe8fcb079"
+    ],
+    "created_at": "2026-05-18T10:35:00Z",
+    "status": "review_pending",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "review_log": [
+    {
+      "review_id": "RL1",
+      "gate_id": "G1",
+      "actor_id": "A1",
+      "decision": "returned_for_evidence",
+      "timestamp": "2026-05-18T10:35:00Z",
+      "notes": "Repeat-3 release gate remains open because model evidence, rights evidence, appeal access, and review-log proof are incomplete.",
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    },
+    {
+      "review_id": "RL2",
+      "gate_id": "G2",
+      "actor_id": "A2",
+      "decision": "returned_for_evidence",
+      "timestamp": "2026-05-18T10:35:00Z",
+      "notes": "Repeat-3 controlled evaluation still requires deployment-population performance and subgroup-impact evidence before approval.",
+      "movement_jobs": [
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "benchmark_trace": {
+    "trace_id": "BT-2026-05-17-B01-POLICY-FULL-R3",
+    "suite_id": "ofone-v0.5-three-arm-evaluation",
+    "cases_run": 1,
+    "arms_run": [
+      "full_ofone"
+    ],
+    "model_families": 1,
+    "superiority_ready": false,
+    "diagnostics": [
+      "repeat-3 benchmark run only",
+      "no empirical superiority claim supported",
+      "Batch 01 remains below release minimums"
+    ],
+    "case_id": "case-public-sector-ai-policy-audit-001",
+    "run_id": "2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3",
+    "case_file": "benchmarks/cases/public-sector-ai-policy-audit.md",
+    "case_file_sha256": "sha256:eafc104563df8651821c28617ce84dc0c43119bd2c09d3fedd2e5fcba52f3178",
+    "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+    "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "input_bundle_sha256": "sha256:171b27fd434b9cf2dc349fb0c2906778e83caf37a483741f5f39e1d067fc39f4",
+    "movement_jobs": [
+      "BOUND",
+      "WARN",
+      "TRIGGER"
+    ]
+  },
+  "validator_result": {
+    "passed": true,
+    "diagnostics": [
+      {
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info",
+        "check": "json_schema",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "Audit artifact matches executable JSON Schema profile",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info",
+        "check": "adapter_contract",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "hybrid adapter contract loaded",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_ADAPTER_GATE_COVERAGE",
+        "severity": "info",
+        "check": "adapter_gate_coverage",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "gate coverage present for legal, safety, public-policy, rights",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_BENCHMARK_TRACE",
+        "severity": "warning",
+        "check": "benchmark_trace",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "benchmark_trace BT-2026-05-17-B01-POLICY-FULL-R3 is not superiority-ready",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T1: C2, COUNCIL, KT1, L1, L2, L3, LENS3, O1, O2, R1, RL1, T1, TS1, X3, X4, X5, X6, X7 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T2: C1, C2, C3, C4, COUNCIL, KT1, KT2, KT3, L1, L2, L3, LENS1, LENS2, LENS3, LENS4, O1, O2, OFONE-2026-05-18-B01-POLICY-FULL-R3, R1, T1, T2, T3, TEMPORAL, TS1, X1, X2, X3, X4, X5, X6, X7 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info",
+        "check": "dependency_closure",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "trigger T3: C3, COUNCIL, KT2, L1, L2, L3, LENS2, O1, O2, R1, T3, TS1, X3, X4, X5, X6, X7 [includes rendering]",
+        "repair_hint": null
+      },
+      {
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info",
+        "check": "semantic_validation",
+        "object_id": null,
+        "object_type": null,
+        "path": null,
+        "message": "semantic graph checks completed",
+        "repair_hint": null
+      }
+    ],
+    "checks": [
+      {
+        "check": "json_schema",
+        "passed": true,
+        "notes": "Audit artifact matches executable JSON Schema profile",
+        "code": "OFONE_JSON_SCHEMA",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_contract",
+        "passed": true,
+        "notes": "hybrid adapter contract loaded",
+        "code": "OFONE_ADAPTER_CONTRACT",
+        "severity": "info"
+      },
+      {
+        "check": "adapter_gate_coverage",
+        "passed": true,
+        "notes": "gate coverage present for legal, safety, public-policy, rights",
+        "code": "OFONE_ADAPTER_GATE_COVERAGE",
+        "severity": "info"
+      },
+      {
+        "check": "benchmark_trace",
+        "passed": true,
+        "notes": "benchmark_trace BT-2026-05-17-B01-POLICY-FULL-R3 is not superiority-ready",
+        "code": "OFONE_BENCHMARK_TRACE",
+        "severity": "warning"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T1: C2, COUNCIL, KT1, L1, L2, L3, LENS3, O1, O2, R1, RL1, T1, TS1, X3, X4, X5, X6, X7 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T2: C1, C2, C3, C4, COUNCIL, KT1, KT2, KT3, L1, L2, L3, LENS1, LENS2, LENS3, LENS4, O1, O2, OFONE-2026-05-18-B01-POLICY-FULL-R3, R1, T1, T2, T3, TEMPORAL, TS1, X1, X2, X3, X4, X5, X6, X7 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "dependency_closure",
+        "passed": true,
+        "notes": "trigger T3: C3, COUNCIL, KT2, L1, L2, L3, LENS2, O1, O2, R1, T3, TS1, X3, X4, X5, X6, X7 [includes rendering]",
+        "code": "OFONE_DEPENDENCY_CLOSURE",
+        "severity": "info"
+      },
+      {
+        "check": "semantic_validation",
+        "passed": true,
+        "notes": "semantic graph checks completed",
+        "code": "OFONE_SEMANTIC_VALIDATION",
+        "severity": "info"
+      }
+    ]
+  }
+}

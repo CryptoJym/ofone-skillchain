@@ -105,6 +105,12 @@ The formal proof-search repeat-3 slice adds the final local `agentic_coding` rep
 - Light structured answer: keeps theorem status, lemma obligation, countermodel pressure, timeout handling, and update conditions scannable, but does not make proof obligations machine-addressable.
 - Full OfOne answer: preserves formal evidence identity, proof-certificate absence, candidate lemma obligation, countermodel pressure, criteria, trigger closure, Map rendering, validator, and patch artifacts for `case-formal-proof-search-001` repeat 3; remaining limitation is still that the benchmark dossier lacks actual axiom, theorem, checker, certificate, or countermodel artifacts.
 
+The public-sector AI policy audit repeat-3 slice adds the final local `agentic_coding` repeated-run check for the high-risk hybrid/normative case:
+
+- Direct answer: again blocks live deployment and identifies model, rights, stakeholder, appeal, and review-log gaps, but leaves gate closure as prose.
+- Light structured answer: keeps the staged audit sequence and release conditions scannable, but does not make rights, stakeholder, model-evidence, review-log, or rendering dependencies addressable.
+- Full OfOne answer: preserves model evidence gaps, rights and legitimacy claims, stakeholder exposure, gates, review-log objects, trigger closure, Audit rendering, validator, and patch artifacts for `case-public-sector-ai-policy-audit-001` repeat 3; remaining limitation is still that the benchmark dossier lacks real external policy, model validation, subgroup, appeal-access, and operational-monitoring artifacts.
+
 Minimum sections once runs exist:
 
 - validation failures

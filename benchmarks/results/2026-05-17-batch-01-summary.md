@@ -4,7 +4,7 @@ Status: `in_progress`
 
 This file is reserved for aggregate findings from `2026-05-17-batch-01`.
 
-Raw output collection, local unblinded review, and the first independent frontier review have started. Forty-two of 90 predeclared run slots have completed and have local reviews across fourteen local `agentic_coding` slices:
+Raw output collection, local unblinded review, and the first independent frontier review have started. Forty-five of 90 predeclared run slots have completed and have local reviews across fifteen local `agentic_coding` slices:
 
 - `case-strategic-gated-diligence-001` / `direct_answer` / `agentic_coding` / repeat 1
 - `case-strategic-gated-diligence-001` / `light_structured` / `agentic_coding` / repeat 1
@@ -48,6 +48,9 @@ Raw output collection, local unblinded review, and the first independent frontie
 - `case-formal-proof-search-001` / `direct_answer` / `agentic_coding` / repeat 3
 - `case-formal-proof-search-001` / `light_structured` / `agentic_coding` / repeat 3
 - `case-formal-proof-search-001` / `full_ofone` / `agentic_coding` / repeat 3
+- `case-public-sector-ai-policy-audit-001` / `direct_answer` / `agentic_coding` / repeat 3
+- `case-public-sector-ai-policy-audit-001` / `light_structured` / `agentic_coding` / repeat 3
+- `case-public-sector-ai-policy-audit-001` / `full_ofone` / `agentic_coding` / repeat 3
 
 Run 06 independently adjudicated the first slice. It accepted the direct-answer and light-structured slots for later aggregate scoring, but rejected the full-OfOne slot because the artifact identity is copied from `case-strategy-micro-001` rather than bound to `case-strategic-gated-diligence-001`.
 
@@ -82,6 +85,8 @@ The scientific mechanism repeat-3 slice completed after the strategic gated dili
 The regulated wastewater repeat-3 slice completed after the scientific mechanism repeat-3 slice. All three regulated wastewater repeat-3 `agentic_coding` arms passed local pre-score compliance. The full-OfOne regulated wastewater repeat-3 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. The slice is published and Pages-confirmed after public commit `046282e`.
 
 The formal proof-search repeat-3 slice completed after the regulated wastewater repeat-3 slice. All three formal repeat-3 `agentic_coding` arms passed local pre-score compliance. The full-OfOne formal repeat-3 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. The slice is published and Pages-confirmed after public commit `35fdd24`.
+
+The public-sector AI policy audit repeat-3 slice completed after the formal proof-search repeat-3 slice. All three policy-audit repeat-3 `agentic_coding` arms passed local pre-score compliance. The full-OfOne policy repeat-3 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Audit rendering, patch, review-log objects, and local review artifacts. Publication and Pages parity are still pending until this batch is committed and pushed.
 
 Current aggregate eligibility among reviewed local slots:
 
@@ -130,6 +135,9 @@ Current aggregate eligibility among reviewed local slots:
 | public-sector AI policy audit / `direct_answer` / `agentic_coding` / repeat 2 | eligible | Passes pre-score compliance gate. |
 | public-sector AI policy audit / `light_structured` / `agentic_coding` / repeat 2 | eligible | Passes pre-score compliance gate. |
 | public-sector AI policy audit / `full_ofone` / `agentic_coding` / repeat 2 | eligible | Case-native Audit artifact with benchmark trace binding, validator output, rendering, patch report, review-log objects, and local review. |
+| public-sector AI policy audit / `direct_answer` / `agentic_coding` / repeat 3 | eligible | Passes pre-score compliance gate. |
+| public-sector AI policy audit / `light_structured` / `agentic_coding` / repeat 3 | eligible | Passes pre-score compliance gate. |
+| public-sector AI policy audit / `full_ofone` / `agentic_coding` / repeat 3 | eligible | Case-native Audit artifact with benchmark trace binding, validator output, rendering, patch report, review-log objects, and local review. |
 
 No aggregate scoring or performance comparison has been completed. No performance or superiority claim is supported by this in-progress state.
 
