@@ -18,6 +18,13 @@ Run 06 added the first independent failure finding:
 - Review failure: the local unblinded review over-weighted trace richness and missed wrong-case artifact identity as an auto-reject defect.
 - Corrective rule: every full-OfOne run must pass pre-score compliance before metric scoring; schema-valid is not benchmark-valid.
 
+Run 07 and the remedial full-OfOne rerun added the first corrective proof:
+
+- The original rejected output, artifact, validator report, patch report, review, and independent adjudication remain immutable evidence.
+- The remedial rerun is case-native, carries artifact-level benchmark trace binding for the case file, prompt file, and input bundle, and has companion validator, rendering, patch, and review artifacts.
+- The execution matrix tracks the rerun outside the original 90-slot count and marks it aggregate-eligible only as a replacement for the excluded original.
+- This repairs the first-slice benchmark-control failure, but it does not produce aggregate scoring or support a superiority claim.
+
 Minimum sections once runs exist:
 
 - validation failures

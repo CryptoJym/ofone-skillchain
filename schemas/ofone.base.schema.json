@@ -1274,6 +1274,12 @@
       "type": "object",
       "additionalProperties": false,
       "required": ["trace_id", "suite_id", "cases_run", "arms_run", "model_families", "superiority_ready", "diagnostics", "movement_jobs"],
+      "dependentRequired": {
+        "case_id": ["run_id", "case_file", "case_file_sha256", "prompt_file", "prompt_file_sha256", "input_bundle_sha256"],
+        "run_id": ["case_id", "case_file", "case_file_sha256", "prompt_file", "prompt_file_sha256", "input_bundle_sha256"],
+        "case_file": ["case_id", "run_id", "case_file_sha256", "prompt_file", "prompt_file_sha256", "input_bundle_sha256"],
+        "input_bundle_sha256": ["case_id", "run_id", "case_file", "case_file_sha256", "prompt_file", "prompt_file_sha256"]
+      },
       "properties": {
         "trace_id": {
           "type": "string"
@@ -1303,6 +1309,30 @@
           "items": {
             "type": "string"
           }
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "run_id": {
+          "type": "string"
+        },
+        "case_file": {
+          "type": "string"
+        },
+        "case_file_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[a-fA-F0-9]{64}$"
+        },
+        "prompt_file": {
+          "type": "string"
+        },
+        "prompt_file_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[a-fA-F0-9]{64}$"
+        },
+        "input_bundle_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[a-fA-F0-9]{64}$"
         },
         "movement_jobs": {
           "$ref": "#/$defs/movementJobs"

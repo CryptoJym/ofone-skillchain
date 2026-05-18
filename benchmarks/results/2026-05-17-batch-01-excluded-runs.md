@@ -18,8 +18,15 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 
 - Direct-answer first-slice run remains aggregate-eligible.
 - Light-structured first-slice run remains aggregate-eligible.
-- Full-OfOne first-slice run must be rerun with a case-native artifact before it can be compared.
+- Original full-OfOne first-slice run remains excluded and immutable.
+- Remedial full-OfOne rerun 1 is reviewed and aggregate-eligible as a replacement for the excluded original only.
 - No empirical superiority or method-performance claim is supported.
+
+## Remedial Reruns
+
+| Run ID | Replaces | Status | Aggregate Policy | Notes |
+| --- | --- | --- | --- | --- |
+| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1` | `reviewed` | `replace_for_aggregate_only` | Case-native artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
 
 ## Rerun Semantics
 
@@ -28,6 +35,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - Remedial reruns use `rerun_id_template={original_run_id}__rerun{rerun_number}` and carry `rerun_of`, `reason`, `status`, and `aggregate_policy`.
 - The first remedial rerun repairs the excluded repeat-1 slot and does not consume repeat 2 or repeat 3.
 - A remedial rerun can replace the excluded original for aggregate scoring only after it passes pre-score compliance, benchmark trace binding, machine-artifact hash checks, and review/adjudication.
+- Remedial reruns are tracked in `execution-matrix.json` under `remedial_runs`; they do not consume a new predeclared repeat slot.
 
 ## Provenance Binding
 

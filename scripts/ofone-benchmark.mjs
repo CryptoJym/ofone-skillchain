@@ -316,6 +316,7 @@ function validateRunRecords(manifest, matrix) {
   validateRunRecordState(manifest, matrix, "completed");
   validateRunRecordState(manifest, matrix, "reviewed");
   validateRunRecordState(manifest, matrix, "excluded");
+  validateRemedialRunRecords(manifest, matrix);
 }
 
 function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
@@ -323,6 +324,7 @@ function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
   const completedRuns = matrix.completed_runs || [];
   const reviewedRuns = matrix.reviewed_runs || [];
   const excludedRuns = matrix.excluded_runs || [];
+  const remedialRuns = matrix.remedial_runs || [];
 
   for (const [field, runs] of [
     ["completed", completedRuns],
@@ -368,6 +370,16 @@ function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
     fail("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} must document whether reviewed/excluded counters overlap completed outputs`);
   } else {
     pass("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} documents overlapping completion/review/exclusion semantics`);
+  }
+
+  if (remedialRuns.length > 0 || Number.isInteger(completion.remedial)) {
+    if (!Number.isInteger(completion.remedial)) {
+      fail("BENCH_BATCH_MATRIX_REMEDIAL_COMPLETION", `${manifest.batch_id} completion.remedial must be an integer when remedial_runs are present`);
+    } else if (completion.remedial !== remedialRuns.length) {
+      fail("BENCH_BATCH_MATRIX_REMEDIAL_COMPLETION", `${manifest.batch_id} completion.remedial=${completion.remedial} but remedial_runs has ${remedialRuns.length}`);
+    } else {
+      pass("BENCH_BATCH_MATRIX_REMEDIAL_COMPLETION", `${manifest.batch_id} records ${remedialRuns.length} remedial rerun(s) outside the original slot count`);
+    }
   }
 }
 
@@ -419,6 +431,71 @@ function validateRunRecord(manifest, run, expectedStatus, seen, validCases, vali
   if (run.arm_id === "full_ofone") checkRunArtifact(manifest, run);
   if (expectedStatus === "reviewed") checkRunReview(run);
   if (expectedStatus === "excluded") checkExcludedRun(run);
+}
+
+function validateRemedialRunRecords(manifest, matrix) {
+  const runs = matrix.remedial_runs || [];
+  if (runs.length === 0) return;
+
+  const diagnosticCode = "BENCH_BATCH_REMEDIAL_RUNS";
+  if (matrix.completion?.remedial !== runs.length) {
+    fail(diagnosticCode, `${manifest.batch_id} lists ${runs.length}/${matrix.completion?.remedial || 0} remedial run record(s)`);
+    return;
+  }
+  pass(diagnosticCode, `${manifest.batch_id} lists ${runs.length} remedial run record(s)`);
+
+  const seen = new Set();
+  const validCases = new Set(manifest.case_ids || []);
+  const validArms = new Set((manifest.arms || []).map((arm) => arm.arm_id));
+  const validModelFamilies = new Set((manifest.model_plan?.model_families || []).map((family) => family.family_id));
+  const maxRepeat = manifest.model_plan?.runs_per_case_per_arm || 0;
+  const excludedIds = new Set((matrix.excluded_runs || []).map((run) => run.run_id));
+
+  for (const run of runs) {
+    validateRemedialRunRecord(manifest, matrix, run, seen, validCases, validArms, validModelFamilies, maxRepeat, excludedIds);
+  }
+}
+
+function validateRemedialRunRecord(manifest, matrix, run, seen, validCases, validArms, validModelFamilies, maxRepeat, excludedIds) {
+  const label = run.run_id || "(missing run_id)";
+  if (!run.run_id) fail("BENCH_BATCH_REMEDIAL_RUN_ID", `${manifest.batch_id} remedial run missing run_id`);
+  if (seen.has(run.run_id)) fail("BENCH_BATCH_REMEDIAL_RUN_ID_UNIQUE", `${manifest.batch_id} duplicate remedial run_id ${run.run_id}`);
+  seen.add(run.run_id);
+
+  if (!validCases.has(run.case_id)) fail("BENCH_BATCH_REMEDIAL_RUN_CASE", `${label} has unknown case_id ${run.case_id || "(missing)"}`);
+  if (!validArms.has(run.arm_id)) fail("BENCH_BATCH_REMEDIAL_RUN_ARM", `${label} has unknown arm_id ${run.arm_id || "(missing)"}`);
+  if (!validModelFamilies.has(run.model_family)) fail("BENCH_BATCH_REMEDIAL_RUN_MODEL_FAMILY", `${label} has unknown model_family ${run.model_family || "(missing)"}`);
+  if (!Number.isInteger(run.repeat) || run.repeat < 1 || run.repeat > maxRepeat) {
+    fail("BENCH_BATCH_REMEDIAL_RUN_REPEAT", `${label} repeat ${run.repeat || "(missing)"} outside 1..${maxRepeat}`);
+  }
+  if (!run.rerun_of || !excludedIds.has(run.rerun_of)) {
+    fail("BENCH_BATCH_REMEDIAL_RUN_RERUN_OF", `${label} must identify an excluded original in rerun_of`);
+  }
+  if (!Number.isInteger(run.rerun_number) || run.rerun_number < 1) {
+    fail("BENCH_BATCH_REMEDIAL_RUN_NUMBER", `${label} rerun_number must be a positive integer`);
+  }
+  if (!run.rerun_reason) fail("BENCH_BATCH_REMEDIAL_RUN_REASON", `${label} missing rerun_reason`);
+  if (!validRerunAggregatePolicies.has(run.aggregate_policy)) {
+    fail("BENCH_BATCH_REMEDIAL_RUN_AGGREGATE_POLICY", `${label} aggregate_policy ${run.aggregate_policy || "(missing)"} is invalid`);
+  }
+  if (!validRerunStatuses.has(run.status)) {
+    fail("BENCH_BATCH_REMEDIAL_RUN_STATUS", `${label} status ${run.status || "(missing)"} is invalid`);
+  }
+
+  const expectedRunId = (matrix.rerun_policy?.rerun_id_template || "")
+    .replace("{original_run_id}", run.rerun_of || "")
+    .replace("{rerun_number}", String(run.rerun_number || ""));
+  if (!expectedRunId || run.run_id !== expectedRunId) {
+    fail("BENCH_BATCH_REMEDIAL_RUN_ID_FORMAT", `${label} should be ${expectedRunId || "(missing rerun policy template)"}`);
+  }
+
+  checkBenchmarkTrace(manifest, run);
+  checkPreScoreCompliance(run);
+  checkSemanticFidelity(run);
+  checkRunOutput(run);
+  if (run.arm_id === "full_ofone") checkRunArtifact(manifest, run);
+  if (["reviewed", "released"].includes(run.status)) checkRunReview(run);
+  pass("BENCH_BATCH_REMEDIAL_RUN", `${label} remedial rerun is linked, benchmark-bound, and independently reviewable`);
 }
 
 function checkRunOutput(run) {

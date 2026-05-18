@@ -21,6 +21,7 @@ OfOne should not claim empirical superiority without benchmark evidence. This sc
 - pre-score compliance gates before metric scoring
 - excluded-run logs for wrong-case, copied-example, leakage, required-output, or no-superiority failures
 - immutable validator and patch artifacts for full-OfOne runs
+- immutable remedial rerun records when an excluded original must be replaced for aggregate scoring without rewriting history
 
 Benchmarks should compare the validated OfOne artifact and its rendering against direct-answer baselines and simpler structured-prompt baselines.
 
@@ -45,6 +46,7 @@ It declares the three benchmark arms, frozen arm prompts, repeated-run and model
 `runs/2026-05-17-batch-01/execution-matrix.json` predeclares 90 run slots across 5 cases, 3 arms, 2 model families, and 3 repeats.
 Its status is `in_progress`; three local `agentic_coding` raw outputs have unblinded local reviews.
 Run 06 independently reviewed the first slice and accepted the direct-answer and light-structured slots while excluding the full-OfOne slot from aggregate scoring because its artifact identity was copied from another case.
+Run 07 hardened the workflow, and the full-OfOne slot now has a reviewed remedial rerun at `runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md` with companion artifact, validator, rendering, patch report, and local review files.
 The harvested independent review is stored at `../research/results/2026-05-17-06-ofone-batch01-independent-review-result.md`; the excluded-run log is `results/2026-05-17-batch-01-excluded-runs.md`.
 Aggregate scoring and superiority claims remain blocked.
 
@@ -54,7 +56,7 @@ Aggregate scoring and superiority claims remain blocked.
 npm run benchmark
 ```
 
-The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, execution matrices, prompt files, review templates, result placeholders, model-family plans, release guards, pre-score compliance gates, full-OfOne case binding, benchmark trace hashes, machine-artifact hashes, semantic-fidelity fields, excluded-run state, rerun semantics, and public checker attestations.
+The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, execution matrices, prompt files, review templates, result placeholders, model-family plans, release guards, pre-score compliance gates, full-OfOne case binding, benchmark trace hashes, machine-artifact hashes, semantic-fidelity fields, excluded-run state, remedial rerun records, rerun semantics, and public checker attestations.
 
 Batch 01 currently publishes a machine-readable checker attestation at [`benchmarks/results/2026-05-17-batch-01-checker-attestation.json`](./results/2026-05-17-batch-01-checker-attestation.json). The attestation is proof of the current benchmark-control state, not proof of empirical superiority.
 It intentionally warns until the suite reaches the declared case/run/model-family minimums and releases failure analysis.

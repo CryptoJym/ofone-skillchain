@@ -34,7 +34,8 @@
     "completed": 3,
     "reviewed": 3,
     "excluded": 1,
-    "aggregate_eligible": 2
+    "aggregate_eligible": 3,
+    "remedial": 1
   },
   "completed_runs": [
     {
@@ -139,7 +140,7 @@
       },
       "rerun_plan": {
         "required": true,
-        "status": "not_started",
+        "status": "reviewed",
         "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
         "reason": "Original full_ofone slot is benchmark-invalid because the artifact was copied from a different case. Preserve it immutably and create a case-native remedial rerun before broader Batch 01 execution resumes.",
         "aggregate_policy": "replace_for_aggregate_only"
@@ -249,7 +250,7 @@
       },
       "rerun_plan": {
         "required": true,
-        "status": "not_started",
+        "status": "reviewed",
         "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
         "reason": "Original full_ofone slot is benchmark-invalid because the artifact was copied from a different case. Preserve it immutably and create a case-native remedial rerun before broader Batch 01 execution resumes.",
         "aggregate_policy": "replace_for_aggregate_only"
@@ -314,7 +315,7 @@
       },
       "rerun_plan": {
         "required": true,
-        "status": "not_started",
+        "status": "reviewed",
         "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
         "reason": "Original full_ofone slot is benchmark-invalid because the artifact was copied from a different case. Preserve it immutably and create a case-native remedial rerun before broader Batch 01 execution resumes.",
         "aggregate_policy": "replace_for_aggregate_only"
@@ -328,5 +329,54 @@
     "replacement_policy": "Never mutate or delete excluded originals. A remedial rerun creates a new run record linked with rerun_of and can replace the excluded original only for aggregate scoring after independent review.",
     "aggregate_policy": "replace_for_aggregate_only",
     "planned_repeat_policy": "The first remedial rerun repairs the excluded repeat-1 slot and does not consume repeat 2 or repeat 3. Additional failures remain separate excluded records with their own rerun_plan."
-  }
+  },
+  "remedial_runs": [
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1",
+      "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
+      "rerun_number": 1,
+      "rerun_reason": "Remedial full_ofone rerun after Run 06/Run 07 found and hardened the wrong-case copied-artifact failure mode.",
+      "aggregate_policy": "replace_for_aggregate_only",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "agentic_coding",
+      "repeat": 1,
+      "status": "reviewed",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Remedial rerun is case-native, carries benchmark trace hash binding, and keeps superiority claims blocked."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence with content hashes and explicit blocking unknown",
+        "artifact_source_identity": "artifact_identity, benchmark_trace, raw output, validator, rendering, patch report, and review file all identify the remedial run and case-strategic-gated-diligence-001"
+      },
+      "benchmark_trace": {
+        "case_id": "case-strategic-gated-diligence-001",
+        "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1",
+        "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+        "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.validator.json",
+        "validator_sha256": "sha256:a8db52dae255b3bb7a37374fd8f0caee5d398b801e0869a34b86af35cf5257ba",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.patch.json",
+        "patch_sha256": "sha256:be452089c33c365a808245e1f81c6df019c8dde64ddb2ba494d248e896e4795f",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.rendering.md",
+        "rendering_sha256": "sha256:3321e0edd8899a9585a67547f9d81d7bd25477b60660d8ea58997596d9ea48b7"
+      }
+    }
+  ]
 }

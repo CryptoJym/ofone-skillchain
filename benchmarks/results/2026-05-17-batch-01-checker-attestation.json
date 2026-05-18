@@ -280,6 +280,11 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_REMEDIAL_COMPLETION",
+      "message": "2026-05-17-batch-01 records 1 remedial rerun(s) outside the original slot count"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_RERUN_POLICY",
       "message": "2026-05-17-batch-01 declares immutable rerun semantics for excluded slots"
     },
@@ -507,6 +512,61 @@
       "severity": "info",
       "code": "BENCH_BATCH_RUN_EXCLUDED",
       "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1 excluded from aggregate scoring with independent adjudication"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_REMEDIAL_RUNS",
+      "message": "2026-05-17-batch-01 lists 1 remedial run record(s)"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 validator_json hash matches sha256:a8db52dae255b3bb7a37374fd8f0caee5d398b801e0869a34b86af35cf5257ba"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 patch_json hash matches sha256:be452089c33c365a808245e1f81c6df019c8dde64ddb2ba494d248e896e4795f"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_REMEDIAL_RUN",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 remedial rerun is linked, benchmark-bound, and independently reviewable"
     },
     {
       "severity": "info",

@@ -1,0 +1,238 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "E2",
+        "C3",
+        "C4",
+        "U1",
+        "G1",
+        "O1",
+        "O2",
+        "TS1"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C3",
+      "type": "claim",
+      "label": "Operational launch remains blocked until reviewer-owned approval resolves the launch-readiness unknown."
+    },
+    {
+      "id": "C4",
+      "type": "claim",
+      "label": "New launch-readiness evidence should patch the recommendation and regenerate the rendering."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "approve diligence while blocking launch behind G1 and U1"
+    },
+    {
+      "id": "E2",
+      "type": "evidence",
+      "label": "file"
+    },
+    {
+      "id": "G1",
+      "type": "gate",
+      "label": "Any operational launch or launch-like commitment requires reviewer approval after U1 is resolved."
+    },
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "What evidence from the diligence move proves readiness for operational launch without creating irreversible commitment?"
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS2",
+      "type": "lens",
+      "label": "review accountability"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "test"
+    },
+    {
+      "id": "O2",
+      "type": "option_move",
+      "label": "act"
+    },
+    {
+      "id": "OFONE-2026-05-18-B01-SGD-FULL-RERUN1",
+      "type": "artifact_identity",
+      "label": "strategic gated diligence before operational launch"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Proceed with a scoped diligence move, not operational launch."
+    },
+    {
+      "id": "TEMPORAL",
+      "type": "temporal_model",
+      "label": "one diligence cycle before launch"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "The case does not specify the concrete diligence findings required to justify operational launch."
+    },
+    {
+      "id": "X2",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X3",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C3",
+      "C4"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "evidence": [
+      "E2"
+    ],
+    "gate": [
+      "G1"
+    ],
+    "information_value": [
+      "IV:U1"
+    ],
+    "loop": [
+      "L1"
+    ],
+    "lens": [
+      "LENS2"
+    ],
+    "option_move": [
+      "O1",
+      "O2"
+    ],
+    "artifact_identity": [
+      "OFONE-2026-05-18-B01-SGD-FULL-RERUN1"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "temporal_model": [
+      "TEMPORAL"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1"
+    ],
+    "edge": [
+      "X2",
+      "X3",
+      "X4",
+      "X5"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "evidential",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C3",
+    "C4"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [],
+  "suggested_transition": "human_review",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 19 downstream object(s) are in closure, so the current decision rendering must be regenerated. human review blocks release.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "temporal_validity_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "review_log_check",
+    "rendering_regeneration",
+    "human_gate_review"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C3",
+        "C4"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 19 downstream object(s); transition=human_review; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C3, C4",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log",
+      "route through the required human gate before release"
+    ]
+  }
+}
