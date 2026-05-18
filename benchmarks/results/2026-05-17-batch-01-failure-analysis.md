@@ -33,6 +33,12 @@ Run 07 and the remedial full-OfOne rerun added the first corrective proof:
 
 The scientific mechanism slice adds a non-remedial full-OfOne case-binding proof: the full artifact carries matching artifact identity, benchmark trace, validator result, rendering, patch report, and local review for `case-scientific-mechanism-check-001`.
 
+The regulated wastewater slice adds a hybrid strategic/scientific/normative case-binding proof:
+
+- Direct answer: correctly blocks launch and allows diligence, but has low traceability and no machine-addressable update closure.
+- Light structured answer: gives a useful gated diligence checklist, but criteria, gates, and patch effects remain prose.
+- Full OfOne answer: preserves evidence, claim, unknown, option, gate, trigger, tradeoff, rendering, validator, and patch artifacts for `case-regulated-wastewater-market-entry-001`; remaining limitation is that generic source-backed regulatory evidence does not resolve jurisdiction-specific launch authority.
+
 Minimum sections once runs exist:
 
 - validation failures
