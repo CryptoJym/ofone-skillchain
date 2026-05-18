@@ -42,12 +42,16 @@ process.exit(passed ? 0 : 1);
 function validateRun06Status({ tracker, manifest, status }) {
   const reviewPlan = manifest.review_plan || {};
   const url = "https://chatgpt.com/c/6a0a5901-a7fc-83e8-895c-300476365f93";
-  const rowPattern = /\|\s*06\s*\|\s*OfOne Batch 01 Independent Review\s*\|\s*benchmark\s*\|\s*active_researching\s*\|\s*https:\/\/chatgpt\.com\/c\/6a0a5901-a7fc-83e8-895c-300476365f93\s*\|/;
+  const lifecycle = reviewPlan.independent_review_status || "not_prepared";
+  const expectedTrackerState = lifecycle === "launched" ? "active_researching" : lifecycle;
+  const trackerRow = tracker.split("\n").find((line) => line.startsWith("| 06 |")) || "";
 
   check(
-    rowPattern.test(tracker),
+    trackerRow.includes("| OfOne Batch 01 Independent Review |") &&
+      trackerRow.includes(`| ${expectedTrackerState} |`) &&
+      trackerRow.includes(`| ${url} |`),
     "OFONE_RESEARCH_TRACKER_ROW",
-    "tracker Run 06 row is active_researching with the expected ChatGPT URL"
+    `tracker Run 06 row is ${expectedTrackerState} with the expected ChatGPT URL`
   );
   check(
     tracker.includes(statusRel),
@@ -55,9 +59,9 @@ function validateRun06Status({ tracker, manifest, status }) {
     "tracker links the run-scoped status ledger"
   );
   check(
-    reviewPlan.independent_review_status === "launched",
+    ["launched", "harvested", "accepted", "integrated"].includes(lifecycle),
     "OFONE_RESEARCH_MANIFEST_STATUS",
-    "manifest keeps independent_review_status at launched while the external run is active"
+    `manifest independent_review_status is a tracked lifecycle state (${lifecycle})`
   );
   check(
     reviewPlan.independent_review_url === url,
@@ -70,29 +74,16 @@ function validateRun06Status({ tracker, manifest, status }) {
     "manifest points to the run-scoped status ledger"
   );
   check(
-    status.includes("Run ID: 06") && status.includes("Lifecycle state: active_researching"),
+    status.includes("Run ID: 06") && status.includes(`Lifecycle state: ${expectedTrackerState}`),
     "OFONE_RESEARCH_STATUS_STATE",
-    "run-scoped ledger identifies Run 06 and lifecycle state active_researching"
+    `run-scoped ledger identifies Run 06 and lifecycle state ${expectedTrackerState}`
   );
   check(
     status.includes(`Conversation URL: ${url}`),
     "OFONE_RESEARCH_STATUS_URL",
     "run-scoped ledger records the live conversation URL"
   );
-  check(
-    status.includes("Pasted text(8).txt") &&
-      status.includes("Independent OfOne Batch 01 Review") &&
-      status.includes("Researching...") &&
-      status.includes("Stop research"),
-    "OFONE_RESEARCH_LAUNCH_PROOF",
-    "run-scoped ledger preserves launch proof and active research affordances"
-  );
-  check(
-    status.includes("Report is not ready to harvest") &&
-      status.includes(resultRel),
-    "OFONE_RESEARCH_HARVEST_BOUNDARY",
-    "run-scoped ledger keeps the harvest boundary and target result path explicit"
-  );
+  validateLifecycleBoundary({ reviewPlan, status, lifecycle, resultRel });
 
   const latestStatusTimestamp = latestTimestamp(status);
   check(
@@ -102,11 +93,61 @@ function validateRun06Status({ tracker, manifest, status }) {
   );
 
   const resultPath = path.join(repoRoot, resultRel);
+  if (lifecycle === "launched") {
+    check(
+      !fs.existsSync(resultPath),
+      "OFONE_RESEARCH_NO_PREMATURE_RESULT",
+      "Run 06 has no harvested result file while lifecycle state is active_researching"
+    );
+  } else {
+    check(
+      fs.existsSync(resultPath),
+      "OFONE_RESEARCH_RESULT_PRESENT",
+      `Run 06 harvested result file exists for lifecycle state ${lifecycle}`
+    );
+    check(
+      reviewPlan.independent_review_result === resultRel,
+      "OFONE_RESEARCH_MANIFEST_RESULT",
+      "manifest points to the harvested Run 06 result"
+    );
+  }
+}
+
+function validateLifecycleBoundary({ reviewPlan, status, lifecycle, resultRel }) {
   check(
-    !fs.existsSync(resultPath),
-    "OFONE_RESEARCH_NO_PREMATURE_RESULT",
-    "Run 06 has no harvested result file while lifecycle state is active_researching"
+    status.includes("Pasted text(8).txt") &&
+      status.includes("Independent OfOne Batch 01 Review") &&
+      status.includes("Researching...") &&
+      status.includes("Stop research"),
+    "OFONE_RESEARCH_LAUNCH_PROOF",
+    "run-scoped ledger preserves launch proof and active research affordances"
   );
+
+  if (lifecycle === "launched") {
+    check(
+      status.includes("Report is not ready to harvest") &&
+        status.includes(resultRel),
+      "OFONE_RESEARCH_HARVEST_BOUNDARY",
+      "run-scoped ledger keeps the harvest boundary and target result path explicit"
+    );
+    return;
+  }
+
+  check(
+    status.includes("Research completed in 13m") &&
+      status.includes(resultRel) &&
+      status.includes("full_ofone: reject"),
+    "OFONE_RESEARCH_HARVEST_PROOF",
+    "run-scoped ledger records harvest proof and independent adjudication"
+  );
+  if (lifecycle === "integrated") {
+    check(
+      Boolean(reviewPlan.independent_review_integration) &&
+        status.includes("Lifecycle state: integrated"),
+      "OFONE_RESEARCH_INTEGRATION_PROOF",
+      "Run 06 integration state is recorded in manifest and ledger"
+    );
+  }
 }
 
 function readText(filePath, label) {

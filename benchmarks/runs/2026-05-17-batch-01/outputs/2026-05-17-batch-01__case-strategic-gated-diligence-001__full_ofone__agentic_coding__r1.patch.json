@@ -1,0 +1,206 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "E1"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C1",
+      "type": "claim",
+      "label": "Current evidence is insufficient for full operational market entry."
+    },
+    {
+      "id": "C2",
+      "type": "claim",
+      "label": "A gated diligence move is more reversible than launch."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "Approve a reversible diligence move, not full entry."
+    },
+    {
+      "id": "E1",
+      "type": "evidence",
+      "label": "observation"
+    },
+    {
+      "id": "KT1",
+      "type": "kill_test",
+      "label": "Source contradiction or regime shift shows diligence is not more reversible than launch."
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS1",
+      "type": "lens",
+      "label": "strategic agentic lens"
+    },
+    {
+      "id": "LENS2",
+      "type": "lens",
+      "label": "scientific explanatory lens"
+    },
+    {
+      "id": "LENS3",
+      "type": "lens",
+      "label": "normative evaluative lens"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "test"
+    },
+    {
+      "id": "OFONE-strategy-micro-001",
+      "type": "artifact_identity",
+      "label": "Decide whether to enter a regulated wastewater treatment market."
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Approve a reversible diligence move, not full entry."
+    },
+    {
+      "id": "TEMPORAL",
+      "type": "temporal_model",
+      "label": "60 days"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "X1",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X2",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C1",
+      "C2"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "evidence": [
+      "E1"
+    ],
+    "kill_test": [
+      "KT1"
+    ],
+    "loop": [
+      "L1"
+    ],
+    "lens": [
+      "LENS1",
+      "LENS2",
+      "LENS3"
+    ],
+    "option_move": [
+      "O1"
+    ],
+    "artifact_identity": [
+      "OFONE-strategy-micro-001"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "temporal_model": [
+      "TEMPORAL"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "edge": [
+      "X1",
+      "X2"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "evidential",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C1",
+    "C2"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [],
+  "suggested_transition": "patch",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 16 downstream object(s) are in closure, so the current decision rendering must be regenerated.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "temporal_validity_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "rendering_regeneration"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C1",
+        "C2"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 16 downstream object(s); transition=patch; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C1, C2",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log"
+    ]
+  }
+}

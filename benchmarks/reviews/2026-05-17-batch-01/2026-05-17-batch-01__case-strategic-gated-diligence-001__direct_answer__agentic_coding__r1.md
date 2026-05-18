@@ -10,6 +10,23 @@
 - Review date: 2026-05-17
 - Blinding status: `unblinded`
 
+## Pre-Score Compliance Gate
+
+| Check | Result | Notes |
+| --- | --- | --- |
+| Case fidelity | `pass` | The answer addresses `case-strategic-gated-diligence-001` directly. |
+| Required outputs present | `pass` | It includes an answer, uncertainty/gap notes, and source/gap boundaries appropriate to the direct-answer arm. |
+| Independence from other arms/examples | `pass` | No copied OfOne artifact or other-arm dependency is present. |
+| No-superiority compliance | `pass` | It makes no benchmark or method-superiority claim. |
+| Auto-reject before aggregate scoring | `no` | No pre-score reject condition was found. |
+
+## Semantic Fidelity
+
+- Case binding: Pass; raw Markdown metadata and answer target the benchmark case.
+- Copied-example risk: Low.
+- Evidence provenance adequacy: Scenario-level only, acceptable for this baseline text arm.
+- Artifact/source identity: Raw Markdown output is bound to the benchmark run metadata.
+
 ## Scores
 
 | Metric | Score | Rationale |

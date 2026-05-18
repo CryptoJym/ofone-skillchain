@@ -63,6 +63,8 @@ OfOne earns superiority claims through predeclared benchmarks:
 - repeated runs per arm-case-model cell
 - blinded expert review
 - full artifact release for audit
+- pre-score compliance gates that reject wrong-case or copied-example runs before aggregation
+- immutable validator and patch artifacts for full-OfOne benchmark runs
 
 The repository scaffold lives under `benchmarks/` with cases, rubrics, runs, reviews, and results folders.
 

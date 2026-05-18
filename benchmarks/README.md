@@ -18,6 +18,9 @@ OfOne should not claim empirical superiority without benchmark evidence. This sc
 - repeated runs across multiple model families
 - blinded expert review where possible
 - full artifact release or redacted release notes when source permission blocks publication
+- pre-score compliance gates before metric scoring
+- excluded-run logs for wrong-case, copied-example, leakage, required-output, or no-superiority failures
+- immutable validator and patch artifacts for full-OfOne runs
 
 Benchmarks should compare the validated OfOne artifact and its rendering against direct-answer baselines and simpler structured-prompt baselines.
 
@@ -40,8 +43,10 @@ The source-backed example at `../examples/source-backed-wastewater-map.json` is 
 `runs/2026-05-17-batch-01/manifest.json` freezes the first five-case execution plan before any model outputs are collected.
 It declares the three benchmark arms, frozen arm prompts, repeated-run and model-family plan, review template, result placeholders, raw-output directory, and release guard.
 `runs/2026-05-17-batch-01/execution-matrix.json` predeclares 90 run slots across 5 cases, 3 arms, 2 model families, and 3 repeats.
-Its status is `in_progress`; three local `agentic_coding` raw outputs have unblinded local reviews, with independent review and aggregate scoring still blocked.
-The independent frontier-review handoff is prepared at `reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md`; it is not launched or harvested yet.
+Its status is `in_progress`; three local `agentic_coding` raw outputs have unblinded local reviews.
+Run 06 independently reviewed the first slice and accepted the direct-answer and light-structured slots while excluding the full-OfOne slot from aggregate scoring because its artifact identity was copied from another case.
+The harvested independent review is stored at `../research/results/2026-05-17-06-ofone-batch01-independent-review-result.md`; the excluded-run log is `results/2026-05-17-batch-01-excluded-runs.md`.
+Aggregate scoring and superiority claims remain blocked.
 
 ## Validate The Suite
 
@@ -49,5 +54,5 @@ The independent frontier-review handoff is prepared at `reviews/2026-05-17-batch
 npm run benchmark
 ```
 
-The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, execution matrices, prompt files, review templates, result placeholders, model-family plans, and release guards.
+The suite checker verifies the three comparison arms, required task-family coverage, required metrics, referenced case files, rubrics, linked OfOne artifacts, declared benchmark batch manifests, execution matrices, prompt files, review templates, result placeholders, model-family plans, release guards, pre-score compliance gates, full-OfOne case binding, machine-artifact hashes, semantic-fidelity fields, and excluded-run state.
 It intentionally warns until the suite reaches the declared case/run/model-family minimums and releases failure analysis.

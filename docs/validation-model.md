@@ -69,6 +69,19 @@ Option `blocking_unknowns` values must reference `unknowns[].unknown_id`. Missin
 
 Source material is never trusted as instruction. The validator can accept evidence extracted from public pages, GitHub files, benchmark cases, and model reviews, but the compiler must ignore commands embedded in those sources. Source text can only affect an artifact after it is represented as evidence, claims, unknowns, gates, triggers, review-cycle findings, or rejected findings.
 
+## Benchmark Workflow Validation
+
+Benchmark validation is intentionally stricter than artifact validation. A full-OfOne artifact can be schema-valid while still being benchmark-invalid if it is copied from another case, points to the wrong `artifact_identity.case_id`, omits required arm outputs, leaks information from another arm, or makes unsupported method-superiority claims.
+
+Before scoring, each run records a pre-score compliance gate:
+
+- case fidelity
+- required outputs
+- independence from other arms or copied examples
+- no-superiority compliance
+
+Any failed pre-score field is an auto-reject before aggregate scoring. Rejected runs remain visible in `reviewed_runs` and `excluded_runs` so failure modes are auditable, but their metric scores cannot enter aggregate comparison. Full-OfOne runs also persist immutable machine-generated validator and patch artifacts with SHA-256 hashes; narrated validator summaries are not enough.
+
 ## Mode-Aware Profiles
 
 The base schema defines portable object shapes. Profiles decide how much is required:

@@ -260,9 +260,15 @@ function runToolingContractCheck() {
     ["index status ledger link", index.includes("./research/status/2026-05-17-06-ofone-batch01-independent-review.md")],
     ["index research tracker link", index.includes("./research/TRACKER.md")],
     ["package research script", packageJson.scripts?.["research:check"] === "node scripts/ofone-research-check.mjs"],
-    ["manifest independent review launch state", manifest.review_plan?.independent_review_status === "launched"],
+    ["manifest independent review integrated state", manifest.review_plan?.independent_review_status === "integrated"],
     ["manifest independent review launch proof", Array.isArray(manifest.review_plan?.independent_review_launch?.launch_proof)],
+    ["manifest independent review result", manifest.review_plan?.independent_review_result === "research/results/2026-05-17-06-ofone-batch01-independent-review-result.md"],
+    ["manifest excluded-run log", manifest.results_plan?.excluded_run_log === "benchmarks/results/2026-05-17-batch-01-excluded-runs.md"],
     ["benchmark launch metadata validator", benchmarkScript.includes("BENCH_BATCH_INDEPENDENT_REVIEW_LAUNCH")],
+    ["benchmark case-binding validator", benchmarkScript.includes("BENCH_BATCH_RUN_CASE_BINDING")],
+    ["benchmark pre-score validator", benchmarkScript.includes("BENCH_BATCH_RUN_PRE_SCORE")],
+    ["index Run 06 result link", index.includes("./research/results/2026-05-17-06-ofone-batch01-independent-review-result.md")],
+    ["index excluded runs link", index.includes("./benchmarks/results/2026-05-17-batch-01-excluded-runs.md")],
     ["Pages v08 context link", index.includes("./research/ofone-v08-convergence-context-brief.md")]
   ];
   const missing = required.filter(([, passed]) => !passed).map(([name]) => name);

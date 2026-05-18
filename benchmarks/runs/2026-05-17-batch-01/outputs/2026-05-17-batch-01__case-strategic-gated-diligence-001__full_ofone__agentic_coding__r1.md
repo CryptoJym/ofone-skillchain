@@ -20,7 +20,9 @@ Artifact file:
 
 `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json`
 
-This is a copied raw-run artifact from the current validated strategic Micro example for the strategic gated diligence case. It is stored as JSON beside this Markdown output rather than inlined, so the run has a machine-readable artifact while the raw Markdown remains reviewable.
+This is a copied raw-run artifact from the current validated strategic Micro example. It is stored as JSON beside this Markdown output rather than inlined, so the run has a machine-readable artifact while the raw Markdown remains reviewable.
+
+Independent Run 06 later rejected this slot from aggregate scoring because the copied artifact is not bound to `case-strategic-gated-diligence-001`; schema-valid is not benchmark-valid.
 
 ## Validator Result
 
@@ -38,6 +40,12 @@ Observed result:
 - gate coverage: compliance and reputation gate coverage present
 - dependency closure: trigger `T1` reaches `C1`, `C2`, `COUNCIL`, `KT1`, `L1`, `LENS1`, `LENS2`, `LENS3`, `O1`, `OFONE-strategy-micro-001`, `R1`, `T1`, `TEMPORAL`, `TS1`, `X1`, `X2`, including rendering
 - semantic validation: completed
+
+Immutable validator artifact:
+
+`benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.validator.json`
+
+SHA-256: `4ba12cd353b24ee34e57f28ffb407cceebf1c11c07eece6c1969e30e80782a04`
 
 ## Rendering
 
@@ -84,7 +92,7 @@ Observed result:
 Command:
 
 ```bash
-npm run patch -- examples/strategy-micro.json --operation trigger_activation T1
+npm run patch -- benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.artifact.json --operation trigger_activation T1
 ```
 
 Patch result summary:
@@ -106,6 +114,12 @@ Next patch steps:
 2. Regenerate decision rendering after validation passes.
 3. Record trigger state change in patch history or review log.
 
+Immutable patch artifact:
+
+`benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.patch.json`
+
+SHA-256: `8abecdbe35662f35aedc1d5f6eabe4e468e7dfa10e3c48393eccc804e1c83f55`
+
 ## Release Note
 
-This raw output is one completed run slot. It is not reviewed, not adjudicated, and not aggregate benchmark evidence.
+This raw output is one completed run slot. It has been locally reviewed and independently adjudicated. The run is excluded from aggregate benchmark evidence until rerun with a case-native artifact.

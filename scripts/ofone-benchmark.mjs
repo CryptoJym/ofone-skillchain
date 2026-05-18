@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from "node:fs";
+import crypto from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -24,8 +25,16 @@ const requiredMetrics = [
   "inter_run_stability"
 ];
 const validBatchStatuses = new Set(["not_started", "in_progress", "completed", "reviewed", "released", "accepted", "superseded"]);
-const validRunMatrixStatuses = new Set(["queued", "in_progress", "completed", "reviewed", "released", "superseded"]);
+const validRunMatrixStatuses = new Set(["queued", "in_progress", "completed", "reviewed", "excluded", "released", "superseded"]);
 const validIndependentReviewStatuses = new Set(["not_prepared", "prepared", "launched", "harvested", "accepted", "integrated", "blocked"]);
+const validComplianceValues = new Set(["pass", "fail", "not_applicable", "unknown"]);
+const requiredPreScoreFields = ["case_fidelity", "required_outputs", "independence", "no_superiority_compliance"];
+const requiredSemanticFidelityFields = [
+  "case_binding",
+  "copied_example_risk",
+  "evidence_provenance_adequacy",
+  "artifact_source_identity"
+];
 
 const diagnostics = [];
 const fail = (code, message) => diagnostics.push({ severity: "error", code, message });
@@ -286,13 +295,7 @@ function validateBatchExecutionMatrix(manifest) {
     }
   }
 
-  const completion = matrix.completion || {};
-  const completionTotal = ["queued", "completed", "reviewed", "excluded"].reduce((sum, key) => sum + (Number.isInteger(completion[key]) ? completion[key] : 0), 0);
-  if (completionTotal !== expectedRunCount) {
-    fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion totals ${completionTotal}/${expectedRunCount}`);
-  } else {
-    pass("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion totals match predeclared run count`);
-  }
+  validateMatrixCompletion(manifest, matrix, expectedRunCount);
 
   validateRunRecords(manifest, matrix);
 
@@ -304,22 +307,76 @@ function validateBatchExecutionMatrix(manifest) {
 }
 
 function validateRunRecords(manifest, matrix) {
-  const seen = new Set();
-  validateRunRecordState(manifest, matrix, "completed", seen);
-  validateRunRecordState(manifest, matrix, "reviewed", seen);
+  validateRunRecordState(manifest, matrix, "completed");
+  validateRunRecordState(manifest, matrix, "reviewed");
+  validateRunRecordState(manifest, matrix, "excluded");
 }
 
-function validateRunRecordState(manifest, matrix, state, seen) {
+function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
+  const completion = matrix.completion || {};
+  const completedRuns = matrix.completed_runs || [];
+  const reviewedRuns = matrix.reviewed_runs || [];
+  const excludedRuns = matrix.excluded_runs || [];
+
+  for (const [field, runs] of [
+    ["completed", completedRuns],
+    ["reviewed", reviewedRuns],
+    ["excluded", excludedRuns]
+  ]) {
+    if (!Number.isInteger(completion[field])) {
+      fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion.${field} must be an integer`);
+    } else if (completion[field] !== runs.length) {
+      fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion.${field}=${completion[field]} but ${field}_runs has ${runs.length}`);
+    }
+  }
+
+  const terminalRunIds = new Set([
+    ...completedRuns.map((run) => run.run_id),
+    ...reviewedRuns.map((run) => run.run_id),
+    ...excludedRuns.map((run) => run.run_id)
+  ].filter(Boolean));
+  const queued = Number.isInteger(completion.queued) ? completion.queued : 0;
+  if (queued + terminalRunIds.size !== expectedRunCount) {
+    fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} queued + unique terminal slots = ${queued + terminalRunIds.size}/${expectedRunCount}`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion covers ${expectedRunCount} predeclared slot(s) without double-counting reviewed/excluded overlaps`);
+  }
+
+  const completedIds = new Set(completedRuns.map((run) => run.run_id));
+  const reviewedMissingCompleted = reviewedRuns.map((run) => run.run_id).filter((runId) => !completedIds.has(runId));
+  if (reviewedMissingCompleted.length > 0) {
+    fail("BENCH_BATCH_MATRIX_REVIEW_IMPLIES_COMPLETED", `${manifest.batch_id} reviewed run(s) missing from completed_runs: ${reviewedMissingCompleted.join(", ")}`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_REVIEW_IMPLIES_COMPLETED", `${manifest.batch_id} reviewed runs are also represented as completed raw outputs`);
+  }
+
+  const reviewedIds = new Set(reviewedRuns.map((run) => run.run_id));
+  const excludedMissingReviewed = excludedRuns.map((run) => run.run_id).filter((runId) => !reviewedIds.has(runId));
+  if (excludedMissingReviewed.length > 0) {
+    fail("BENCH_BATCH_MATRIX_EXCLUDED_REVIEWED", `${manifest.batch_id} excluded run(s) missing from reviewed_runs: ${excludedMissingReviewed.join(", ")}`);
+  } else if (excludedRuns.length > 0) {
+    pass("BENCH_BATCH_MATRIX_EXCLUDED_REVIEWED", `${manifest.batch_id} excluded runs remain visible in reviewed_runs for audit history`);
+  }
+
+  if (!matrix.state_semantics || !String(matrix.state_semantics).includes("reviewed")) {
+    fail("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} must document whether reviewed/excluded counters overlap completed outputs`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} documents overlapping completion/review/exclusion semantics`);
+  }
+}
+
+function validateRunRecordState(manifest, matrix, state) {
   const recordKey = `${state}_runs`;
   const runs = matrix[recordKey] || [];
   const expectedCount = matrix.completion?.[state] || 0;
-  const diagnosticCode = state === "completed" ? "BENCH_BATCH_COMPLETED_RUNS" : "BENCH_BATCH_REVIEWED_RUNS";
+  const diagnosticCode = `BENCH_BATCH_${state.toUpperCase()}_RUNS`;
   if (runs.length !== expectedCount) {
     fail(diagnosticCode, `${manifest.batch_id} lists ${runs.length}/${expectedCount} ${state} run record(s)`);
     return;
   }
   pass(diagnosticCode, `${manifest.batch_id} lists ${runs.length} ${state} run record(s)`);
 
+  const seen = new Set();
   const validCases = new Set(manifest.case_ids || []);
   const validArms = new Set((manifest.arms || []).map((arm) => arm.arm_id));
   const validModelFamilies = new Set((manifest.model_plan?.model_families || []).map((family) => family.family_id));
@@ -349,9 +406,12 @@ function validateRunRecord(manifest, run, expectedStatus, seen, validCases, vali
   }
 
   if (run.status !== expectedStatus) fail("BENCH_BATCH_RUN_STATUS", `${label} status must be ${expectedStatus}`);
+  checkPreScoreCompliance(run);
+  checkSemanticFidelity(run);
   checkRunOutput(run);
   if (run.arm_id === "full_ofone") checkRunArtifact(run);
   if (expectedStatus === "reviewed") checkRunReview(run);
+  if (expectedStatus === "excluded") checkExcludedRun(run);
 }
 
 function checkRunOutput(run) {
@@ -383,13 +443,103 @@ function checkRunArtifact(run) {
     fail("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} artifact_json not found at ${run.artifact_json}`);
     return;
   }
+  let artifact;
   try {
-    JSON.parse(fs.readFileSync(artifactPath, "utf8"));
+    artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
   } catch (error) {
     fail("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} artifact_json is not valid JSON: ${error.message}`);
     return;
   }
   pass("BENCH_BATCH_RUN_ARTIFACT", `${run.run_id} full_ofone artifact JSON exists and parses`);
+  checkFullOfOneCaseBinding(run, artifact);
+  checkMachineArtifacts(run);
+}
+
+function checkPreScoreCompliance(run) {
+  const gate = run.pre_score_compliance;
+  if (!gate || typeof gate !== "object") {
+    fail("BENCH_BATCH_RUN_PRE_SCORE", `${run.run_id || "(missing run_id)"} missing pre_score_compliance gate`);
+    return;
+  }
+
+  const missing = requiredPreScoreFields.filter((field) => !validComplianceValues.has(gate[field]));
+  if (missing.length > 0) {
+    fail("BENCH_BATCH_RUN_PRE_SCORE", `${run.run_id} pre_score_compliance missing valid ${missing.join(", ")}`);
+    return;
+  }
+
+  const failedFields = requiredPreScoreFields.filter((field) => gate[field] === "fail");
+  if (failedFields.length > 0 && gate.auto_reject !== true) {
+    fail("BENCH_BATCH_RUN_PRE_SCORE", `${run.run_id} has failed pre-score field(s) without auto_reject=true: ${failedFields.join(", ")}`);
+  }
+  if (gate.auto_reject === true && run.aggregate_eligible !== false) {
+    fail("BENCH_BATCH_RUN_PRE_SCORE", `${run.run_id} auto-rejected run must set aggregate_eligible=false`);
+  }
+  if (gate.auto_reject === true && !gate.reject_reason) {
+    fail("BENCH_BATCH_RUN_PRE_SCORE", `${run.run_id} auto-rejected run must include reject_reason`);
+  }
+  pass("BENCH_BATCH_RUN_PRE_SCORE", `${run.run_id} pre-score compliance gate recorded`);
+}
+
+function checkSemanticFidelity(run) {
+  const fidelity = run.semantic_fidelity;
+  if (!fidelity || typeof fidelity !== "object") {
+    fail("BENCH_BATCH_RUN_SEMANTIC_FIDELITY", `${run.run_id || "(missing run_id)"} missing semantic_fidelity`);
+    return;
+  }
+  const missing = requiredSemanticFidelityFields.filter((field) => !fidelity[field]);
+  if (missing.length > 0) {
+    fail("BENCH_BATCH_RUN_SEMANTIC_FIDELITY", `${run.run_id} semantic_fidelity missing ${missing.join(", ")}`);
+    return;
+  }
+  pass("BENCH_BATCH_RUN_SEMANTIC_FIDELITY", `${run.run_id} semantic fidelity adjudication recorded`);
+}
+
+function checkFullOfOneCaseBinding(run, artifact) {
+  const identity = artifact.artifact_identity || {};
+  const trace = artifact.benchmark_trace || {};
+  const mismatches = [];
+  if (identity.case_id !== run.case_id) mismatches.push(`artifact_identity.case_id=${identity.case_id || "(missing)"} expected ${run.case_id}`);
+  if (trace.run_id && trace.run_id !== run.run_id) mismatches.push(`benchmark_trace.run_id=${trace.run_id} expected ${run.run_id}`);
+
+  if (mismatches.length === 0) {
+    pass("BENCH_BATCH_RUN_CASE_BINDING", `${run.run_id} full_ofone artifact is bound to the benchmark case/run`);
+    return;
+  }
+
+  const rejectedForCaseFidelity = run.aggregate_eligible === false &&
+    run.pre_score_compliance?.auto_reject === true &&
+    run.pre_score_compliance?.case_fidelity === "fail";
+  if (rejectedForCaseFidelity) {
+    warn("BENCH_BATCH_RUN_CASE_BINDING", `${run.run_id} case-binding mismatch is captured by pre-score auto-reject: ${mismatches.join("; ")}`);
+    return;
+  }
+  fail("BENCH_BATCH_RUN_CASE_BINDING", `${run.run_id} full_ofone artifact not benchmark-bound: ${mismatches.join("; ")}`);
+}
+
+function checkMachineArtifacts(run) {
+  const artifacts = run.machine_artifacts || {};
+  for (const [pathField, hashField] of [
+    ["validator_json", "validator_sha256"],
+    ["patch_json", "patch_sha256"]
+  ]) {
+    const rel = artifacts[pathField];
+    if (!rel) {
+      fail("BENCH_BATCH_RUN_MACHINE_ARTIFACT", `${run.run_id} missing machine_artifacts.${pathField}`);
+      continue;
+    }
+    const abs = path.join(repoRoot, rel);
+    if (!fs.existsSync(abs)) {
+      fail("BENCH_BATCH_RUN_MACHINE_ARTIFACT", `${run.run_id} ${pathField} not found at ${rel}`);
+      continue;
+    }
+    const actualHash = `sha256:${crypto.createHash("sha256").update(fs.readFileSync(abs)).digest("hex")}`;
+    if (artifacts[hashField] !== actualHash) {
+      fail("BENCH_BATCH_RUN_MACHINE_ARTIFACT", `${run.run_id} ${hashField} ${artifacts[hashField] || "(missing)"} does not match ${actualHash}`);
+      continue;
+    }
+    pass("BENCH_BATCH_RUN_MACHINE_ARTIFACT", `${run.run_id} ${pathField} hash matches ${actualHash}`);
+  }
 }
 
 function checkRunReview(run) {
@@ -408,6 +558,8 @@ function checkRunReview(run) {
     `Case ID: \`${run.case_id}\``,
     `Arm ID: \`${run.arm_id}\``,
     `Blinding status:`,
+    `Pre-Score Compliance Gate`,
+    `Semantic Fidelity`,
     `Accept run for aggregate scoring:`
   ];
   const missingRequired = requiredText.filter((needle) => !reviewText.includes(needle));
@@ -416,7 +568,29 @@ function checkRunReview(run) {
     fail("BENCH_BATCH_RUN_REVIEW", `${run.run_id} review missing ${[...missingRequired, ...missingMetrics].join(", ")}`);
     return;
   }
+  if (run.aggregate_eligible === false && !reviewText.includes("Accept run for aggregate scoring: `no`")) {
+    fail("BENCH_BATCH_RUN_REVIEW", `${run.run_id} aggregate_eligible=false but review does not reject aggregate scoring`);
+    return;
+  }
   pass("BENCH_BATCH_RUN_REVIEW", `${run.run_id} review file exists and covers required metrics`);
+}
+
+function checkExcludedRun(run) {
+  if (run.aggregate_eligible !== false) {
+    fail("BENCH_BATCH_RUN_EXCLUDED", `${run.run_id} excluded run must set aggregate_eligible=false`);
+  }
+  if (!run.exclusion_reason) {
+    fail("BENCH_BATCH_RUN_EXCLUDED", `${run.run_id} excluded run missing exclusion_reason`);
+  }
+  if (!run.independent_adjudication || typeof run.independent_adjudication !== "object") {
+    fail("BENCH_BATCH_RUN_EXCLUDED", `${run.run_id} excluded run missing independent_adjudication`);
+    return;
+  }
+  if (run.independent_adjudication.decision !== "reject") {
+    fail("BENCH_BATCH_RUN_EXCLUDED", `${run.run_id} excluded run independent_adjudication.decision must be reject`);
+  }
+  checkFile("BENCH_BATCH_RUN_EXCLUDED_REVIEW", run.independent_adjudication.result_file, `${run.run_id} independent adjudication result`);
+  pass("BENCH_BATCH_RUN_EXCLUDED", `${run.run_id} excluded from aggregate scoring with independent adjudication`);
 }
 
 function checkArrayExact(code, expected, actual, label) {
@@ -437,6 +611,7 @@ function validateBatchReviewPlan(manifest) {
   const reviewPlan = manifest.review_plan || {};
   checkFile("BENCH_BATCH_RUBRIC", reviewPlan.rubric, `${manifest.batch_id} review rubric`);
   checkFile("BENCH_BATCH_REVIEW_TEMPLATE", reviewPlan.review_template, `${manifest.batch_id} review template`);
+  checkReviewTemplate(manifest, reviewPlan.review_template);
   if (!reviewPlan.blinding) fail("BENCH_BATCH_BLINDING", `${manifest.batch_id} review_plan.blinding must describe blinding limitations`);
   if (!reviewPlan.adjudication_status || !validBatchStatuses.has(reviewPlan.adjudication_status)) {
     fail("BENCH_BATCH_ADJUDICATION_STATUS", `${manifest.batch_id} review_plan.adjudication_status has invalid status ${reviewPlan.adjudication_status || "(missing)"}`);
@@ -509,6 +684,9 @@ function validateBatchResultsPlan(manifest) {
   const resultsPlan = manifest.results_plan || {};
   checkFile("BENCH_BATCH_RESULT_SUMMARY", resultsPlan.summary_file, `${manifest.batch_id} result summary placeholder`);
   checkFile("BENCH_BATCH_FAILURE_ANALYSIS", resultsPlan.failure_analysis_file, `${manifest.batch_id} failure-analysis placeholder`);
+  if (resultsPlan.excluded_run_log) {
+    checkFile("BENCH_BATCH_EXCLUDED_RUN_LOG", resultsPlan.excluded_run_log, `${manifest.batch_id} excluded-run log`);
+  }
   if (!resultsPlan.raw_output_dir) {
     fail("BENCH_BATCH_RAW_OUTPUT_DIR", `${manifest.batch_id} results_plan.raw_output_dir missing path`);
   } else if (!fs.existsSync(path.join(repoRoot, resultsPlan.raw_output_dir))) {
@@ -519,6 +697,28 @@ function validateBatchResultsPlan(manifest) {
   if (!resultsPlan.status || !validBatchStatuses.has(resultsPlan.status)) {
     fail("BENCH_BATCH_RESULTS_STATUS", `${manifest.batch_id} results_plan.status has invalid status ${resultsPlan.status || "(missing)"}`);
   }
+}
+
+function checkReviewTemplate(manifest, reviewTemplatePath) {
+  if (!reviewTemplatePath) return;
+  const abs = path.join(repoRoot, reviewTemplatePath);
+  if (!fs.existsSync(abs)) return;
+  const text = fs.readFileSync(abs, "utf8");
+  const required = [
+    "Pre-Score Compliance Gate",
+    "Case fidelity",
+    "Required outputs present",
+    "Independence from other arms/examples",
+    "No-superiority compliance",
+    "Auto-reject before aggregate scoring",
+    "Semantic Fidelity"
+  ];
+  const missing = required.filter((needle) => !text.includes(needle));
+  if (missing.length > 0) {
+    fail("BENCH_BATCH_REVIEW_TEMPLATE_GATE", `${manifest.batch_id} review template missing ${missing.join(", ")}`);
+    return;
+  }
+  pass("BENCH_BATCH_REVIEW_TEMPLATE_GATE", `${manifest.batch_id} review template includes pre-score compliance and semantic fidelity fields`);
 }
 
 function validateBatchReleaseGuard(manifest) {

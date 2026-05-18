@@ -10,6 +10,25 @@
 - Review date:
 - Blinding status: `blinded | partially_blinded | unblinded`
 
+## Pre-Score Compliance Gate
+
+Complete this gate before metric scoring. Any `fail` in the first four rows requires `Auto-reject before aggregate scoring: yes`, regardless of later metric scores.
+
+| Check | Result | Notes |
+| --- | --- | --- |
+| Case fidelity | `pass | fail | unknown` | Does the output answer the exact benchmark case and not a copied or adjacent example? |
+| Required outputs present | `pass | fail | unknown` | Does the output satisfy the arm prompt's required artifacts or sections? |
+| Independence from other arms/examples | `pass | fail | unknown` | Did the run avoid inspecting or reusing another arm/example artifact unless explicitly allowed? |
+| No-superiority compliance | `pass | fail | unknown` | Does the output avoid unsupported benchmark or method-superiority claims? |
+| Auto-reject before aggregate scoring | `yes | no` | Required when any gate row fails. |
+
+## Semantic Fidelity
+
+- Case binding:
+- Copied-example risk:
+- Evidence provenance adequacy:
+- Artifact/source identity:
+
 ## Scores
 
 Score each metric from 1 to 5. Use `NA` only when the case does not exercise that metric.

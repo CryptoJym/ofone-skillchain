@@ -16,17 +16,30 @@
     {
       "arm_id": "direct_answer",
       "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/direct_answer.md",
-      "required_outputs": ["answer", "confidence_or_uncertainty", "source_or_gap_notes"]
+      "required_outputs": [
+        "answer",
+        "confidence_or_uncertainty",
+        "source_or_gap_notes"
+      ]
     },
     {
       "arm_id": "light_structured",
       "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/light_structured.md",
-      "required_outputs": ["structured_answer", "risks_or_unknowns", "recommendation"]
+      "required_outputs": [
+        "structured_answer",
+        "risks_or_unknowns",
+        "recommendation"
+      ]
     },
     {
       "arm_id": "full_ofone",
       "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
-      "required_outputs": ["artifact_json", "validator_result", "rendering", "patch_report_if_update_case"]
+      "required_outputs": [
+        "artifact_json",
+        "validator_result",
+        "rendering",
+        "patch_report_if_update_case"
+      ]
     }
   ],
   "model_plan": {
@@ -51,7 +64,7 @@
     "review_template": "benchmarks/reviews/2026-05-17-batch-01-review-template.md",
     "blinding": "Hide arm labels from reviewers where practical. If blinding is not possible because full_ofone artifacts are obvious, record that limitation in the review notes.",
     "adjudication_status": "in_progress",
-    "independent_review_status": "launched",
+    "independent_review_status": "integrated",
     "independent_review_handoff": "benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md",
     "independent_review_prompt": "research/prompts/2026-05-17-06-ofone-batch01-independent-review.md",
     "independent_review_context": "research/ofone-batch01-independent-review-context.md",
@@ -70,17 +83,37 @@
         "Visible status changed to Researching...",
         "Stop research button present"
       ]
+    },
+    "independent_review_result": "research/results/2026-05-17-06-ofone-batch01-independent-review-result.md",
+    "independent_review_harvest": {
+      "harvested_at": "2026-05-17T18:29:00-06:00",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (26).md",
+      "result_sha256": "sha256:f4f6846dcf80cac78d1eef6217ea40340106ecc35f66764099f7e2aa77a0d5c8",
+      "visible_report_metadata": "Research completed in 13m; 15 citations; 5 searches; 17 May; 15 sources",
+      "adjudication": "direct_answer accepted; light_structured accepted; full_ofone rejected from aggregate scoring"
+    },
+    "independent_review_integration": {
+      "integrated_at": "2026-05-17T18:45:00-06:00",
+      "implemented_changes": [
+        "benchmark-case binding for full_ofone artifacts",
+        "pre-score compliance gate with auto-reject semantics",
+        "immutable validator and patch artifact capture",
+        "semantic-fidelity review fields",
+        "excluded-run log and matrix state semantics"
+      ],
+      "blocker_state": "critical Run 06 workflow blockers implemented locally; broader Batch 01 remains in_progress until more predeclared slots run"
     }
   },
   "results_plan": {
     "summary_file": "benchmarks/results/2026-05-17-batch-01-summary.md",
     "failure_analysis_file": "benchmarks/results/2026-05-17-batch-01-failure-analysis.md",
     "raw_output_dir": "benchmarks/runs/2026-05-17-batch-01/outputs",
-    "status": "in_progress"
+    "status": "in_progress",
+    "excluded_run_log": "benchmarks/results/2026-05-17-batch-01-excluded-runs.md"
   },
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "This batch has not run, and even completed five-case results would not satisfy the declared 21-case benchmark minimum.",
-    "allowed_claim": "Batch 01 is a frozen execution plan for the first benchmark pass."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
+    "allowed_claim": "Batch 01 has begun with three local first-slice reviews, one independent review, and one excluded run; no performance comparison is supported."
   }
 }

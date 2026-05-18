@@ -293,7 +293,7 @@
 
       <section id="lifecycle">
         <h2>Decision Lifecycle</h2>
-        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, and review sidecars. Review-round labels such as v0.7 and v0.8 describe Deep Research cycles, not package or artifact versions.</p>
+        <p class="lead">v0.6 keeps the core inquiry IR stable and hardens the recursive review protocol: identity, criteria, tradeoffs, actors, temporal validity, information value, lens coverage, council contention, review logs, recursive review cycles, convergence gates, benchmark traces, review sidecars, benchmark-case binding, pre-score auto-reject gates, and excluded-run state. Review-round labels such as v0.7 and v0.8 describe Deep Research cycles, not package or artifact versions.</p>
         <div class="grid">
           <div class="item"><h3>Identity</h3><p>Objective head, scope hash, config hash, active evidence hashes, created-at marker, and lifecycle status.</p></div>
           <div class="item"><h3>Criteria</h3><p>Decision standards with priority, threshold, owner, and review implications.</p></div>
@@ -306,12 +306,14 @@
           <div class="item"><h3>Status Isolation</h3><p>Active external runs use run-scoped ledgers so launch, progress, harvest, and acceptance state cannot be confused across review cycles.</p></div>
           <div class="item"><h3>Convergence Gate</h3><p>Architecture recursion stops or hands off to benchmarks when blockers are gone and remaining uncertainty is empirical.</p></div>
           <div class="item"><h3>Benchmark Trace</h3><p>Benchmark readiness is explicit, so scaffold checks are not mistaken for empirical superiority.</p></div>
+          <div class="item"><h3>Case Binding</h3><p>Full-OfOne benchmark artifacts must bind to the exact case and run before any metric score can enter aggregate comparison.</p></div>
+          <div class="item"><h3>Auto-Reject</h3><p>Wrong-case artifacts, copied examples, required-output failures, leakage, or unsupported superiority claims are rejected before scoring.</p></div>
         </div>
       </section>
 
       <section id="artifacts">
         <h2>Artifacts</h2>
-        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, research lifecycle checker, GitHub Pages parity checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, executable benchmark suite manifest, frozen first benchmark batch plan, predeclared run-slot matrix, first locally reviewed raw benchmark slice, and launched independent-review handoff with proof-of-research state.</p>
+        <p class="lead">The repository packages the Codex skill, executable profile schemas, semantic validator, recursive-review sidecar checker, research lifecycle checker, GitHub Pages parity checker, validator regression tests, nested scenes, explicit unknown objects, decision-lifecycle objects, recursive review state, Executive / Analyst / Audit / Patch Impact renderers, semantic patch workflow helper, examples, executable benchmark suite manifest, frozen first benchmark batch plan, predeclared run-slot matrix, first locally reviewed raw benchmark slice, harvested independent-review result, immutable validator/patch artifacts, and excluded-run log.</p>
         <div class="links">
           <a class="button primary" href="./SKILL.md">Open Skill</a>
           <a class="button" href="./docs/architecture-framing.md">Architecture Framing</a>
@@ -340,7 +342,11 @@
           <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/execution-matrix.json">Batch 01 Matrix</a>
           <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md">First Raw OfOne Output</a>
           <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.md">First OfOne Review</a>
+          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.validator.json">First OfOne Validator Artifact</a>
+          <a class="button" href="./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1.patch.json">First OfOne Patch Artifact</a>
           <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md">Independent Review Handoff</a>
+          <a class="button" href="./research/results/2026-05-17-06-ofone-batch01-independent-review-result.md">Run 06 Result</a>
+          <a class="button" href="./benchmarks/results/2026-05-17-batch-01-excluded-runs.md">Excluded Runs</a>
           <a class="button" href="./research/TRACKER.md">Research Tracker</a>
           <a class="button" href="./research/status/2026-05-17-06-ofone-batch01-independent-review.md">Run 06 Status Ledger</a>
           <a class="button" href="./benchmarks/reviews/2026-05-17-batch-01-review-template.md">Batch 01 Review Template</a>
@@ -351,7 +357,7 @@
 
       <section>
         <h2>Validation</h2>
-        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Recursive review sidecars are checked for inspection honesty, source allowlists, no-execute/no-write policy, convergence gating, and benchmark handoff. Structured diagnostic codes make failures machine-readable, and negative fixtures prove the validator rejects malformed maps.</p>
+        <p class="lead">OfOne artifacts are checked through JSON Schema profiles, then semantic graph rules for IDs, subscenes, unknowns, kill tests, references, relation legality, semantic relation families, adapter contracts, loop physics, decision surfaces, temporal validity, lens coverage, gates, review logs, rendering dependencies, and closure. Benchmark runs are checked separately for case fidelity, required outputs, independence, no-superiority compliance, machine-artifact hashes, and excluded-run handling, because schema-valid is not benchmark-valid.</p>
         <code class="rule">npm run validate
 npm run schema:check
 npm run review:check
