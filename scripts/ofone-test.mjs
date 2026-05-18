@@ -351,9 +351,13 @@ function runToolingContractCheck() {
   const index = fs.readFileSync(path.join(repoRoot, "index.html"), "utf8");
   const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, "benchmarks", "runs", "2026-05-17-batch-01", "manifest.json"), "utf8"));
   const benchmarkScript = fs.readFileSync(path.join(repoRoot, "scripts", "ofone-benchmark.mjs"), "utf8");
+  const pagesScript = fs.readFileSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"), "utf8");
   const required = [
     ["package pages script", packageJson.scripts?.["pages:check"] === "node scripts/ofone-pages-check.mjs"],
     ["pages checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"))],
+    ["pages checker attestation target", pagesScript.includes("benchmarks/results/2026-05-17-batch-01-checker-attestation.json")],
+    ["pages checker Run 07 result target", pagesScript.includes("research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md")],
+    ["pages checker Run 07 synthesis target", pagesScript.includes("research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md")],
     ["README pages command", readme.includes("npm run pages:check")],
     ["README research command", readme.includes("npm run research:check")],
     ["README review-round version note", readme.includes("Review-round labels such as `v0.7` and `v0.8`")],
