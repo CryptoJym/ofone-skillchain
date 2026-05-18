@@ -269,6 +269,10 @@ function runToolingContractCheck() {
     ["benchmark pre-score validator", benchmarkScript.includes("BENCH_BATCH_RUN_PRE_SCORE")],
     ["index Run 06 result link", index.includes("./research/results/2026-05-17-06-ofone-batch01-independent-review-result.md")],
     ["index excluded runs link", index.includes("./benchmarks/results/2026-05-17-batch-01-excluded-runs.md")],
+    ["index Run 07 prompt link", index.includes("./research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md")],
+    ["index Run 07 context link", index.includes("./research/ofone-post-run06-hardening-context.md")],
+    ["index Run 07 status ledger link", index.includes("./research/status/2026-05-17-07-ofone-post-run06-hardening-review.md")],
+    ["README Run 07 status ledger link", readme.includes("research/status/2026-05-17-07-ofone-post-run06-hardening-review.md")],
     ["Pages v08 context link", index.includes("./research/ofone-v08-convergence-context-brief.md")]
   ];
   const missing = required.filter(([, passed]) => !passed).map(([name]) => name);

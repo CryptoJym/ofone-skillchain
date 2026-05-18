@@ -33,6 +33,9 @@ const targets = [
   { label: "batch 01 independent review context", local: "research/ofone-batch01-independent-review-context.md", remote: "/research/ofone-batch01-independent-review-context.md" },
   { label: "research tracker", local: "research/TRACKER.md", remote: "/research/TRACKER.md" },
   { label: "run 06 status ledger", local: "research/status/2026-05-17-06-ofone-batch01-independent-review.md", remote: "/research/status/2026-05-17-06-ofone-batch01-independent-review.md" },
+  { label: "run 07 prompt", local: "research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md", remote: "/research/prompts/2026-05-17-07-ofone-post-run06-hardening-review.md" },
+  { label: "run 07 context", local: "research/ofone-post-run06-hardening-context.md", remote: "/research/ofone-post-run06-hardening-context.md" },
+  { label: "run 07 status ledger", local: "research/status/2026-05-17-07-ofone-post-run06-hardening-review.md", remote: "/research/status/2026-05-17-07-ofone-post-run06-hardening-review.md" },
   { label: "review protocol", local: "research/review-protocol.md", remote: "/research/review-protocol.md" },
   { label: "batch 01 review template", local: "benchmarks/reviews/2026-05-17-batch-01-review-template.md", remote: "/benchmarks/reviews/2026-05-17-batch-01-review-template.md" },
   { label: "v08 context brief", local: "research/ofone-v08-convergence-context-brief.md", remote: "/research/ofone-v08-convergence-context-brief.md" }
