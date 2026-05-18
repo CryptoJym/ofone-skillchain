@@ -51,7 +51,7 @@ The strategic gated diligence repeat-2 slice completed after the policy-audit sl
 
 The scientific mechanism repeat-2 slice completed after the strategic repeat-2 slice. All three scientific repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne scientific repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. The slice is published and Pages-confirmed after public commit `7694e7f`.
 
-The regulated wastewater repeat-2 slice completed after the scientific repeat-2 slice. All three regulated wastewater repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne regulated wastewater repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. Publication and Pages parity are pending until this batch is committed and pushed.
+The regulated wastewater repeat-2 slice completed after the scientific repeat-2 slice. All three regulated wastewater repeat-2 `agentic_coding` arms passed local pre-score compliance. The full-OfOne regulated wastewater repeat-2 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Map rendering, patch, and local review artifacts. The slice is published and Pages-confirmed after public commit `f62f7c9`.
 
 Current aggregate eligibility among reviewed local slots:
 
