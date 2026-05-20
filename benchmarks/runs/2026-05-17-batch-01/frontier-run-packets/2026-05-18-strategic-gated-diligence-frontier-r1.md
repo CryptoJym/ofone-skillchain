@@ -5,9 +5,11 @@ Batch: `2026-05-17-batch-01`
 Case: `case-strategic-gated-diligence-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `prepared_not_launched`
+Status: `direct_answer_active_research`
 
 This packet prepares the next predeclared uncompleted Batch 01 slice for a frontier reasoning model. It is not a completed benchmark run, not launch proof, and not aggregate evidence.
+
+Launch update: the direct-answer arm was launched on 2026-05-20 at https://chatgpt.com/c/6a0e3e09-fd6c-83e8-a914-36445d70d090. Observed proof: clean new ChatGPT conversation, `Latest • 5.5`, `Pro • Extended`, Deep Research enabled, generated plan title `Reversible diligence decision plan`, `Start` clicked, visible `Researching...`, and `Stop research` present. This remains non-aggregate evidence until completed output is harvested, reviewed, committed, pushed, and Pages-confirmed.
 
 Use this packet only when the operator can verify:
 
