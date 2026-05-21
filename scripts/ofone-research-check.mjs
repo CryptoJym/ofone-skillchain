@@ -32,9 +32,9 @@ const deepResearchReportPath = path.join(repoRoot, deepResearchReportRel);
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 const chromeActiveStatus = "active_researching";
 const chromeObservationBlockedStatus = "observation_blocked";
+const chromeCompletedVisibleStatus = "completed_report_visible";
 const chromeReviewedStatus = "reviewed";
 const chromeHarvestedStatus = "harvested";
-const formalProofFrontierConversationUrl = "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b";
 
 const diagnostics = [];
 
@@ -260,84 +260,146 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
 
 function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payload, report }) {
   const run07Row = tracker.split("\n").find((line) => line.startsWith("| 07 |")) || "";
-  const expectedRunId = "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1";
-  const queueItem = (queue.items || []).find((item) => item.item_id === expectedRunId);
-  const payloadItem = (payload.items || []).find((item) => item.item_id === expectedRunId);
-  const reportItem = (report.items || []).find((item) => item.item_id === expectedRunId);
+  const expectedItems = [
+    {
+      itemId: "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
+      queueStatus: chromeReviewedStatus,
+      reportStatus: chromeHarvestedStatus,
+      aggregatePolicy: "aggregate_eligible_after_review",
+      reportAggregatePolicy: "eligible_only_after_local_review_and_publication",
+      payloadLaunchAllowed: false,
+      payloadAction: "no_extension_action_completed",
+      harvestRequired: true
+    },
+    {
+      itemId: "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1",
+      queueStatus: chromeCompletedVisibleStatus,
+      reportStatus: chromeCompletedVisibleStatus,
+      aggregatePolicy: "not_eligible_until_harvest_review_publication",
+      reportAggregatePolicy: "not_eligible_until_harvest_review_publication",
+      payloadLaunchAllowed: false,
+      payloadAction: "harvest_completed_report",
+      harvestRequired: false,
+      completedVisibleRequired: true
+    }
+  ];
   const payloadText = readText(deepResearchPayloadPath, "Deep Research extension payload hash source");
 
   check(
     run07Row.includes(formalProofFrontierPacketRel) &&
-      run07Row.includes(`status \`${chromeReviewedStatus}\``) &&
-      run07Row.includes("Research completed in 10m"),
+      run07Row.includes(`status \`${chromeCompletedVisibleStatus}\``) &&
+      run07Row.includes("Research completed in 10m") &&
+      run07Row.includes("Research completed in 9m") &&
+      run07Row.includes("raw Markdown harvest remains blocked"),
     "OFONE_RESEARCH_FRONTIER_ACTIVE_TRACKER_ROW",
-    "tracker Run 07 row records the current formal frontier Chrome-extension harvested/reviewed state"
+    "tracker Run 07 row records the current formal frontier Chrome-extension direct harvest and completed-visible light-structured state"
   );
   check(
-    tracker.includes(`Status marker: \`${chromeReviewedStatus}\``) &&
-      tracker.includes(formalProofFrontierConversationUrl) &&
-      tracker.includes("formal proof-search frontier direct-answer slot is harvested, locally reviewed, and aggregate-eligible"),
+    tracker.includes(`Status marker: \`${chromeCompletedVisibleStatus}\``) &&
+      expectedItems.every((expected) => {
+        const queueItem = (queue.items || []).find((item) => item.item_id === expected.itemId);
+        return queueItem?.conversation_url && tracker.includes(queueItem.conversation_url);
+      }) &&
+      tracker.includes("formal proof-search frontier direct-answer slot is harvested, locally reviewed, and aggregate-eligible") &&
+      tracker.includes("formal proof-search frontier light-structured report is completed-visible") &&
+      tracker.includes("raw Markdown harvest remains blocked"),
     "OFONE_RESEARCH_FRONTIER_ACTIVE_TRACKER_ADDENDUM",
-    "tracker addendum records harvest proof and local review for the formal frontier direct-answer slot"
+    "tracker addendum records direct-answer harvest proof and completed-visible light-structured harvest blocker"
   );
   check(
-    packet.includes(`Status: \`${chromeReviewedStatus}\``) &&
+    packet.includes(`Status: \`${chromeCompletedVisibleStatus}\``) &&
       packet.includes("callable Chrome extension/plugin control") &&
       packet.includes("generic desktop automation are not fallback launch paths") &&
-      packet.includes(formalProofFrontierConversationUrl) &&
+      packet.includes("not fallback harvest paths") &&
+      expectedItems.every((expected) => {
+        const queueItem = (queue.items || []).find((item) => item.item_id === expected.itemId);
+        return queueItem?.conversation_url && packet.includes(queueItem.conversation_url);
+      }) &&
       packet.includes("Research completed in 10m") &&
-      packet.includes("locally reviewed"),
+      packet.includes("locally reviewed") &&
+      packet.includes("Research completed in 9m") &&
+      packet.includes("cross-origin Deep Research sandbox iframe"),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_PACKET",
-    "frontier packet records Chrome-extension harvest proof and local review"
+    "frontier packet records Chrome-extension direct harvest proof and completed-visible light-structured blocker"
   );
   check(
       loopDoc.includes(formalProofFrontierPacketRel) &&
       loopDoc.includes(deepResearchReportRel) &&
-      loopDoc.includes(formalProofFrontierConversationUrl) &&
-      loopDoc.includes(chromeReviewedStatus) &&
+      expectedItems.every((expected) => {
+        const queueItem = (queue.items || []).find((item) => item.item_id === expected.itemId);
+        return queueItem?.conversation_url && loopDoc.includes(queueItem.conversation_url);
+      }) &&
+      loopDoc.includes(chromeCompletedVisibleStatus) &&
       (loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback") ||
         loopDoc.includes("do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback")),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_LOOP",
-    "recursive loop points to the harvested Chrome-extension run and forbids desktop-automation fallback"
+    "recursive loop points to the completed-visible Chrome-extension run and forbids desktop-automation fallback"
   );
   check(
     queue.launch_surface_policy?.primary_surface === "chrome_extension_plugin" &&
       queue.launch_surface_policy?.desktop_automation_fallback_allowed === false &&
-      queueItem?.status === chromeReviewedStatus &&
-      queueItem?.conversation_url === formalProofFrontierConversationUrl &&
-      queueItem?.aggregate_policy === "aggregate_eligible_after_review",
+      expectedItems.every((expected) => {
+        const queueItem = (queue.items || []).find((item) => item.item_id === expected.itemId);
+        return queueItem?.status === expected.queueStatus &&
+          queueItem?.conversation_url?.startsWith("https://chatgpt.com/c/") &&
+          queueItem?.aggregate_policy === expected.aggregatePolicy;
+      }),
     "OFONE_RESEARCH_FRONTIER_CHROME_QUEUE_ACTIVE",
-    "Deep Research launch queue records Chrome-extension reviewed state with local aggregate eligibility"
+    "Deep Research launch queue records direct reviewed state and completed-visible light-structured state"
   );
   check(
     payload.generated_from?.queue_path === deepResearchQueueRel &&
-      payloadItem?.status === chromeReviewedStatus &&
-      payloadItem?.launch_allowed === false &&
-      payloadItem?.extension_action === "no_extension_action_completed" &&
-      payloadItem?.tab_lane === reportItem?.tab_lane,
+      expectedItems.every((expected) => {
+        const payloadItem = (payload.items || []).find((item) => item.item_id === expected.itemId);
+        const reportItem = (report.items || []).find((item) => item.item_id === expected.itemId);
+        return payloadItem?.status === expected.queueStatus &&
+          payloadItem?.launch_allowed === expected.payloadLaunchAllowed &&
+          payloadItem?.extension_action === expected.payloadAction &&
+          payloadItem?.tab_lane === reportItem?.tab_lane;
+      }),
     "OFONE_RESEARCH_FRONTIER_CHROME_PAYLOAD_ACTIVE",
-    "Chrome-extension payload records the formal frontier lane as completed and non-launching"
+    "Chrome-extension payload records completed direct lane and harvest-needed light-structured lane"
   );
   check(
     report.payload_path === deepResearchPayloadRel &&
       payloadText &&
       report.payload_sha256 === `sha256:${sha256(payloadText)}` &&
-      reportItem?.status === chromeHarvestedStatus &&
-      reportItem?.extension_control?.surface === "chrome_extension_plugin" &&
-      reportItem?.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
-      reportItem?.extension_control?.isolated_tab_verified === true &&
-      reportItem?.extension_control?.desktop_automation_used === false &&
-      reportItem?.launch_proof?.conversation_url === formalProofFrontierConversationUrl &&
-      reportItem?.launch_proof?.deep_research_enabled === true &&
-      reportItem?.launch_proof?.stop_control_visible === true &&
-      reportItem?.latest_observation?.conversation_url === formalProofFrontierConversationUrl &&
-      reportItem?.latest_observation?.iframe_present === true &&
-      reportItem?.latest_observation?.completed_report_visible === true &&
-      reportItem?.latest_observation?.next_action === "review_and_publish_harvested_output" &&
-      reportItem?.harvest_proof?.completed_report_visible === true &&
-      reportItem?.aggregate_policy_after_report === "eligible_only_after_local_review_and_publication",
+      expectedItems.every((expected) => {
+        const queueItem = (queue.items || []).find((item) => item.item_id === expected.itemId);
+        const reportItem = (report.items || []).find((item) => item.item_id === expected.itemId);
+        const commonProof =
+          reportItem?.status === expected.reportStatus &&
+          reportItem?.extension_control?.surface === "chrome_extension_plugin" &&
+          reportItem?.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
+          reportItem?.extension_control?.isolated_tab_verified === true &&
+          reportItem?.extension_control?.desktop_automation_used === false &&
+          reportItem?.launch_proof?.conversation_url === queueItem?.conversation_url &&
+          reportItem?.launch_proof?.deep_research_enabled === true &&
+          reportItem?.launch_proof?.stop_control_visible === true &&
+          reportItem?.latest_observation?.conversation_url === queueItem?.conversation_url &&
+          reportItem?.aggregate_policy_after_report === expected.reportAggregatePolicy;
+        if (expected.harvestRequired) {
+          return commonProof &&
+            reportItem?.latest_observation?.completed_report_visible === true &&
+            reportItem?.latest_observation?.next_action === "review_and_publish_harvested_output" &&
+            reportItem?.harvest_proof?.completed_report_visible === true;
+        }
+        if (expected.completedVisibleRequired) {
+          return commonProof &&
+            reportItem?.latest_observation?.completed_report_visible === true &&
+            reportItem?.latest_observation?.response_text_available === false &&
+            reportItem?.latest_observation?.next_action === "operator_manual_recovery_required" &&
+            reportItem?.blocker?.includes("completed report is visible") &&
+            !reportItem?.harvest_proof;
+        }
+        return commonProof &&
+          reportItem?.latest_observation?.completed_report_visible === false &&
+          reportItem?.latest_observation?.active_state_visible === true &&
+          reportItem?.latest_observation?.next_action === "harvest_when_completed_report_visible" &&
+          !reportItem?.harvest_proof;
+      }),
     "OFONE_RESEARCH_FRONTIER_CHROME_REPORT_ACTIVE",
-    "Chrome-extension report intake records launch, harvest proof, and review/publication boundary"
+    "Chrome-extension report intake records direct harvest proof and completed-visible light-structured harvest blocker"
   );
 }
 

@@ -76,6 +76,7 @@ function validateReportItems(reportData, payloadData, queueData) {
     }
     validateLaunchItem(item, payload, queueItem);
     if (item.status === "observation_blocked") validateObservationBlockedItem(item);
+    if (item.status === "completed_report_visible") validateCompletedReportVisibleItem(item, payload);
     if (item.latest_observation) validateLatestObservation(item);
     if (["harvested", "rejected"].includes(item.status)) validateHarvestItem(item, payload);
   }
@@ -118,10 +119,31 @@ function validateObservationBlockedItem(item) {
   );
 }
 
+function validateCompletedReportVisibleItem(item, payload) {
+  const observation = item.latest_observation || {};
+  check(
+    item.launch_proof &&
+      observation.browser_surface === "chrome_extension_plugin" &&
+      observation.iframe_present === true &&
+      observation.completed_report_visible === true &&
+      observation.stop_control_visible === false &&
+      observation.active_state_visible === false &&
+      observation.response_text_available === false &&
+      observation.next_action === "operator_manual_recovery_required" &&
+      item.blocker?.includes("completed report is visible") &&
+      payload?.extension_action === "harvest_completed_report" &&
+      !item.harvest_proof &&
+      item.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication",
+    "OFONE_DEEP_RESEARCH_EXTENSION_COMPLETED_VISIBLE_ITEM",
+    `${item.item_id} completed report is visible but remains unharvested and ineligible until raw Markdown is available`
+  );
+}
+
 function validateLatestObservation(item) {
   const observation = item.latest_observation || {};
   const proof = item.launch_proof || {};
   const harvested = Boolean(item.harvest_proof);
+  const completedVisible = item.status === "completed_report_visible";
   check(
     observation.conversation_url === proof.conversation_url &&
       observation.browser_surface === "chrome_extension_plugin" &&
@@ -131,6 +153,11 @@ function validateLatestObservation(item) {
         ? observation.completed_report_visible === true &&
           observation.response_text_available === true &&
           observation.next_action === "review_and_publish_harvested_output"
+        : completedVisible
+          ? observation.completed_report_visible === true &&
+            observation.response_text_available === false &&
+            observation.next_action === "operator_manual_recovery_required" &&
+            !item.harvest_proof
         : observation.completed_report_visible !== true &&
           !item.harvest_proof),
     "OFONE_DEEP_RESEARCH_EXTENSION_LATEST_OBSERVATION",

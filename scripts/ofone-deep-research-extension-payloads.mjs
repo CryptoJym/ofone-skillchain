@@ -68,15 +68,18 @@ function buildPayloadItem(item, index) {
   const packetText = readText(item.packet_path);
   const promptText = extractPromptBlock(packetText, item.prompt_anchor);
   const launchAllowed = ["prepared_not_launched", "launched", "active_researching"].includes(item.status);
+  const harvestVisible = item.status === "completed_report_visible";
   const completed = ["harvested", "reviewed", "rejected"].includes(item.status);
   return {
     item_id: item.item_id,
     tab_lane: `ofone-${String(index + 1).padStart(2, "0")}-${slugify(item.item_id)}`,
     extension_action: launchAllowed
       ? "open_isolated_deep_research_tab"
-      : completed
-        ? "no_extension_action_completed"
-        : "wait_for_callable_chrome_extension_control",
+      : harvestVisible
+        ? "harvest_completed_report"
+        : completed
+          ? "no_extension_action_completed"
+          : "wait_for_callable_chrome_extension_control",
     launch_allowed: launchAllowed,
     launch_blocked_reason: launchAllowed ? null : item.blocked_reason,
     status: item.status,

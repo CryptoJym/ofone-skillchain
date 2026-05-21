@@ -2,9 +2,9 @@
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-report.schema.json",
   "protocol_version": "ofone-deep-research-extension-report-0.1",
   "report_id": "2026-05-21-formal-frontier-r1-extension-harvest",
-  "generated_at": "2026-05-21T08:50:37-06:00",
+  "generated_at": "2026-05-21T09:34:52-06:00",
   "payload_path": "research/deep-research-extension-payloads.json",
-  "payload_sha256": "sha256:d61b3578cbfad69f78158d9af42f56b20fcaf8eec4203755f74142b81e578b70",
+  "payload_sha256": "sha256:1c1434fbdab14594b20ac883a86d66395b087804d0af2d9b46a9a3fb10ef774f",
   "source_surface": "chrome_extension_plugin",
   "items": [
     {
@@ -48,6 +48,43 @@
         "exported_markdown_path": "/Users/jamesbrady/Downloads/deep-research-report (43).md",
         "raw_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
         "raw_output_sha256": "sha256:16ee781550c471e01b92ae4f577a04de8d54a6be0ec27a6dab34d547dcbef784"
+      }
+    },
+    {
+      "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1",
+      "tab_lane": "ofone-02-2026-05-17-batch-01-case-formal-proof-search-001-light-structured-frontier-reasoning-r1",
+      "status": "completed_report_visible",
+      "extension_control": {
+        "surface": "chrome_extension_plugin",
+        "callable_namespace": "mcp__node_repl__js + openai-bundled/chrome browser-client extension backend",
+        "isolated_tab_verified": true,
+        "desktop_automation_used": false
+      },
+      "aggregate_policy_after_report": "not_eligible_until_harvest_review_publication",
+      "launch_proof": {
+        "conversation_url": "https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958",
+        "model_label": "Latest • 5.5 / Pro",
+        "reasoning_label": "Pro • Extended / Deep research",
+        "deep_research_enabled": true,
+        "plan_title": "Formal proof map",
+        "start_or_countdown_action": "Submitted prompt with Deep Research enabled; ChatGPT advanced directly to an active Deep Research plan/progress card with active progress bar and stop control visible.",
+        "active_state": "Looking for Quickcheck or Nitpick source...",
+        "stop_control_visible": true,
+        "observed_at": "2026-05-21T15:12:01Z"
+      },
+      "blocker": "The completed report is visible through Chrome extension control, but raw Markdown harvest is blocked because the report body and download control are inside ChatGPT's cross-origin Deep Research sandbox iframe. The extension top-level DOM and snapshot expose the iframe shell but not the report body; content.export is unsupported by the Chrome backend; Copy response and virtual clipboard probes did not expose the report text. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation remain disallowed.",
+      "latest_observation": {
+        "observed_at": "2026-05-21T09:34:52-06:00",
+        "conversation_url": "https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958",
+        "browser_surface": "chrome_extension_plugin",
+        "iframe_present": true,
+        "iframe_text_readable": false,
+        "completed_report_visible": true,
+        "stop_control_visible": false,
+        "active_state_visible": false,
+        "response_text_available": false,
+        "visible_state": "Chrome extension observation reached the completed ChatGPT Deep Research report. Visible metadata showed Research completed in 9m, 6 citations, 120 searches, report title Benchmark Raw Output, run metadata Status: completed, and the correct light_structured run ID. The report body is visible in a cross-origin Deep Research iframe, but extension text extraction and virtual clipboard paths did not expose raw Markdown. No Browser plugin, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, or desktop-control fallback was used.",
+        "next_action": "operator_manual_recovery_required"
       }
     }
   ]

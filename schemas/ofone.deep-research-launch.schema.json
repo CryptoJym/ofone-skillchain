@@ -46,6 +46,7 @@
         "requires_isolated_tab",
         "supports_parallel_tabs",
         "desktop_automation_fallback_allowed",
+        "unavailable_diagnostic_required",
         "blocked_status"
       ],
       "properties": {
@@ -60,6 +61,9 @@
         },
         "desktop_automation_fallback_allowed": {
           "const": false
+        },
+        "unavailable_diagnostic_required": {
+          "const": true
         },
         "blocked_status": {
           "const": "prepared_blocked_chrome_extension_unavailable"
@@ -128,6 +132,7 @@
             "prepared_blocked_chrome_extension_unavailable",
             "launched",
             "active_researching",
+            "completed_report_visible",
             "harvested",
             "reviewed",
             "rejected",

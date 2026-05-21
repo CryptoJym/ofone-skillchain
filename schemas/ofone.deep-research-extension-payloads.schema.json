@@ -43,6 +43,7 @@
         "requires_isolated_tab",
         "supports_parallel_tabs",
         "desktop_automation_fallback_allowed",
+        "unavailable_diagnostic_required",
         "blocked_status"
       ],
       "properties": {
@@ -57,6 +58,9 @@
         },
         "desktop_automation_fallback_allowed": {
           "const": false
+        },
+        "unavailable_diagnostic_required": {
+          "const": true
         },
         "blocked_status": {
           "const": "prepared_blocked_chrome_extension_unavailable"
@@ -136,6 +140,7 @@
         "extension_action": {
           "enum": [
             "open_isolated_deep_research_tab",
+            "harvest_completed_report",
             "no_extension_action_completed",
             "wait_for_callable_chrome_extension_control"
           ]
@@ -150,6 +155,7 @@
             "prepared_blocked_chrome_extension_unavailable",
             "launched",
             "active_researching",
+            "completed_report_visible",
             "harvested",
             "reviewed",
             "rejected",

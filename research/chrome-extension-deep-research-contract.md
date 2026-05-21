@@ -43,8 +43,10 @@ The extension may run multiple tabs concurrently only when each arm is isolated 
 
 ## Blocker Rule
 
-If callable Chrome extension/plugin control is unavailable, the queue and report stay blocked. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not fallbacks for launch or harvest because they can hijack the user's active workspace and blur launch evidence.
+If callable Chrome extension/plugin control is unavailable, troubleshoot extension availability before any other work. Required diagnostics are: current tool discovery result, `nodeRepl.requestMeta` backend list when `node_repl` is callable, `globalThis.browser` presence or absence, tab-list attempt or error, and the exact namespace or backend failure. The queue and report stay blocked until those diagnostics either restore callable extension control or prove a real extension blocker. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not fallbacks for launch or harvest because they can hijack the user's active workspace and blur launch evidence.
 
 ## Current State
 
 The formal proof-search frontier repeat-1 direct-answer item is currently `reviewed` in `research/deep-research-launch-queue.json` and `harvested` in `research/deep-research-extension-report.json`. Chrome extension launch and harvest proof is recorded for https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b with visible metadata `Research completed in 10m`, `8 citations`, `101 searches`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. The raw output and local review are saved; publication parity is confirmed only after commit, push, and `npm run pages:check`.
+
+The formal proof-search frontier repeat-1 light-structured item has a completed report visible at https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958 with visible metadata `Research completed in 9m`, `6 citations`, `120 searches`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. It remains `completed_report_visible`, not harvested or aggregate-eligible, because raw Markdown export is blocked by the cross-origin Deep Research iframe and no disallowed fallback may be used.

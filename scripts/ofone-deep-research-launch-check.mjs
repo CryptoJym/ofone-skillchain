@@ -23,9 +23,9 @@ const statusRel = "research/status/2026-05-17-07-ofone-post-run06-hardening-revi
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 const chromeActiveStatus = "active_researching";
 const chromeObservationBlockedStatus = "observation_blocked";
+const chromeCompletedVisibleStatus = "completed_report_visible";
 const chromeReviewedStatus = "reviewed";
 const chromeHarvestedStatus = "harvested";
-const activeFormalProofFrontierConversationUrl = "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b";
 
 const diagnostics = [];
 
@@ -98,9 +98,10 @@ function validateLaunchSurfacePolicy(queue) {
       policy.requires_isolated_tab === true &&
       policy.supports_parallel_tabs === true &&
       policy.desktop_automation_fallback_allowed === false &&
+      policy.unavailable_diagnostic_required === true &&
       policy.blocked_status === chromeBlockedStatus,
     "OFONE_DEEP_RESEARCH_CHROME_POLICY",
-    "launch queue requires Chrome extension isolated tabs and bars desktop automation fallback"
+    "launch queue requires Chrome extension isolated tabs, bars desktop automation fallback, and requires diagnostics before blocked state"
   );
 }
 
@@ -108,26 +109,28 @@ function validateQueueItems(queue) {
   for (const item of queue.items || []) {
     const packet = readText(item.packet_path, `${item.item_id} packet`);
     const reviewed = item.status === chromeReviewedStatus;
+    const completedVisible = item.status === chromeCompletedVisibleStatus;
     check(
-      (reviewed || item.status === chromeActiveStatus) &&
-        item.blocked_reason.includes("Resolved: Chrome extension plugin control is available") &&
+      (reviewed || item.status === chromeActiveStatus || completedVisible) &&
+        (item.blocked_reason.includes("Resolved: Chrome extension plugin control is available") ||
+          item.blocked_reason.includes("Completed report visible through Chrome extension control")) &&
         item.disallowed_surfaces.includes("Computer Use") &&
         item.disallowed_surfaces.includes("generic desktop automation") &&
         item.aggregate_policy === (reviewed ? "aggregate_eligible_after_review" : "not_eligible_until_harvest_review_publication") &&
-        item.conversation_url === activeFormalProofFrontierConversationUrl &&
+        item.conversation_url?.startsWith("https://chatgpt.com/c/") &&
         item.launch_proof_path === reportRel,
       "OFONE_DEEP_RESEARCH_ACTIVE_ITEM",
       `${item.item_id} is tracked through Chrome extension launch proof with the expected current eligibility state`
     );
     if (!packet) continue;
     check(
-      [chromeActiveStatus, chromeObservationBlockedStatus, chromeHarvestedStatus, chromeReviewedStatus].some((status) =>
+      [chromeActiveStatus, chromeObservationBlockedStatus, chromeCompletedVisibleStatus, chromeHarvestedStatus, chromeReviewedStatus].some((status) =>
         packet.includes(`Status: \`${status}\``)
       ) &&
         packet.includes(item.prompt_anchor) &&
         packet.includes(item.item_id) &&
         packet.includes("generic desktop automation are not fallback launch paths") &&
-        packet.includes(activeFormalProofFrontierConversationUrl),
+        packet.includes(item.conversation_url),
       "OFONE_DEEP_RESEARCH_PACKET_BINDING",
       `${item.item_id} queue item binds to the Chrome-extension packet, observation state, and prompt anchor`
     );
@@ -153,6 +156,7 @@ function validateExtensionPayloads(queue, payloads) {
     const packet = readText(item.packet_path, `${item.item_id} packet payload source`);
     const promptText = payload?.prompt_text || "";
     const launchable = ["prepared_not_launched", "launched", chromeActiveStatus].includes(item.status);
+    const harvestVisible = item.status === chromeCompletedVisibleStatus;
     const completed = ["harvested", chromeReviewedStatus, "rejected"].includes(item.status);
     check(
       Boolean(payload) &&
@@ -160,9 +164,11 @@ function validateExtensionPayloads(queue, payloads) {
         payload.launch_allowed === launchable &&
         payload.extension_action === (launchable
           ? "open_isolated_deep_research_tab"
-          : completed
-            ? "no_extension_action_completed"
-            : "wait_for_callable_chrome_extension_control") &&
+          : harvestVisible
+            ? "harvest_completed_report"
+            : completed
+              ? "no_extension_action_completed"
+              : "wait_for_callable_chrome_extension_control") &&
         payload.launch_blocked_reason === (launchable ? null : item.blocked_reason) &&
         payload.packet_sha256 === `sha256:${sha256(packet)}` &&
         payload.prompt_text_sha256 === `sha256:${sha256(promptText)}` &&
@@ -192,15 +198,16 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
     const payload = (payloads.items || []).find((candidate) => candidate.item_id === item.item_id);
     const reportItem = reportById.get(item.item_id);
     const harvested = reportItem?.status === chromeHarvestedStatus;
+    const completedVisible = reportItem?.status === chromeCompletedVisibleStatus;
     check(
       Boolean(reportItem) &&
         reportItem.tab_lane === payload?.tab_lane &&
-        [chromeActiveStatus, chromeObservationBlockedStatus, chromeHarvestedStatus].includes(reportItem.status) &&
+        [chromeActiveStatus, chromeObservationBlockedStatus, chromeCompletedVisibleStatus, chromeHarvestedStatus].includes(reportItem.status) &&
         reportItem.extension_control?.surface === "chrome_extension_plugin" &&
         reportItem.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
         reportItem.extension_control?.isolated_tab_verified === true &&
         reportItem.extension_control?.desktop_automation_used === false &&
-        reportItem.launch_proof?.conversation_url === activeFormalProofFrontierConversationUrl &&
+        reportItem.launch_proof?.conversation_url === item.conversation_url &&
         reportItem.launch_proof?.deep_research_enabled === true &&
         reportItem.launch_proof?.stop_control_visible === true &&
         reportItem.aggregate_policy_after_report === (harvested ? "eligible_only_after_local_review_and_publication" : "not_eligible_until_harvest_review_publication") &&
@@ -211,6 +218,11 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
         (harvested
           ? reportItem.latest_observation?.completed_report_visible === true &&
             reportItem.harvest_proof?.completed_report_visible === true
+          : completedVisible
+            ? reportItem.latest_observation?.completed_report_visible === true &&
+              reportItem.latest_observation?.response_text_available === false &&
+              reportItem.latest_observation?.next_action === "operator_manual_recovery_required" &&
+              !reportItem.harvest_proof
           : !reportItem.harvest_proof),
       "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_ITEM",
       `${item.item_id} extension report preserves Chrome-extension launch proof and the expected harvest boundary`
@@ -220,6 +232,7 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
   check(
     reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_REPORT_BINDING") &&
       reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_LAUNCH_PROOF") &&
+      reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_COMPLETED_VISIBLE_ITEM") &&
       reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_HARVEST_PROOF") &&
       reportScript.includes("desktop_automation_used === false"),
     "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_CHECKER",
@@ -238,6 +251,7 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
       contract.includes("npm run deep-research:payloads") &&
       contract.includes("npm run deep-research:report") &&
       contract.includes("multiple tabs concurrently") &&
+      contract.includes("troubleshoot extension availability") &&
       contract.includes("Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not fallbacks"),
     "OFONE_DEEP_RESEARCH_CONTRACT_DOC",
     "contract documents queue, payloads, report intake, schemas, checkers, parallel isolated tabs, and blocked fallback surfaces"
@@ -274,6 +288,7 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
   check(
     payloadScript.includes("extractPromptBlock") &&
       payloadScript.includes("one_item_per_tab") &&
+      payloadScript.includes("harvest_completed_report") &&
       payloadScript.includes("wait_for_callable_chrome_extension_control") &&
       payloadScript.includes("no_cross_arm_visibility_until_raw_harvest"),
     "OFONE_DEEP_RESEARCH_PAYLOAD_GENERATOR",
@@ -282,6 +297,7 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
   check(
       reportScript.includes("extension report matches schema") &&
       reportScript.includes("raw_output_sha256") &&
+      reportScript.includes("completed report is visible but remains unharvested") &&
       reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_LATEST_OBSERVATION") &&
       reportScript.includes("not_eligible_until_harvest_review_publication"),
     "OFONE_DEEP_RESEARCH_REPORT_CHECKER_DOC",
