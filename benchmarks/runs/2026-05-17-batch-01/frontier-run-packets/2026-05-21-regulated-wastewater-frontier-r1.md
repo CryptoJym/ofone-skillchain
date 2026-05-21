@@ -5,17 +5,18 @@ Batch: `2026-05-17-batch-01`
 Case: `case-regulated-wastewater-market-entry-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `direct_answer_launched_active`
+Status: `direct_answer_completed_reviewed`
 
 This packet prepares the next predeclared frontier reasoning slice after the strategic repeat-1 frontier slice and controlled full-OfOne replacement rerun5 were published and Pages-confirmed.
 
-This packet now records launch proof for the direct-answer arm only. Do not mark any regulated wastewater frontier slot complete until a clean isolated ChatGPT Deep Research conversation has visible current Pro/frontier model, highest available reasoning mode, Deep Research enabled when available, generated plan or equivalent run-start proof, Start/countdown action, active research state, stop-control evidence, completed report harvest, local review, commit/push, and Pages confirmation.
+This packet now records launch, harvest, and local-review proof for the direct-answer arm only. Do not mark the light-structured or full-OfOne regulated wastewater frontier slots complete until each has a separate clean isolated ChatGPT Deep Research conversation with visible current Pro/frontier model, highest available reasoning mode, Deep Research enabled when available, generated plan or equivalent run-start proof, Start/countdown action, active research state, stop-control evidence, completed report harvest, local review, commit/push, and Pages confirmation.
 
 Launch updates:
 
 - 2026-05-21T03:44:32-06:00 launch: the direct-answer arm was launched in a clean ChatGPT Deep Research conversation at https://chatgpt.com/c/6a0ed3db-cccc-83e8-b84c-b3b1cb7b0bfa. Observed proof: clean ChatGPT root/new-chat surface before submission, model selector showed `Latest • 5.5` and selected `Pro • Extended`, Deep Research was enabled, prompt metadata visibly named run ID `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1`, generated plan title `Regulated wastewater market entry`, `Start` clicked, visible status `Researching...`, and `Stop research` present. This is launch proof only; no completed report is visible, and no regulated wastewater frontier output is harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-21T03:46:42-06:00 observation: the active direct-answer run showed material progress. Visible status text changed to `Looking into state-specific operator certification requirements...`; plan title remains `Regulated wastewater market entry`; `Stop research` remains present. No completed report is visible, and the slot is not harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-21T03:51:36-06:00 observation: the active direct-answer run showed material progress. Visible plan title remains `Regulated wastewater market entry`; status text changed to `Refining final recommendation structure...`; count advanced to `266 searches` / `266 sources searched`; `Stop research` remains present. No completed report is visible, and the slot is not harvested, reviewed, complete, or aggregate-eligible.
+- 2026-05-21T03:58:46-06:00 completion and harvest: the direct-answer arm completed in ChatGPT Deep Research with visible metadata `Research completed in 12m`, `16 citations`, `319 searches`, `21 May`, `16 sources`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. Exported Markdown source `/Users/jamesbrady/Downloads/deep-research-report (40).md` was copied to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md` with SHA-256 `afc97b5a4ba4f92eaa8c1c41470e56016ba71dbd9fa7a3a5315770605db80147`. Local review was added at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md`; the direct-answer slot passed pre-score compliance and is represented in the matrix/page-link targets for publication parity checking. The light-structured and full-OfOne arms are still not launched.
 
 ## Execution Order
 

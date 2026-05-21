@@ -4,7 +4,7 @@ Status: `in_progress`
 
 This file is reserved for aggregate findings from `2026-05-17-batch-01`.
 
-Raw output collection, local unblinded review, and the first independent frontier review have started. Forty-eight of 90 predeclared run slots have completed and have local reviews across fifteen local `agentic_coding` slices plus three `frontier_reasoning` strategic repeat-1 slots:
+Raw output collection, local unblinded review, and the first independent frontier review have started. Forty-nine of 90 predeclared run slots have completed and have local reviews across fifteen local `agentic_coding` slices, three `frontier_reasoning` strategic repeat-1 slots, and one regulated wastewater `frontier_reasoning` repeat-1 direct-answer slot:
 
 - `case-strategic-gated-diligence-001` / `direct_answer` / `agentic_coding` / repeat 1
 - `case-strategic-gated-diligence-001` / `light_structured` / `agentic_coding` / repeat 1
@@ -54,6 +54,7 @@ Raw output collection, local unblinded review, and the first independent frontie
 - `case-strategic-gated-diligence-001` / `direct_answer` / `frontier_reasoning` / repeat 1
 - `case-strategic-gated-diligence-001` / `light_structured` / `frontier_reasoning` / repeat 1
 - `case-strategic-gated-diligence-001` / `full_ofone` / `frontier_reasoning` / repeat 1
+- `case-regulated-wastewater-market-entry-001` / `direct_answer` / `frontier_reasoning` / repeat 1
 
 Run 06 independently adjudicated the first slice. It accepted the direct-answer and light-structured slots for later aggregate scoring, but rejected the full-OfOne slot because the artifact identity is copied from `case-strategy-micro-001` rather than bound to `case-strategic-gated-diligence-001`.
 
@@ -95,6 +96,8 @@ The next predeclared model family is `frontier_reasoning`. A strategic gated dil
 
 Remedial frontier full-OfOne rerun 4 completed at https://chatgpt.com/c/6a0ec0a2-3814-83e8-8f86-23b625eace67 as a meta/advisory report titled `Running an Unspecified OfOne Benchmark Packet Exactly`; it is preserved as failed evidence outside artifact extraction, `remedial_runs`, aggregate eligibility, aggregate comparison, and superiority claims. Same-shape attachment-led Deep Research reruns are now barred for this slot. The Mode A controlled execution contract at `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md` produced `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5` with raw output, artifact JSON, computed validator JSON, rendering, patch report, and local review. Rerun 5 is recorded in `remedial_runs` as `replace_for_aggregate_only` and aggregate-eligible replacement evidence for the excluded frontier full-OfOne repeat-1 slot only. The original excluded frontier run remains immutable, failed reruns 1-4 remain outside aggregate scoring, and no aggregate comparison or superiority claim is supported.
 
+The regulated wastewater `frontier_reasoning` direct-answer repeat-1 arm completed in ChatGPT Deep Research at https://chatgpt.com/c/6a0ed3db-cccc-83e8-b84c-b3b1cb7b0bfa with visible report metadata `Research completed in 12m`, `16 citations`, `319 searches`, `21 May`, `16 sources`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. Its raw Markdown was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md`, locally reviewed at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md`, and accepted as aggregate-eligible. The regulated wastewater light-structured and full-OfOne frontier arms are not launched. No regulated wastewater frontier aggregate comparison is supported.
+
 Current aggregate eligibility among reviewed local slots:
 
 | Run slot | Eligibility | Reason |
@@ -115,6 +118,7 @@ Current aggregate eligibility among reviewed local slots:
 | regulated wastewater / `direct_answer` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | regulated wastewater / `light_structured` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | regulated wastewater / `full_ofone` / `agentic_coding` / repeat 1 | eligible | Case-native Map artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
+| regulated wastewater / `direct_answer` / `frontier_reasoning` / repeat 1 | eligible | Completed in ChatGPT Deep Research; harvested raw Markdown; passed pre-score compliance and local review. |
 | formal proof-search / `direct_answer` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | formal proof-search / `light_structured` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | formal proof-search / `full_ofone` / `agentic_coding` / repeat 1 | eligible | Case-native Map artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |

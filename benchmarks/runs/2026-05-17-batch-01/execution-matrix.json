@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 42,
-    "completed": 48,
-    "reviewed": 48,
+    "queued": 41,
+    "completed": 49,
+    "reviewed": 49,
     "excluded": 2,
-    "aggregate_eligible": 48,
+    "aggregate_eligible": 49,
     "remedial": 2
   },
   "completed_runs": [
@@ -1556,6 +1556,36 @@
         "rendering_sha256": "sha256:df814569365d29b8485bc2aef3ee5ef0317bc2979f42f1fb3ab6b7db2bdc4483"
       },
       "status": "completed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "direct_answer",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:afc97b5a4ba4f92eaa8c1c41470e56016ba71dbd9fa7a3a5315770605db80147",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (40).md",
+      "harvested_at": "2026-05-21T03:58:46-06:00",
+      "visible_report_metadata": "Research completed in 12m; 16 citations; 319 searches; 21 May; 16 sources; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0ed3db-cccc-83e8-b84c-b3b1cb7b0bfa",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier direct-answer run is harvested from a completed ChatGPT Deep Research report, answers the regulated wastewater case, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "primary public regulatory sources are cited for permitting, pretreatment, reuse, operator, residuals, and compliance claims; missing case-specific evidence remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
+      },
+      "status": "completed"
     }
   ],
   "reviewed_runs": [
@@ -3075,6 +3105,36 @@
         "patch_sha256": "sha256:87603090afe09e772cd1af0bc9ea44a5a9652fbecb71e6121a414b0d8deb9a5c",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.rendering.md",
         "rendering_sha256": "sha256:df814569365d29b8485bc2aef3ee5ef0317bc2979f42f1fb3ab6b7db2bdc4483"
+      },
+      "status": "reviewed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "direct_answer",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:afc97b5a4ba4f92eaa8c1c41470e56016ba71dbd9fa7a3a5315770605db80147",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (40).md",
+      "harvested_at": "2026-05-21T03:58:46-06:00",
+      "visible_report_metadata": "Research completed in 12m; 16 citations; 319 searches; 21 May; 16 sources; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0ed3db-cccc-83e8-b84c-b3b1cb7b0bfa",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier direct-answer run is harvested from a completed ChatGPT Deep Research report, answers the regulated wastewater case, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "primary public regulatory sources are cited for permitting, pretreatment, reuse, operator, residuals, and compliance claims; missing case-specific evidence remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
       },
       "status": "reviewed"
     }
