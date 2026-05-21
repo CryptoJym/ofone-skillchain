@@ -7,7 +7,7 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 Rerun number: `2`
-Status: `active_researching`
+Status: `failed`
 
 This packet repairs the excluded frontier full-OfOne repeat-1 slot after remedial rerun 1 completed as an advisory research report instead of the required benchmark package. Do not inspect or rewrite the original excluded run, the failed rerun 1 output, other arms, prior Batch 01 outputs, or reviews. Rerun 1 is mentioned only to explain the stricter output-contract guard.
 
@@ -23,11 +23,11 @@ Next remedial run:
 
 `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2`
 
-Use this packet only when the operator can verify a clean ChatGPT Deep Research launch: clean conversation, visible latest Pro/frontier model label, highest visible reasoning mode, Deep Research enabled, generated plan, Start or countdown, active research state, and stop-control evidence. If any launch proof is unavailable, leave this packet prepared and do not mark the remedial run complete.
+This packet has been launched, harvested, and rejected before aggregate scoring. Keep it as immutable failed-remedial evidence unless a later protocol explicitly supersedes this attempt.
 
 ## Launch Proof
 
-- Status: `active_researching`
+- Status: `failed`
 - Conversation: https://chatgpt.com/c/6a0ea350-3584-83e8-9d3e-ab7759c489f6
 - 2026-05-21T00:17:38-06:00: Launched from a clean ChatGPT root/new-chat surface. Clean composer initially showed `Extended Pro`; after Deep Research was enabled, the composer showed `Pro`.
 - Context delivery: prompt packet was delivered as `Pasted text(13).txt`; the visible instruction explicitly named remedial run `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2`.
@@ -41,7 +41,7 @@ Use this packet only when the operator can verify a clean ChatGPT Deep Research 
 - 2026-05-21T00:45:04-06:00 observation: still active; step 1 complete, step 2 active, status text `Defining criteria and actor roles for decision-making...`, `20 searches`, `20 sources searched`, and `Stop research` present.
 - 2026-05-21T00:49:21-06:00 observation: still active; step 1 complete, step 2 active, status text `Citing official documentation and validation details...`, `20 searches`, `20 sources searched`, and `Stop research` present.
 - 2026-05-21T00:55:48-06:00 observation: still active; step 1 complete, step 2 active, status text `Refining duplicate detection and potential risks...`, `20 searches`, `20 sources searched`, and `Stop research` present.
-- This is launch proof only. No completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
+- 2026-05-21T01:08:00-06:00 harvest/review: completed report visible with metadata `Research completed in 44m`, `1 citation`, `20 searches`, `21 May`, `1 source`, title `Benchmark Raw Output`, and run metadata `Status: completed`. Exported Markdown source `/Users/jamesbrady/Downloads/deep-research-report (37).md` was copied to the expected raw-output path with SHA-256 `dfdae1034abf0e0521df5103bfa297c605ac5ef149b4a3f85490f070e7179bd8`. Artifact JSON, computed validator JSON, rendering, patch report, and local review were generated. Computed local validation failed required evidence `movement_jobs` fields and a tradeoff reversal-condition defect, so this run is rejected before aggregate scoring and is not inserted into the execution matrix.
 
 ## Frozen Inputs
 

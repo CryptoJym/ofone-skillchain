@@ -1,0 +1,294 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "U1",
+        "G1"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C2",
+      "type": "claim",
+      "label": "Operational launch should remain gated until a reviewer records an explicit decision on completed diligence."
+    },
+    {
+      "id": "C3",
+      "type": "claim",
+      "label": "Launching before diligence resolves the main blocking unknown increases irreversible commitment risk and weakens review discipline."
+    },
+    {
+      "id": "C5",
+      "type": "claim",
+      "label": "If diligence resolves U1 and the same evidence supports an approve outcome at G1, the recommendation can be patched from diligence-first to launch-eligible."
+    },
+    {
+      "id": "C6",
+      "type": "claim",
+      "label": "Immediate launch reduces reversibility because it converts a learn-first decision into an operational commitment under uncertainty."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "Both lenses favor reversible diligence now and block launch pending resolved evidence plus an explicit gate decision."
+    },
+    {
+      "id": "G1",
+      "type": "gate",
+      "label": "Any proposed transition from diligence to operational launch"
+    },
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "What bounded diligence deliverable would let A2 approve, block, or return the launch request without committing to launch today?"
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS1",
+      "type": "lens",
+      "label": "reversibility and option value"
+    },
+    {
+      "id": "LENS2",
+      "type": "lens",
+      "label": "approval legitimacy and release gating"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "test"
+    },
+    {
+      "id": "O2",
+      "type": "option_move",
+      "label": "act"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Choose O1 now. Treat O2 as blocked until diligence resolves U1 and gate G1 records an explicit approve decision."
+    },
+    {
+      "id": "T2",
+      "type": "trigger",
+      "label": "review_required"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "No completed diligence artifact currently states whether launch satisfies reviewer criteria without losing reversibility."
+    },
+    {
+      "id": "X10",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X11",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X12",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X2",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X3",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X6",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X7",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X8",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X9",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C2",
+      "C3",
+      "C5",
+      "C6"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "gate": [
+      "G1"
+    ],
+    "information_value": [
+      "IV:U1"
+    ],
+    "loop": [
+      "L1"
+    ],
+    "lens": [
+      "LENS1",
+      "LENS2"
+    ],
+    "option_move": [
+      "O1",
+      "O2"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "trigger": [
+      "T2"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1"
+    ],
+    "edge": [
+      "X10",
+      "X11",
+      "X12",
+      "X2",
+      "X3",
+      "X4",
+      "X5",
+      "X6",
+      "X7",
+      "X8",
+      "X9"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "evidential",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C2",
+    "C3",
+    "C5",
+    "C6"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [
+    {
+      "gate_id": "G1",
+      "status": "open",
+      "reviewer": "A1 decision owner and A2 release reviewer must record an explicit decision",
+      "required_decision": "approve launch, block launch, or return for more diligence"
+    }
+  ],
+  "suggested_transition": "human_review",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 27 downstream object(s) are in closure, so the current decision rendering must be regenerated. human review blocks release.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "review_log_check",
+    "rendering_regeneration",
+    "human_gate_review"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C2",
+        "C3",
+        "C5",
+        "C6"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "collect_approvals",
+      "targets": [
+        "G1"
+      ],
+      "effect": "Route changed decision state to named reviewers."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 27 downstream object(s); transition=human_review; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C2, C3, C5, C6",
+      "collect required approvals: G1:A1 decision owner and A2 release reviewer must record an explicit decision",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log",
+      "route through the required human gate before release"
+    ]
+  }
+}

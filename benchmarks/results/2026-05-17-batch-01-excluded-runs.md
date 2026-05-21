@@ -23,6 +23,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - Remedial full-OfOne rerun 1 is reviewed and aggregate-eligible as a replacement for the excluded original only.
 - Frontier full-OfOne strategic repeat-1 remains excluded and immutable.
 - Remedial frontier full-OfOne rerun 1 was harvested but rejected before matrix insertion because the output was an advisory research report, not a benchmark raw output package.
+- Remedial frontier full-OfOne rerun 2 was harvested with the required benchmark raw-output package shape, but computed local validation failed; it remains outside aggregate scoring and outside `remedial_runs`.
 - No empirical superiority or method-performance claim is supported.
 
 ## Remedial Reruns
@@ -31,7 +32,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 | --- | --- | --- | --- | --- |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1` | `reviewed` | `replace_for_aggregate_only` | Case-native artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `failed` | `not_aggregate_eligible` | Raw export preserved with SHA-256 `c0900989fe10e528648ea57d6f20f1f18f662fcff89bb04194bbc99fb5a9d385`, but exact benchmark header, artifact JSON, validator, rendering, and patch sections were absent. |
-| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `active_researching` | `replace_for_aggregate_only` | Launched in clean ChatGPT Deep Research conversation https://chatgpt.com/c/6a0ea350-3584-83e8-9d3e-ab7759c489f6 with visible plan title `Strategic gated diligence`; latest observation shows step 1 complete, step 2 active, status text `Refining duplicate detection and potential risks...`, `20 searches` / `20 sources searched`, and `Stop research` present. No harvest, review, or aggregate eligibility exists yet. |
+| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `failed` | `not_aggregate_eligible` | Raw export preserved with SHA-256 `dfdae1034abf0e0521df5103bfa297c605ac5ef149b4a3f85490f070e7179bd8`; artifact, validator, rendering, patch, and review were generated, but computed local validation failed missing evidence `movement_jobs` fields and a tradeoff reversal-condition defect. Review: `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.md`. |
 
 ## Rerun Semantics
 
