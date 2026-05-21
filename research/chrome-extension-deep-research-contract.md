@@ -13,18 +13,23 @@ The current machine-readable queue is:
 - `research/deep-research-launch-queue.json`
 - Extension payloads: `research/deep-research-extension-payloads.json`
 - Extension report intake: `research/deep-research-extension-report.json`
+- Manual recovery gate: `research/deep-research-manual-recovery.json`
 - Schema: `schemas/ofone.deep-research-launch.schema.json`
 - Payload schema: `schemas/ofone.deep-research-extension-payloads.schema.json`
 - Report schema: `schemas/ofone.deep-research-extension-report.schema.json`
+- Manual recovery schema: `schemas/ofone.deep-research-manual-recovery.schema.json`
 - Checker: `npm run deep-research:check`
 - Payload freshness checker: `npm run deep-research:payloads`
 - Report intake checker: `npm run deep-research:report`
+- Manual recovery checker: `npm run deep-research:manual-recovery`
 
 Each queue item identifies the benchmark slot, packet path, prompt anchor, expected output path, expected review path, required launch proof, and disallowed surfaces. A queue item may be ready for extension launch, blocked, active, harvested, reviewed, or rejected, but it is not complete until local harvest, review, verification, publication, and Pages parity all exist.
 
 The extension payload file expands each queue item into one isolated tab lane with the exact prompt text extracted from the packet, packet and prompt SHA-256 hashes, expected harvest paths, isolation constraints, and launch-block status. Regenerate it after queue edits with `npm run deep-research:payloads:write`, then verify it with `npm run deep-research:payloads` and `npm run deep-research:check`.
 
 The extension report file is the only accepted local intake for launch and harvest observations from the Chrome extension/plugin. It records whether the extension surface is unavailable, launch-ready, launched, active, completed, harvested, or rejected; binds that report to the exact payload file hash; records the current Chrome-extension availability diagnostic; and requires explicit launch or harvest proof before a blocked queue item can advance.
+
+The manual recovery gate is only for a narrow completed-visible state: Chrome extension control is callable, launch proof exists, the completed report is visible, allowed extension probes have failed to expose raw Markdown, and no disallowed browser/desktop/OCR fallback may be used. It is hash-bound to the current queue, payload, and report files. It may validate a native ChatGPT Markdown export from the recorded conversation, but it cannot by itself promote a slot to harvested, reviewed, complete, or aggregate-eligible.
 
 ## Extension Duties
 
@@ -43,10 +48,10 @@ The extension may run multiple tabs concurrently only when each arm is isolated 
 
 ## Blocker Rule
 
-If callable Chrome extension/plugin control is unavailable, troubleshoot extension availability before any other work. Required diagnostics are: current tool discovery result, `nodeRepl.requestMeta` backend list when `node_repl` is callable, `globalThis.browser` presence or absence, tab-list attempt or error, and the exact namespace or backend failure. The queue and report stay blocked until those diagnostics either restore callable extension control or prove a real extension blocker. If extension control is available but raw Markdown harvest is blocked, the report must enumerate the allowed Chrome-extension probes already attempted before the item can remain `completed_report_visible`. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not fallbacks for launch or harvest because they can hijack the user's active workspace and blur launch evidence.
+If callable Chrome extension/plugin control is unavailable, troubleshoot extension availability before any other work. Required diagnostics are: current tool discovery result, `nodeRepl.requestMeta` backend list when `node_repl` is callable, `globalThis.browser` presence or absence, tab-list attempt or error, and the exact namespace or backend failure. The queue and report stay blocked until those diagnostics either restore callable extension control or prove a real extension blocker. If extension control is available but raw Markdown harvest is blocked, the report must enumerate the allowed Chrome-extension probes already attempted before the item can remain `completed_report_visible`; if the next action becomes operator export, the manual recovery gate must be present and passing. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not fallbacks for launch or harvest because they can hijack the user's active workspace and blur launch evidence. OCR and screenshot reconstruction are also barred because they reconstruct non-verbatim report text.
 
 ## Current State
 
 The formal proof-search frontier repeat-1 direct-answer item is currently `reviewed` in `research/deep-research-launch-queue.json` and `harvested` in `research/deep-research-extension-report.json`. Chrome extension launch and harvest proof is recorded for https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b with visible metadata `Research completed in 10m`, `8 citations`, `101 searches`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. The raw output and local review are saved; publication parity is confirmed only after commit, push, and `npm run pages:check`.
 
-The formal proof-search frontier repeat-1 light-structured item has a completed report visible at https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958 with visible metadata `Research completed in 9m`, `6 citations`, `120 searches`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. It remains `completed_report_visible`, not harvested or aggregate-eligible, because raw Markdown export is blocked by the cross-origin Deep Research iframe and no disallowed fallback may be used. The current report records Chrome availability through `mcp__node_repl__js` plus allowed extension probes for DOM, iframe, sandbox-tab, response-menu, content-export, GSuite export, dev-log, backend-request, page-eval, and Copy response paths.
+The formal proof-search frontier repeat-1 light-structured item has a completed report visible at https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958 with visible metadata `Research completed in 9m`, `6 citations`, `120 searches`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. It remains `completed_report_visible`, not harvested or aggregate-eligible, because raw Markdown export is blocked by the cross-origin Deep Research iframe and no disallowed fallback may be used. The current report records Chrome availability through `mcp__node_repl__js` plus allowed extension probes for DOM, iframe, sandbox-tab, response-menu, content-export, GSuite export, dev-log, backend-request, page-eval, and Copy response paths. The manual recovery gate at `research/deep-research-manual-recovery.json` is currently `awaiting_operator_export`; its checker verifies that no raw output or review file exists and that future promotion still requires native Markdown export, local review, state update, commit, push, and Pages parity.

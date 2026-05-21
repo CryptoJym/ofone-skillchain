@@ -1,0 +1,55 @@
+{
+  "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-manual-recovery.schema.json",
+  "protocol_version": "ofone-deep-research-manual-recovery-0.1",
+  "recovery_id": "2026-05-21-formal-frontier-light-structured-manual-recovery",
+  "generated_at": "2026-05-21T10:14:14-06:00",
+  "source_surface": "chrome_extension_plugin",
+  "report_path": "research/deep-research-extension-report.json",
+  "report_sha256": "sha256:8c25523be7150a89fb370f22f0f48afc615169bb6a44dffc8508d2fb1f1bf05d",
+  "queue_path": "research/deep-research-launch-queue.json",
+  "queue_sha256": "sha256:fc64b816437876ec13322e9855c9e2c459719942c93dc8287ef4e3b67e14e2af",
+  "payload_path": "research/deep-research-extension-payloads.json",
+  "payload_sha256": "sha256:1c1434fbdab14594b20ac883a86d66395b087804d0af2d9b46a9a3fb10ef774f",
+  "items": [
+    {
+      "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1",
+      "status": "awaiting_operator_export",
+      "conversation_url": "https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958",
+      "blocked_status": "completed_report_visible",
+      "recovery_reason": "The Chrome extension can observe the completed ChatGPT Deep Research report, but raw Markdown remains unavailable because the report body and download control are inside ChatGPT's cross-origin Deep Research sandbox iframe.",
+      "expected_source_glob": "/Users/jamesbrady/Downloads/deep-research-report*.md",
+      "expected_raw_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1.md",
+      "expected_review_path": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1.md",
+      "required_raw_markers": [
+        "Run ID: `2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1`",
+        "Case ID: `case-formal-proof-search-001`",
+        "Arm: `light_structured`",
+        "Model family: `frontier_reasoning`",
+        "Repeat: `1`",
+        "Status: `completed`"
+      ],
+      "forbidden_recovery_methods": [
+        "Browser plugin",
+        "Computer Use",
+        "coordinate clicking",
+        "AppleScript/JXA",
+        "generic desktop automation",
+        "OCR or screenshot reconstruction",
+        "reconstructed prose from visible iframe text"
+      ],
+      "manual_steps": [
+        "Use only the existing Chrome extension/ChatGPT report surface at the recorded conversation URL.",
+        "If ChatGPT exposes a native Markdown/download/export affordance for the completed report, export the raw Markdown to the expected Downloads glob.",
+        "Validate the exported file with `npm run deep-research:manual-recovery -- --source /absolute/path/to/deep-research-report.md` before copying it into the benchmark output path.",
+        "After raw output is saved, add the local review, update queue/payload/report state, run the required checks, commit, push, and confirm Pages before changing aggregate eligibility."
+      ],
+      "promotion_gate": {
+        "raw_output_required_before_harvest": true,
+        "local_review_required": true,
+        "queue_payload_report_update_required": true,
+        "commit_push_pages_required": true,
+        "aggregate_eligible_before_review_publication": false
+      }
+    }
+  ]
+}

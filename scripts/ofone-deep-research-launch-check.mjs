@@ -11,11 +11,14 @@ const repoRoot = path.resolve(__dirname, "..");
 const schemaRel = "schemas/ofone.deep-research-launch.schema.json";
 const payloadSchemaRel = "schemas/ofone.deep-research-extension-payloads.schema.json";
 const reportSchemaRel = "schemas/ofone.deep-research-extension-report.schema.json";
+const manualRecoverySchemaRel = "schemas/ofone.deep-research-manual-recovery.schema.json";
 const queueRel = "research/deep-research-launch-queue.json";
 const payloadRel = "research/deep-research-extension-payloads.json";
 const reportRel = "research/deep-research-extension-report.json";
+const manualRecoveryRel = "research/deep-research-manual-recovery.json";
 const payloadScriptRel = "scripts/ofone-deep-research-extension-payloads.mjs";
 const reportScriptRel = "scripts/ofone-deep-research-extension-report-check.mjs";
+const manualRecoveryScriptRel = "scripts/ofone-deep-research-manual-recovery.mjs";
 const contractRel = "research/chrome-extension-deep-research-contract.md";
 const trackerRel = "research/TRACKER.md";
 const loopRel = "research/recursive-improvement-loop.md";
@@ -32,12 +35,15 @@ const diagnostics = [];
 const schema = readJson(schemaRel, "launch queue schema");
 const payloadSchema = readJson(payloadSchemaRel, "extension payload schema");
 const reportSchema = readJson(reportSchemaRel, "extension report schema");
+const manualRecoverySchema = readJson(manualRecoverySchemaRel, "manual recovery schema");
 const queue = readJson(queueRel, "launch queue");
 const payloads = readJson(payloadRel, "extension payloads");
 const report = readJson(reportRel, "extension report");
+const manualRecovery = readJson(manualRecoveryRel, "manual recovery plan");
 const contract = readText(contractRel, "Chrome extension contract");
 const payloadScript = readText(payloadScriptRel, "extension payload generator");
 const reportScript = readText(reportScriptRel, "extension report checker");
+const manualRecoveryScript = readText(manualRecoveryScriptRel, "manual recovery checker");
 const tracker = readText(trackerRel, "research tracker");
 const loop = readText(loopRel, "recursive loop");
 const statusLedger = readText(statusRel, "Run 07 status ledger");
@@ -75,12 +81,24 @@ if (reportSchema && report) {
   );
 }
 
-if (queue && payloads && report && contract && tracker && loop && statusLedger && payloadScript && reportScript) {
+if (manualRecoverySchema && manualRecovery) {
+  const ajv = new Ajv2020({ allErrors: true, strict: false });
+  const validate = ajv.compile(manualRecoverySchema);
+  const valid = validate(manualRecovery);
+  check(
+    valid,
+    "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SCHEMA",
+    valid ? "manual recovery plan matches schema" : `manual recovery schema errors: ${formatAjvErrors(validate.errors)}`
+  );
+}
+
+if (queue && payloads && report && manualRecovery && contract && tracker && loop && statusLedger && payloadScript && reportScript && manualRecoveryScript) {
   validateLaunchSurfacePolicy(queue);
   validateQueueItems(queue);
   validateExtensionPayloads(queue, payloads);
   validateExtensionReport(queue, payloads, report, reportScript);
-  validatePublishedContract({ queue, contract, tracker, loop, statusLedger, payloadScript, reportScript });
+  validateManualRecovery(queue, payloads, report, manualRecovery);
+  validatePublishedContract({ queue, contract, tracker, loop, statusLedger, payloadScript, reportScript, manualRecoveryScript });
 }
 
 const passed = diagnostics.every((diagnostic) => diagnostic.severity !== "error");
@@ -250,16 +268,52 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
   );
 }
 
-function validatePublishedContract({ queue, contract, tracker, loop, statusLedger, payloadScript, reportScript }) {
+function validateManualRecovery(queue, payloads, report, manualRecovery) {
+  const reportText = readText(reportRel, "extension report hash source for manual recovery");
+  const queueText = readText(queueRel, "launch queue hash source for manual recovery");
+  const payloadText = readText(payloadRel, "extension payload hash source for manual recovery");
+  const itemId = "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1";
+  const recoveryItem = (manualRecovery.items || []).find((item) => item.item_id === itemId);
+  const reportItem = (report.items || []).find((item) => item.item_id === itemId);
+  const queueItem = (queue.items || []).find((item) => item.item_id === itemId);
+  const payloadItem = (payloads.items || []).find((item) => item.item_id === itemId);
+  const rawExists = recoveryItem ? fs.existsSync(path.join(repoRoot, recoveryItem.expected_raw_output_path)) : false;
+  const reviewExists = recoveryItem ? fs.existsSync(path.join(repoRoot, recoveryItem.expected_review_path)) : false;
+  check(
+    manualRecovery.report_path === reportRel &&
+      manualRecovery.report_sha256 === `sha256:${sha256(reportText)}` &&
+      manualRecovery.queue_path === queueRel &&
+      manualRecovery.queue_sha256 === `sha256:${sha256(queueText)}` &&
+      manualRecovery.payload_path === payloadRel &&
+      manualRecovery.payload_sha256 === `sha256:${sha256(payloadText)}` &&
+      recoveryItem?.status === "awaiting_operator_export" &&
+      recoveryItem?.blocked_status === chromeCompletedVisibleStatus &&
+      recoveryItem?.conversation_url === queueItem?.conversation_url &&
+      reportItem?.status === chromeCompletedVisibleStatus &&
+      reportItem?.latest_observation?.next_action === "operator_manual_recovery_required" &&
+      payloadItem?.extension_action === "harvest_completed_report" &&
+      recoveryItem?.promotion_gate?.aggregate_eligible_before_review_publication === false &&
+      recoveryItem?.forbidden_recovery_methods?.includes("OCR or screenshot reconstruction") &&
+      !rawExists &&
+      !reviewExists,
+    "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_GATE",
+    "manual recovery plan preserves the completed-visible blocker without raw output, local review, or aggregate eligibility"
+  );
+}
+
+function validatePublishedContract({ queue, contract, tracker, loop, statusLedger, payloadScript, reportScript, manualRecoveryScript }) {
   check(
     contract.includes(queueRel) &&
       contract.includes(payloadRel) &&
       contract.includes(reportRel) &&
+      contract.includes(manualRecoveryRel) &&
       contract.includes(schemaRel) &&
       contract.includes(reportSchemaRel) &&
+      contract.includes(manualRecoverySchemaRel) &&
       contract.includes("npm run deep-research:check") &&
       contract.includes("npm run deep-research:payloads") &&
       contract.includes("npm run deep-research:report") &&
+      contract.includes("npm run deep-research:manual-recovery") &&
       contract.includes("multiple tabs concurrently") &&
       contract.includes("troubleshoot extension availability") &&
       contract.includes("Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not fallbacks"),
@@ -270,6 +324,7 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
     tracker.includes(queueRel) &&
       tracker.includes(payloadRel) &&
       tracker.includes(reportRel) &&
+      tracker.includes(manualRecoveryRel) &&
       tracker.includes(contractRel) &&
       tracker.includes("Chrome-extension launch queue"),
     "OFONE_DEEP_RESEARCH_TRACKER_LINK",
@@ -279,6 +334,7 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
     loop.includes(queueRel) &&
       loop.includes(payloadRel) &&
       loop.includes(reportRel) &&
+      loop.includes(manualRecoveryRel) &&
       loop.includes(contractRel) &&
       loop.includes("launch queue") &&
       (loop.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback") ||
@@ -290,6 +346,7 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
     statusLedger.includes(queueRel) &&
       statusLedger.includes(payloadRel) &&
       statusLedger.includes(reportRel) &&
+      statusLedger.includes(manualRecoveryRel) &&
       statusLedger.includes(contractRel) &&
       statusLedger.includes("parallel Deep Research packets"),
     "OFONE_DEEP_RESEARCH_STATUS_LEDGER_LINK",
@@ -313,6 +370,15 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
       reportScript.includes("not_eligible_until_harvest_review_publication"),
     "OFONE_DEEP_RESEARCH_REPORT_CHECKER_DOC",
     "report checker verifies active launch state and future harvested raw-output hash proof"
+  );
+  check(
+    manualRecoveryScript.includes("OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_BINDING") &&
+      manualRecoveryScript.includes("OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_MARKERS") &&
+      manualRecoveryScript.includes("OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_AWAITING_STATE") &&
+      manualRecoveryScript.includes("OCR or screenshot reconstruction") &&
+      manualRecoveryScript.includes("aggregate-eligible before raw output, review, state update, commit, push, and Pages parity"),
+    "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_CHECKER",
+    "manual recovery checker validates source markers and keeps the blocked item out of harvested or aggregate states"
   );
 }
 

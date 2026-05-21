@@ -20,6 +20,8 @@
     "deep-research:payloads": "node scripts/ofone-deep-research-extension-payloads.mjs --check",
     "deep-research:payloads:write": "node scripts/ofone-deep-research-extension-payloads.mjs --write",
     "deep-research:report": "node scripts/ofone-deep-research-extension-report-check.mjs",
+    "deep-research:manual-recovery": "node scripts/ofone-deep-research-manual-recovery.mjs --check",
+    "deep-research:manual-recovery:write": "node scripts/ofone-deep-research-manual-recovery.mjs --write",
     "review:check": "node scripts/ofone-review-check.mjs research/review-sidecars/*.json",
     "test": "node scripts/ofone-test.mjs"
   },

@@ -29,6 +29,8 @@ const deepResearchPayloadRel = "research/deep-research-extension-payloads.json";
 const deepResearchPayloadPath = path.join(repoRoot, deepResearchPayloadRel);
 const deepResearchReportRel = "research/deep-research-extension-report.json";
 const deepResearchReportPath = path.join(repoRoot, deepResearchReportRel);
+const deepResearchManualRecoveryRel = "research/deep-research-manual-recovery.json";
+const deepResearchManualRecoveryPath = path.join(repoRoot, deepResearchManualRecoveryRel);
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 const chromeActiveStatus = "active_researching";
 const chromeObservationBlockedStatus = "observation_blocked";
@@ -47,6 +49,7 @@ const formalProofFrontierPacket = readText(formalProofFrontierPacketPath, "forma
 const deepResearchQueue = readJson(deepResearchQueuePath, "Deep Research launch queue");
 const deepResearchPayload = readJson(deepResearchPayloadPath, "Deep Research extension payloads");
 const deepResearchReport = readJson(deepResearchReportPath, "Deep Research extension report");
+const deepResearchManualRecovery = readJson(deepResearchManualRecoveryPath, "Deep Research manual recovery");
 
 if (tracker && manifest && status) {
   validateRun06Status({ tracker, manifest, status });
@@ -57,14 +60,15 @@ if (tracker && run07Status) {
 if (tracker && loopDoc) {
   validateRecursiveLoop({ tracker, loopDoc });
 }
-if (tracker && loopDoc && formalProofFrontierPacket && deepResearchQueue && deepResearchPayload && deepResearchReport) {
+if (tracker && loopDoc && formalProofFrontierPacket && deepResearchQueue && deepResearchPayload && deepResearchReport && deepResearchManualRecovery) {
   validateChromeExtensionFrontier({
     tracker,
     loopDoc,
     packet: formalProofFrontierPacket,
     queue: deepResearchQueue,
     payload: deepResearchPayload,
-    report: deepResearchReport
+    report: deepResearchReport,
+    manualRecovery: deepResearchManualRecovery
   });
 }
 
@@ -258,7 +262,7 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
   );
 }
 
-function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payload, report }) {
+function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payload, report, manualRecovery }) {
   const run07Row = tracker.split("\n").find((line) => line.startsWith("| 07 |")) || "";
   const expectedItems = [
     {
@@ -408,6 +412,35 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       }),
     "OFONE_RESEARCH_FRONTIER_CHROME_REPORT_ACTIVE",
     "Chrome-extension report intake records direct harvest proof and completed-visible light-structured harvest blocker"
+  );
+
+  const manualItem = (manualRecovery.items || []).find((item) =>
+    item.item_id === "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1"
+  );
+  const manualReportText = readText(deepResearchReportPath, "Deep Research extension report hash source for manual recovery");
+  const manualQueueText = readText(deepResearchQueuePath, "Deep Research queue hash source for manual recovery");
+  const manualPayloadText = readText(deepResearchPayloadPath, "Deep Research payload hash source for manual recovery");
+  const manualRawExists = manualItem ? fs.existsSync(path.join(repoRoot, manualItem.expected_raw_output_path)) : false;
+  const manualReviewExists = manualItem ? fs.existsSync(path.join(repoRoot, manualItem.expected_review_path)) : false;
+  check(
+    manualRecovery.report_path === deepResearchReportRel &&
+      manualRecovery.report_sha256 === `sha256:${sha256(manualReportText)}` &&
+      manualRecovery.queue_path === deepResearchQueueRel &&
+      manualRecovery.queue_sha256 === `sha256:${sha256(manualQueueText)}` &&
+      manualRecovery.payload_path === deepResearchPayloadRel &&
+      manualRecovery.payload_sha256 === `sha256:${sha256(manualPayloadText)}` &&
+      Boolean(manualItem) &&
+      manualItem.status === "awaiting_operator_export" &&
+      manualItem.blocked_status === chromeCompletedVisibleStatus &&
+      manualItem.conversation_url === "https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958" &&
+      manualItem.required_raw_markers.includes(`Run ID: \`${manualItem.item_id}\``) &&
+      manualItem.forbidden_recovery_methods.includes("Computer Use") &&
+      manualItem.forbidden_recovery_methods.includes("OCR or screenshot reconstruction") &&
+      manualItem.promotion_gate?.aggregate_eligible_before_review_publication === false &&
+      !manualRawExists &&
+      !manualReviewExists,
+    "OFONE_RESEARCH_FRONTIER_MANUAL_RECOVERY_GATE",
+    "manual recovery plan is hash-bound to the current completed-visible blocker and cannot promote the slot before raw export plus local review"
   );
 }
 
