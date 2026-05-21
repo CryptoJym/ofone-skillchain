@@ -5,7 +5,7 @@ Batch: `2026-05-17-batch-01`
 Case: `case-strategic-gated-diligence-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `light_structured_active_research`
+Status: `light_structured_ambiguous_external_state`
 
 This packet prepares the next predeclared uncompleted Batch 01 slice for a frontier reasoning model. It is not a completed benchmark run, not launch proof, and not aggregate evidence.
 
@@ -13,6 +13,7 @@ Launch updates:
 
 - The direct-answer arm was launched on 2026-05-20 at https://chatgpt.com/c/6a0e3e09-fd6c-83e8-a914-36445d70d090. It completed with visible metadata `Research completed in 17m`, `6 citations`, and `81 searches`; its raw output and local review are harvested, committed, pushed, and Pages-confirmed.
 - The light-structured arm was launched on 2026-05-20 at https://chatgpt.com/c/6a0e7bcd-43b0-83e8-9a92-5195521c42fe. Observed proof: clean new ChatGPT conversation, `Latest • 5.5`, `Pro • Extended`, Deep Research enabled, generated plan title `Reversible diligence decision plan`, `Start` clicked, visible `Researching...`, and `Stop research` present. This is launch proof only; it is not complete, harvested, reviewed, or aggregate evidence until a completed report is visible and the harvest checklist passes.
+- 2026-05-20T21:36:41-06:00 observation: the light-structured conversation remains reachable at the expected URL, but the visible surface is ambiguous rather than harvestable. It shows the plan title `Reversible diligence decision plan`, step 1 complete, step 2 active, an `Update` button, enabled composer text `Get a detailed report`, and no completed report, `Researching...` status text, search count, or visible stop-control in the captured viewport. Do not harvest, relaunch, mark the slot complete, or launch the full-OfOne frontier arm from this evidence.
 
 Use this packet only when the operator can verify:
 
