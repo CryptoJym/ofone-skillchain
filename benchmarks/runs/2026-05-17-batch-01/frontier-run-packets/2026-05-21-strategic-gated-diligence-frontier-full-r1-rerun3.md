@@ -7,7 +7,7 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 Rerun number: `3`
-Status: `active_researching`
+Status: `failed`
 
 This packet repairs the excluded frontier full-OfOne repeat-1 slot after two failed remedial attempts. Rerun 1 returned an advisory research report instead of the benchmark package. Rerun 2 returned the package shape but failed executable local validation because evidence objects lacked required `movement_jobs` and `tradeoff_surface.reversal_conditions` used gate `G1`, which is not a valid reversal-condition endpoint.
 
@@ -39,7 +39,8 @@ Next remedial run:
 - 2026-05-21T01:39:00-06:00: The active run shows material progress. The first plan step is complete, the second step is active, visible status text is `Considering how to parse and combine schemas...`, count shows `2 searches` and `2 sources searched`, and `Stop research` remains present.
 - 2026-05-21T01:42:59-06:00: The active run shows material progress. The first plan step remains complete, the second step remains active, visible status text changed to `Looking into scene token examples...`, count advanced to `23 searches` and `23 sources searched`, and `Stop research` remains present.
 - 2026-05-21T01:50:52-06:00: The active run shows material progress. The first plan step remains complete, the second step remains active, visible status text changed to `Inspecting example structure and review considerations...`, count remains `23 searches` and `23 sources searched`, and `Stop research` remains present.
-- This is launch proof only. No completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
+- 2026-05-21T01:58:41-06:00: The run completed in ChatGPT Deep Research. Visible metadata: `Research completed in 19m`, `5 citations`, `23 searches`, `21 May`, `5 sources`, title `Benchmark Raw Output`, and report status field `completed`. Exported Markdown source `/Users/jamesbrady/Downloads/deep-research-report (38).md` was copied to the expected raw-output path with SHA-256 `b64a604e28a5e26d871dc5bca05e4be33dd0630afbbfca8d3d28cbc579e7db85`.
+- Extracted artifact JSON, computed validator JSON, rendering, patch report, and local review were saved. The run is rejected before aggregate scoring because the raw export omitted exact top-level run metadata and computed local validation failed required current-schema `benchmark_trace` fields plus relation legality for edges `X2`, `X3`, and `X4`. No matrix insertion into `remedial_runs`, aggregate eligibility, aggregate comparison, or superiority claim exists.
 
 ## Frozen Inputs
 

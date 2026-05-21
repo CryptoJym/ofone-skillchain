@@ -1,0 +1,995 @@
+{
+  "ofone_version": "0.6.0",
+  "mode": "Map",
+  "charter": {
+    "objective": "Decide whether a team should take a reversible diligence move before committing to an operational launch in the bounded benchmark case.",
+    "scope": [
+      "benchmark case only",
+      "distinction between diligence and launch",
+      "gate-controlled release",
+      "update-driven patch closure"
+    ],
+    "horizon": "current decision cycle before any operational launch commitment",
+    "stakes": [
+      "premature commitment risk",
+      "review failure risk",
+      "decision quality under missing evidence",
+      "false equivalence between diligence and launch"
+    ],
+    "risk_tier": "medium",
+    "movement_jobs": [
+      "BOUND",
+      "GATE"
+    ]
+  },
+  "adapter_projection": {
+    "primary": "hybrid",
+    "axes": {
+      "strategic-agentic": [
+        "reversible diligence",
+        "operational launch commitment",
+        "decision leverage under uncertainty"
+      ],
+      "normative-evaluative": [
+        "reviewer legitimacy",
+        "approval before release",
+        "avoid false authorization"
+      ]
+    },
+    "movement_jobs": [
+      "BOUND",
+      "LINK"
+    ]
+  },
+  "scene": {
+    "scene_id": "S1",
+    "frames": [
+      {
+        "frame_id": "F1",
+        "type": "strategic",
+        "assumptions": [
+          "The case requires a choice between staying in diligence mode and committing to launch."
+        ]
+      },
+      {
+        "frame_id": "F2",
+        "type": "normative",
+        "assumptions": [
+          "Reviewer approval is required before release moves beyond diligence mode."
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "type": "evidential",
+        "assumptions": [
+          "The packet supplies bounded scenario evidence rather than concrete operational launch facts."
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "token_id": "K1",
+        "kind": "entity",
+        "label": "team considering the move"
+      },
+      {
+        "token_id": "K2",
+        "kind": "option",
+        "label": "reversible diligence move"
+      },
+      {
+        "token_id": "K3",
+        "kind": "option",
+        "label": "operational launch commitment"
+      },
+      {
+        "token_id": "K4",
+        "kind": "gate",
+        "label": "release gate G1"
+      },
+      {
+        "token_id": "K5",
+        "kind": "variable",
+        "label": "concrete launch-readiness evidence"
+      },
+      {
+        "token_id": "K6",
+        "kind": "unknown",
+        "label": "unresolved launch-readiness state"
+      }
+    ],
+    "subscenes": [
+      {
+        "subscene_id": "SS1",
+        "parent_scene": "S1",
+        "purpose": "option_decision",
+        "frames": [
+          "F1",
+          "F3"
+        ],
+        "tokens": [
+          "K2",
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "entry_conditions": [
+          "The case asks for a decision-ready distinction between diligence and launch."
+        ],
+        "exit_conditions": [
+          "One option dominates and the blocked state is explicit."
+        ],
+        "movement_jobs": [
+          "BOUND",
+          "EVALUATE"
+        ]
+      },
+      {
+        "subscene_id": "SS2",
+        "parent_scene": "S1",
+        "purpose": "evidence_acquisition",
+        "frames": [
+          "F3"
+        ],
+        "tokens": [
+          "K5",
+          "K6"
+        ],
+        "entry_conditions": [
+          "Concrete launch-readiness evidence is not supplied in the packet."
+        ],
+        "exit_conditions": [
+          "U1 is resolved or explicitly accepted as a risk."
+        ],
+        "movement_jobs": [
+          "GROUND",
+          "TEST"
+        ]
+      },
+      {
+        "subscene_id": "SS3",
+        "parent_scene": "S1",
+        "purpose": "review_gate",
+        "frames": [
+          "F2"
+        ],
+        "tokens": [
+          "K4",
+          "K6"
+        ],
+        "entry_conditions": [
+          "A release decision could move beyond diligence mode."
+        ],
+        "exit_conditions": [
+          "G1 is approved or remains open with launch blocked."
+        ],
+        "movement_jobs": [
+          "GATE",
+          "WARN"
+        ]
+      }
+    ],
+    "state_variables": [
+      "decision posture",
+      "launch commitment status",
+      "gate status"
+    ],
+    "observed_variables": [
+      "case objective",
+      "case pressure points",
+      "presence of a blocking unknown"
+    ],
+    "hidden_variables": [
+      "real launch-readiness facts outside the packet",
+      "reviewer approval threshold under concrete evidence",
+      "time and cost of resolving U1"
+    ],
+    "movement_jobs": [
+      "BOUND",
+      "LINK"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/strategic-gated-diligence.md#case",
+      "provenance": "frozen benchmark case dossier",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+      "retrieved_at": "2026-05-21T00:00:00Z",
+      "extract": "A team is considering a reversible diligence move before committing to an operational launch.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "read from the frozen benchmark case supplied in the packet",
+      "supports": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "risks": [
+        "scenario_level_only"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "BOUND"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source": "file",
+      "span_or_locator": "benchmarks/cases/strategic-gated-diligence.md#pressure-points",
+      "provenance": "frozen benchmark case dossier",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+      "retrieved_at": "2026-05-21T00:00:00Z",
+      "extract": "Expected pressure points include distinguishing diligence from launch, actor/reviewer ownership, gate status and required approval, rendering-blocking unknowns, and patch closure from new evidence.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "read from the frozen benchmark case supplied in the packet",
+      "supports": [
+        "C1",
+        "C2",
+        "C4"
+      ],
+      "risks": [
+        "scenario_level_only"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "BOUND",
+        "GATE"
+      ]
+    },
+    {
+      "evidence_id": "E3",
+      "source": "file",
+      "span_or_locator": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md#full-ofone-case",
+      "provenance": "frozen benchmark arm prompt",
+      "recency": "current",
+      "reliability": "medium",
+      "permission": "public",
+      "content_hash": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+      "retrieved_at": "2026-05-21T00:00:00Z",
+      "extract": "For this case, define at least one blocking unknown U1 and one update trigger T1, use reversal_conditions ['U1', 'T1'], represent gate G1, and keep G1 out of reversal_conditions.",
+      "source_owner": "OfOne benchmark suite",
+      "chain_of_custody": "read from the frozen benchmark packet supplied in the prompt",
+      "supports": [
+        "C2",
+        "C4"
+      ],
+      "risks": [
+        "benchmark_scaffold_constraint"
+      ],
+      "movement_jobs": [
+        "GROUND",
+        "BOUND",
+        "GATE"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "The bounded decision is whether to take a reversible diligence step before launch, not whether to authorize launch now.",
+      "type": "operational",
+      "supports": [
+        "E1",
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [],
+      "confidence": {
+        "level": "high",
+        "basis": [
+          "provenance",
+          "recency",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "case-specific facts are intentionally sparse"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "BOUND",
+        "GATE"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "text": "Operational launch is not supported by the current packet because concrete launch-readiness evidence is missing and the case explicitly expects a blocking unknown and a release gate.",
+      "type": "operational",
+      "supports": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "hidden_variable_risk",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "new packet evidence could resolve launch readiness",
+          "reviewer could accept risk under additional facts"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "text": "A reversible diligence move is the dominant near-term option because it preserves reversibility while gathering decision-relevant evidence.",
+      "type": "normative",
+      "supports": [
+        "E1",
+        "E2"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C1",
+        "C2"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "mechanism_fit",
+          "adapter_fit"
+        ],
+        "failure_modes": [
+          "a concrete launch authorization packet could reverse the option ranking",
+          "the diligence step could prove non-reversible in a later update"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "EVALUATE",
+        "MOVE"
+      ]
+    },
+    {
+      "claim_id": "C4",
+      "text": "Gate G1 must remain open until a human reviewer approves any movement beyond diligence mode after U1 is resolved or accepted as risk.",
+      "type": "operational",
+      "supports": [
+        "E2",
+        "E3"
+      ],
+      "contradicts": [],
+      "depends_on": [
+        "C2"
+      ],
+      "confidence": {
+        "level": "medium",
+        "basis": [
+          "provenance",
+          "adapter_fit",
+          "contradiction_load"
+        ],
+        "failure_modes": [
+          "review role ambiguity",
+          "gate bypass outside the mapped process"
+        ]
+      },
+      "status": "active",
+      "review_gate": true,
+      "movement_jobs": [
+        "CLAIM",
+        "GATE",
+        "LINK"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "unknown_id": "U1",
+      "kind": "missing_evidence",
+      "description": "The packet does not provide concrete launch-readiness evidence, reviewer-approved approval thresholds, or closure criteria showing that launch is authorized now.",
+      "blocks": [
+        "O2",
+        "R1",
+        "G1"
+      ],
+      "resolution_move": "Collect concrete launch-readiness facts, define the approval threshold, and submit them for G1 review before any launch commitment.",
+      "status": "open",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TEST"
+      ]
+    }
+  ],
+  "kill_tests": [
+    {
+      "test_id": "KT1",
+      "target": "C3",
+      "test_type": "counterexample",
+      "condition": "A packet update shows that launch is already authorized with concrete evidence and no additional diligence is needed.",
+      "falsifies": [
+        "C3"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    },
+    {
+      "test_id": "KT2",
+      "target": "C4",
+      "test_type": "adapter_conflict",
+      "condition": "A packet update removes reviewer ownership or shows that no human gate governs release past diligence mode.",
+      "falsifies": [
+        "C4"
+      ],
+      "movement_jobs": [
+        "TEST",
+        "WARN"
+      ]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "CR1",
+      "name": "Preserve reversibility before commitment",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "Do not collapse a diligence move into an operational launch commitment.",
+      "owned_by": [
+        "A1",
+        "A2"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "criterion_id": "CR2",
+      "name": "Resolve the highest-value launch unknown",
+      "kind": "objective",
+      "priority": "should",
+      "threshold": "Reduce U1 enough to distinguish diligence completion from launch authorization.",
+      "owned_by": [
+        "A2"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "MOVE"
+      ]
+    },
+    {
+      "criterion_id": "CR3",
+      "name": "Require explicit human release approval",
+      "kind": "threshold",
+      "priority": "must",
+      "threshold": "No movement beyond diligence mode without explicit G1 approval.",
+      "owned_by": [
+        "A1"
+      ],
+      "movement_jobs": [
+        "EVALUATE",
+        "GATE"
+      ]
+    }
+  ],
+  "tradeoff_surface": {
+    "surface_id": "TS1",
+    "options": [
+      "O1",
+      "O2"
+    ],
+    "criteria": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "dominant_option": "O1",
+    "why": [
+      "CR1",
+      "CR2",
+      "CR3"
+    ],
+    "reversal_conditions": [
+      "U1",
+      "T1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "TRIGGER"
+    ]
+  },
+  "actors": [
+    {
+      "actor_id": "A1",
+      "label": "human review owner",
+      "role": "reviewer",
+      "incentives": [
+        "prevent false release",
+        "keep launch approval case-bound"
+      ],
+      "exposures": [
+        "operational risk",
+        "reputation risk",
+        "review failure risk"
+      ],
+      "authority": "approve",
+      "legitimacy_basis": "The case explicitly makes reviewer ownership and required approval decision-relevant.",
+      "movement_jobs": [
+        "BOUND",
+        "WARN",
+        "GATE"
+      ]
+    },
+    {
+      "actor_id": "A2",
+      "label": "team decision owner",
+      "role": "decision_owner",
+      "incentives": [
+        "learn quickly",
+        "preserve optionality",
+        "avoid premature commitment"
+      ],
+      "exposures": [
+        "time cost",
+        "opportunity cost",
+        "launch error"
+      ],
+      "authority": "advise",
+      "legitimacy_basis": "Owns the operational decision subject to the reviewer gate.",
+      "movement_jobs": [
+        "BOUND",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "temporal_model": {
+    "time_horizon": "current decision cycle",
+    "decision_deadline": "before any operational launch commitment",
+    "evidence_validity_windows": [
+      {
+        "evidence_id": "E1",
+        "valid_until": "unknown",
+        "staleness_trigger": "the case packet changes or new evidence revises the bounded scenario"
+      },
+      {
+        "evidence_id": "E2",
+        "valid_until": "unknown",
+        "staleness_trigger": "the case packet changes or review expectations are updated"
+      },
+      {
+        "evidence_id": "E3",
+        "valid_until": "unknown",
+        "staleness_trigger": "the benchmark packet or rerun constraints change"
+      }
+    ],
+    "update_cadence": "on every new packet update or reviewer escalation",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER",
+      "WARN"
+    ]
+  },
+  "information_value": [
+    {
+      "unknown_id": "U1",
+      "decision_impact": "high",
+      "resolution_cost": "medium",
+      "time_to_resolve": "one review cycle",
+      "risk_reduction": "high",
+      "recommended_next_query": "What concrete evidence, approval threshold, and owner-signed conditions would separate diligence completion from launch authorization in this packet?",
+      "movement_jobs": [
+        "TEST",
+        "MOVE",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens_id": "LENS1",
+      "name": "strategic agentic lens",
+      "adapter_axis": "strategic-agentic",
+      "questions": [
+        "Does the current move preserve optionality and avoid premature commitment?"
+      ],
+      "claims_examined": [
+        "C1",
+        "C3"
+      ],
+      "blind_spots": [
+        "The packet does not quantify schedule, cost, or operational upside for either option."
+      ],
+      "contention": [
+        "Immediate launch collapses the distinction between diligence and commitment."
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    },
+    {
+      "lens_id": "LENS2",
+      "name": "normative evaluative lens",
+      "adapter_axis": "normative-evaluative",
+      "questions": [
+        "Would it be legitimate to treat the current packet as authorization to launch?"
+      ],
+      "claims_examined": [
+        "C2",
+        "C4"
+      ],
+      "blind_spots": [
+        "The packet does not enumerate concrete affected-party harms beyond the bounded scenario."
+      ],
+      "contention": [
+        "A release gate must stay explicit while U1 remains open."
+      ],
+      "movement_jobs": [
+        "WARN",
+        "TEST",
+        "EVALUATE"
+      ]
+    }
+  ],
+  "council_result": {
+    "coverage": [
+      "strategic-agentic",
+      "normative-evaluative"
+    ],
+    "missing_lenses": [],
+    "major_dissent": [
+      "No evidence in the packet supports immediate launch authorization."
+    ],
+    "decision_effect": "Recommend reversible diligence only; keep operational launch blocked until U1 is resolved and G1 is approved.",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN",
+      "GATE"
+    ]
+  },
+  "edges": [
+    {
+      "edge_id": "X1",
+      "from": "C1",
+      "to": "C2",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1",
+        "E2"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK"
+      ]
+    },
+    {
+      "edge_id": "X2",
+      "from": "K2",
+      "to": "C3",
+      "relation_family": "causal",
+      "relation": "enables",
+      "evidence_refs": [
+        "E1",
+        "E2"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "MOVE"
+      ]
+    },
+    {
+      "edge_id": "X3",
+      "from": "K5",
+      "to": "C2",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E2",
+        "E3"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "WARN"
+      ]
+    },
+    {
+      "edge_id": "X4",
+      "from": "K4",
+      "to": "C4",
+      "relation_family": "causal",
+      "relation": "constrains",
+      "evidence_refs": [
+        "E2",
+        "E3"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X5",
+      "from": "C2",
+      "to": "C3",
+      "relation_family": "argumentative",
+      "relation": "supports",
+      "evidence_refs": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "confidence": "medium",
+      "movement_jobs": [
+        "LINK",
+        "EVALUATE"
+      ]
+    },
+    {
+      "edge_id": "X6",
+      "from": "G1",
+      "to": "R1",
+      "relation_family": "workflow_state",
+      "relation": "blocks",
+      "evidence_refs": [
+        "E2",
+        "E3"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X7",
+      "from": "O1",
+      "to": "G1",
+      "relation_family": "workflow_state",
+      "relation": "depends_on",
+      "evidence_refs": [
+        "E2",
+        "E3"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    },
+    {
+      "edge_id": "X8",
+      "from": "O2",
+      "to": "G1",
+      "relation_family": "workflow_state",
+      "relation": "depends_on",
+      "evidence_refs": [
+        "E2",
+        "E3"
+      ],
+      "confidence": "high",
+      "movement_jobs": [
+        "LINK",
+        "GATE"
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "L1",
+      "type": "review",
+      "edges": [
+        "X3",
+        "X6",
+        "X8"
+      ],
+      "polarity": "balancing",
+      "delay": "medium",
+      "gain": "high",
+      "control_points": [
+        "resolve U1",
+        "review G1",
+        "update the rendering only after the gate decision"
+      ],
+      "observable_cues": [
+        "launch remains blocked while U1 is open",
+        "new evidence changes the gate discussion before changing the recommendation"
+      ],
+      "failure_mode": "The team mistakes a diligence recommendation for launch approval and skips the human gate.",
+      "movement_jobs": [
+        "WARN",
+        "GATE",
+        "TRIGGER"
+      ]
+    }
+  ],
+  "option_moves": [
+    {
+      "option_id": "O1",
+      "move_type": "query",
+      "preconditions": [
+        "C1",
+        "C2"
+      ],
+      "expected_effects": [
+        "X2",
+        "X5",
+        "X7"
+      ],
+      "tradeoffs": [
+        "slower commitment",
+        "more evidence work",
+        "preserved reversibility"
+      ],
+      "blocking_unknowns": [],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "EVALUATE",
+        "GATE"
+      ]
+    },
+    {
+      "option_id": "O2",
+      "move_type": "act",
+      "preconditions": [
+        "C1",
+        "C4"
+      ],
+      "expected_effects": [
+        "X3",
+        "X6",
+        "X8"
+      ],
+      "tradeoffs": [
+        "faster action",
+        "higher false-release risk",
+        "lower reversibility"
+      ],
+      "blocking_unknowns": [
+        "U1"
+      ],
+      "review_gate": "G1",
+      "movement_jobs": [
+        "MOVE",
+        "WARN",
+        "GATE"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_id": "T1",
+      "condition": "new_evidence",
+      "affected_objects": [
+        "U1",
+        "O2",
+        "TS1",
+        "G1",
+        "R1"
+      ],
+      "transition": "patch",
+      "movement_jobs": [
+        "TRIGGER",
+        "WARN"
+      ]
+    },
+    {
+      "trigger_id": "T2",
+      "condition": "review_required",
+      "affected_objects": [
+        "G1",
+        "R1"
+      ],
+      "transition": "human_review",
+      "movement_jobs": [
+        "TRIGGER",
+        "GATE"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G1",
+      "condition": "any move that would treat diligence as launch authorization or release the decision beyond diligence mode",
+      "reviewer": "A1 human review owner",
+      "required_decision": "approve diligence-only continuation, keep launch blocked, or approve launch after U1 closure",
+      "status": "open",
+      "movement_jobs": [
+        "GATE",
+        "WARN"
+      ]
+    }
+  ],
+  "confidence_model": {
+    "overall": "medium",
+    "provenance_strength": "high",
+    "source_independence": "low",
+    "recency": "high",
+    "mechanism_fit": "medium",
+    "contradiction_load": "low",
+    "hidden_variable_risk": "high",
+    "adversarial_risk": "low",
+    "adapter_fit": "high",
+    "movement_jobs": [
+      "EVALUATE",
+      "WARN"
+    ]
+  },
+  "decision_rendering": {
+    "rendering_id": "R1",
+    "summary": "The packet supports a diligence-only posture, but concrete launch-readiness evidence and approval thresholds are still missing, so launch remains blocked behind G1.",
+    "recommendation": "Proceed with the reversible diligence move O1 only. Do not commit to operational launch O2 until U1 is resolved and G1 is explicitly approved.",
+    "confidence": "medium",
+    "depends_on": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "O1",
+      "U1",
+      "TS1",
+      "G1"
+    ],
+    "movement_jobs": [
+      "EVALUATE",
+      "MOVE",
+      "GATE"
+    ]
+  },
+  "artifact_identity": {
+    "artifact_id": "OFONE-2026-05-21-case-strategic-gated-diligence-001-rerun3",
+    "case_id": "case-strategic-gated-diligence-001",
+    "objective_head": "reversible diligence before operational launch",
+    "scope_hash": "unknown",
+    "config_hash": "unknown",
+    "active_evidence_hashes": [
+      "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+      "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e"
+    ],
+    "created_at": "2026-05-21T00:00:00Z",
+    "status": "review_pending",
+    "movement_jobs": [
+      "BOUND",
+      "TRIGGER"
+    ]
+  },
+  "review_log": [],
+  "benchmark_trace": {
+    "case_id": "case-strategic-gated-diligence-001",
+    "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3",
+    "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+    "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+    "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+    "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+    "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44",
+    "movement_jobs": [
+      "GROUND",
+      "BOUND"
+    ]
+  }
+}

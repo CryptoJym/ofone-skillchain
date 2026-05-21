@@ -3204,7 +3204,7 @@
         "required": true,
         "status": "failed",
         "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
-        "reason": "Frontier full-OfOne repeat-1 artifact is case-bound but not validator-valid. Preserve it immutably. Remedial rerun 1 completed as an advisory research report rather than the benchmark raw output package and is not aggregate-eligible; a stricter rerun 2 is required before treating the slot as aggregate-eligible.",
+        "reason": "Frontier full-OfOne repeat-1 artifact is case-bound but not validator-valid. Preserve it immutably. Remedial rerun 1 completed as an advisory research report, rerun 2 produced an invalid package, and rerun 3 still failed required metadata and executable validation. A future repair requires a stricter prompt or local preflight around benchmark_trace shape and relation legality before aggregate eligibility.",
         "aggregate_policy": "replace_for_aggregate_only"
       }
     }
@@ -3299,6 +3299,90 @@
         "copied_example_risk": "unknown",
         "evidence_provenance_adequacy": "advisory report only; no benchmark artifact, validator result, rendering, or patch report exists",
         "artifact_source_identity": "raw export and review identify the failed remedial run; no artifact object exists"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2",
+      "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "rerun_number": 2,
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "status": "failed",
+      "aggregate_policy": "not_aggregate_eligible",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.md",
+      "raw_output_sha256": "sha256:dfdae1034abf0e0521df5103bfa297c605ac5ef149b4a3f85490f070e7179bd8",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (37).md",
+      "harvested_at": "2026-05-21T01:08:00-06:00",
+      "conversation_url": "https://chatgpt.com/c/6a0ea350-3584-83e8-9d3e-ab7759c489f6",
+      "visible_report_metadata": "Research completed in 44m; 1 citation; 20 searches; 21 May; 1 source; title `Benchmark Raw Output`; run metadata shows Status: `completed`.",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.artifact.json",
+      "artifact_sha256": "sha256:b0673f1297a87f5f9d9f1e36b853ba9d60f847b528632dc0f5e2595953cab809",
+      "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.validator.json",
+      "validator_sha256": "sha256:9243310cef7b30911029959612479caf44bfdcfaa0d246445d22514cac836226",
+      "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.rendering.md",
+      "rendering_sha256": "sha256:197a5cc2952c5bdcb818798963b0f447070de6cc41ac91eeb203eb91acf5869c",
+      "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.patch.json",
+      "patch_sha256": "sha256:514e45e7ae01d74a52430bb19900817348bce920109e149a9f67fcf37df94e7d",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.md",
+      "review_sha256": "sha256:64934d719e938176e51d9fa4c89a3626e45c1fc3859664ea0f6568152117e08f",
+      "failure_reason": "Computed local validation failed because evidence E1, E2, and E3 lack required movement_jobs fields and the tradeoff surface has a reversal-condition defect around G1.",
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Benchmark raw-output package shape was present, but computed local validation failed."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "benchmark trace hashes are present, but evidence nodes omit required movement_jobs",
+        "artifact_source_identity": "raw output, artifact, validator, rendering, patch report, and review identify the failed remedial rerun2 slot"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3",
+      "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "rerun_number": 3,
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "status": "failed",
+      "aggregate_policy": "not_aggregate_eligible",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3.md",
+      "raw_output_sha256": "sha256:b64a604e28a5e26d871dc5bca05e4be33dd0630afbbfca8d3d28cbc579e7db85",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (38).md",
+      "harvested_at": "2026-05-21T01:58:41-06:00",
+      "conversation_url": "https://chatgpt.com/c/6a0eb57b-6b08-83e8-a3e2-16e26adc497f",
+      "visible_report_metadata": "Research completed in 19m; 5 citations; 23 searches; 21 May; 5 sources; title `Benchmark Raw Output`; status field shows `completed`.",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3.artifact.json",
+      "artifact_sha256": "sha256:f3ed71eadec19cfd0cf38b420781d522ee26207fc2dbc9a7997c166f4376ac2a",
+      "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3.validator.json",
+      "validator_sha256": "sha256:5f3c252b1ed55915d3b6e81ad81862b2732b822b51752d70aa9d62b7038c7182",
+      "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3.rendering.md",
+      "rendering_sha256": "sha256:b47e2c0c4284df2db391887ea15c0a575c4ca6e41d1d01a3e66036e8b85aecb5",
+      "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3.patch.json",
+      "patch_sha256": "sha256:bd5873d9c3f0bb549f0f09356e73d351cd5202903a9346be4560a1077cb2654e",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3.md",
+      "review_sha256": "sha256:ae21e3aa65ec56903de43279c6cc865a6ea95d8f33b181c032ec5d6cca7f7245",
+      "failure_reason": "Computed local validation failed because benchmark_trace lacks required current-schema fields and edges X2, X3, and X4 use illegal endpoint/relation combinations; raw export also omitted exact top-level run metadata required by the packet.",
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Benchmark package sections were present, but required run metadata and executable validation did not pass."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "case-bound evidence includes movement_jobs, but benchmark_trace shape and graph relations fail current validation",
+        "artifact_source_identity": "raw output, artifact, validator, rendering, patch report, and review identify the failed remedial rerun3 slot"
       }
     }
   ]
