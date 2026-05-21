@@ -60,7 +60,10 @@ function validateReportBinding(reportData, payloadData) {
 function validateExtensionAvailability(reportData) {
   const diagnostic = reportData.extension_availability || {};
   check(
-    diagnostic.callable_namespace === "mcp__node_repl__js" &&
+    typeof diagnostic.tool_discovery_query === "string" &&
+      diagnostic.tool_discovery_query.includes("node_repl") &&
+      diagnostic.tool_discovery_query.includes("browser.tabs.list") &&
+      diagnostic.callable_namespace === "mcp__node_repl__js" &&
       Array.isArray(diagnostic.request_meta_keys) &&
       diagnostic.request_meta_keys.includes("x-codex-browser-use-available-backends") &&
       Array.isArray(diagnostic.available_backends) &&

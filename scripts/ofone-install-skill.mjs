@@ -65,6 +65,8 @@ function assertSkillSource(text) {
   const required = [
     "name: ofone",
     "use the Chrome extension/plugin as the launch and observation surface",
+    "the expected Chrome plugin callable surface may be the `node_repl` bridge",
+    "A missing standalone Chrome namespace is a troubleshooting datum",
     "stop normal workflow and troubleshoot extension availability first",
     "before doing any benchmark, harvest, launch, or repo-promotion work",
     "browser.tabs.list()",
