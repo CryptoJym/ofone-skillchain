@@ -2,7 +2,7 @@
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-report.schema.json",
   "protocol_version": "ofone-deep-research-extension-report-0.1",
   "report_id": "2026-05-21-formal-frontier-r1-extension-harvest",
-  "generated_at": "2026-05-21T10:06:03-06:00",
+  "generated_at": "2026-05-21T10:30:19-06:00",
   "payload_path": "research/deep-research-extension-payloads.json",
   "payload_sha256": "sha256:1c1434fbdab14594b20ac883a86d66395b087804d0af2d9b46a9a3fb10ef774f",
   "source_surface": "chrome_extension_plugin",
@@ -92,9 +92,9 @@
         "stop_control_visible": true,
         "observed_at": "2026-05-21T15:12:01Z"
       },
-      "blocker": "The completed report is visible through Chrome extension control, but raw Markdown harvest is blocked because the report body and download control are inside ChatGPT's cross-origin Deep Research sandbox iframe. The extension top-level DOM and snapshot expose the iframe shell but not the report body; dev logs only show sandbox adapter message rejection; content.export is unsupported by the Chrome backend; exportGsuite is unsupported or non-Google for this tab; response menus expose no export control; direct sandbox tabs are blank; authenticated backend conversation fetch is blocked; page-eval fetch/XHR/script-injection paths are unavailable; Copy response left a sentinel clipboard unchanged. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation remain disallowed.",
+      "blocker": "The completed report is visible through Chrome extension control, but raw Markdown harvest is blocked because the report body and download control are inside ChatGPT's cross-origin Deep Research sandbox iframe. The extension top-level DOM and snapshot expose the iframe shell but not the report body; dev logs only show sandbox adapter message rejection; content.export is unsupported by the Chrome backend; exportGsuite is unsupported or non-Google for this tab; response menus expose no export control; View sources exposes no additional sources or export path; direct sandbox tabs are blank; authenticated backend conversation fetch is blocked; page-eval fetch/XHR/script-injection paths are unavailable; Copy response left a sentinel clipboard unchanged. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation remain disallowed; OCR and screenshot reconstruction also remain disallowed.",
       "latest_observation": {
-        "observed_at": "2026-05-21T10:06:03-06:00",
+        "observed_at": "2026-05-21T10:30:19-06:00",
         "conversation_url": "https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958",
         "browser_surface": "chrome_extension_plugin",
         "iframe_present": true,
@@ -103,7 +103,7 @@
         "stop_control_visible": false,
         "active_state_visible": false,
         "response_text_available": false,
-        "visible_state": "Chrome extension observation reached the completed ChatGPT Deep Research report. Visible metadata showed Research completed in 9m, 6 citations, 120 searches, report title Benchmark Raw Output, run metadata Status: completed, and the correct light_structured run ID. The report body is visible in a cross-origin Deep Research iframe, but extension-safe probes exposed only the shell: top-level DOM, iframe locators, direct sandbox tabs, response menus, Chrome content.export/exportGsuite, dev logs, backend conversation fetch, page-eval fetch/XHR/script-injection, Copy response, and virtual clipboard paths did not expose raw Markdown. No Browser plugin, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, or desktop-control fallback was used.",
+        "visible_state": "Chrome extension observation reached the completed ChatGPT Deep Research report. Visible metadata showed Research completed in 9m, 6 citations, 120 searches, report title Benchmark Raw Output, run metadata Status: completed, and the correct light_structured run ID. The report body is visible in a cross-origin Deep Research iframe, but extension-safe probes exposed only the shell: top-level DOM, iframe locators, direct sandbox tabs, response menus, View sources, Chrome content.export/exportGsuite, dev logs, backend conversation fetch, page-eval fetch/XHR/script-injection, Copy response, and virtual clipboard paths did not expose raw Markdown. The response More actions menu exposed timestamp, View sources, and Branch in new chat; the View sources panel reported No additional sources found and no export, download, or Markdown control. No Browser plugin, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, OCR, screenshot reconstruction, or desktop-control fallback was used.",
         "next_action": "operator_manual_recovery_required"
       },
       "harvest_probe_attempts": [
@@ -138,6 +138,14 @@
           "allowed_by_contract": true,
           "result": "no_export_control_visible",
           "notes": "The response menu exposed timestamp, View sources, and Branch in new chat, but no download, export, copy Markdown, or raw report control."
+        },
+        {
+          "observed_at": "2026-05-21T10:30:19-06:00",
+          "surface": "chrome_extension_plugin",
+          "method": "View sources panel inspection from response More actions menu",
+          "allowed_by_contract": true,
+          "result": "no_export_control_visible",
+          "notes": "The View sources panel opened through the extension-managed response menu and reported No additional sources found; it exposed no report body, citations payload, download, export, Markdown, or raw report control."
         },
         {
           "observed_at": "2026-05-21T10:06:03-06:00",
