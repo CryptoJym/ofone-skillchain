@@ -1,0 +1,53 @@
+{
+  "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-launch.schema.json",
+  "protocol_version": "ofone-deep-research-launch-0.1",
+  "queue_id": "2026-05-21-formal-frontier-r1-chrome-extension",
+  "generated_at": "2026-05-21T07:01:44-06:00",
+  "source_of_truth": {
+    "tracker": "research/TRACKER.md",
+    "status_ledger": "research/status/2026-05-17-07-ofone-post-run06-hardening-review.md",
+    "loop": "research/recursive-improvement-loop.md"
+  },
+  "launch_surface_policy": {
+    "primary_surface": "chrome_extension_plugin",
+    "requires_isolated_tab": true,
+    "supports_parallel_tabs": true,
+    "desktop_automation_fallback_allowed": false,
+    "blocked_status": "prepared_blocked_chrome_extension_unavailable"
+  },
+  "items": [
+    {
+      "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
+      "batch_id": "2026-05-17-batch-01",
+      "case_id": "case-formal-proof-search-001",
+      "arm": "direct_answer",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "packet_path": "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md",
+      "prompt_anchor": "## Prompt 1: Direct Answer",
+      "status": "prepared_blocked_chrome_extension_unavailable",
+      "blocked_reason": "No callable Chrome extension/plugin namespace is exposed in the current Codex tool surface.",
+      "required_launch_proof": [
+        "callable Chrome extension/plugin control",
+        "clean isolated ChatGPT tab or conversation",
+        "visible current Pro/frontier-capable model label",
+        "highest available visible reasoning mode",
+        "Deep Research enabled when available",
+        "generated plan or equivalent run-start proof",
+        "Start or countdown action",
+        "visible active research state",
+        "stop-control evidence"
+      ],
+      "disallowed_surfaces": [
+        "Browser",
+        "Computer Use",
+        "coordinate clicking",
+        "AppleScript/JXA",
+        "generic desktop automation"
+      ],
+      "expected_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "expected_review_path": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "aggregate_policy": "not_eligible_until_harvest_review_publication"
+    }
+  ]
+}

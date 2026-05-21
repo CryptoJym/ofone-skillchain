@@ -27,6 +27,7 @@ If Chrome extension/plugin launch control or any launch proof is unavailable, le
 ## Launch Blocker
 
 - `2026-05-21T06:45:50-06:00`: Tool discovery for Chrome-extension/ChatGPT tab control did not expose a callable Chrome extension/plugin namespace in this thread. The only relevant browser-control surface exposed was Computer Use, which is barred by the current OfOne Deep Research launch policy unless the user explicitly authorizes a one-off manual assist. No ChatGPT conversation was opened, no prompt was submitted, no Deep Research plan was generated, and no formal proof-search frontier slot is complete.
+- `2026-05-21T07:01:44-06:00`: Added a Chrome-extension launch queue contract at `research/chrome-extension-deep-research-contract.md` and machine-readable queue item at `research/deep-research-launch-queue.json`. The queue item is still `prepared_blocked_chrome_extension_unavailable`; it is an extension handoff artifact, not launch proof.
 
 ## Integrity Constraints
 
