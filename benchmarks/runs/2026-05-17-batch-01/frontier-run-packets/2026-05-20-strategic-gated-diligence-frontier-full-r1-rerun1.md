@@ -7,7 +7,7 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 Rerun number: `1`
-Status: `prepared_not_launched`
+Status: `active_researching`
 
 This packet repairs the excluded frontier full-OfOne repeat-1 slot without mutating the original completed output.
 
@@ -20,6 +20,25 @@ Remedial run:
 `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1`
 
 Use this packet only when the operator can verify a clean ChatGPT Deep Research launch: clean conversation, visible latest Pro/frontier model label, highest visible reasoning mode, Deep Research enabled, generated plan, Start or countdown, active research state, and stop-control evidence. If any launch proof is unavailable, leave this packet prepared and do not mark the remedial run complete.
+
+## Launch Proof
+
+- Launched: `2026-05-20T22:50:33-06:00`
+- Conversation: https://chatgpt.com/c/6a0e8efd-2234-83e8-af43-a7e25266034d
+- Browser surface: Computer Use on authenticated Chrome session.
+- Clean-chat proof: launched from ChatGPT root/new-chat state at `chatgpt.com/` with empty composer before submission.
+- Observed model/mode before launch: expanded selector showed `Latest • 5.5`; selected option showed `Pro • Extended`; composer showed `Pro`.
+- Deep Research proof: composer showed `Deep research, click to remove` before submission.
+- Context handoff: the benchmark packet was delivered as `Pasted text(12).txt`; visible user instruction said to use the attached pasted text as the complete Deep Research benchmark request and context, and included this remedial run ID.
+- Generated plan title: `Strategic gated diligence`.
+- Start action: clicked `Start` on the Deep Research plan card.
+- Active proof: card shows `Researching...`; `Stop research` button is visible.
+
+This is launch proof only. Do not harvest or mark the remedial run complete until a completed Deep Research report is visible.
+
+## Status Updates
+
+- `2026-05-20T22:52:32-06:00`: Run remains active in ChatGPT Deep Research. Visible status text changed to `Planning deep research and citation strategy...`; `Stop research` remains present. No completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
 
 ## Frozen Inputs
 
