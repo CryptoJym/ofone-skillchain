@@ -73,6 +73,9 @@
         "request_meta_keys",
         "available_backends",
         "browser_global_present",
+        "browser_id",
+        "browser_capabilities",
+        "tab_operations",
         "tabs_list_ok",
         "tabs_observed",
         "blocked_namespace",
@@ -106,6 +109,20 @@
         },
         "browser_global_present": {
           "type": "boolean"
+        },
+        "browser_id": {
+          "type": ["string", "null"]
+        },
+        "browser_capabilities": {
+          "type": ["object", "null"],
+          "additionalProperties": true
+        },
+        "tab_operations": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "tabs_list_ok": {
           "type": "boolean"

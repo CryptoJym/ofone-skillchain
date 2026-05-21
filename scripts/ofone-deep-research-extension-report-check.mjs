@@ -69,13 +69,20 @@ function validateExtensionAvailability(reportData) {
       Array.isArray(diagnostic.available_backends) &&
       diagnostic.available_backends.includes("chrome") &&
       diagnostic.browser_global_present === true &&
+      diagnostic.browser_id === "extension" &&
+      diagnostic.browser_capabilities &&
+      typeof diagnostic.browser_capabilities === "object" &&
+      !Array.isArray(diagnostic.browser_capabilities) &&
+      Array.isArray(diagnostic.tab_operations) &&
+      diagnostic.tab_operations.includes("list") &&
+      diagnostic.tab_operations.includes("get") &&
       diagnostic.tabs_list_ok === true &&
       Number.isInteger(diagnostic.tabs_observed) &&
       diagnostic.tabs_observed > 0 &&
       diagnostic.blocked_namespace === null &&
       diagnostic.diagnosis === "available",
     "OFONE_DEEP_RESEARCH_EXTENSION_AVAILABILITY_DIAGNOSTIC",
-    "extension report records callable Chrome-extension availability before any launch or harvest state advances"
+    "extension report records callable Chrome-extension availability, browser identity, and tab operations before any launch or harvest state advances"
   );
 }
 

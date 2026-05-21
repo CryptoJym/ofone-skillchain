@@ -5,7 +5,7 @@
   "generated_at": "2026-05-21T10:54:47-06:00",
   "source_surface": "chrome_extension_plugin",
   "report_path": "research/deep-research-extension-report.json",
-  "report_sha256": "sha256:9324f7e350b02ac88a04e0e19bb1caf346ee9d9e4b241e6690906e2ddae27747",
+  "report_sha256": "sha256:8afdb7350ee082b4283189de7f7461bd4643e1dca1f438a414fb718ac19af28b",
   "queue_path": "research/deep-research-launch-queue.json",
   "queue_sha256": "sha256:fc64b816437876ec13322e9855c9e2c459719942c93dc8287ef4e3b67e14e2af",
   "payload_path": "research/deep-research-extension-payloads.json",

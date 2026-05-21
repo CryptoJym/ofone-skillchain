@@ -210,6 +210,8 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
       report.extension_availability?.callable_namespace === "mcp__node_repl__js" &&
       report.extension_availability?.available_backends?.includes("chrome") &&
       report.extension_availability?.browser_global_present === true &&
+      report.extension_availability?.browser_id === "extension" &&
+      report.extension_availability?.tab_operations?.includes("list") &&
       report.extension_availability?.tabs_list_ok === true &&
       report.extension_availability?.diagnosis === "available" &&
       report.items?.length === payloads.items?.length,

@@ -7,7 +7,7 @@
   "payload_sha256": "sha256:1c1434fbdab14594b20ac883a86d66395b087804d0af2d9b46a9a3fb10ef774f",
   "source_surface": "chrome_extension_plugin",
   "extension_availability": {
-    "observed_at": "2026-05-21T10:02:59-06:00",
+    "observed_at": "2026-05-21T17:41:42Z",
     "tool_discovery_query": "node_repl Chrome extension globalThis.browser browser.tabs.list",
     "callable_namespace": "mcp__node_repl__js",
     "request_meta_keys": [
@@ -21,8 +21,18 @@
       "iab"
     ],
     "browser_global_present": true,
+    "browser_id": "extension",
+    "browser_capabilities": {},
+    "tab_operations": [
+      "content",
+      "finalize",
+      "get",
+      "list",
+      "new",
+      "selected"
+    ],
     "tabs_list_ok": true,
-    "tabs_observed": 4,
+    "tabs_observed": 1,
     "blocked_namespace": null,
     "diagnosis": "available"
   },
