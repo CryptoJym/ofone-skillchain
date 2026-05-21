@@ -5,12 +5,13 @@ Batch: `2026-05-17-batch-01`
 Case: `case-formal-proof-search-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `prepared_not_launched`
+Status: `prepared_blocked_chrome_extension_unavailable`
 
 This packet prepares the next predeclared frontier reasoning slice after the strategic and regulated wastewater repeat-1 frontier slices were harvested, locally reviewed, repaired where required, pushed, and Pages-confirmed.
 
 Use this packet only when the operator can verify:
 
+- callable Chrome extension/plugin control for an isolated ChatGPT tab;
 - clean ChatGPT conversation per arm;
 - visible GPT-5.5 Pro or current ChatGPT Pro Deep Research-equivalent model label;
 - highest available visible reasoning setting;
@@ -21,7 +22,11 @@ Use this packet only when the operator can verify:
 - stop-control evidence;
 - final completed report before harvest.
 
-If any launch proof is unavailable, leave this packet as `prepared_not_launched` and do not mark formal proof-search frontier slots complete.
+If Chrome extension/plugin launch control or any launch proof is unavailable, leave this packet as `prepared_blocked_chrome_extension_unavailable` and do not mark formal proof-search frontier slots complete. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not fallback launch paths.
+
+## Launch Blocker
+
+- `2026-05-21T06:45:50-06:00`: Tool discovery for Chrome-extension/ChatGPT tab control did not expose a callable Chrome extension/plugin namespace in this thread. The only relevant browser-control surface exposed was Computer Use, which is barred by the current OfOne Deep Research launch policy unless the user explicitly authorizes a one-off manual assist. No ChatGPT conversation was opened, no prompt was submitted, no Deep Research plan was generated, and no formal proof-search frontier slot is complete.
 
 ## Integrity Constraints
 

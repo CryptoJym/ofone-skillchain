@@ -16,6 +16,12 @@ Date: 2026-05-17
 
 ## Run 01 Launch Metadata
 
+## Current Benchmark-Handoff Addendum
+
+- 2026-05-21T06:45:50-06:00: The formal proof-search frontier repeat-1 packet remains prepared but is blocked pending callable Chrome extension/plugin control. Tool discovery for Chrome-extension/ChatGPT tab control did not expose a dedicated Chrome extension/plugin namespace in this thread; the only relevant browser-control surface exposed was Computer Use, which is barred by the current Deep Research launch policy unless the user explicitly authorizes a one-off manual assist. No ChatGPT conversation was opened, no prompt was submitted, no Deep Research plan was generated, and no formal proof-search frontier slot is launched, harvested, reviewed, complete, or aggregate-eligible.
+
+Status marker: `prepared_blocked_chrome_extension_unavailable`
+
 - Observed model label: `Latest • 5.5`
 - Observed thinking/reasoning label: `Pro • Extended` in model selector; composer showed `Pro` after Deep Research was enabled.
 - Deep Research: enabled, plan generated, `Start` clicked, visible status changed to `Researching...`.
@@ -285,6 +291,7 @@ Date: 2026-05-17
 - 2026-05-21T06:16:00-06:00: Public commit `c9364a8` pushed the regulated wastewater controlled rerun1 package, matrix/manifest updates, public links, refreshed checker attestation, and frontier repair guards. Local verification passed `git diff --check`, `npm run schema:check`, `npm run validate`, `npm run review:check`, `npm run research:check`, `npm run benchmark`, `npm test`, `npm run frontier:protocol:check`, `npm run frontier:controlled:check`, direct validator/render/patch commands for the controlled artifact, and `npm run pages:check` after GitHub Pages caught up. The package is now published and Pages-confirmed.
 - 2026-05-21T06:23:00-06:00: Prepared the next predeclared `frontier_reasoning` repeat-1 packet for `case-formal-proof-search-001` at `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md`. Status is `prepared_not_launched`; no formal proof-search frontier arm is launched, harvested, reviewed, complete, or aggregate-eligible without clean ChatGPT Deep Research launch proof and later harvest/review/publication evidence.
 - 2026-05-21T06:30:21-06:00: Public commit `7de74a8` pushed the formal proof-search frontier repeat-1 packet and public references. Local verification passed `git diff --check`, `node --check scripts/ofone-pages-check.mjs`, `npm run research:check`, `npm run validate`, `npm run schema:check`, `npm run review:check`, `npm run frontier:protocol:check`, `npm run frontier:controlled:check`, `npm run benchmark`, and `npm test`. `npm run pages:check` initially saw a transient homepage hash mismatch while the formal packet already matched Pages; after retry, GitHub Pages parity passed. Status remains `prepared_not_launched`.
+- 2026-05-21T06:45:50-06:00: Tool discovery for Chrome-extension/ChatGPT tab control did not expose a callable Chrome extension/plugin namespace in this thread. Under the current launch policy, Computer Use and generic desktop automation are not fallback launch paths. The formal proof-search frontier packet is now `prepared_blocked_chrome_extension_unavailable`; no ChatGPT conversation was opened, no prompt was submitted, no Deep Research plan was generated, and no formal proof-search frontier slot is launched, harvested, reviewed, complete, or aggregate-eligible.
 
 ## Required Launch Metadata
 
