@@ -7,7 +7,7 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 Rerun number: `2`
-Status: `prepared_not_launched`
+Status: `active_researching`
 
 This packet repairs the excluded frontier full-OfOne repeat-1 slot after remedial rerun 1 completed as an advisory research report instead of the required benchmark package. Do not inspect or rewrite the original excluded run, the failed rerun 1 output, other arms, prior Batch 01 outputs, or reviews. Rerun 1 is mentioned only to explain the stricter output-contract guard.
 
@@ -27,9 +27,12 @@ Use this packet only when the operator can verify a clean ChatGPT Deep Research 
 
 ## Launch Proof
 
-- Status: `not_launched`
-- Conversation: pending
-- Required proof before launch can be recorded: clean chat isolation, visible model/mode, Deep Research enabled, generated plan, Start clicked, active research state, and stop-control evidence.
+- Status: `active_researching`
+- Conversation: https://chatgpt.com/c/6a0ea350-3584-83e8-9d3e-ab7759c489f6
+- 2026-05-21T00:17:38-06:00: Launched from a clean ChatGPT root/new-chat surface. Clean composer initially showed `Extended Pro`; after Deep Research was enabled, the composer showed `Pro`.
+- Context delivery: prompt packet was delivered as `Pasted text(13).txt`; the visible instruction explicitly named remedial run `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2`.
+- Deep Research proof: generated plan title `Strategic gated diligence`; `Start` clicked; visible active status `Researching...`; `Stop research` present.
+- This is launch proof only. No completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
 
 ## Frozen Inputs
 
