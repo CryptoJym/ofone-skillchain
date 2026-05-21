@@ -5,11 +5,16 @@ Batch: `2026-05-17-batch-01`
 Case: `case-regulated-wastewater-market-entry-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `prepared_not_launched`
+Status: `direct_answer_launched_active`
 
 This packet prepares the next predeclared frontier reasoning slice after the strategic repeat-1 frontier slice and controlled full-OfOne replacement rerun5 were published and Pages-confirmed.
 
-It is not launch proof. Do not mark any regulated wastewater frontier slot complete until a clean isolated ChatGPT Deep Research conversation has visible current Pro/frontier model, highest available reasoning mode, Deep Research enabled when available, generated plan or equivalent run-start proof, Start/countdown action, active research state, stop-control evidence, completed report harvest, local review, commit/push, and Pages confirmation.
+This packet now records launch proof for the direct-answer arm only. Do not mark any regulated wastewater frontier slot complete until a clean isolated ChatGPT Deep Research conversation has visible current Pro/frontier model, highest available reasoning mode, Deep Research enabled when available, generated plan or equivalent run-start proof, Start/countdown action, active research state, stop-control evidence, completed report harvest, local review, commit/push, and Pages confirmation.
+
+Launch updates:
+
+- 2026-05-21T03:44:32-06:00 launch: the direct-answer arm was launched in a clean ChatGPT Deep Research conversation at https://chatgpt.com/c/6a0ed3db-cccc-83e8-b84c-b3b1cb7b0bfa. Observed proof: clean ChatGPT root/new-chat surface before submission, model selector showed `Latest • 5.5` and selected `Pro • Extended`, Deep Research was enabled, prompt metadata visibly named run ID `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1`, generated plan title `Regulated wastewater market entry`, `Start` clicked, visible status `Researching...`, and `Stop research` present. This is launch proof only; no completed report is visible, and no regulated wastewater frontier output is harvested, reviewed, complete, or aggregate-eligible.
+- 2026-05-21T03:46:42-06:00 observation: the active direct-answer run showed material progress. Visible status text changed to `Looking into state-specific operator certification requirements...`; plan title remains `Regulated wastewater market entry`; `Stop research` remains present. No completed report is visible, and the slot is not harvested, reviewed, complete, or aggregate-eligible.
 
 ## Execution Order
 
