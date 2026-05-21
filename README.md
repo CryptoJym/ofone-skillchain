@@ -163,7 +163,7 @@ While an external review is active, verify launch/status isolation with:
 npm run research:check
 ```
 
-The research lifecycle checker enforces the prepared-vs-launched boundary, run-scoped status ledger links, and the Chrome-extension-first Deep Research policy. If no callable Chrome extension/plugin control is available, frontier packets stay prepared or blocked; Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation do not satisfy launch proof.
+The research lifecycle checker enforces the prepared-vs-launched boundary, run-scoped status ledger links, Chrome-extension-first Deep Research policy, and the queue/payload/report blocked-state binding. If no callable Chrome extension/plugin control is available, frontier packets stay prepared or blocked; Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation do not satisfy launch proof.
 
 The Chrome-extension handoff contract is captured in [`research/chrome-extension-deep-research-contract.md`](./research/chrome-extension-deep-research-contract.md) with the current machine-readable queue at [`research/deep-research-launch-queue.json`](./research/deep-research-launch-queue.json), exact isolated-tab payloads at [`research/deep-research-extension-payloads.json`](./research/deep-research-extension-payloads.json), and the current observation/report intake at [`research/deep-research-extension-report.json`](./research/deep-research-extension-report.json). Regenerate payloads after queue edits and validate payload/report state with:
 

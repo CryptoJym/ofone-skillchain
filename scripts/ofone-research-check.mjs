@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -22,6 +23,12 @@ const loopRel = "research/recursive-improvement-loop.md";
 const loopPath = path.join(repoRoot, loopRel);
 const formalProofFrontierPacketRel = "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md";
 const formalProofFrontierPacketPath = path.join(repoRoot, formalProofFrontierPacketRel);
+const deepResearchQueueRel = "research/deep-research-launch-queue.json";
+const deepResearchQueuePath = path.join(repoRoot, deepResearchQueueRel);
+const deepResearchPayloadRel = "research/deep-research-extension-payloads.json";
+const deepResearchPayloadPath = path.join(repoRoot, deepResearchPayloadRel);
+const deepResearchReportRel = "research/deep-research-extension-report.json";
+const deepResearchReportPath = path.join(repoRoot, deepResearchReportRel);
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 
 const diagnostics = [];
@@ -32,6 +39,9 @@ const status = readText(statusPath, "run 06 status ledger");
 const run07Status = readText(run07StatusPath, "run 07 status ledger");
 const loopDoc = readText(loopPath, "recursive improvement loop");
 const formalProofFrontierPacket = readText(formalProofFrontierPacketPath, "formal proof-search frontier packet");
+const deepResearchQueue = readJson(deepResearchQueuePath, "Deep Research launch queue");
+const deepResearchPayload = readJson(deepResearchPayloadPath, "Deep Research extension payloads");
+const deepResearchReport = readJson(deepResearchReportPath, "Deep Research extension report");
 
 if (tracker && manifest && status) {
   validateRun06Status({ tracker, manifest, status });
@@ -42,8 +52,15 @@ if (tracker && run07Status) {
 if (tracker && loopDoc) {
   validateRecursiveLoop({ tracker, loopDoc });
 }
-if (tracker && loopDoc && formalProofFrontierPacket) {
-  validateChromeExtensionBlockedFrontier({ tracker, loopDoc, packet: formalProofFrontierPacket });
+if (tracker && loopDoc && formalProofFrontierPacket && deepResearchQueue && deepResearchPayload && deepResearchReport) {
+  validateChromeExtensionBlockedFrontier({
+    tracker,
+    loopDoc,
+    packet: formalProofFrontierPacket,
+    queue: deepResearchQueue,
+    payload: deepResearchPayload,
+    report: deepResearchReport
+  });
 }
 
 const passed = diagnostics.every((diagnostic) => diagnostic.severity !== "error");
@@ -236,8 +253,13 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
   );
 }
 
-function validateChromeExtensionBlockedFrontier({ tracker, loopDoc, packet }) {
+function validateChromeExtensionBlockedFrontier({ tracker, loopDoc, packet, queue, payload, report }) {
   const run07Row = tracker.split("\n").find((line) => line.startsWith("| 07 |")) || "";
+  const expectedRunId = "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1";
+  const queueItem = (queue.items || []).find((item) => item.item_id === expectedRunId);
+  const payloadItem = (payload.items || []).find((item) => item.item_id === expectedRunId);
+  const reportItem = (report.items || []).find((item) => item.item_id === expectedRunId);
+  const payloadText = readText(deepResearchPayloadPath, "Deep Research extension payload hash source");
 
   check(
     run07Row.includes(formalProofFrontierPacketRel) &&
@@ -262,10 +284,43 @@ function validateChromeExtensionBlockedFrontier({ tracker, loopDoc, packet }) {
   );
   check(
     loopDoc.includes(formalProofFrontierPacketRel) &&
+      loopDoc.includes(deepResearchReportRel) &&
       loopDoc.includes("blocked pending callable Chrome extension/plugin control") &&
       loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback"),
     "OFONE_RESEARCH_FRONTIER_CHROME_BLOCKED_LOOP",
     "recursive loop points to the blocked packet and forbids desktop-automation launch fallback"
+  );
+  check(
+    queue.launch_surface_policy?.primary_surface === "chrome_extension_plugin" &&
+      queue.launch_surface_policy?.desktop_automation_fallback_allowed === false &&
+      queueItem?.status === chromeBlockedStatus &&
+      queueItem?.aggregate_policy === "not_eligible_until_harvest_review_publication",
+    "OFONE_RESEARCH_FRONTIER_CHROME_QUEUE_BLOCKED",
+    "Deep Research launch queue preserves Chrome-extension-only blocked launch state"
+  );
+  check(
+    payload.generated_from?.queue_path === deepResearchQueueRel &&
+      payloadItem?.status === chromeBlockedStatus &&
+      payloadItem?.launch_allowed === false &&
+      payloadItem?.extension_action === "wait_for_callable_chrome_extension_control" &&
+      payloadItem?.tab_lane === reportItem?.tab_lane,
+    "OFONE_RESEARCH_FRONTIER_CHROME_PAYLOAD_BLOCKED",
+    "Chrome-extension payload keeps the formal frontier lane blocked until extension control exists"
+  );
+  check(
+    report.payload_path === deepResearchPayloadRel &&
+      payloadText &&
+      report.payload_sha256 === `sha256:${sha256(payloadText)}` &&
+      reportItem?.status === "observed_blocked" &&
+      reportItem?.extension_control?.surface === "unavailable" &&
+      reportItem?.extension_control?.callable_namespace === null &&
+      reportItem?.extension_control?.isolated_tab_verified === false &&
+      reportItem?.extension_control?.desktop_automation_used === false &&
+      !reportItem?.launch_proof &&
+      !reportItem?.harvest_proof &&
+      reportItem?.aggregate_policy_after_report === "not_eligible_blocked",
+    "OFONE_RESEARCH_FRONTIER_CHROME_REPORT_BLOCKED",
+    "Chrome-extension report intake records blocked observation without launch or harvest proof"
   );
 }
 
@@ -336,6 +391,10 @@ function readJson(filePath, label) {
 function latestTimestamp(text) {
   const matches = [...text.matchAll(/\b2026-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}-\d{2}:\d{2}\b/g)].map((match) => match[0]);
   return matches.at(-1);
+}
+
+function sha256(text) {
+  return crypto.createHash("sha256").update(text || "").digest("hex");
 }
 
 function check(condition, code, message) {
