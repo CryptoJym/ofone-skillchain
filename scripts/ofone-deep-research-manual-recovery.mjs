@@ -196,23 +196,32 @@ function validateSourceScan(recoveryData) {
 
   const sourceGlob = sourceGlobArg || item.expected_source_glob;
   const candidates = expandSimpleGlob(sourceGlob);
+  const scanDetails = {
+    source_glob: sourceGlob,
+    candidate_count: candidates.length,
+    newest_candidates: []
+  };
   check(
     candidates.length > 0,
     "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_CANDIDATES",
     candidates.length > 0
       ? `found ${candidates.length} candidate source file(s) for ${sourceGlob}`
-      : `no candidate source files found for ${sourceGlob}`
+      : `no candidate source files found for ${sourceGlob}`,
+    scanDetails
   );
   if (candidates.length === 0) return;
 
   const evaluated = candidates.map((candidatePath) => evaluateSourceCandidate(item, candidatePath));
   const valid = evaluated.filter((candidate) => candidate.valid);
+  scanDetails.newest_candidates = evaluated.slice(0, 10).map(formatCandidateDetails);
+  scanDetails.valid_candidates = valid.slice(0, 10).map(formatCandidateDetails);
   check(
     valid.length > 0,
     "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID",
     valid.length > 0
       ? `found ${valid.length} valid native Markdown export candidate(s); newest: ${valid[0].source_path}`
-      : `no valid native Markdown export found; newest candidate issue(s): ${formatCandidateFailures(evaluated.slice(0, 5))}`
+      : `no valid native Markdown export found; newest candidate issue(s): ${formatCandidateFailures(evaluated.slice(0, 5))}`,
+    scanDetails
   );
 }
 
@@ -258,6 +267,18 @@ function formatCandidateFailures(candidates) {
       return `${path.basename(candidate.source_path)}: ${issues.join(", ") || "unknown mismatch"}`;
     })
     .join("; ");
+}
+
+function formatCandidateDetails(candidate) {
+  return {
+    source_path: candidate.source_path,
+    basename: path.basename(candidate.source_path),
+    valid: candidate.valid,
+    missing_marker_count: candidate.missingMarkers.length,
+    missing_markers: candidate.missingMarkers,
+    contains_direct_answer_arm_marker: candidate.hasForbiddenDirectArm,
+    mtime_ms: candidate.mtimeMs
+  };
 }
 
 function escapeRegExp(value) {
@@ -307,8 +328,10 @@ function fail(code, message) {
   diagnostics.push({ severity: "error", code, message });
 }
 
-function check(condition, code, message) {
-  diagnostics.push({ severity: condition ? "info" : "error", code, message });
+function check(condition, code, message, details = undefined) {
+  const diagnostic = { severity: condition ? "info" : "error", code, message };
+  if (details !== undefined) diagnostic.details = details;
+  diagnostics.push(diagnostic);
 }
 
 function hasErrors() {

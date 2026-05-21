@@ -189,7 +189,7 @@ The report checker keeps a blocked item blocked until a callable Chrome extensio
 npm run deep-research:manual-recovery -- --source /absolute/path/to/deep-research-report.md
 ```
 
-When a native export may already be in the expected Downloads glob, scan the expected source files before using `--write`:
+When a native export may already be in the expected Downloads glob, scan the expected source files before using `--write`. Add `-- --json` when the caller needs structured candidate metadata instead of parsing diagnostic prose:
 
 ```bash
 npm run deep-research:manual-recovery:scan

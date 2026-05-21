@@ -874,15 +874,25 @@ function runManualRecoverySourceScanCheck() {
 
   let codes = new Set();
   let validMessage = "";
+  let validDetails = null;
   try {
     const parsed = JSON.parse(result.stdout);
     codes = new Set((parsed.diagnostics || []).map((diagnostic) => diagnostic.code));
-    validMessage = (parsed.diagnostics || []).find((diagnostic) => diagnostic.code === "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID")?.message || "";
+    const validDiagnostic = (parsed.diagnostics || []).find((diagnostic) => diagnostic.code === "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID");
+    validMessage = validDiagnostic?.message || "";
+    validDetails = validDiagnostic?.details || null;
   } catch {
     codes = new Set();
   }
 
-  if (result.status === 0 && codes.has("OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID") && validMessage.includes(validPath)) {
+  if (
+    result.status === 0 &&
+    codes.has("OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID") &&
+    validMessage.includes(validPath) &&
+    validDetails?.candidate_count === 2 &&
+    validDetails?.valid_candidates?.[0]?.source_path === validPath &&
+    validDetails?.newest_candidates?.some((candidate) => candidate.basename === "deep-research-report-invalid.md")
+  ) {
     console.log("PASS manual recovery source scan");
     return;
   }
