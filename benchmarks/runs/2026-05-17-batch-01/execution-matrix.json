@@ -34,8 +34,8 @@
     "completed": 51,
     "reviewed": 51,
     "excluded": 3,
-    "aggregate_eligible": 50,
-    "remedial": 2
+    "aggregate_eligible": 51,
+    "remedial": 3
   },
   "completed_runs": [
     {
@@ -1664,7 +1664,15 @@
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.rendering.md",
         "rendering_sha256": "sha256:55b6ab910eb831fd9869a4b969c804658fb7710f1e5fc5af782492349552db45"
       },
-      "status": "completed"
+      "status": "completed",
+      "rerun_plan": {
+        "required": true,
+        "status": "reviewed",
+        "rerun_of": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+        "reason": "Frontier full-OfOne regulated wastewater repeat-1 artifact is preserved immutably as excluded because computed local validation failed semantic graph checks. Controlled Mode A rerun 1 is validator-valid replacement evidence only.",
+        "aggregate_policy": "replace_for_aggregate_only",
+        "latest_successful_rerun": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1"
+      }
     }
   ],
   "reviewed_runs": [
@@ -3294,13 +3302,21 @@
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.rendering.md",
         "rendering_sha256": "sha256:55b6ab910eb831fd9869a4b969c804658fb7710f1e5fc5af782492349552db45"
       },
-      "status": "reviewed"
+      "status": "reviewed",
+      "rerun_plan": {
+        "required": true,
+        "status": "reviewed",
+        "rerun_of": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+        "reason": "Frontier full-OfOne regulated wastewater repeat-1 artifact is preserved immutably as excluded because computed local validation failed semantic graph checks. Controlled Mode A rerun 1 is validator-valid replacement evidence only.",
+        "aggregate_policy": "replace_for_aggregate_only",
+        "latest_successful_rerun": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1"
+      }
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and frontier_reasoning now has three reviewed strategic repeat-1 slots plus all three regulated wastewater repeat-1 slots. Both original frontier full_ofone originals completed but remain excluded by computed validator failures.",
-    "allowed_claim": "Batch 01 has 51 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots, three frontier_reasoning strategic repeat-1 slots, and three regulated wastewater frontier_reasoning repeat-1 slots. Three original run slots are excluded before aggregate scoring, one agentic remedial replacement and one controlled frontier replacement exist, and no performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and frontier_reasoning now has three reviewed strategic repeat-1 slots plus all three regulated wastewater repeat-1 slots. Both original frontier full_ofone originals completed but remain excluded by computed validator failures, with controlled replacement evidence recorded for both.",
+    "allowed_claim": "Batch 01 has 51 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots, three frontier_reasoning strategic repeat-1 slots, and three regulated wastewater frontier_reasoning repeat-1 slots. Three original run slots are excluded before aggregate scoring, three remedial replacements exist, and no performance comparison is supported."
   },
   "excluded_runs": [
     {
@@ -3486,10 +3502,11 @@
       },
       "rerun_plan": {
         "required": true,
-        "status": "not_started",
+        "status": "reviewed",
         "rerun_of": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
-        "reason": "Frontier full-OfOne regulated wastewater repeat-1 artifact is preserved immutably as excluded because computed local validation failed semantic graph checks. Any replacement must use a repaired prompt/protocol or controlled execution path before aggregate eligibility.",
-        "aggregate_policy": "replace_for_aggregate_only"
+        "reason": "Frontier full-OfOne regulated wastewater repeat-1 artifact is preserved immutably as excluded because computed local validation failed semantic graph checks. Controlled Mode A rerun 1 is validator-valid replacement evidence only.",
+        "aggregate_policy": "replace_for_aggregate_only",
+        "latest_successful_rerun": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1"
       }
     }
   ],
@@ -3598,6 +3615,57 @@
         "patch_sha256": "sha256:60c289babea552802569575f5a4ff40672835996739841753ff20d3cdcd1ce19",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.rendering.md",
         "rendering_sha256": "sha256:116da40a3d99f20b7bce459f9de543e4e4ab0edd87c7ea5c95ee364899d211e5"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1",
+      "rerun_of": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+      "rerun_number": 1,
+      "rerun_reason": "Controlled Mode A replacement for the excluded regulated wastewater frontier full-OfOne repeat-1 artifact after computed local validation failed relation legality and relation-family checks.",
+      "aggregate_policy": "replace_for_aggregate_only",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "status": "reviewed",
+      "execution_mode": "Mode A: Controlled Non-Deep-Research Execution",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1.md",
+      "raw_output_sha256": "sha256:eb8251313f684035e12f5ce9999645c8c1273663549bb2ee0da26021904e7fce",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1.artifact.json",
+      "artifact_sha256": "sha256:99869ab95cb00d04ae611efbf89fbe65257c00ab845e02ef0581bb625794a4ee",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1.md",
+      "review_sha256": "sha256:929df0ac477a063c2577738673aeb4a606b81c788ccdf3945bcd80b397148c46",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Controlled Mode A wastewater package is case-native, validator-valid, locally reviewed, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case, prompt, and Mode A contract evidence with stable case/prompt hashes; missing operating facts remain explicit launch-blocking unknowns",
+        "artifact_source_identity": "raw output, artifact JSON, validator JSON, rendering, patch report, and local review all identify the controlled wastewater rerun1 slot"
+      },
+      "benchmark_trace": {
+        "case_id": "case-regulated-wastewater-market-entry-001",
+        "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1",
+        "case_file": "benchmarks/cases/regulated-wastewater-market-entry.md",
+        "case_file_sha256": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:2849a7b8ab7af3553a448c44916d236e5cdd8dc4c4e37dd9fc5e3a18e4398b0b"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1.validator.json",
+        "validator_sha256": "sha256:9af57bff15e7bafc69ebe718f356b68d8e9a85cef11881ffe025fcb5587de793",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1.patch.json",
+        "patch_sha256": "sha256:520562c0394148f6fb21be4f4dcec4be93cff9bcfbf31a472f25a199fa1db45f",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1.rendering.md",
+        "rendering_sha256": "sha256:6992173710a3394fe784f445e65fb2203dfd8fe6b86d17cf15ad6f95e674f5dd"
       }
     }
   ],

@@ -30,7 +30,8 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - Remedial frontier full-OfOne rerun 4 was harvested but rejected before matrix insertion because the output was a meta/advisory report, not a benchmark raw output package.
 - A same-shape attachment-led Deep Research remedial rerun is now barred for this frontier full-OfOne slot.
 - Controlled Mode A rerun 5 passed computed local validation, local review, and matrix insertion as replacement evidence only. It does not mutate the excluded original and does not support aggregate comparison or superiority claims by itself.
-- Three original run slots are excluded before aggregate scoring; no empirical superiority or method-performance claim is supported.
+- Regulated wastewater controlled Mode A rerun 1 passed computed local validation, local review, and matrix insertion as replacement evidence only. It does not mutate the excluded original and does not support aggregate comparison or superiority claims by itself.
+- Three original run slots are excluded before aggregate scoring; three remedial replacements exist under `replace_for_aggregate_only`; no empirical superiority or method-performance claim is supported.
 
 ## Remedial Reruns
 
@@ -42,6 +43,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `failed` | `not_aggregate_eligible` | Raw export preserved with SHA-256 `b64a604e28a5e26d871dc5bca05e4be33dd0630afbbfca8d3d28cbc579e7db85`; artifact, validator, rendering, patch, and review were generated, but computed local validation failed missing current-schema `benchmark_trace` fields and illegal relation edges `X2`, `X3`, and `X4`. Review: `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3.md`. |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `failed` | `not_aggregate_eligible` | Raw export preserved with SHA-256 `5d4de650a1c2f3f6612b718f45e7313f40433dfaf851afeaad1b3ca0f9dbd702`, but the completed report was a meta/advisory analysis of an unspecified packet and did not include the required benchmark output package. Review: `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4.md`. |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `reviewed` | `replace_for_aggregate_only` | Controlled Mode A package with raw SHA-256 `2897a11f82baee33a0161a8d8f64b716017c3fedd9d22a2639c60caa6ad4bf86`, artifact SHA-256 `6bd70e20ba36bf9e63a8bc4c65127a3f1166d30590d1a63df63b2612261a14f0`, computed validator JSON, rendering, patch report, and local review. This is replacement evidence only and does not consume a new predeclared slot. |
+| `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1` | `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1` | `reviewed` | `replace_for_aggregate_only` | Regulated wastewater controlled Mode A rerun 1 with raw SHA-256 `eb8251313f684035e12f5ce9999645c8c1273663549bb2ee0da26021904e7fce`, artifact SHA-256 `99869ab95cb00d04ae611efbf89fbe65257c00ab845e02ef0581bb625794a4ee`, computed validator JSON, rendering, patch report, and local review. This is replacement evidence only and does not consume a new predeclared slot. |
 
 ## Rerun Semantics
 
@@ -53,7 +55,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - A remedial rerun can replace the excluded original for aggregate scoring only after it passes pre-score compliance, benchmark trace binding, machine-artifact hash checks, and review/adjudication.
 - Failed remedial attempts may be recorded as evidence outside `remedial_runs`; they do not increase completion/remedial counters and cannot replace an excluded original.
 - Remedial reruns are tracked in `execution-matrix.json` under `remedial_runs`; they do not consume a new predeclared repeat slot.
-- Controlled Mode A rerun 5 is the current frontier replacement record under `remedial_runs`; failed frontier reruns 1-4 remain immutable process evidence outside replacement eligibility.
+- Controlled Mode A strategic rerun 5 and regulated wastewater rerun 1 are the current frontier replacement records under `remedial_runs`; failed frontier reruns 1-4 remain immutable process evidence outside replacement eligibility.
 
 ## Provenance Binding
 

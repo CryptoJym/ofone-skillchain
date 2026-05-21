@@ -281,7 +281,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_MATRIX_REMEDIAL_COMPLETION",
-      "message": "2026-05-17-batch-01 records 2 remedial rerun(s) outside the original slot count"
+      "message": "2026-05-17-batch-01 records 3 remedial rerun(s) outside the original slot count"
     },
     {
       "severity": "info",
@@ -3106,7 +3106,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_REMEDIAL_RUNS",
-      "message": "2026-05-17-batch-01 lists 2 remedial run record(s)"
+      "message": "2026-05-17-batch-01 lists 3 remedial run record(s)"
     },
     {
       "severity": "info",
@@ -3207,6 +3207,56 @@
       "severity": "info",
       "code": "BENCH_BATCH_REMEDIAL_RUN",
       "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 remedial rerun is linked, benchmark-bound, and independently reviewable"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 validator_json hash matches sha256:9af57bff15e7bafc69ebe718f356b68d8e9a85cef11881ffe025fcb5587de793"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 patch_json hash matches sha256:520562c0394148f6fb21be4f4dcec4be93cff9bcfbf31a472f25a199fa1db45f"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_REMEDIAL_RUN",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1 remedial rerun is linked, benchmark-bound, and independently reviewable"
     },
     {
       "severity": "info",

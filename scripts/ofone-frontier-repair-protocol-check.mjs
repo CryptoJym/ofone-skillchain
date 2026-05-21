@@ -17,6 +17,10 @@ const statusPath = "research/status/2026-05-17-07-ofone-post-run06-hardening-rev
 const frontierRunId = "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1";
 const expectedReruns = [1, 2, 3, 4];
 const successfulRerunId = `${frontierRunId}__rerun5`;
+const strategicContractPath = "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md";
+const regulatedContractPath = "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-regulated-wastewater-frontier-full-r1-mode-a-contract.md";
+const regulatedOriginalRunId = "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1";
+const regulatedSuccessfulRerunId = `${regulatedOriginalRunId}__rerun1`;
 
 const failures = [];
 const passes = [];
@@ -47,6 +51,10 @@ function check() {
   ok(protocol.includes("Mode B: Inline Deep Research Launch Contract"), "protocol defines inline Deep Research launch contract");
   ok(protocol.includes("launch proof that the inline contract"), "protocol requires inline-contract launch proof");
   ok(protocol.includes(successfulRerunId), "protocol cites the controlled rerun5 repair");
+  ok(protocol.includes(regulatedOriginalRunId), "protocol cites the regulated wastewater excluded original");
+  ok(protocol.includes(regulatedSuccessfulRerunId), "protocol cites the regulated wastewater controlled rerun1 repair");
+  ok(protocol.includes(strategicContractPath), "protocol cites the strategic Mode A contract");
+  ok(protocol.includes(regulatedContractPath), "protocol cites the regulated wastewater Mode A contract");
   ok(protocol.includes("Superiority claims remain blocked"), "protocol keeps superiority claims blocked");
   ok(protocol.includes("npm run frontier:protocol:check"), "protocol documents its checker command");
 
@@ -87,14 +95,33 @@ function check() {
     ok(frontierReplacement.execution_mode === "Mode A: Controlled Non-Deep-Research Execution", "frontier rerun5 records Mode A execution");
   }
 
+  const regulatedOriginal = (matrix.excluded_runs || []).find((run) => run.run_id === regulatedOriginalRunId);
+  ok(Boolean(regulatedOriginal), "matrix preserves the excluded regulated wastewater frontier original");
+  if (regulatedOriginal) {
+    ok(regulatedOriginal.rerun_plan?.status === "reviewed", "regulated wastewater rerun plan records reviewed replacement");
+    ok(regulatedOriginal.rerun_plan?.latest_successful_rerun === regulatedSuccessfulRerunId, "regulated wastewater rerun plan points to controlled rerun1");
+  }
+  const regulatedReplacement = replacementRuns.find((run) => run.run_id === regulatedSuccessfulRerunId && run.rerun_of === regulatedOriginalRunId);
+  ok(Boolean(regulatedReplacement), "regulated wastewater rerun1 is inserted into remedial_runs after validation and review");
+  if (regulatedReplacement) {
+    ok(regulatedReplacement.status === "reviewed", "regulated rerun1 status is reviewed");
+    ok(regulatedReplacement.aggregate_policy === "replace_for_aggregate_only", "regulated rerun1 aggregate policy is replacement only");
+    ok(regulatedReplacement.aggregate_eligible === true, "regulated rerun1 is aggregate eligible as replacement evidence");
+    ok(regulatedReplacement.execution_mode === "Mode A: Controlled Non-Deep-Research Execution", "regulated rerun1 records Mode A execution");
+  }
+
   ok(readme.includes(protocolPath), "README links the repair protocol");
+  ok(readme.includes(regulatedContractPath), "README links the regulated wastewater Mode A contract");
   ok(index.includes(`./${protocolPath}`), "index links the repair protocol");
+  ok(index.includes(`./${regulatedContractPath}`), "index links the regulated wastewater Mode A contract");
   ok(loop.includes(protocolPath), "recursive loop points to the repair protocol");
   ok(status.includes(protocolPath), "Run 07 status ledger points to the repair protocol");
   ok(loop.includes("do not launch another same-shape Deep Research remedial rerun"), "recursive loop preserves no-same-shape-rerun guard");
   ok(loop.includes(successfulRerunId), "recursive loop records successful controlled rerun5");
+  ok(loop.includes(regulatedSuccessfulRerunId), "recursive loop records successful regulated wastewater controlled rerun1");
   ok(status.includes("controlled non-Deep-Research execution"), "status ledger preserves controlled execution handoff");
   ok(status.includes(successfulRerunId), "status ledger records successful controlled rerun5");
+  ok(status.includes(regulatedSuccessfulRerunId), "status ledger records successful regulated wastewater controlled rerun1");
 }
 
 function readText(relativePath) {

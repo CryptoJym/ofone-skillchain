@@ -7,7 +7,7 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 
-This protocol governs the frontier full-OfOne replacement slot after the original run and four remedial attempts failed before aggregate eligibility. The first valid replacement is now the controlled Mode A rerun 5 package; the protocol remains active to preserve the repair boundary and block same-shape reruns.
+This protocol governs frontier full-OfOne replacement slots after completed frontier artifacts fail computed local validation before aggregate eligibility. The first strategic replacement is the controlled Mode A rerun 5 package. The regulated wastewater frontier full-OfOne slot later reused the same governed path and produced controlled Mode A rerun 1. The protocol remains active to preserve repair boundaries and block same-shape reruns.
 
 ## Evidence Basis
 
@@ -19,8 +19,10 @@ This protocol governs the frontier full-OfOne replacement slot after the origina
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3` | Returned benchmark package sections, but omitted exact run metadata and failed current-schema `benchmark_trace` and relation-legality checks. | `not_aggregate_eligible` |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4` | Returned a meta/advisory report titled `Running an Unspecified OfOne Benchmark Packet Exactly`. | `not_aggregate_eligible` |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5` | Controlled Mode A non-Deep-Research package with raw output, artifact JSON, computed validator JSON, rendering, patch report, and local review. | `replace_for_aggregate_only` |
+| `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1` | Completed and harvested, then excluded because computed local validation failed relation legality and relation-family checks. | `excluded_before_aggregate` |
+| `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1` | Controlled Mode A non-Deep-Research package with raw output, artifact JSON, computed validator JSON, rendering, patch report, and local review. | `replace_for_aggregate_only` |
 
-The repeated failure mode is now a process finding: attachment-led or same-shape ChatGPT Deep Research remedial launches are not a reliable way to produce this full-OfOne artifact package. The valid rerun 5 replacement came from the controlled non-Deep-Research path and does not license another same-shape launch.
+The repeated failure mode is now a process finding: attachment-led or same-shape ChatGPT Deep Research remedial launches are not a reliable way to produce these full-OfOne artifact packages. The valid controlled replacements came from the non-Deep-Research path and do not license another same-shape launch.
 
 ## Hard Rule
 
@@ -46,9 +48,12 @@ Use a controlled local or operator-driven execution path that can emit the requi
 
 The run cannot enter `remedial_runs`, aggregate comparison, or any superiority claim until `npm run validate`, `npm run benchmark`, local review, and Pages parity all pass.
 
-Active Mode A contract: `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md`.
+Active Mode A contracts:
 
-That contract freezes rerun 5 as `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5`, preserves the original excluded run as immutable evidence, and keeps same-shape attachment-led Deep Research reruns barred. Rerun 5 is now executed, validator-valid, locally reviewed, and recorded in `remedial_runs` as `replace_for_aggregate_only`; run `npm run frontier:controlled:check` to verify the exact run ID, source hashes, machine artifact hashes, reviewed matrix insertion, and original-run immutability.
+- `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md`
+- `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-regulated-wastewater-frontier-full-r1-mode-a-contract.md`
+
+The first contract freezes strategic rerun 5 as `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5`. The second freezes regulated wastewater rerun 1 as `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1`. Both preserve the original excluded runs as immutable evidence and keep same-shape attachment-led Deep Research reruns barred. Both controlled reruns are executed, validator-valid, locally reviewed, and recorded in `remedial_runs` as `replace_for_aggregate_only`; run `npm run frontier:controlled:check` to verify exact run IDs, source hashes, machine artifact hashes, reviewed matrix insertion, and original-run immutability.
 
 ### Mode B: Inline Deep Research Launch Contract
 

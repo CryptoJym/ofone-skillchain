@@ -1,0 +1,341 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "TS1",
+        "R1"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C3",
+      "type": "claim",
+      "label": "The next allowed move is to scope a reversible diligence and proof path, because the launch-critical wastewater facts are missing."
+    },
+    {
+      "id": "C4",
+      "type": "claim",
+      "label": "Operational wastewater launch remains blocked until jurisdiction, influent, treatment proof, partner path, customer commitment, residual risk, and compliance/reputation gates are resolved."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "Permits bounded diligence only and keeps operational launch blocked."
+    },
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "Which jurisdiction, discharge or reuse route, permit pathway, and regulator evidence standard will govern the first target deployment?"
+    },
+    {
+      "id": "IV:U2",
+      "type": "information_value",
+      "label": "What influent profile and treatment-performance evidence are required to satisfy the target permit or customer standard?"
+    },
+    {
+      "id": "IV:U3",
+      "type": "information_value",
+      "label": "Which operator/partner path and conditional customer commitment can be proven without creating launch obligations?"
+    },
+    {
+      "id": "IV:U4",
+      "type": "information_value",
+      "label": "What residuals, PFAS, safety, compliance, and reputation risks must be controlled before launch?"
+    },
+    {
+      "id": "KT1",
+      "type": "kill_test",
+      "label": "Gate escalation shows the diligence path would require permit, pilot, partner, or customer commitments that create launch-like exposure."
+    },
+    {
+      "id": "KT2",
+      "type": "kill_test",
+      "label": "Source contradiction or site-specific evidence shows that a mandatory regulatory or technical requirement cannot be satisfied."
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS1",
+      "type": "lens",
+      "label": "Strategic-agentic lens"
+    },
+    {
+      "id": "LENS2",
+      "type": "lens",
+      "label": "Scientific proof lens"
+    },
+    {
+      "id": "LENS3",
+      "type": "lens",
+      "label": "Compliance and reputation lens"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "query"
+    },
+    {
+      "id": "O2",
+      "type": "option_move",
+      "label": "act"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Proceed only with bounded market-entry diligence O1. Do not proceed to operational wastewater launch O2 until U1-U4 are resolved or explicitly accepted, treatment proof is tied to the target jurisdiction and influent, and compliance/reputation gates G1 and G2 are approved."
+    },
+    {
+      "id": "T2",
+      "type": "trigger",
+      "label": "review_required"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "The jurisdiction, discharge or reuse route, and applicable permit path are not fixed."
+    },
+    {
+      "id": "U2",
+      "type": "unknown",
+      "label": "The influent profile and treatment performance proof are missing."
+    },
+    {
+      "id": "U3",
+      "type": "unknown",
+      "label": "The partner/operator path and customer commitment are not fixed."
+    },
+    {
+      "id": "U4",
+      "type": "unknown",
+      "label": "Residuals, PFAS, safety, compliance, and reputation exposure are not characterized for the target use case."
+    },
+    {
+      "id": "X10",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X11",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X12",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X13",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X14",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X15",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X6",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X7",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X8",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X9",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C3",
+      "C4"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "information_value": [
+      "IV:U1",
+      "IV:U2",
+      "IV:U3",
+      "IV:U4"
+    ],
+    "kill_test": [
+      "KT1",
+      "KT2"
+    ],
+    "loop": [
+      "L1"
+    ],
+    "lens": [
+      "LENS1",
+      "LENS2",
+      "LENS3"
+    ],
+    "option_move": [
+      "O1",
+      "O2"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "trigger": [
+      "T2"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1",
+      "U2",
+      "U3",
+      "U4"
+    ],
+    "edge": [
+      "X10",
+      "X11",
+      "X12",
+      "X13",
+      "X14",
+      "X15",
+      "X4",
+      "X5",
+      "X6",
+      "X7",
+      "X8",
+      "X9"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C3",
+    "C4"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [
+    {
+      "gate_id": "G1",
+      "status": "open",
+      "reviewer": "A2 compliance and reputation reviewer",
+      "required_decision": "Approve regulated launch readiness or return for more jurisdiction and proof evidence."
+    },
+    {
+      "gate_id": "G2",
+      "status": "open",
+      "reviewer": "A2 compliance and reputation reviewer",
+      "required_decision": "Approve external market commitment or keep activity in bounded diligence."
+    }
+  ],
+  "suggested_transition": "human_review",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 34 downstream object(s) are in closure, so the current decision rendering must be regenerated. human review blocks release.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "rendering_regeneration",
+    "human_gate_review"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C3",
+        "C4"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "collect_approvals",
+      "targets": [
+        "G1",
+        "G2"
+      ],
+      "effect": "Route changed decision state to named reviewers."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 34 downstream object(s); transition=human_review; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C3, C4",
+      "collect required approvals: G1:A2 compliance and reputation reviewer, G2:A2 compliance and reputation reviewer",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log",
+      "route through the required human gate before release"
+    ]
+  }
+}
