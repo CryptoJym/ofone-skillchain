@@ -30,10 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 38,
+    "queued": 37,
     "completed": 52,
     "reviewed": 52,
     "excluded": 3,
+    "blocked": 1,
     "aggregate_eligible": 52,
     "remedial": 3
   },
@@ -3570,7 +3571,35 @@
       }
     }
   ],
-  "state_semantics": "completed_runs records raw outputs that have completed. reviewed_runs is an overlapping audit state: every reviewed run must also appear in completed_runs. excluded_runs is an overlapping adjudication state for reviewed runs rejected before aggregate scoring.",
+  "state_semantics": "completed_runs records raw outputs that have completed. reviewed_runs is an overlapping audit state: every reviewed run must also appear in completed_runs. excluded_runs is an overlapping adjudication state for reviewed runs rejected before aggregate scoring. blocked_runs is a non-complete external-observation state: a run may be completed_report_visible in ChatGPT but must not appear in completed_runs, reviewed_runs, excluded_runs, released_runs, or aggregate-eligible counts until native raw Markdown is harvested, locally reviewed, committed, pushed, and Pages-confirmed.",
+  "blocked_runs": [
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "light_structured",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "status": "completed_report_visible",
+      "aggregate_eligible": false,
+      "source_surface": "chrome_extension_plugin",
+      "conversation_url": "https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958",
+      "visible_report_metadata": "Research completed in 9m; 6 citations; 120 searches; 21 May; report title Benchmark Raw Output; run metadata Status: completed; correct light_structured run ID visible.",
+      "blocker": "Completed report is visible through Chrome extension control, but raw Markdown harvest is blocked because the report body and download control are inside ChatGPT's cross-origin Deep Research sandbox iframe. Browser, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, OCR, and screenshot reconstruction remain disallowed.",
+      "expected_raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1.md",
+      "expected_review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1.md",
+      "extension_report": "research/deep-research-extension-report.json",
+      "manual_recovery_report": "research/deep-research-manual-recovery.json",
+      "launch_queue": "research/deep-research-launch-queue.json",
+      "extension_payload": "research/deep-research-extension-payloads.json",
+      "promotion_gate": {
+        "native_markdown_export_required": true,
+        "local_review_required": true,
+        "queue_payload_report_update_required": true,
+        "commit_push_pages_required": true,
+        "aggregate_eligible_before_review_publication": false
+      }
+    }
+  ],
   "rerun_policy": {
     "preserve_original_runs": true,
     "rerun_id_template": "{original_run_id}__rerun{rerun_number}",

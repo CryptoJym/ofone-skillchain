@@ -32,6 +32,7 @@ const validIndependentReviewStatuses = new Set(["not_prepared", "prepared", "lau
 const validComplianceValues = new Set(["pass", "fail", "not_applicable", "unknown"]);
 const validRerunStatuses = new Set(["not_started", "queued", "in_progress", "completed", "reviewed", "released", "failed", "superseded"]);
 const validRerunAggregatePolicies = new Set(["supplement_original", "replace_for_aggregate_only", "not_aggregate_eligible"]);
+const validBlockedRunStatuses = new Set(["completed_report_visible"]);
 const requiredPreScoreFields = ["case_fidelity", "required_outputs", "independence", "no_superiority_compliance"];
 const requiredSemanticFidelityFields = [
   "case_binding",
@@ -316,6 +317,7 @@ function validateRunRecords(manifest, matrix) {
   validateRunRecordState(manifest, matrix, "completed");
   validateRunRecordState(manifest, matrix, "reviewed");
   validateRunRecordState(manifest, matrix, "excluded");
+  validateBlockedRunRecords(manifest, matrix);
   validateRemedialRunRecords(manifest, matrix);
 }
 
@@ -324,12 +326,14 @@ function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
   const completedRuns = matrix.completed_runs || [];
   const reviewedRuns = matrix.reviewed_runs || [];
   const excludedRuns = matrix.excluded_runs || [];
+  const blockedRuns = Array.isArray(matrix.blocked_runs) ? matrix.blocked_runs : [];
   const remedialRuns = matrix.remedial_runs || [];
 
   for (const [field, runs] of [
     ["completed", completedRuns],
     ["reviewed", reviewedRuns],
-    ["excluded", excludedRuns]
+    ["excluded", excludedRuns],
+    ["blocked", blockedRuns]
   ]) {
     if (!Number.isInteger(completion[field])) {
       fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion.${field} must be an integer`);
@@ -343,11 +347,12 @@ function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
     ...reviewedRuns.map((run) => run.run_id),
     ...excludedRuns.map((run) => run.run_id)
   ].filter(Boolean));
+  const blockedRunIds = new Set(blockedRuns.map((run) => run.run_id).filter(Boolean));
   const queued = Number.isInteger(completion.queued) ? completion.queued : 0;
-  if (queued + terminalRunIds.size !== expectedRunCount) {
-    fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} queued + unique terminal slots = ${queued + terminalRunIds.size}/${expectedRunCount}`);
+  if (queued + terminalRunIds.size + blockedRunIds.size !== expectedRunCount) {
+    fail("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} queued + unique terminal slots + blocked slots = ${queued + terminalRunIds.size + blockedRunIds.size}/${expectedRunCount}`);
   } else {
-    pass("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion covers ${expectedRunCount} predeclared slot(s) without double-counting reviewed/excluded overlaps`);
+    pass("BENCH_BATCH_MATRIX_COMPLETION", `${manifest.batch_id} completion covers ${expectedRunCount} predeclared slot(s) without double-counting reviewed/excluded/blocked states`);
   }
 
   const completedIds = new Set(completedRuns.map((run) => run.run_id));
@@ -366,10 +371,23 @@ function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
     pass("BENCH_BATCH_MATRIX_EXCLUDED_REVIEWED", `${manifest.batch_id} excluded runs remain visible in reviewed_runs for audit history`);
   }
 
-  if (!matrix.state_semantics || !String(matrix.state_semantics).includes("reviewed")) {
-    fail("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} must document whether reviewed/excluded counters overlap completed outputs`);
+  const aggregateEligibleRuns = [
+    ...reviewedRuns,
+    ...remedialRuns.filter((run) => run.aggregate_policy === "replace_for_aggregate_only" || run.aggregate_policy === "supplement_original")
+  ].filter((run) => run.aggregate_eligible !== false);
+  if (!Number.isInteger(completion.aggregate_eligible)) {
+    fail("BENCH_BATCH_MATRIX_AGGREGATE_ELIGIBLE", `${manifest.batch_id} completion.aggregate_eligible must be an integer`);
+  } else if (completion.aggregate_eligible !== aggregateEligibleRuns.length) {
+    fail("BENCH_BATCH_MATRIX_AGGREGATE_ELIGIBLE", `${manifest.batch_id} completion.aggregate_eligible=${completion.aggregate_eligible} but ${aggregateEligibleRuns.length} reviewed/remedial run(s) are aggregate-eligible`);
   } else {
-    pass("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} documents overlapping completion/review/exclusion semantics`);
+    pass("BENCH_BATCH_MATRIX_AGGREGATE_ELIGIBLE", `${manifest.batch_id} records ${completion.aggregate_eligible} reviewed/remedial aggregate-eligible run(s)`);
+  }
+
+  const semantics = String(matrix.state_semantics || "");
+  if (!semantics.includes("reviewed") || !semantics.includes("blocked_runs")) {
+    fail("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} must document overlapping reviewed/excluded counters and non-complete blocked_runs semantics`);
+  } else {
+    pass("BENCH_BATCH_MATRIX_STATE_SEMANTICS", `${manifest.batch_id} documents overlapping completion/review/exclusion semantics and blocked non-completion state`);
   }
 
   if (remedialRuns.length > 0 || Number.isInteger(completion.remedial)) {
@@ -380,6 +398,138 @@ function validateMatrixCompletion(manifest, matrix, expectedRunCount) {
     } else {
       pass("BENCH_BATCH_MATRIX_REMEDIAL_COMPLETION", `${manifest.batch_id} records ${remedialRuns.length} remedial rerun(s) outside the original slot count`);
     }
+  }
+}
+
+function validateBlockedRunRecords(manifest, matrix) {
+  if (matrix.blocked_runs && !Array.isArray(matrix.blocked_runs)) {
+    fail("BENCH_BATCH_BLOCKED_RUNS", `${manifest.batch_id} blocked_runs must be an array`);
+    return;
+  }
+  const runs = matrix.blocked_runs || [];
+  const expectedCount = matrix.completion?.blocked || 0;
+  const diagnosticCode = "BENCH_BATCH_BLOCKED_RUNS";
+  if (runs.length !== expectedCount) {
+    fail(diagnosticCode, `${manifest.batch_id} lists ${runs.length}/${expectedCount} blocked run record(s)`);
+    return;
+  }
+  pass(diagnosticCode, `${manifest.batch_id} lists ${runs.length} blocked run record(s)`);
+  if (runs.length === 0) return;
+
+  const seen = new Set();
+  const terminalIds = new Set([
+    ...(matrix.completed_runs || []).map((run) => run.run_id),
+    ...(matrix.reviewed_runs || []).map((run) => run.run_id),
+    ...(matrix.excluded_runs || []).map((run) => run.run_id)
+  ]);
+  const validCases = new Set(manifest.case_ids || []);
+  const validArms = new Set((manifest.arms || []).map((arm) => arm.arm_id));
+  const validModelFamilies = new Set((manifest.model_plan?.model_families || []).map((family) => family.family_id));
+  const maxRepeat = manifest.model_plan?.runs_per_case_per_arm || 0;
+
+  for (const run of runs) {
+    validateBlockedRunRecord(manifest, run, seen, terminalIds, validCases, validArms, validModelFamilies, maxRepeat);
+  }
+}
+
+function validateBlockedRunRecord(manifest, run, seen, terminalIds, validCases, validArms, validModelFamilies, maxRepeat) {
+  const label = run.run_id || "(missing run_id)";
+  if (!run.run_id) fail("BENCH_BATCH_BLOCKED_RUN_ID", `${manifest.batch_id} blocked run missing run_id`);
+  if (seen.has(run.run_id)) fail("BENCH_BATCH_BLOCKED_RUN_ID_UNIQUE", `${manifest.batch_id} duplicate blocked run_id ${run.run_id}`);
+  seen.add(run.run_id);
+
+  if (terminalIds.has(run.run_id)) {
+    fail("BENCH_BATCH_BLOCKED_RUN_TERMINAL_OVERLAP", `${label} must not appear in completed_runs, reviewed_runs, or excluded_runs while blocked`);
+  }
+  if (!validCases.has(run.case_id)) fail("BENCH_BATCH_BLOCKED_RUN_CASE", `${label} has unknown case_id ${run.case_id || "(missing)"}`);
+  if (!validArms.has(run.arm_id)) fail("BENCH_BATCH_BLOCKED_RUN_ARM", `${label} has unknown arm_id ${run.arm_id || "(missing)"}`);
+  if (!validModelFamilies.has(run.model_family)) fail("BENCH_BATCH_BLOCKED_RUN_MODEL_FAMILY", `${label} has unknown model_family ${run.model_family || "(missing)"}`);
+  if (!Number.isInteger(run.repeat) || run.repeat < 1 || run.repeat > maxRepeat) {
+    fail("BENCH_BATCH_BLOCKED_RUN_REPEAT", `${label} repeat ${run.repeat || "(missing)"} outside 1..${maxRepeat}`);
+  }
+
+  const expectedRunId = `${manifest.batch_id}__${run.case_id}__${run.arm_id}__${run.model_family}__r${run.repeat}`;
+  if (run.run_id !== expectedRunId) {
+    fail("BENCH_BATCH_BLOCKED_RUN_ID_FORMAT", `${label} should be ${expectedRunId}`);
+  }
+  if (!validBlockedRunStatuses.has(run.status)) {
+    fail("BENCH_BATCH_BLOCKED_RUN_STATUS", `${label} status ${run.status || "(missing)"} is invalid`);
+  }
+  if (run.aggregate_eligible !== false) {
+    fail("BENCH_BATCH_BLOCKED_RUN_AGGREGATE", `${label} blocked run must set aggregate_eligible=false`);
+  }
+  if (!run.conversation_url?.startsWith("https://chatgpt.com/c/")) {
+    fail("BENCH_BATCH_BLOCKED_RUN_SOURCE", `${label} must record the ChatGPT conversation URL`);
+  }
+  if (!run.blocker) fail("BENCH_BATCH_BLOCKED_RUN_SOURCE", `${label} missing blocker explanation`);
+  if (run.source_surface !== "chrome_extension_plugin") {
+    fail("BENCH_BATCH_BLOCKED_RUN_SOURCE", `${label} source_surface must be chrome_extension_plugin`);
+  }
+  validateBlockedRunLinkedReports(run);
+  pass("BENCH_BATCH_BLOCKED_RUN", `${label} is explicitly blocked outside completion, review, and aggregate eligibility`);
+}
+
+function validateBlockedRunLinkedReports(run) {
+  const expectedRawOutput = run.expected_raw_output;
+  const expectedReviewFile = run.expected_review_file;
+  if (!expectedRawOutput) fail("BENCH_BATCH_BLOCKED_RUN_EXPECTED_PATH", `${run.run_id} missing expected_raw_output`);
+  if (!expectedReviewFile) fail("BENCH_BATCH_BLOCKED_RUN_EXPECTED_PATH", `${run.run_id} missing expected_review_file`);
+  for (const relPath of [expectedRawOutput, expectedReviewFile].filter(Boolean)) {
+    if (fs.existsSync(path.join(repoRoot, relPath))) {
+      fail("BENCH_BATCH_BLOCKED_RUN_EXPECTED_PATH", `${run.run_id} blocked expected file already exists at ${relPath}`);
+    }
+  }
+
+  const extensionReport = readJsonAt(run.extension_report);
+  const manualRecovery = readJsonAt(run.manual_recovery_report);
+  if (!extensionReport || !manualRecovery) return;
+
+  const extensionItem = (extensionReport.items || []).find((item) => item.item_id === run.run_id);
+  if (!extensionItem) {
+    fail("BENCH_BATCH_BLOCKED_RUN_EXTENSION_REPORT", `${run.run_id} missing from ${run.extension_report}`);
+  } else {
+    if (extensionItem.status !== run.status) {
+      fail("BENCH_BATCH_BLOCKED_RUN_EXTENSION_REPORT", `${run.run_id} extension report status ${extensionItem.status || "(missing)"} does not match ${run.status}`);
+    }
+    if (extensionItem.latest_observation?.conversation_url !== run.conversation_url) {
+      fail("BENCH_BATCH_BLOCKED_RUN_EXTENSION_REPORT", `${run.run_id} extension report conversation_url does not match blocked run`);
+    }
+    if (extensionItem.extension_control?.desktop_automation_used !== false) {
+      fail("BENCH_BATCH_BLOCKED_RUN_EXTENSION_REPORT", `${run.run_id} extension report must record desktop_automation_used=false`);
+    }
+  }
+
+  const recoveryItem = (manualRecovery.items || []).find((item) => item.item_id === run.run_id);
+  if (!recoveryItem) {
+    fail("BENCH_BATCH_BLOCKED_RUN_MANUAL_RECOVERY", `${run.run_id} missing from ${run.manual_recovery_report}`);
+  } else {
+    if (recoveryItem.blocked_status !== run.status) {
+      fail("BENCH_BATCH_BLOCKED_RUN_MANUAL_RECOVERY", `${run.run_id} manual recovery blocked_status ${recoveryItem.blocked_status || "(missing)"} does not match ${run.status}`);
+    }
+    if (recoveryItem.expected_raw_output_path !== expectedRawOutput) {
+      fail("BENCH_BATCH_BLOCKED_RUN_MANUAL_RECOVERY", `${run.run_id} manual recovery expected_raw_output_path does not match blocked run`);
+    }
+    if (recoveryItem.expected_review_path !== expectedReviewFile) {
+      fail("BENCH_BATCH_BLOCKED_RUN_MANUAL_RECOVERY", `${run.run_id} manual recovery expected_review_path does not match blocked run`);
+    }
+  }
+}
+
+function readJsonAt(relPath) {
+  if (!relPath) {
+    fail("BENCH_BATCH_BLOCKED_RUN_SOURCE", "blocked run missing linked report path");
+    return null;
+  }
+  const absPath = path.join(repoRoot, relPath);
+  if (!fs.existsSync(absPath)) {
+    fail("BENCH_BATCH_BLOCKED_RUN_SOURCE", `linked report not found at ${relPath}`);
+    return null;
+  }
+  try {
+    return JSON.parse(fs.readFileSync(absPath, "utf8"));
+  } catch (error) {
+    fail("BENCH_BATCH_BLOCKED_RUN_SOURCE", `linked report ${relPath} is not valid JSON: ${error.message}`);
+    return null;
   }
 }
 

@@ -261,7 +261,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_MATRIX_COMPLETION",
-      "message": "2026-05-17-batch-01 completion covers 90 predeclared slot(s) without double-counting reviewed/excluded overlaps"
+      "message": "2026-05-17-batch-01 completion covers 90 predeclared slot(s) without double-counting reviewed/excluded/blocked states"
     },
     {
       "severity": "info",
@@ -275,8 +275,13 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_MATRIX_AGGREGATE_ELIGIBLE",
+      "message": "2026-05-17-batch-01 records 52 reviewed/remedial aggregate-eligible run(s)"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_MATRIX_STATE_SEMANTICS",
-      "message": "2026-05-17-batch-01 documents overlapping completion/review/exclusion semantics"
+      "message": "2026-05-17-batch-01 documents overlapping completion/review/exclusion semantics and blocked non-completion state"
     },
     {
       "severity": "info",
@@ -3137,6 +3142,16 @@
       "severity": "info",
       "code": "BENCH_BATCH_RUN_EXCLUDED",
       "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1 excluded from aggregate scoring with independent adjudication"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_BLOCKED_RUNS",
+      "message": "2026-05-17-batch-01 lists 1 blocked run record(s)"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_BLOCKED_RUN",
+      "message": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1 is explicitly blocked outside completion, review, and aggregate eligibility"
     },
     {
       "severity": "info",

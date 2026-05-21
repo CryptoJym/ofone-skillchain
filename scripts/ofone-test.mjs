@@ -251,6 +251,32 @@ function runBenchmarkNegativeChecks() {
       expect: "BENCH_BATCH_REMEDIAL_RUN_RERUN_OF"
     },
     {
+      name: "blocked run marked aggregate eligible",
+      mutate: (root) => {
+        const matrix = readBenchmarkMatrix(root);
+        matrix.blocked_runs[0].aggregate_eligible = true;
+        writeBenchmarkMatrix(root, matrix);
+      },
+      expect: "BENCH_BATCH_BLOCKED_RUN_AGGREGATE"
+    },
+    {
+      name: "blocked run overlaps terminal run",
+      mutate: (root) => {
+        const matrix = readBenchmarkMatrix(root);
+        const terminal = matrix.completed_runs[0];
+        matrix.blocked_runs[0] = {
+          ...matrix.blocked_runs[0],
+          run_id: terminal.run_id,
+          case_id: terminal.case_id,
+          arm_id: terminal.arm_id,
+          model_family: terminal.model_family,
+          repeat: terminal.repeat
+        };
+        writeBenchmarkMatrix(root, matrix);
+      },
+      expect: "BENCH_BATCH_BLOCKED_RUN_TERMINAL_OVERLAP"
+    },
+    {
       name: "forged artifact binding",
       mutate: (root) => {
         const matrix = readBenchmarkMatrix(root);
@@ -669,6 +695,7 @@ function runToolingContractCheck() {
     ["benchmark trace validator", benchmarkScript.includes("BENCH_BATCH_RUN_BENCHMARK_TRACE")],
     ["benchmark rerun-policy validator", benchmarkScript.includes("BENCH_BATCH_RERUN_POLICY")],
     ["benchmark remedial run validator", benchmarkScript.includes("BENCH_BATCH_REMEDIAL_RUN")],
+    ["benchmark blocked run validator", benchmarkScript.includes("BENCH_BATCH_BLOCKED_RUN")],
     ["benchmark attestation validator", benchmarkScript.includes("BENCH_BATCH_CHECKER_ATTESTATION")],
     ["benchmark released-evidence readiness", benchmarkScript.includes("releasedAggregateEvidence")],
     ["benchmark pre-score validator", benchmarkScript.includes("BENCH_BATCH_RUN_PRE_SCORE")],
