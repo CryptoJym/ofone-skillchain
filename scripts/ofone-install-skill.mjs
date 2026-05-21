@@ -66,6 +66,7 @@ function assertSkillSource(text) {
     "name: ofone",
     "use the Chrome extension/plugin as the launch and observation surface",
     "stop normal workflow and troubleshoot extension availability first",
+    "before doing any benchmark, harvest, launch, or repo-promotion work",
     "research/deep-research-extension-payloads.json",
     "research/deep-research-extension-report.json",
     "research/deep-research-manual-recovery.json",
@@ -75,6 +76,15 @@ function assertSkillSource(text) {
   const missing = required.filter((needle) => !text.includes(needle));
   if (missing.length > 0) {
     fail(`source SKILL.md is missing required OfOne install invariant(s): ${missing.join(", ")}`);
+  }
+
+  const forbidden = [
+    "one-off manual assist",
+    "unless the user explicitly authorizes a one-off"
+  ];
+  const presentForbidden = forbidden.filter((needle) => text.includes(needle));
+  if (presentForbidden.length > 0) {
+    fail(`source SKILL.md contains forbidden Chrome-fallback language: ${presentForbidden.join(", ")}`);
   }
 }
 
