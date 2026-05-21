@@ -189,6 +189,11 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
   check(
     report.payload_path === payloadRel &&
       report.payload_sha256 === `sha256:${sha256(payloadText)}` &&
+      report.extension_availability?.callable_namespace === "mcp__node_repl__js" &&
+      report.extension_availability?.available_backends?.includes("chrome") &&
+      report.extension_availability?.browser_global_present === true &&
+      report.extension_availability?.tabs_list_ok === true &&
+      report.extension_availability?.diagnosis === "available" &&
       report.items?.length === payloads.items?.length,
     "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_BINDING",
     "extension report binds to the current payload file and item count"
@@ -222,6 +227,9 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
             ? reportItem.latest_observation?.completed_report_visible === true &&
               reportItem.latest_observation?.response_text_available === false &&
               reportItem.latest_observation?.next_action === "operator_manual_recovery_required" &&
+              Array.isArray(reportItem.harvest_probe_attempts) &&
+              reportItem.harvest_probe_attempts.length >= 5 &&
+              reportItem.harvest_probe_attempts.every((probe) => probe.surface === "chrome_extension_plugin" && probe.allowed_by_contract === true) &&
               !reportItem.harvest_proof
           : !reportItem.harvest_proof),
       "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_ITEM",
@@ -230,9 +238,11 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
   }
 
   check(
-    reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_REPORT_BINDING") &&
+      reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_REPORT_BINDING") &&
+      reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_AVAILABILITY_DIAGNOSTIC") &&
       reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_LAUNCH_PROOF") &&
       reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_COMPLETED_VISIBLE_ITEM") &&
+      reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_HARVEST_PROBE_ATTEMPTS") &&
       reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_HARVEST_PROOF") &&
       reportScript.includes("desktop_automation_used === false"),
     "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_CHECKER",
@@ -298,6 +308,7 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
       reportScript.includes("extension report matches schema") &&
       reportScript.includes("raw_output_sha256") &&
       reportScript.includes("completed report is visible but remains unharvested") &&
+      reportScript.includes("completed-visible blocker is backed by allowed Chrome-extension harvest probes") &&
       reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_LATEST_OBSERVATION") &&
       reportScript.includes("not_eligible_until_harvest_review_publication"),
     "OFONE_DEEP_RESEARCH_REPORT_CHECKER_DOC",

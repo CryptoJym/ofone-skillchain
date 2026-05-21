@@ -11,6 +11,7 @@
     "payload_path",
     "payload_sha256",
     "source_surface",
+    "extension_availability",
     "items"
   ],
   "properties": {
@@ -41,6 +42,9 @@
         "codex_tool_discovery"
       ]
     },
+    "extension_availability": {
+      "$ref": "#/$defs/extensionAvailability"
+    },
     "items": {
       "type": "array",
       "minItems": 1,
@@ -58,6 +62,110 @@
     "sha256": {
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "extensionAvailability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed_at",
+        "tool_discovery_query",
+        "callable_namespace",
+        "request_meta_keys",
+        "available_backends",
+        "browser_global_present",
+        "tabs_list_ok",
+        "tabs_observed",
+        "blocked_namespace",
+        "diagnosis"
+      ],
+      "properties": {
+        "observed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tool_discovery_query": {
+          "type": "string",
+          "minLength": 1
+        },
+        "callable_namespace": {
+          "type": ["string", "null"]
+        },
+        "request_meta_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "available_backends": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "browser_global_present": {
+          "type": "boolean"
+        },
+        "tabs_list_ok": {
+          "type": "boolean"
+        },
+        "tabs_observed": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "blocked_namespace": {
+          "type": ["string", "null"]
+        },
+        "diagnosis": {
+          "enum": [
+            "available",
+            "unavailable"
+          ]
+        }
+      }
+    },
+    "harvestProbeAttempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed_at",
+        "surface",
+        "method",
+        "allowed_by_contract",
+        "result",
+        "notes"
+      ],
+      "properties": {
+        "observed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface": {
+          "const": "chrome_extension_plugin"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "allowed_by_contract": {
+          "const": true
+        },
+        "result": {
+          "enum": [
+            "report_text_unavailable",
+            "unsupported_by_backend",
+            "no_export_control_visible",
+            "backend_request_blocked",
+            "sandbox_blank",
+            "raw_markdown_harvested"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     },
     "reportItem": {
       "type": "object",
@@ -260,6 +368,12 @@
                 "operator_manual_recovery_required"
               ]
             }
+          }
+        },
+        "harvest_probe_attempts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/harvestProbeAttempt"
           }
         },
         "aggregate_policy_after_report": {

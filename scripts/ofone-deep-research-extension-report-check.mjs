@@ -34,6 +34,7 @@ if (schema && report) {
 
 if (report && payloads && queue) {
   validateReportBinding(report, payloads, queue);
+  validateExtensionAvailability(report);
   validateReportItems(report, payloads, queue);
 }
 
@@ -53,6 +54,25 @@ function validateReportBinding(reportData, payloadData) {
       reportData.items.length === payloadData.items.length,
     "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_BINDING",
     "extension report binds to the current payload file and item count"
+  );
+}
+
+function validateExtensionAvailability(reportData) {
+  const diagnostic = reportData.extension_availability || {};
+  check(
+    diagnostic.callable_namespace === "mcp__node_repl__js" &&
+      Array.isArray(diagnostic.request_meta_keys) &&
+      diagnostic.request_meta_keys.includes("x-codex-browser-use-available-backends") &&
+      Array.isArray(diagnostic.available_backends) &&
+      diagnostic.available_backends.includes("chrome") &&
+      diagnostic.browser_global_present === true &&
+      diagnostic.tabs_list_ok === true &&
+      Number.isInteger(diagnostic.tabs_observed) &&
+      diagnostic.tabs_observed > 0 &&
+      diagnostic.blocked_namespace === null &&
+      diagnostic.diagnosis === "available",
+    "OFONE_DEEP_RESEARCH_EXTENSION_AVAILABILITY_DIAGNOSTIC",
+    "extension report records callable Chrome-extension availability before any launch or harvest state advances"
   );
 }
 
@@ -121,6 +141,9 @@ function validateObservationBlockedItem(item) {
 
 function validateCompletedReportVisibleItem(item, payload) {
   const observation = item.latest_observation || {};
+  const probes = item.harvest_probe_attempts || [];
+  const probeMethods = new Set(probes.map((probe) => probe.method));
+  const probeResults = new Set(probes.map((probe) => probe.result));
   check(
     item.launch_proof &&
       observation.browser_surface === "chrome_extension_plugin" &&
@@ -136,6 +159,20 @@ function validateCompletedReportVisibleItem(item, payload) {
       item.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication",
     "OFONE_DEEP_RESEARCH_EXTENSION_COMPLETED_VISIBLE_ITEM",
     `${item.item_id} completed report is visible but remains unharvested and ineligible until raw Markdown is available`
+  );
+  check(
+    probes.length >= 5 &&
+      probes.every((probe) => probe.surface === "chrome_extension_plugin" && probe.allowed_by_contract === true) &&
+      probeMethods.has("tab.dom_cua.get_visible_dom on ChatGPT conversation tab") &&
+      probeMethods.has("tab.playwright iframe inspection on internal://deep-research") &&
+      probeMethods.has("response More actions menu inspection") &&
+      probeMethods.has("tab.content.export") &&
+      probeResults.has("report_text_unavailable") &&
+      probeResults.has("unsupported_by_backend") &&
+      probeResults.has("no_export_control_visible") &&
+      item.blocker?.includes("Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation remain disallowed"),
+    "OFONE_DEEP_RESEARCH_EXTENSION_HARVEST_PROBE_ATTEMPTS",
+    `${item.item_id} completed-visible blocker is backed by allowed Chrome-extension harvest probes instead of desktop fallback`
   );
 }
 

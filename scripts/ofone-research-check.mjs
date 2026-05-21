@@ -364,6 +364,11 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
     report.payload_path === deepResearchPayloadRel &&
       payloadText &&
       report.payload_sha256 === `sha256:${sha256(payloadText)}` &&
+      report.extension_availability?.callable_namespace === "mcp__node_repl__js" &&
+      report.extension_availability?.available_backends?.includes("chrome") &&
+      report.extension_availability?.browser_global_present === true &&
+      report.extension_availability?.tabs_list_ok === true &&
+      report.extension_availability?.diagnosis === "available" &&
       expectedItems.every((expected) => {
         const queueItem = (queue.items || []).find((item) => item.item_id === expected.itemId);
         const reportItem = (report.items || []).find((item) => item.item_id === expected.itemId);
@@ -390,6 +395,9 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
             reportItem?.latest_observation?.response_text_available === false &&
             reportItem?.latest_observation?.next_action === "operator_manual_recovery_required" &&
             reportItem?.blocker?.includes("completed report is visible") &&
+            Array.isArray(reportItem?.harvest_probe_attempts) &&
+            reportItem.harvest_probe_attempts.length >= 5 &&
+            reportItem.harvest_probe_attempts.every((probe) => probe.surface === "chrome_extension_plugin" && probe.allowed_by_contract === true) &&
             !reportItem?.harvest_proof;
         }
         return commonProof &&

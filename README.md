@@ -174,7 +174,7 @@ npm run deep-research:report
 npm run deep-research:check
 ```
 
-The report checker keeps a blocked item blocked until a callable Chrome extension/plugin surface records isolated-tab launch proof, keeps an `observation_blocked` or `completed_report_visible` item out of aggregate eligibility until raw Markdown can be harvested, and requires raw-output hash proof before `harvested` can advance into local review/publication. Future `launched`, `active_researching`, `observation_blocked`, `completed_report_visible`, `harvested`, or `rejected` states must be backed by the schema fields in `schemas/ofone.deep-research-extension-report.schema.json`; prose notes alone do not make a slot complete or aggregate-eligible.
+The report checker keeps a blocked item blocked until a callable Chrome extension/plugin surface records isolated-tab launch proof, keeps an `observation_blocked` or `completed_report_visible` item out of aggregate eligibility until raw Markdown can be harvested, and requires raw-output hash proof before `harvested` can advance into local review/publication. It also records the current Chrome-extension availability diagnostic and requires completed-visible blockers to enumerate allowed Chrome-extension harvest probes, so repeated desktop-fallback attempts cannot masquerade as progress. Future `launched`, `active_researching`, `observation_blocked`, `completed_report_visible`, `harvested`, or `rejected` states must be backed by the schema fields in `schemas/ofone.deep-research-extension-report.schema.json`; prose notes alone do not make a slot complete or aggregate-eligible.
 
 Current convergence review context:
 
