@@ -47,4 +47,4 @@ If callable Chrome extension/plugin control is unavailable, the queue and report
 
 ## Current State
 
-The formal proof-search frontier repeat-1 direct-answer item is currently `prepared_blocked_chrome_extension_unavailable`; `research/deep-research-extension-report.json` records the matching `observed_blocked` intake state. No ChatGPT conversation has been opened for that item, no prompt has been submitted, no Deep Research plan has been generated, and no formal proof-search frontier slot is launched, harvested, reviewed, complete, or aggregate-eligible.
+The formal proof-search frontier repeat-1 direct-answer item is currently `active_researching`; `research/deep-research-extension-report.json` records Chrome extension launch proof for https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b. The run is not harvested, reviewed, complete, or aggregate-eligible until a completed report is visible, raw output is saved, local review passes, and publication is confirmed.

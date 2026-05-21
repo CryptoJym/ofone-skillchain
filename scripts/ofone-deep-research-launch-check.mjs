@@ -21,6 +21,8 @@ const trackerRel = "research/TRACKER.md";
 const loopRel = "research/recursive-improvement-loop.md";
 const statusRel = "research/status/2026-05-17-07-ofone-post-run06-hardening-review.md";
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
+const chromeActiveStatus = "active_researching";
+const activeFormalProofFrontierConversationUrl = "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b";
 
 const diagnostics = [];
 
@@ -103,23 +105,25 @@ function validateQueueItems(queue) {
   for (const item of queue.items || []) {
     const packet = readText(item.packet_path, `${item.item_id} packet`);
     check(
-      item.status === chromeBlockedStatus &&
-        item.blocked_reason.includes("Chrome extension/plugin") &&
+      item.status === chromeActiveStatus &&
+        item.blocked_reason.includes("Resolved: Chrome extension plugin control is available") &&
         item.disallowed_surfaces.includes("Computer Use") &&
         item.disallowed_surfaces.includes("generic desktop automation") &&
         item.aggregate_policy === "not_eligible_until_harvest_review_publication" &&
-        !item.conversation_url,
-      "OFONE_DEEP_RESEARCH_BLOCKED_ITEM",
-      `${item.item_id} remains blocked, unlaunched, and aggregate-ineligible`
+        item.conversation_url === activeFormalProofFrontierConversationUrl &&
+        item.launch_proof_path === reportRel,
+      "OFONE_DEEP_RESEARCH_ACTIVE_ITEM",
+      `${item.item_id} is active through Chrome extension launch proof and remains aggregate-ineligible`
     );
     if (!packet) continue;
     check(
-      packet.includes(`Status: \`${chromeBlockedStatus}\``) &&
+      packet.includes(`Status: \`${chromeActiveStatus}\``) &&
         packet.includes(item.prompt_anchor) &&
         packet.includes(item.item_id) &&
-        packet.includes("generic desktop automation are not fallback launch paths"),
+        packet.includes("generic desktop automation are not fallback launch paths") &&
+        packet.includes(activeFormalProofFrontierConversationUrl),
       "OFONE_DEEP_RESEARCH_PACKET_BINDING",
-      `${item.item_id} queue item binds to the prepared blocked packet and prompt anchor`
+      `${item.item_id} queue item binds to the active Chrome-extension packet and prompt anchor`
     );
   }
 }
@@ -145,9 +149,9 @@ function validateExtensionPayloads(queue, payloads) {
     check(
       Boolean(payload) &&
         payload.status === item.status &&
-        payload.launch_allowed === false &&
-        payload.extension_action === "wait_for_callable_chrome_extension_control" &&
-        payload.launch_blocked_reason === item.blocked_reason &&
+        payload.launch_allowed === true &&
+        payload.extension_action === "open_isolated_deep_research_tab" &&
+        payload.launch_blocked_reason === null &&
         payload.packet_sha256 === `sha256:${sha256(packet)}` &&
         payload.prompt_text_sha256 === `sha256:${sha256(promptText)}` &&
         promptText.includes(`Run ID: \`${item.item_id}\``) &&
@@ -156,7 +160,7 @@ function validateExtensionPayloads(queue, payloads) {
         payload.expected_review_path === item.expected_review_path &&
         payload.isolation?.no_cross_arm_visibility_until_raw_harvest === true,
       "OFONE_DEEP_RESEARCH_PAYLOAD_ITEM",
-      `${item.item_id} has an extension-ready prompt payload while remaining blocked from launch`
+      `${item.item_id} has an extension-launched prompt payload bound to the current packet`
     );
   }
 }
@@ -178,14 +182,18 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
     check(
       Boolean(reportItem) &&
         reportItem.tab_lane === payload?.tab_lane &&
-        reportItem.status === "observed_blocked" &&
-        reportItem.extension_control?.surface === "unavailable" &&
+        reportItem.status === chromeActiveStatus &&
+        reportItem.extension_control?.surface === "chrome_extension_plugin" &&
+        reportItem.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
+        reportItem.extension_control?.isolated_tab_verified === true &&
         reportItem.extension_control?.desktop_automation_used === false &&
-        reportItem.aggregate_policy_after_report === "not_eligible_blocked" &&
-        !reportItem.launch_proof &&
+        reportItem.launch_proof?.conversation_url === activeFormalProofFrontierConversationUrl &&
+        reportItem.launch_proof?.deep_research_enabled === true &&
+        reportItem.launch_proof?.stop_control_visible === true &&
+        reportItem.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication" &&
         !reportItem.harvest_proof,
       "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_ITEM",
-      `${item.item_id} extension report preserves blocked state without launch or harvest proof`
+      `${item.item_id} extension report preserves active launch proof without harvest proof`
     );
   }
 
@@ -253,9 +261,9 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
   check(
     reportScript.includes("extension report matches schema") &&
       reportScript.includes("raw_output_sha256") &&
-      reportScript.includes("not_eligible_blocked"),
+      reportScript.includes("not_eligible_until_harvest_review_publication"),
     "OFONE_DEEP_RESEARCH_REPORT_CHECKER_DOC",
-    "report checker verifies blocked state and future harvested raw-output hash proof"
+    "report checker verifies active launch state and future harvested raw-output hash proof"
   );
 }
 

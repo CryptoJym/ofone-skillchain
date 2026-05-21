@@ -5,7 +5,7 @@ Batch: `2026-05-17-batch-01`
 Case: `case-formal-proof-search-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `prepared_blocked_chrome_extension_unavailable`
+Status: `active_researching`
 
 This packet prepares the next predeclared frontier reasoning slice after the strategic and regulated wastewater repeat-1 frontier slices were harvested, locally reviewed, repaired where required, pushed, and Pages-confirmed.
 
@@ -27,7 +27,8 @@ If Chrome extension/plugin launch control or any launch proof is unavailable, le
 ## Launch Blocker
 
 - `2026-05-21T06:45:50-06:00`: Tool discovery for Chrome-extension/ChatGPT tab control did not expose a callable Chrome extension/plugin namespace in this thread. The only relevant browser-control surface exposed was Computer Use, which is barred by the current OfOne Deep Research launch policy unless the user explicitly authorizes a one-off manual assist. No ChatGPT conversation was opened, no prompt was submitted, no Deep Research plan was generated, and no formal proof-search frontier slot is complete.
-- `2026-05-21T07:01:44-06:00`: Added a Chrome-extension launch queue contract at `research/chrome-extension-deep-research-contract.md` and machine-readable queue item at `research/deep-research-launch-queue.json`. The queue item is still `prepared_blocked_chrome_extension_unavailable`; it is an extension handoff artifact, not launch proof.
+- `2026-05-21T07:01:44-06:00`: Added a Chrome-extension launch queue contract at `research/chrome-extension-deep-research-contract.md` and machine-readable queue item at `research/deep-research-launch-queue.json`. The queue item was an extension handoff artifact, not launch proof.
+- `2026-05-21T07:41:10-06:00`: Resolved Chrome extension/plugin launch control through the Codex Chrome browser-client extension backend via `mcp__node_repl__js`. A clean ChatGPT Deep Research conversation was launched at https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b. Launch proof: normal clean ChatGPT tab, Deep Research enabled, composer model `Pro`, prior model menu showing `Latest • 5.5` and `Pro • Extended`, generated plan title `Formal proof map`, visible Start countdown elapsed, active state `Summarizing sources and establishing testing methods...`, and stop-control evidence visible. No Browser plugin, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, or desktop-control fallback was used. This is active launch proof only; no completed report is visible, and the formal proof-search frontier slot is not harvested, reviewed, complete, or aggregate-eligible.
 
 ## Integrity Constraints
 

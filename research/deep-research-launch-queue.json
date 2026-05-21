@@ -25,8 +25,8 @@
       "repeat": 1,
       "packet_path": "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md",
       "prompt_anchor": "## Prompt 1: Direct Answer",
-      "status": "prepared_blocked_chrome_extension_unavailable",
-      "blocked_reason": "No callable Chrome extension/plugin namespace is exposed in the current Codex tool surface.",
+      "status": "active_researching",
+      "blocked_reason": "Resolved: Chrome extension plugin control is available through the Codex Chrome browser-client runtime; direct-answer formal proof-search frontier run launched in an isolated ChatGPT conversation.",
       "required_launch_proof": [
         "callable Chrome extension/plugin control",
         "clean isolated ChatGPT tab or conversation",
@@ -47,7 +47,9 @@
       ],
       "expected_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
       "expected_review_path": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
-      "aggregate_policy": "not_eligible_until_harvest_review_publication"
+      "aggregate_policy": "not_eligible_until_harvest_review_publication",
+      "conversation_url": "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b",
+      "launch_proof_path": "research/deep-research-extension-report.json"
     }
   ]
 }

@@ -2,23 +2,33 @@
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-report.schema.json",
   "protocol_version": "ofone-deep-research-extension-report-0.1",
   "report_id": "2026-05-21-formal-frontier-r1-extension-observation",
-  "generated_at": "2026-05-21T07:18:52-06:00",
+  "generated_at": "2026-05-21T13:41:10.557Z",
   "payload_path": "research/deep-research-extension-payloads.json",
-  "payload_sha256": "sha256:c0758d8cfa686d86d9b0c079f96ce5563d9edda672755e6b99ae6da4b2fe1423",
-  "source_surface": "codex_tool_discovery",
+  "payload_sha256": "sha256:e2cca2e3f3ff9f1edaab5b98063cdfb92b554ae087bc6d5dc6420f3e441c72d5",
+  "source_surface": "chrome_extension_plugin",
   "items": [
     {
       "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
       "tab_lane": "ofone-01-2026-05-17-batch-01-case-formal-proof-search-001-direct-answer-frontier-reasoning-r1",
-      "status": "observed_blocked",
+      "status": "active_researching",
       "extension_control": {
-        "surface": "unavailable",
-        "callable_namespace": null,
-        "isolated_tab_verified": false,
+        "surface": "chrome_extension_plugin",
+        "callable_namespace": "mcp__node_repl__js + openai-bundled/chrome browser-client extension backend",
+        "isolated_tab_verified": true,
         "desktop_automation_used": false
       },
-      "blocker": "Current callable tool discovery does not expose a Chrome extension/plugin namespace for isolated ChatGPT tab control. Computer Use, Browser, coordinate clicking, AppleScript/JXA, and generic desktop automation remain disallowed launch/harvest surfaces.",
-      "aggregate_policy_after_report": "not_eligible_blocked"
+      "aggregate_policy_after_report": "not_eligible_until_harvest_review_publication",
+      "launch_proof": {
+        "conversation_url": "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b",
+        "model_label": "Pro",
+        "reasoning_label": "Pro / Deep research",
+        "deep_research_enabled": true,
+        "plan_title": "Formal proof map",
+        "start_or_countdown_action": "Visible Start countdown elapsed; no Computer Use, AppleScript/JXA, Browser plugin, or coordinate-click fallback was used.",
+        "active_state": "Summarizing sources and establishing testing methods...",
+        "stop_control_visible": true,
+        "observed_at": "2026-05-21T13:41:10.557Z"
+      }
     }
   ]
 }

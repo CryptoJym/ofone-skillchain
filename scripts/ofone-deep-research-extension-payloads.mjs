@@ -67,7 +67,7 @@ function buildPayload(sourceQueue, sourceQueueText) {
 function buildPayloadItem(item, index) {
   const packetText = readText(item.packet_path);
   const promptText = extractPromptBlock(packetText, item.prompt_anchor);
-  const launchAllowed = item.status === "prepared_not_launched";
+  const launchAllowed = ["prepared_not_launched", "launched", "active_researching"].includes(item.status);
   return {
     item_id: item.item_id,
     tab_lane: `ofone-${String(index + 1).padStart(2, "0")}-${slugify(item.item_id)}`,
