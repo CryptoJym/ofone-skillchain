@@ -5,9 +5,9 @@ Batch: `2026-05-17-batch-01`
 Case: `case-strategic-gated-diligence-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `full_ofone_active_researching`
+Status: `full_ofone_reviewed_excluded`
 
-This packet prepares the next predeclared uncompleted Batch 01 slice for a frontier reasoning model. It is not a completed benchmark run, not launch proof, and not aggregate evidence.
+This packet originally prepared the strategic repeat-1 frontier reasoning slice. It now records launch, harvest, and review state for the direct-answer, light-structured, and full-OfOne frontier arms. The full-OfOne arm is completed/reviewed but excluded before aggregate scoring; it is not aggregate evidence.
 
 Launch updates:
 
@@ -16,6 +16,7 @@ Launch updates:
 - 2026-05-20T21:43:46-06:00 harvest: the light-structured conversation showed completed report title `Benchmark Raw Output`, visible run metadata for `2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1`, and `Status: completed`. Exported Markdown `/Users/jamesbrady/Downloads/deep-research-report (33).md` was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`; local review was added at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`.
 - 2026-05-20T21:55:55-06:00 publication: commit `7d3f545` pushed the light-structured frontier harvest, local review, execution matrix, checker attestation, public links, and status updates to `main`; `npm run pages:check` passed after GitHub Pages caught up. The full-OfOne frontier arm may now be launched only from a clean, isolated ChatGPT Deep Research conversation with visible model/mode, Deep Research, Start, active research, and stop-control proof.
 - 2026-05-20T22:05:29-06:00 launch: the full-OfOne arm was launched in a third clean ChatGPT Deep Research conversation at https://chatgpt.com/c/6a0e8476-9f6c-83e8-b201-ff3f97fae18b. Observed proof: clean new ChatGPT conversation, prompt run metadata visible for `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1`, `Latest • 5.5`, selected `Pro • Extended`, Deep Research enabled, generated plan title `Reversible diligence decision plan`, `Start` clicked, visible `Researching...`, and `Stop research` present. This is launch proof only; no full-OfOne frontier output is harvested, reviewed, complete, or aggregate-eligible.
+- 2026-05-20T22:29:37-06:00 harvest/review: the full-OfOne conversation completed with visible report metadata `Research completed in 18m`, `5 citations`, and `9 searches`; exported Markdown `/Users/jamesbrady/Downloads/deep-research-report (34).md` was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md` with SHA-256 `227ffdc008b9db9c0facac6de0303d1fd1575f295e8f82da91ce7078014b555a`. Local artifact extraction, validator, rendering, patch report, and review are saved. The slot is completed/reviewed but excluded before aggregate scoring because computed local validation failed semantic graph checks.
 
 Use this packet only when the operator can verify:
 

@@ -30,10 +30,10 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 43,
-    "completed": 47,
-    "reviewed": 47,
-    "excluded": 1,
+    "queued": 42,
+    "completed": 48,
+    "reviewed": 48,
+    "excluded": 2,
     "aggregate_eligible": 47,
     "remedial": 1
   },
@@ -1505,6 +1505,55 @@
         "copied_example_risk": "low",
         "evidence_provenance_adequacy": "public launch, deployment, and risk-governance sources used for general support; missing case-specific evidence remains explicit",
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-strategic-gated-diligence-001"
+      },
+      "status": "completed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:227ffdc008b9db9c0facac6de0303d1fd1575f295e8f82da91ce7078014b555a",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (34).md",
+      "harvested_at": "2026-05-20T22:29:37-06:00",
+      "visible_report_metadata": "Research completed in 18m; 5 citations; 9 searches; report title `Benchmark Raw Output`; run metadata shows Status: `completed`.",
+      "conversation_url": "https://chatgpt.com/c/6a0e8476-9f6c-83e8-b201-ff3f97fae18b",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md",
+      "aggregate_eligible": false,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Computed local validator failed semantic graph checks and contradicted the artifact self-attested validator_result.passed=true.",
+        "reviewer_notes": "Run is case-bound and harvested, but full-OfOne outputs must pass executable local validation before aggregate eligibility."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence plus protocol/validation-model hashes; missing operating facts remain explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, artifact JSON, validator JSON, rendering, patch report, and review file all identify the benchmark run and case-strategic-gated-diligence-001"
+      },
+      "benchmark_trace": {
+        "case_id": "case-strategic-gated-diligence-001",
+        "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+        "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+        "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.validator.json",
+        "validator_sha256": "sha256:0fd886b42a51dad1fd1d2e3a5925cf15356a0a7215f9d846c849f417ed288f53",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.patch.json",
+        "patch_sha256": "sha256:87603090afe09e772cd1af0bc9ea44a5a9652fbecb71e6121a414b0d8deb9a5c",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.rendering.md",
+        "rendering_sha256": "sha256:df814569365d29b8485bc2aef3ee5ef0317bc2979f42f1fb3ab6b7db2bdc4483"
       },
       "status": "completed"
     }
@@ -2979,12 +3028,61 @@
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-strategic-gated-diligence-001"
       },
       "status": "reviewed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:227ffdc008b9db9c0facac6de0303d1fd1575f295e8f82da91ce7078014b555a",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (34).md",
+      "harvested_at": "2026-05-20T22:29:37-06:00",
+      "visible_report_metadata": "Research completed in 18m; 5 citations; 9 searches; report title `Benchmark Raw Output`; run metadata shows Status: `completed`.",
+      "conversation_url": "https://chatgpt.com/c/6a0e8476-9f6c-83e8-b201-ff3f97fae18b",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md",
+      "aggregate_eligible": false,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Computed local validator failed semantic graph checks and contradicted the artifact self-attested validator_result.passed=true.",
+        "reviewer_notes": "Run is case-bound and harvested, but full-OfOne outputs must pass executable local validation before aggregate eligibility."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence plus protocol/validation-model hashes; missing operating facts remain explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, artifact JSON, validator JSON, rendering, patch report, and review file all identify the benchmark run and case-strategic-gated-diligence-001"
+      },
+      "benchmark_trace": {
+        "case_id": "case-strategic-gated-diligence-001",
+        "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+        "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+        "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.validator.json",
+        "validator_sha256": "sha256:0fd886b42a51dad1fd1d2e3a5925cf15356a0a7215f9d846c849f417ed288f53",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.patch.json",
+        "patch_sha256": "sha256:87603090afe09e772cd1af0bc9ea44a5a9652fbecb71e6121a414b0d8deb9a5c",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.rendering.md",
+        "rendering_sha256": "sha256:df814569365d29b8485bc2aef3ee5ef0317bc2979f42f1fb3ab6b7db2bdc4483"
+      },
+      "status": "reviewed"
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, the agentic_coding family is locally complete, and the frontier_reasoning family has two reviewed strategic repeat-1 text slots; the frontier full_ofone arm is still queued.",
-    "allowed_claim": "Batch 01 has 47 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus frontier_reasoning direct-answer and light-structured strategic repeat-1 slots; one original run is excluded and one remedial replacement exists. No performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and the frontier_reasoning family has three reviewed strategic repeat-1 slots with the full_ofone slot excluded by computed validator failure.",
+    "allowed_claim": "Batch 01 has 48 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus frontier_reasoning direct-answer, light-structured, and full_ofone strategic repeat-1 slots; two run slots are excluded before aggregate scoring and one remedial replacement exists. No performance comparison is supported."
   },
   "excluded_runs": [
     {
@@ -3042,6 +3140,71 @@
         "status": "reviewed",
         "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1",
         "reason": "Original full_ofone slot is benchmark-invalid because the artifact was copied from a different case. Preserve it immutably and create a case-native remedial rerun before broader Batch 01 execution resumes.",
+        "aggregate_policy": "replace_for_aggregate_only"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:227ffdc008b9db9c0facac6de0303d1fd1575f295e8f82da91ce7078014b555a",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (34).md",
+      "harvested_at": "2026-05-20T22:29:37-06:00",
+      "visible_report_metadata": "Research completed in 18m; 5 citations; 9 searches; report title `Benchmark Raw Output`; run metadata shows Status: `completed`.",
+      "conversation_url": "https://chatgpt.com/c/6a0e8476-9f6c-83e8-b201-ff3f97fae18b",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md",
+      "aggregate_eligible": false,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Computed local validator failed semantic graph checks and contradicted the artifact self-attested validator_result.passed=true.",
+        "reviewer_notes": "Run is case-bound and harvested, but full-OfOne outputs must pass executable local validation before aggregate eligibility."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case evidence plus protocol/validation-model hashes; missing operating facts remain explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, artifact JSON, validator JSON, rendering, patch report, and review file all identify the benchmark run and case-strategic-gated-diligence-001"
+      },
+      "benchmark_trace": {
+        "case_id": "case-strategic-gated-diligence-001",
+        "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+        "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+        "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.validator.json",
+        "validator_sha256": "sha256:0fd886b42a51dad1fd1d2e3a5925cf15356a0a7215f9d846c849f417ed288f53",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.patch.json",
+        "patch_sha256": "sha256:87603090afe09e772cd1af0bc9ea44a5a9652fbecb71e6121a414b0d8deb9a5c",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.rendering.md",
+        "rendering_sha256": "sha256:df814569365d29b8485bc2aef3ee5ef0317bc2979f42f1fb3ab6b7db2bdc4483"
+      },
+      "status": "excluded",
+      "exclusion_reason": "semantic_validation_failure_computed_validator_failed",
+      "independent_adjudication": {
+        "decision": "reject",
+        "result_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md",
+        "result_sha256": "sha256:9ea77568013b85edccacede3414d03f8e8a4b61588de06d72b654e9bee6ae83d",
+        "reviewer": "local Codex unblinded review plus executable OfOne validator",
+        "harvested_at": "2026-05-20T22:29:37-06:00",
+        "reason": "Computed validator rejected relation legality and option expected-effect references; artifact self-attested pass contradicts computed validation."
+      },
+      "rerun_plan": {
+        "required": true,
+        "status": "queued",
+        "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+        "reason": "Frontier full-OfOne repeat-1 artifact is case-bound but not validator-valid. Preserve it immutably and launch a remedial frontier full-OfOne rerun before treating the slot as aggregate-eligible.",
         "aggregate_policy": "replace_for_aggregate_only"
       }
     }

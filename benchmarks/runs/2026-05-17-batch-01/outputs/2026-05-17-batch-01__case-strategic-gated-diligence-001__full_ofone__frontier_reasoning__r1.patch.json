@@ -1,0 +1,294 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "U1",
+        "U2",
+        "G1"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "C3",
+      "type": "claim",
+      "label": "Release control is currently open because reviewer ownership and required approval are unresolved in the case record."
+    },
+    {
+      "id": "C4",
+      "type": "claim",
+      "label": "A bounded diligence move is admissible now, provided it stays below operational launch and is used to resolve launch-critical unknowns."
+    },
+    {
+      "id": "C5",
+      "type": "claim",
+      "label": "New evidence that resolves U1 and U2 and yields a favorable human gate decision would patch the recommendation toward launch eligibility."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "Approve bounded diligence only and keep operational launch gated until U1/U2 resolve and G1 is explicitly approved."
+    },
+    {
+      "id": "G1",
+      "type": "gate",
+      "label": "Any operational launch, external commitment, or move that creates operational exposure equivalent to launch"
+    },
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "What exact launch-critical facts and approval standard separate diligence sufficiency from launch sufficiency in this case?"
+    },
+    {
+      "id": "IV:U2",
+      "type": "information_value",
+      "label": "Who is the designated human reviewer for release, what authority do they hold, and what approval record is required to close G1?"
+    },
+    {
+      "id": "KT1",
+      "type": "kill_test",
+      "label": "If the proposed diligence move requires irreversible commitments or creates operational exposure equivalent to launch, C4 is false."
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS1",
+      "type": "lens",
+      "label": "strategic-agentic lens"
+    },
+    {
+      "id": "LENS2",
+      "type": "lens",
+      "label": "normative-evaluative lens"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "test"
+    },
+    {
+      "id": "O2",
+      "type": "option_move",
+      "label": "act"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Approve O1 only. Keep O2 gated. Treat G1 as the release control, require explicit reviewer ownership, and patch the recommendation only if new evidence resolves U1/U2 and produces a favorable gate decision."
+    },
+    {
+      "id": "T2",
+      "type": "trigger",
+      "label": "review_required"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "No launch-critical evidence packet is specified. Missing items include the operational boundary, approval standard, and facts that would justify moving from diligence to launch."
+    },
+    {
+      "id": "U2",
+      "type": "unknown",
+      "label": "No designated release reviewer or approval record is specified, so gate ownership is incomplete."
+    },
+    {
+      "id": "X10",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X11",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X2",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X6",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X7",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X8",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X9",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C3",
+      "C4",
+      "C5"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "gate": [
+      "G1"
+    ],
+    "information_value": [
+      "IV:U1",
+      "IV:U2"
+    ],
+    "kill_test": [
+      "KT1"
+    ],
+    "loop": [
+      "L1"
+    ],
+    "lens": [
+      "LENS1",
+      "LENS2"
+    ],
+    "option_move": [
+      "O1",
+      "O2"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "trigger": [
+      "T2"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1",
+      "U2"
+    ],
+    "edge": [
+      "X10",
+      "X11",
+      "X2",
+      "X4",
+      "X5",
+      "X6",
+      "X7",
+      "X8",
+      "X9"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C3",
+    "C4",
+    "C5"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [
+    {
+      "gate_id": "G1",
+      "status": "open",
+      "reviewer": "team decision owner with designated release reviewer approval",
+      "required_decision": "approve bounded diligence scope, block launch, or approve launch after U1/U2 resolve"
+    }
+  ],
+  "suggested_transition": "human_review",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 27 downstream object(s) are in closure, so the current decision rendering must be regenerated. human review blocks release.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "review_log_check",
+    "rendering_regeneration",
+    "human_gate_review"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "collect_approvals",
+      "targets": [
+        "G1"
+      ],
+      "effect": "Route changed decision state to named reviewers."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 27 downstream object(s); transition=human_review; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C3, C4, C5",
+      "collect required approvals: G1:team decision owner with designated release reviewer approval",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log",
+      "route through the required human gate before release"
+    ]
+  }
+}

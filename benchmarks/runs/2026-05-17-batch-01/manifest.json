@@ -114,7 +114,7 @@
   },
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, the agentic_coding family is locally complete, and the frontier_reasoning family has only one reviewed direct-answer slot.",
-    "allowed_claim": "Batch 01 has 46 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus one frontier_reasoning direct-answer slot; one original run is excluded and one remedial replacement exists. No performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and the frontier_reasoning family has three reviewed strategic repeat-1 slots with the full_ofone slot excluded by computed validator failure.",
+    "allowed_claim": "Batch 01 has 48 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus frontier_reasoning direct-answer, light-structured, and full_ofone strategic repeat-1 slots; two run slots are excluded before aggregate scoring and one remedial replacement exists. No performance comparison is supported."
   }
 }
