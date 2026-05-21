@@ -136,6 +136,7 @@
         "extension_action": {
           "enum": [
             "open_isolated_deep_research_tab",
+            "no_extension_action_completed",
             "wait_for_callable_chrome_extension_control"
           ]
         },

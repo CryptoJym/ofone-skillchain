@@ -23,6 +23,8 @@ const statusRel = "research/status/2026-05-17-07-ofone-post-run06-hardening-revi
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 const chromeActiveStatus = "active_researching";
 const chromeObservationBlockedStatus = "observation_blocked";
+const chromeReviewedStatus = "reviewed";
+const chromeHarvestedStatus = "harvested";
 const activeFormalProofFrontierConversationUrl = "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b";
 
 const diagnostics = [];
@@ -105,20 +107,21 @@ function validateLaunchSurfacePolicy(queue) {
 function validateQueueItems(queue) {
   for (const item of queue.items || []) {
     const packet = readText(item.packet_path, `${item.item_id} packet`);
+    const reviewed = item.status === chromeReviewedStatus;
     check(
-      item.status === chromeActiveStatus &&
+      (reviewed || item.status === chromeActiveStatus) &&
         item.blocked_reason.includes("Resolved: Chrome extension plugin control is available") &&
         item.disallowed_surfaces.includes("Computer Use") &&
         item.disallowed_surfaces.includes("generic desktop automation") &&
-        item.aggregate_policy === "not_eligible_until_harvest_review_publication" &&
+        item.aggregate_policy === (reviewed ? "aggregate_eligible_after_review" : "not_eligible_until_harvest_review_publication") &&
         item.conversation_url === activeFormalProofFrontierConversationUrl &&
         item.launch_proof_path === reportRel,
       "OFONE_DEEP_RESEARCH_ACTIVE_ITEM",
-      `${item.item_id} is active through Chrome extension launch proof and remains aggregate-ineligible`
+      `${item.item_id} is tracked through Chrome extension launch proof with the expected current eligibility state`
     );
     if (!packet) continue;
     check(
-      [chromeActiveStatus, chromeObservationBlockedStatus].some((status) =>
+      [chromeActiveStatus, chromeObservationBlockedStatus, chromeHarvestedStatus, chromeReviewedStatus].some((status) =>
         packet.includes(`Status: \`${status}\``)
       ) &&
         packet.includes(item.prompt_anchor) &&
@@ -149,12 +152,18 @@ function validateExtensionPayloads(queue, payloads) {
     const payload = byItemId.get(item.item_id);
     const packet = readText(item.packet_path, `${item.item_id} packet payload source`);
     const promptText = payload?.prompt_text || "";
+    const launchable = ["prepared_not_launched", "launched", chromeActiveStatus].includes(item.status);
+    const completed = ["harvested", chromeReviewedStatus, "rejected"].includes(item.status);
     check(
       Boolean(payload) &&
         payload.status === item.status &&
-        payload.launch_allowed === true &&
-        payload.extension_action === "open_isolated_deep_research_tab" &&
-        payload.launch_blocked_reason === null &&
+        payload.launch_allowed === launchable &&
+        payload.extension_action === (launchable
+          ? "open_isolated_deep_research_tab"
+          : completed
+            ? "no_extension_action_completed"
+            : "wait_for_callable_chrome_extension_control") &&
+        payload.launch_blocked_reason === (launchable ? null : item.blocked_reason) &&
         payload.packet_sha256 === `sha256:${sha256(packet)}` &&
         payload.prompt_text_sha256 === `sha256:${sha256(promptText)}` &&
         promptText.includes(`Run ID: \`${item.item_id}\``) &&
@@ -182,10 +191,11 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
   for (const item of queue.items || []) {
     const payload = (payloads.items || []).find((candidate) => candidate.item_id === item.item_id);
     const reportItem = reportById.get(item.item_id);
+    const harvested = reportItem?.status === chromeHarvestedStatus;
     check(
       Boolean(reportItem) &&
         reportItem.tab_lane === payload?.tab_lane &&
-        [chromeActiveStatus, chromeObservationBlockedStatus].includes(reportItem.status) &&
+        [chromeActiveStatus, chromeObservationBlockedStatus, chromeHarvestedStatus].includes(reportItem.status) &&
         reportItem.extension_control?.surface === "chrome_extension_plugin" &&
         reportItem.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
         reportItem.extension_control?.isolated_tab_verified === true &&
@@ -193,14 +203,17 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
         reportItem.launch_proof?.conversation_url === activeFormalProofFrontierConversationUrl &&
         reportItem.launch_proof?.deep_research_enabled === true &&
         reportItem.launch_proof?.stop_control_visible === true &&
-        reportItem.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication" &&
+        reportItem.aggregate_policy_after_report === (harvested ? "eligible_only_after_local_review_and_publication" : "not_eligible_until_harvest_review_publication") &&
         (reportItem.status !== chromeObservationBlockedStatus ||
           (reportItem.latest_observation?.iframe_present === true &&
             reportItem.latest_observation?.completed_report_visible === false &&
             reportItem.latest_observation?.next_action === "observe_again_without_relaunch")) &&
-        !reportItem.harvest_proof,
+        (harvested
+          ? reportItem.latest_observation?.completed_report_visible === true &&
+            reportItem.harvest_proof?.completed_report_visible === true
+          : !reportItem.harvest_proof),
       "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_ITEM",
-      `${item.item_id} extension report preserves active launch proof without harvest proof`
+      `${item.item_id} extension report preserves Chrome-extension launch proof and the expected harvest boundary`
     );
   }
 

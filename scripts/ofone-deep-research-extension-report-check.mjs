@@ -121,20 +121,28 @@ function validateObservationBlockedItem(item) {
 function validateLatestObservation(item) {
   const observation = item.latest_observation || {};
   const proof = item.launch_proof || {};
+  const harvested = Boolean(item.harvest_proof);
   check(
     observation.conversation_url === proof.conversation_url &&
       observation.browser_surface === "chrome_extension_plugin" &&
       typeof observation.visible_state === "string" &&
       observation.visible_state.length > 0 &&
-      observation.completed_report_visible !== true &&
-      !item.harvest_proof,
+      (harvested
+        ? observation.completed_report_visible === true &&
+          observation.response_text_available === true &&
+          observation.next_action === "review_and_publish_harvested_output"
+        : observation.completed_report_visible !== true &&
+          !item.harvest_proof),
     "OFONE_DEEP_RESEARCH_EXTENSION_LATEST_OBSERVATION",
-    `${item.item_id} latest observation is bound to the launched conversation and remains unharvested`
+    `${item.item_id} latest observation is bound to the launched conversation and matches harvest state`
   );
 }
 
 function validateLaunchItem(item, payload, queueItem) {
   const proof = item.launch_proof || {};
+  const aggregatePolicyOk = item.status === "harvested"
+    ? item.aggregate_policy_after_report === "eligible_only_after_local_review_and_publication"
+    : item.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication";
   check(
     item.extension_control.surface === "chrome_extension_plugin" &&
       typeof item.extension_control.callable_namespace === "string" &&
@@ -149,7 +157,7 @@ function validateLaunchItem(item, payload, queueItem) {
       proof.plan_title &&
       proof.start_or_countdown_action &&
       proof.active_state &&
-      item.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication" &&
+      aggregatePolicyOk &&
       payload?.item_id === item.item_id &&
       queueItem?.item_id === item.item_id,
     "OFONE_DEEP_RESEARCH_EXTENSION_LAUNCH_PROOF",

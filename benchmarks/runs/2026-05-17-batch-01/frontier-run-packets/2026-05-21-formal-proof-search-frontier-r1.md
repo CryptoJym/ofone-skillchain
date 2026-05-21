@@ -5,7 +5,7 @@ Batch: `2026-05-17-batch-01`
 Case: `case-formal-proof-search-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `observation_blocked`
+Status: `reviewed`
 
 This packet prepares the next predeclared frontier reasoning slice after the strategic and regulated wastewater repeat-1 frontier slices were harvested, locally reviewed, repaired where required, pushed, and Pages-confirmed.
 
@@ -30,6 +30,7 @@ If Chrome extension/plugin launch control or any launch proof is unavailable, le
 - `2026-05-21T07:01:44-06:00`: Added a Chrome-extension launch queue contract at `research/chrome-extension-deep-research-contract.md` and machine-readable queue item at `research/deep-research-launch-queue.json`. The queue item was an extension handoff artifact, not launch proof.
 - `2026-05-21T07:41:10-06:00`: Resolved Chrome extension/plugin launch control through the Codex Chrome browser-client extension backend via `mcp__node_repl__js`. A clean ChatGPT Deep Research conversation was launched at https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b. Launch proof: normal clean ChatGPT tab, Deep Research enabled, composer model `Pro`, prior model menu showing `Latest • 5.5` and `Pro • Extended`, generated plan title `Formal proof map`, visible Start countdown elapsed, active state `Summarizing sources and establishing testing methods...`, and stop-control evidence visible. No Browser plugin, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, or desktop-control fallback was used. This is active launch proof only; no completed report is visible, and the formal proof-search frontier slot is not harvested, reviewed, complete, or aggregate-eligible.
 - `2026-05-21T07:58:10-06:00`: Chrome-extension observation reached the same ChatGPT conversation and found the internal Deep Research iframe mounted, but the iframe body returned empty text; the outer ChatGPT DOM exposed no Stop research control, no progress text, no Research completed metadata, and Copy response returned only the original prompt. Status is `observation_blocked`; no harvest, relaunch, review, completion, or aggregate eligibility is allowed until a completed-report surface is visible through Chrome extension control.
+- `2026-05-21T08:50:37-06:00`: Chrome-extension observation found the completed report at the same ChatGPT conversation. Visible metadata: `Research completed in 10m`, `8 citations`, `101 searches`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. Export to Markdown succeeded as `/Users/jamesbrady/Downloads/deep-research-report (43).md`; the raw Markdown was copied to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md` with SHA-256 `16ee781550c471e01b92ae4f577a04de8d54a6be0ec27a6dab34d547dcbef784`, locally reviewed at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md`, and accepted as aggregate-eligible locally. No Browser plugin, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, or desktop-control fallback was used.
 
 ## Integrity Constraints
 

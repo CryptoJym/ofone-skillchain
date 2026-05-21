@@ -1,23 +1,23 @@
 {
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-report.schema.json",
   "protocol_version": "ofone-deep-research-extension-report-0.1",
-  "report_id": "2026-05-21-formal-frontier-r1-extension-observation",
-  "generated_at": "2026-05-21T07:58:10-06:00",
+  "report_id": "2026-05-21-formal-frontier-r1-extension-harvest",
+  "generated_at": "2026-05-21T08:50:37-06:00",
   "payload_path": "research/deep-research-extension-payloads.json",
-  "payload_sha256": "sha256:3d715c00221c8e8d2edca0f92b4b27104df7b5635bc10aa005bce32d503627b5",
+  "payload_sha256": "sha256:d61b3578cbfad69f78158d9af42f56b20fcaf8eec4203755f74142b81e578b70",
   "source_surface": "chrome_extension_plugin",
   "items": [
     {
       "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
       "tab_lane": "ofone-01-2026-05-17-batch-01-case-formal-proof-search-001-direct-answer-frontier-reasoning-r1",
-      "status": "observation_blocked",
+      "status": "harvested",
       "extension_control": {
         "surface": "chrome_extension_plugin",
         "callable_namespace": "mcp__node_repl__js + openai-bundled/chrome browser-client extension backend",
         "isolated_tab_verified": true,
         "desktop_automation_used": false
       },
-      "aggregate_policy_after_report": "not_eligible_until_harvest_review_publication",
+      "aggregate_policy_after_report": "eligible_only_after_local_review_and_publication",
       "launch_proof": {
         "conversation_url": "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b",
         "model_label": "Pro",
@@ -30,17 +30,24 @@
         "observed_at": "2026-05-21T13:41:10.557Z"
       },
       "latest_observation": {
-        "observed_at": "2026-05-21T07:58:10-06:00",
+        "observed_at": "2026-05-21T08:50:37-06:00",
         "conversation_url": "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b",
         "browser_surface": "chrome_extension_plugin",
         "iframe_present": true,
         "iframe_text_readable": false,
-        "completed_report_visible": false,
+        "completed_report_visible": true,
         "stop_control_visible": false,
         "active_state_visible": false,
-        "response_text_available": false,
-        "visible_state": "Chrome extension observation reached the ChatGPT conversation and found the internal Deep Research iframe mounted, but the iframe body returned empty text; the outer ChatGPT DOM exposed no Stop research control, no progress text, no Research completed metadata, and Copy response returned only the original prompt. No harvest was performed.",
-        "next_action": "observe_again_without_relaunch"
+        "response_text_available": true,
+        "visible_state": "Chrome extension observation reached the completed ChatGPT Deep Research report. Visible metadata showed Research completed in 10m, 8 citations, 101 searches, report title Benchmark Raw Output, and run metadata Status: completed. The report body was exported to Markdown from the report menu; no Computer Use, Browser plugin, AppleScript/JXA, or generic desktop automation fallback was used.",
+        "next_action": "review_and_publish_harvested_output"
+      },
+      "harvest_proof": {
+        "completed_report_visible": true,
+        "report_title": "Benchmark Raw Output",
+        "exported_markdown_path": "/Users/jamesbrady/Downloads/deep-research-report (43).md",
+        "raw_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+        "raw_output_sha256": "sha256:16ee781550c471e01b92ae4f577a04de8d54a6be0ec27a6dab34d547dcbef784"
       }
     }
   ]

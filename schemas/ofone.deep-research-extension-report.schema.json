@@ -256,6 +256,7 @@
               "enum": [
                 "observe_again_without_relaunch",
                 "harvest_when_completed_report_visible",
+                "review_and_publish_harvested_output",
                 "operator_manual_recovery_required"
               ]
             }

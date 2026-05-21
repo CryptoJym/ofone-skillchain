@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 39,
-    "completed": 51,
-    "reviewed": 51,
+    "queued": 38,
+    "completed": 52,
+    "reviewed": 52,
     "excluded": 3,
-    "aggregate_eligible": 51,
+    "aggregate_eligible": 52,
     "remedial": 3
   },
   "completed_runs": [
@@ -1673,6 +1673,36 @@
         "aggregate_policy": "replace_for_aggregate_only",
         "latest_successful_rerun": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "direct_answer",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:16ee781550c471e01b92ae4f577a04de8d54a6be0ec27a6dab34d547dcbef784",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (43).md",
+      "harvested_at": "2026-05-21T08:50:37-06:00",
+      "visible_report_metadata": "Research completed in 10m; 8 citations; 101 searches; 21 May; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier direct-answer run is harvested from a completed ChatGPT Deep Research report, answers the formal proof-search case, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "formal-methods/tool documentation supports proof obligations, countermodel search, bounded-search limits, stale proofs, and unsat/vacuity checks; missing object-level theory remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-formal-proof-search-001"
+      },
+      "status": "completed"
     }
   ],
   "reviewed_runs": [
@@ -3311,12 +3341,42 @@
         "aggregate_policy": "replace_for_aggregate_only",
         "latest_successful_rerun": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
+      "case_id": "case-formal-proof-search-001",
+      "arm_id": "direct_answer",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:16ee781550c471e01b92ae4f577a04de8d54a6be0ec27a6dab34d547dcbef784",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (43).md",
+      "harvested_at": "2026-05-21T08:50:37-06:00",
+      "visible_report_metadata": "Research completed in 10m; 8 citations; 101 searches; 21 May; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier direct-answer run is harvested from a completed ChatGPT Deep Research report, answers the formal proof-search case, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "formal-methods/tool documentation supports proof obligations, countermodel search, bounded-search limits, stale proofs, and unsat/vacuity checks; missing object-level theory remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-formal-proof-search-001"
+      },
+      "status": "reviewed"
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and frontier_reasoning now has three reviewed strategic repeat-1 slots plus all three regulated wastewater repeat-1 slots. Both original frontier full_ofone originals completed but remain excluded by computed validator failures, with controlled replacement evidence recorded for both.",
-    "allowed_claim": "Batch 01 has 51 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots, three frontier_reasoning strategic repeat-1 slots, and three regulated wastewater frontier_reasoning repeat-1 slots. Three original run slots are excluded before aggregate scoring, three remedial replacements exist, and no performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and frontier_reasoning now has three reviewed strategic repeat-1 slots, three regulated wastewater repeat-1 slots, and one formal proof-search direct-answer repeat-1 slot. Both original frontier full_ofone originals completed but remain excluded by computed validator failures, with controlled replacement evidence recorded for both.",
+    "allowed_claim": "Batch 01 has 52 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots, three frontier_reasoning strategic repeat-1 slots, three regulated wastewater frontier_reasoning repeat-1 slots, and one formal proof-search frontier_reasoning direct-answer repeat-1 slot. Three original run slots are excluded before aggregate scoring, three remedial replacements exist, and no performance comparison is supported."
   },
   "excluded_runs": [
     {

@@ -32,6 +32,8 @@ const deepResearchReportPath = path.join(repoRoot, deepResearchReportRel);
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 const chromeActiveStatus = "active_researching";
 const chromeObservationBlockedStatus = "observation_blocked";
+const chromeReviewedStatus = "reviewed";
+const chromeHarvestedStatus = "harvested";
 const formalProofFrontierConversationUrl = "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b";
 
 const diagnostics = [];
@@ -266,61 +268,61 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
 
   check(
     run07Row.includes(formalProofFrontierPacketRel) &&
-      run07Row.includes(`status \`${chromeObservationBlockedStatus}\``) &&
-      run07Row.includes("mounted blank Deep Research iframe"),
+      run07Row.includes(`status \`${chromeReviewedStatus}\``) &&
+      run07Row.includes("Research completed in 10m"),
     "OFONE_RESEARCH_FRONTIER_ACTIVE_TRACKER_ROW",
-    "tracker Run 07 row records the current formal frontier Chrome-extension observation-blocked state"
+    "tracker Run 07 row records the current formal frontier Chrome-extension harvested/reviewed state"
   );
   check(
-    tracker.includes(`Status marker: \`${chromeObservationBlockedStatus}\``) &&
+    tracker.includes(`Status marker: \`${chromeReviewedStatus}\``) &&
       tracker.includes(formalProofFrontierConversationUrl) &&
-      tracker.includes("no formal proof-search frontier slot is harvested, reviewed, complete, or aggregate-eligible"),
+      tracker.includes("formal proof-search frontier direct-answer slot is harvested, locally reviewed, and aggregate-eligible"),
     "OFONE_RESEARCH_FRONTIER_ACTIVE_TRACKER_ADDENDUM",
-    "tracker addendum records active launch proof while preserving no harvest, review, completion, or aggregate eligibility"
+    "tracker addendum records harvest proof and local review for the formal frontier direct-answer slot"
   );
   check(
-    packet.includes(`Status: \`${chromeObservationBlockedStatus}\``) &&
+    packet.includes(`Status: \`${chromeReviewedStatus}\``) &&
       packet.includes("callable Chrome extension/plugin control") &&
       packet.includes("generic desktop automation are not fallback launch paths") &&
       packet.includes(formalProofFrontierConversationUrl) &&
-      packet.includes("no harvest, relaunch, review, completion, or aggregate eligibility"),
+      packet.includes("Research completed in 10m") &&
+      packet.includes("locally reviewed"),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_PACKET",
-    "frontier packet records Chrome-extension launch proof and preserves the observation-blocked boundary"
+    "frontier packet records Chrome-extension harvest proof and local review"
   );
   check(
       loopDoc.includes(formalProofFrontierPacketRel) &&
       loopDoc.includes(deepResearchReportRel) &&
       loopDoc.includes(formalProofFrontierConversationUrl) &&
-      loopDoc.includes(chromeObservationBlockedStatus) &&
+      loopDoc.includes(chromeReviewedStatus) &&
       (loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback") ||
         loopDoc.includes("do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback")),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_LOOP",
-    "recursive loop points to the observation-blocked Chrome-extension run and forbids desktop-automation fallback"
+    "recursive loop points to the harvested Chrome-extension run and forbids desktop-automation fallback"
   );
   check(
     queue.launch_surface_policy?.primary_surface === "chrome_extension_plugin" &&
       queue.launch_surface_policy?.desktop_automation_fallback_allowed === false &&
-      queueItem?.status === chromeActiveStatus &&
+      queueItem?.status === chromeReviewedStatus &&
       queueItem?.conversation_url === formalProofFrontierConversationUrl &&
-      queueItem?.aggregate_policy === "not_eligible_until_harvest_review_publication",
+      queueItem?.aggregate_policy === "aggregate_eligible_after_review",
     "OFONE_RESEARCH_FRONTIER_CHROME_QUEUE_ACTIVE",
-    "Deep Research launch queue records Chrome-extension active launch state without aggregate eligibility"
+    "Deep Research launch queue records Chrome-extension reviewed state with local aggregate eligibility"
   );
   check(
     payload.generated_from?.queue_path === deepResearchQueueRel &&
-      payloadItem?.status === chromeActiveStatus &&
-      payloadItem?.launch_allowed === true &&
-      payloadItem?.launch_blocked_reason === null &&
-      payloadItem?.extension_action === "open_isolated_deep_research_tab" &&
+      payloadItem?.status === chromeReviewedStatus &&
+      payloadItem?.launch_allowed === false &&
+      payloadItem?.extension_action === "no_extension_action_completed" &&
       payloadItem?.tab_lane === reportItem?.tab_lane,
     "OFONE_RESEARCH_FRONTIER_CHROME_PAYLOAD_ACTIVE",
-    "Chrome-extension payload records the formal frontier lane as launched through isolated extension control"
+    "Chrome-extension payload records the formal frontier lane as completed and non-launching"
   );
   check(
     report.payload_path === deepResearchPayloadRel &&
       payloadText &&
       report.payload_sha256 === `sha256:${sha256(payloadText)}` &&
-      [chromeActiveStatus, chromeObservationBlockedStatus].includes(reportItem?.status) &&
+      reportItem?.status === chromeHarvestedStatus &&
       reportItem?.extension_control?.surface === "chrome_extension_plugin" &&
       reportItem?.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
       reportItem?.extension_control?.isolated_tab_verified === true &&
@@ -330,12 +332,12 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       reportItem?.launch_proof?.stop_control_visible === true &&
       reportItem?.latest_observation?.conversation_url === formalProofFrontierConversationUrl &&
       reportItem?.latest_observation?.iframe_present === true &&
-      reportItem?.latest_observation?.completed_report_visible === false &&
-      reportItem?.latest_observation?.next_action === "observe_again_without_relaunch" &&
-      !reportItem?.harvest_proof &&
-      reportItem?.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication",
+      reportItem?.latest_observation?.completed_report_visible === true &&
+      reportItem?.latest_observation?.next_action === "review_and_publish_harvested_output" &&
+      reportItem?.harvest_proof?.completed_report_visible === true &&
+      reportItem?.aggregate_policy_after_report === "eligible_only_after_local_review_and_publication",
     "OFONE_RESEARCH_FRONTIER_CHROME_REPORT_ACTIVE",
-    "Chrome-extension report intake records launch proof without harvest or aggregate eligibility"
+    "Chrome-extension report intake records launch, harvest proof, and review/publication boundary"
   );
 }
 

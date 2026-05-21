@@ -4,7 +4,7 @@ Status: `in_progress`
 
 This file is reserved for aggregate findings from `2026-05-17-batch-01`.
 
-Raw output collection, local unblinded review, and the first independent frontier review have started. Fifty-one of 90 predeclared run slots have completed and have local reviews across fifteen local `agentic_coding` slices, three `frontier_reasoning` strategic repeat-1 slots, and three regulated wastewater `frontier_reasoning` repeat-1 slots:
+Raw output collection, local unblinded review, and the first independent frontier review have started. Fifty-two of 90 predeclared run slots have completed and have local reviews across fifteen local `agentic_coding` slices, three `frontier_reasoning` strategic repeat-1 slots, three regulated wastewater `frontier_reasoning` repeat-1 slots, and one formal proof-search `frontier_reasoning` repeat-1 slot:
 
 - `case-strategic-gated-diligence-001` / `direct_answer` / `agentic_coding` / repeat 1
 - `case-strategic-gated-diligence-001` / `light_structured` / `agentic_coding` / repeat 1
@@ -57,6 +57,7 @@ Raw output collection, local unblinded review, and the first independent frontie
 - `case-regulated-wastewater-market-entry-001` / `direct_answer` / `frontier_reasoning` / repeat 1
 - `case-regulated-wastewater-market-entry-001` / `light_structured` / `frontier_reasoning` / repeat 1
 - `case-regulated-wastewater-market-entry-001` / `full_ofone` / `frontier_reasoning` / repeat 1
+- `case-formal-proof-search-001` / `direct_answer` / `frontier_reasoning` / repeat 1
 
 Run 06 independently adjudicated the first slice. It accepted the direct-answer and light-structured slots for later aggregate scoring, but rejected the full-OfOne slot because the artifact identity is copied from `case-strategy-micro-001` rather than bound to `case-strategic-gated-diligence-001`.
 
@@ -102,6 +103,8 @@ The regulated wastewater `frontier_reasoning` direct-answer repeat-1 arm complet
 
 The regulated wastewater frontier full-OfOne replacement path reused the governed Mode A repair protocol instead of launching another same-shape Deep Research rerun. Controlled rerun `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1__rerun1` is case-native, benchmark-trace-bound, computed-validator-valid, locally reviewed, and recorded in `remedial_runs` as `replace_for_aggregate_only`. It is replacement evidence only; the original excluded full-OfOne frontier run remains immutable, and no aggregate comparison or superiority claim is supported.
 
+The formal proof-search `frontier_reasoning` direct-answer repeat-1 arm completed in ChatGPT Deep Research at https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b with visible report metadata `Research completed in 10m`, `8 citations`, `101 searches`, `21 May`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. Its raw Markdown was harvested through the Chrome extension export flow to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md`, locally reviewed at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md`, and accepted as aggregate-eligible. No formal proof-search frontier aggregate comparison is supported.
+
 Current aggregate eligibility among reviewed local slots:
 
 | Run slot | Eligibility | Reason |
@@ -126,6 +129,7 @@ Current aggregate eligibility among reviewed local slots:
 | regulated wastewater / `light_structured` / `frontier_reasoning` / repeat 1 | eligible | Completed in ChatGPT Deep Research; harvested raw Markdown; passed pre-score compliance and local review. |
 | regulated wastewater / `full_ofone` / `frontier_reasoning` / repeat 1 | excluded | Completed in ChatGPT Deep Research; harvested raw/artifact/validator/rendering/patch/review, but computed semantic validation failed relation legality and relation-family checks. |
 | regulated wastewater / `full_ofone` / `frontier_reasoning` / repeat 1 / controlled rerun 1 | eligible for future aggregate scoring as replacement | Controlled Mode A package is case-native, validator-valid, benchmark-trace-bound, locally reviewed, and recorded as `replace_for_aggregate_only`. |
+| formal proof-search / `direct_answer` / `frontier_reasoning` / repeat 1 | eligible | Completed in ChatGPT Deep Research; harvested raw Markdown through Chrome extension export; passed pre-score compliance and local review. |
 | formal proof-search / `direct_answer` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | formal proof-search / `light_structured` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | formal proof-search / `full_ofone` / `agentic_coding` / repeat 1 | eligible | Case-native Map artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
