@@ -363,6 +363,8 @@ function runToolingContractCheck() {
   const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, "benchmarks", "runs", "2026-05-17-batch-01", "manifest.json"), "utf8"));
   const benchmarkScript = fs.readFileSync(path.join(repoRoot, "scripts", "ofone-benchmark.mjs"), "utf8");
   const pagesScript = fs.readFileSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"), "utf8");
+  const loop = fs.readFileSync(path.join(repoRoot, "research", "recursive-improvement-loop.md"), "utf8");
+  const protocol = fs.readFileSync(path.join(repoRoot, "research", "frontier-full-ofone-repair-protocol.md"), "utf8");
   const frontierPacketCheck = spawnSync(process.execPath, [
     "scripts/ofone-frontier-packet-check.mjs",
     "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-rerun4.md"
@@ -370,11 +372,19 @@ function runToolingContractCheck() {
     cwd: repoRoot,
     encoding: "utf8"
   });
+  const frontierProtocolCheck = spawnSync(process.execPath, ["scripts/ofone-frontier-repair-protocol-check.mjs"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
   const required = [
     ["package pages script", packageJson.scripts?.["pages:check"] === "node scripts/ofone-pages-check.mjs"],
     ["package frontier packet preflight script", packageJson.scripts?.["frontier:check"] === "node scripts/ofone-frontier-packet-check.mjs"],
+    ["package frontier repair protocol script", packageJson.scripts?.["frontier:protocol:check"] === "node scripts/ofone-frontier-repair-protocol-check.mjs"],
     ["frontier packet preflight passes", frontierPacketCheck.status === 0],
+    ["frontier repair protocol check passes", frontierProtocolCheck.status === 0],
     ["frontier packet preflight file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-frontier-packet-check.mjs"))],
+    ["frontier repair protocol checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-frontier-repair-protocol-check.mjs"))],
+    ["frontier repair protocol file", fs.existsSync(path.join(repoRoot, "research", "frontier-full-ofone-repair-protocol.md"))],
     ["pages checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"))],
     ["pages checker attestation target", pagesScript.includes("benchmarks/results/2026-05-17-batch-01-checker-attestation.json")],
     ["pages checker Run 07 result target", pagesScript.includes("research/results/2026-05-17-07-ofone-post-run06-hardening-review-result.md")],
@@ -414,10 +424,14 @@ function runToolingContractCheck() {
     ["pages checker frontier direct review target", pagesScript.includes("batch 01 frontier strategic r1 direct review")],
     ["pages checker object schemas guide target", pagesScript.includes("docs/object-schemas.md")],
     ["pages checker frontier packet checker target", pagesScript.includes("scripts/ofone-frontier-packet-check.mjs")],
+    ["pages checker frontier repair protocol checker target", pagesScript.includes("scripts/ofone-frontier-repair-protocol-check.mjs")],
+    ["pages checker frontier repair protocol target", pagesScript.includes("research/frontier-full-ofone-repair-protocol.md")],
     ["README pages command", readme.includes("npm run pages:check")],
     ["README research command", readme.includes("npm run research:check")],
     ["README review-round version note", readme.includes("Review-round labels such as `v0.7` and `v0.8`")],
     ["README launch-proof boundary", readme.includes("A prepared packet is not a launched run")],
+    ["README frontier repair protocol", readme.includes("research/frontier-full-ofone-repair-protocol.md")],
+    ["README frontier protocol command", readme.includes("npm run frontier:protocol:check")],
     ["README batch 01 plan", readme.includes("benchmarks/runs/2026-05-17-batch-01/manifest.json")],
     ["README batch 01 matrix", readme.includes("benchmarks/runs/2026-05-17-batch-01/execution-matrix.json")],
     ["README remedial rerun artifact", readme.includes("2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.artifact.json")],
@@ -491,6 +505,11 @@ function runToolingContractCheck() {
     ["index frontier remedial rerun4 packet link", index.includes("./benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-rerun4.md")],
     ["index frontier remedial rerun4 output link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4.md")],
     ["index frontier remedial rerun4 review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4.md")],
+    ["index frontier repair protocol link", index.includes("./research/frontier-full-ofone-repair-protocol.md")],
+    ["recursive loop frontier repair protocol link", loop.includes("research/frontier-full-ofone-repair-protocol.md")],
+    ["frontier repair protocol bars same-shape reruns", protocol.includes("Same-shape Deep Research remedial reruns are barred")],
+    ["frontier repair protocol controlled execution mode", protocol.includes("Mode A: Controlled Non-Deep-Research Execution")],
+    ["frontier repair protocol inline launch mode", protocol.includes("Mode B: Inline Deep Research Launch Contract")],
     ["index object schemas guide link", index.includes("./docs/object-schemas.md")],
     ["index independent review handoff link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md")],
     ["index launch proof item", index.includes("Launch Proof")],
