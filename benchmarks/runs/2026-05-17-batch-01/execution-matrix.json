@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 41,
-    "completed": 49,
-    "reviewed": 49,
+    "queued": 40,
+    "completed": 50,
+    "reviewed": 50,
     "excluded": 2,
-    "aggregate_eligible": 49,
+    "aggregate_eligible": 50,
     "remedial": 2
   },
   "completed_runs": [
@@ -1583,6 +1583,36 @@
         "case_binding": "pass",
         "copied_example_risk": "low",
         "evidence_provenance_adequacy": "primary public regulatory sources are cited for permitting, pretreatment, reuse, operator, residuals, and compliance claims; missing case-specific evidence remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
+      },
+      "status": "completed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "light_structured",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:cf4eb63a53dc211ea09bb51030e3771129207cbe4e81f9c231388299fbeb9042",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (41).md",
+      "harvested_at": "2026-05-21T04:36:36-06:00",
+      "visible_report_metadata": "Research completed in 22m; 15 citations; 236 searches; 21 May; 15 sources; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0eda60-dc18-83e8-a888-e9e8ac1ab1fe",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier light-structured run is harvested from a completed ChatGPT Deep Research report, answers the regulated wastewater case, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "primary public regulatory sources are cited for permitting, reuse, residuals, PFAS, partner, customer-commitment, and compliance claims; missing case-specific evidence remains explicit",
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
       },
       "status": "completed"
@@ -3137,12 +3167,42 @@
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
       },
       "status": "reviewed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "light_structured",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:cf4eb63a53dc211ea09bb51030e3771129207cbe4e81f9c231388299fbeb9042",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (41).md",
+      "harvested_at": "2026-05-21T04:36:36-06:00",
+      "visible_report_metadata": "Research completed in 22m; 15 citations; 236 searches; 21 May; 15 sources; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0eda60-dc18-83e8-a888-e9e8ac1ab1fe",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier light-structured run is harvested from a completed ChatGPT Deep Research report, answers the regulated wastewater case, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "primary public regulatory sources are cited for permitting, reuse, residuals, PFAS, partner, customer-commitment, and compliance claims; missing case-specific evidence remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
+      },
+      "status": "reviewed"
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and the frontier_reasoning family has three reviewed strategic repeat-1 slots with the full_ofone slot excluded by computed validator failure.",
-    "allowed_claim": "Batch 01 has 48 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus frontier_reasoning direct-answer, light-structured, and full_ofone strategic repeat-1 slots; two run slots are excluded before aggregate scoring and one remedial replacement exists. No performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and frontier_reasoning now has three reviewed strategic repeat-1 slots plus regulated wastewater direct-answer and light-structured text arms; the strategic full_ofone frontier original remains excluded by computed validator failure.",
+    "allowed_claim": "Batch 01 has 50 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots, three frontier_reasoning strategic repeat-1 slots, and the regulated wastewater frontier_reasoning direct-answer and light-structured repeat-1 slots. Two original run slots are excluded before aggregate scoring, one agentic remedial replacement and one controlled frontier replacement exist, and no performance comparison is supported."
   },
   "excluded_runs": [
     {

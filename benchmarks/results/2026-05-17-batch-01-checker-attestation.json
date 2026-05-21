@@ -281,7 +281,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_MATRIX_REMEDIAL_COMPLETION",
-      "message": "2026-05-17-batch-01 records 1 remedial rerun(s) outside the original slot count"
+      "message": "2026-05-17-batch-01 records 2 remedial rerun(s) outside the original slot count"
     },
     {
       "severity": "info",
@@ -291,7 +291,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_COMPLETED_RUNS",
-      "message": "2026-05-17-batch-01 lists 48 completed run record(s)"
+      "message": "2026-05-17-batch-01 lists 50 completed run record(s)"
     },
     {
       "severity": "info",
@@ -1415,8 +1415,38 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_REVIEWED_RUNS",
-      "message": "2026-05-17-batch-01 lists 48 reviewed run record(s)"
+      "message": "2026-05-17-batch-01 lists 50 reviewed run record(s)"
     },
     {
       "severity": "info",
@@ -2780,6 +2810,46 @@
     },
     {
       "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__direct_answer__frontier_reasoning__r1 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
       "code": "BENCH_BATCH_EXCLUDED_RUNS",
       "message": "2026-05-17-batch-01 lists 2 excluded run record(s)"
     },
@@ -2896,7 +2966,7 @@
     {
       "severity": "info",
       "code": "BENCH_BATCH_REMEDIAL_RUNS",
-      "message": "2026-05-17-batch-01 lists 1 remedial run record(s)"
+      "message": "2026-05-17-batch-01 lists 2 remedial run record(s)"
     },
     {
       "severity": "info",
@@ -2947,6 +3017,56 @@
       "severity": "info",
       "code": "BENCH_BATCH_REMEDIAL_RUN",
       "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1 remedial rerun is linked, benchmark-bound, and independently reviewable"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_BENCHMARK_TRACE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 benchmark trace binds case, prompt, and input bundle hashes"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_PRE_SCORE",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 pre-score compliance gate recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_SEMANTIC_FIDELITY",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 semantic fidelity adjudication recorded"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_OUTPUT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 raw output exists and identifies its slot"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 full_ofone artifact JSON exists and parses"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_CASE_BINDING",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 full_ofone artifact is bound to the benchmark case/run"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 validator_json hash matches sha256:de1bbeefa04a96f0da9fb2210290c206e8c421139af5abaa43c2aa6b8850093a"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_MACHINE_ARTIFACT",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 patch_json hash matches sha256:60c289babea552802569575f5a4ff40672835996739841753ff20d3cdcd1ce19"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_RUN_REVIEW",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 review file exists and covers required metrics"
+    },
+    {
+      "severity": "info",
+      "code": "BENCH_BATCH_REMEDIAL_RUN",
+      "message": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5 remedial rerun is linked, benchmark-bound, and independently reviewable"
     },
     {
       "severity": "info",

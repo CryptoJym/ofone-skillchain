@@ -5,11 +5,11 @@ Batch: `2026-05-17-batch-01`
 Case: `case-regulated-wastewater-market-entry-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `light_structured_launched_active`
+Status: `light_structured_harvested_reviewed`
 
 This packet prepares the next predeclared frontier reasoning slice after the strategic repeat-1 frontier slice and controlled full-OfOne replacement rerun5 were published and Pages-confirmed.
 
-This packet now records launch, harvest, and local-review proof for the direct-answer arm, plus launch proof for the light-structured arm. Do not mark the light-structured or full-OfOne regulated wastewater frontier slots complete until each has a separate clean isolated ChatGPT Deep Research conversation with visible current Pro/frontier model, highest available reasoning mode, Deep Research enabled when available, generated plan or equivalent run-start proof, Start/countdown action, active research state, stop-control evidence, completed report harvest, local review, commit/push, and Pages confirmation.
+This packet now records launch, harvest, and local-review proof for the direct-answer and light-structured arms. Do not mark the full-OfOne regulated wastewater frontier slot complete until it has a separate clean isolated ChatGPT Deep Research conversation with visible current Pro/frontier model, highest available reasoning mode, Deep Research enabled when available, generated plan or equivalent run-start proof, Start/countdown action, active research state, stop-control evidence, completed report harvest, local review, commit/push, and Pages confirmation.
 
 Launch updates:
 
@@ -21,6 +21,7 @@ Launch updates:
 - 2026-05-21T04:15:55-06:00 observation: the active light-structured run shows material progress. Visible plan title remains `Regulated wastewater market entry`; step 1 is complete, step 2 is active, status text is `Clarifying permit process and responsibilities...`, count shows `106 searches` and `106 sources searched`, and `Stop research` remains present. No completed report is visible, so the light-structured output is not harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-21T04:17:05-06:00 observation: the active light-structured run shows material progress. Visible plan title remains `Regulated wastewater market entry`; step 1 is complete, step 2 is active, status text changed to `Considering state opportunities for advanced treatment markets...`, count advanced to `188 searches` and `188 sources searched`, and `Stop research` remains present. No completed report is visible, so the light-structured output is not harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-21T04:26:18-06:00 observation: the active light-structured run remains in progress. Visible plan title remains `Regulated wastewater market entry`; step 1 is complete, step 2 is active, status text changed to `Clarifying California requirements and public involvement processes...`, count remains `188 searches` and `188 sources searched`, and `Stop research` remains present. No completed report is visible, so the light-structured output is not harvested, reviewed, complete, or aggregate-eligible.
+- 2026-05-21T04:36:36-06:00 completion and harvest: the light-structured arm completed in ChatGPT Deep Research with visible metadata `Research completed in 22m`, `15 citations`, `236 searches`, `21 May`, `15 sources`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. Exported Markdown source `/Users/jamesbrady/Downloads/deep-research-report (41).md` was copied to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1.md` with SHA-256 `cf4eb63a53dc211ea09bb51030e3771129207cbe4e81f9c231388299fbeb9042`. Local review was added at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__light_structured__frontier_reasoning__r1.md`; the light-structured slot passed pre-score compliance and is represented in the matrix/page-link targets for publication parity checking. The full-OfOne arm is still not launched.
 
 ## Execution Order
 
