@@ -48,6 +48,7 @@ prepared -> launched -> active_researching -> harvested -> accepted|rejected -> 
 Required cycle fields:
 
 - prepared packet: prompt path, context path, public handoff URL, target public commit or Pages state.
+- launch surface: Chrome extension/plugin control with clean isolated tab/conversation proof. If unavailable, the run remains `prepared` or `blocked`; do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as a fallback launch path.
 - launch proof: model label, reasoning label, Deep Research enabled flag, pasted/uploaded context label, conversation URL, plan title, `Start`/countdown action, `Researching...` status, and `Stop research` affordance.
 - status isolation: active runs must have a run-scoped status ledger. The tracker may summarize status, but the run ledger is the canonical place for launch, progress, harvest, and acceptance evidence for that run.
 - harvest proof: exported report path, source/citation/search metadata when visible, and faithful local copy path.

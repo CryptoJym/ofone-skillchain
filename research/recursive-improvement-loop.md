@@ -20,6 +20,7 @@ converged | benchmark_handoff | blocked | waiting_on_external_research | waiting
 
 - A prepared prompt or context packet is not a launched run.
 - A launched run requires visible Deep Research plan, Start or countdown, active research state, and stop-control evidence.
+- Deep Research launch and observation must use the Chrome extension/plugin as the primary browser surface. Browser, Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation are not automatic fallbacks because they can hijack the user's active workspace; if extension control is unavailable, leave the packet `prepared`/`blocked`.
 - An active run is not harvestable until a completed report is visible.
 - A recommendation is not accepted until local adjudication separates direct observations, self-reported claims, inferences, open gaps, accepted findings, rejected findings, deferred findings, and unresolved blockers.
 - A follow-on run is not launched until accepted findings have been implemented, verified locally, committed, pushed, and made visible through public repo or Pages surfaces.

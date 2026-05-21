@@ -205,6 +205,14 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
     "recursive loop doc prevents relaunch before implementation/publication or while a run is active"
   );
   check(
+    loopDoc.includes("Chrome extension/plugin") &&
+      loopDoc.includes("Computer Use") &&
+      loopDoc.includes("not automatic fallbacks") &&
+      loopDoc.includes("prepared`/`blocked"),
+    "OFONE_RESEARCH_LOOP_BROWSER_SURFACE",
+    "recursive loop doc requires Chrome extension launch control and blocks desktop automation fallback"
+  );
+  check(
     loopDoc.includes("## Active Research Watchdog") &&
       loopDoc.includes("Material progress means at least one visible research-state field changed") &&
       loopDoc.includes("The default stall threshold is 15 minutes") &&
