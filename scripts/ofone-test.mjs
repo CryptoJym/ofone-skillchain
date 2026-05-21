@@ -460,6 +460,7 @@ function runToolingContractCheck() {
     ["index policy r3 artifact link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.artifact.json")],
     ["index policy r3 review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-public-sector-ai-policy-audit-001__full_ofone__agentic_coding__r3.md")],
     ["index frontier packet link", index.includes("./benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-18-strategic-gated-diligence-frontier-r1.md")],
+    ["pages checker frontier remedial packet target", pagesScript.includes("2026-05-20-strategic-gated-diligence-frontier-full-r1-rerun1.md")],
     ["index frontier direct output link", index.includes("./benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__frontier_reasoning__r1.md")],
     ["index frontier direct review link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__frontier_reasoning__r1.md")],
     ["index independent review handoff link", index.includes("./benchmarks/reviews/2026-05-17-batch-01/frontier-independent-review-handoff.md")],
