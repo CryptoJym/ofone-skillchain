@@ -170,7 +170,7 @@ function validateSourceExport(recoveryData) {
     `${path.basename(sourcePath)} is not the already-harvested direct-answer export`
   );
 
-  if (!write || missingMarkers.length > 0) return;
+  if (!write || hasErrors()) return;
 
   const outputPath = path.join(repoRoot, item.expected_raw_output_path);
   if (fs.existsSync(outputPath)) {
@@ -232,6 +232,10 @@ function fail(code, message) {
 
 function check(condition, code, message) {
   diagnostics.push({ severity: condition ? "info" : "error", code, message });
+}
+
+function hasErrors() {
+  return diagnostics.some((diagnostic) => diagnostic.severity === "error");
 }
 
 function sha256(text) {

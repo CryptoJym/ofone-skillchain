@@ -23,6 +23,7 @@ try {
   runResearchLifecycleCheck();
   runReviewSidecarCheck();
   runToolingContractCheck();
+  runManualRecoveryWriteSafetyCheck();
   runSkillInstallSmokeTest();
   runInvalidReviewSidecarChecks();
   for (const fixture of fixtures) runInvalidFixture(fixture);
@@ -722,6 +723,71 @@ function runSkillInstallSmokeTest() {
   console.error(installResult.stderr);
   console.error(checkResult.stdout);
   console.error(checkResult.stderr);
+}
+
+function runManualRecoveryWriteSafetyCheck() {
+  const recovery = JSON.parse(fs.readFileSync(path.join(repoRoot, "research", "deep-research-manual-recovery.json"), "utf8"));
+  const item = (recovery.items || []).find((candidate) => candidate.status === "awaiting_operator_export");
+  if (!item) {
+    failures += 1;
+    console.error("FAIL manual recovery write safety");
+    console.error("expected one awaiting manual recovery item");
+    return;
+  }
+
+  const outputPath = path.join(repoRoot, item.expected_raw_output_path);
+  if (fs.existsSync(outputPath)) {
+    failures += 1;
+    console.error("FAIL manual recovery write safety");
+    console.error(`${item.expected_raw_output_path} already exists; cannot safely exercise write refusal`);
+    return;
+  }
+
+  const sourcePath = path.join(tempDir, "manual-recovery-forbidden-direct-arm.md");
+  const forbiddenSource = [
+    "# Benchmark Raw Output",
+    "",
+    ...item.required_raw_markers,
+    "",
+    "Synthetic negative fixture for manual recovery write gating.",
+    "Forbidden prior arm marker: 2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1"
+  ].join("\n");
+  fs.writeFileSync(sourcePath, `${forbiddenSource}\n`);
+
+  const result = spawnSync(process.execPath, [
+    "scripts/ofone-deep-research-manual-recovery.mjs",
+    "--write",
+    "--json",
+    "--source",
+    sourcePath,
+    "--item-id",
+    item.item_id
+  ], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  const outputCreated = fs.existsSync(outputPath);
+  if (outputCreated) fs.rmSync(outputPath, { force: true });
+
+  let codes = new Set();
+  try {
+    const parsed = JSON.parse(result.stdout);
+    codes = new Set((parsed.diagnostics || []).map((diagnostic) => diagnostic.code));
+  } catch {
+    codes = new Set();
+  }
+
+  if (result.status !== 0 && codes.has("OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_NOT_DIRECT_ARM") && !outputCreated) {
+    console.log("PASS manual recovery write safety");
+    return;
+  }
+
+  failures += 1;
+  console.error("FAIL manual recovery write safety");
+  console.error("expected forbidden direct-arm source to fail without writing output");
+  console.error(`actual diagnostic codes: ${[...codes].join(", ") || "(none)"}`);
+  console.error(result.stdout);
+  console.error(result.stderr);
 }
 
 function runInvalidReviewSidecarChecks() {

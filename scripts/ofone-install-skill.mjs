@@ -67,6 +67,8 @@ function assertSkillSource(text) {
     "use the Chrome extension/plugin as the launch and observation surface",
     "stop normal workflow and troubleshoot extension availability first",
     "before doing any benchmark, harvest, launch, or repo-promotion work",
+    "browser.tabs.list()",
+    "Do not treat a missing `browser.tabs.query()` helper as extension failure",
     "research/deep-research-extension-payloads.json",
     "research/deep-research-extension-report.json",
     "research/deep-research-manual-recovery.json",
