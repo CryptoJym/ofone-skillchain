@@ -37,6 +37,7 @@ Next remedial run:
 - Start action: clicked `Start` on the Deep Research plan card.
 - Active proof: card shows `Researching...`; `Stop research` button is visible.
 - 2026-05-21T01:39:00-06:00: The active run shows material progress. The first plan step is complete, the second step is active, visible status text is `Considering how to parse and combine schemas...`, count shows `2 searches` and `2 sources searched`, and `Stop research` remains present.
+- 2026-05-21T01:42:59-06:00: The active run shows material progress. The first plan step remains complete, the second step remains active, visible status text changed to `Looking into scene token examples...`, count advanced to `23 searches` and `23 sources searched`, and `Stop research` remains present.
 - This is launch proof only. No completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
 
 ## Frozen Inputs
