@@ -10,6 +10,7 @@ This log records run slots that have completed or been reviewed but are excluded
 | --- | --- | --- | --- | --- |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1` | `case-strategic-gated-diligence-001` | `full_ofone` | Case-fidelity failure: the artifact identity is bound to `case-strategy-micro-001`, not the benchmark case. | `research/results/2026-05-17-06-ofone-batch01-independent-review-result.md` |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `case-strategic-gated-diligence-001` | `full_ofone` | Semantic-validation failure: computed local validator rejects relation legality and option expected-effect references, and the artifact self-attested validator pass conflicts with the computed result. | `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1.md` |
+| `2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1` | `case-regulated-wastewater-market-entry-001` | `full_ofone` | Semantic-validation failure: computed local validator rejects illegal `updates` relations from `option_move` to `unknown`, illegal `supports` from `claim` to `gate`, and an invalid relation family for gate-to-rendering `constrains`. | `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md` |
 
 ## Exclusion Rule
 
@@ -22,13 +23,14 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - Original full-OfOne first-slice run remains excluded and immutable.
 - Remedial full-OfOne rerun 1 is reviewed and aggregate-eligible as a replacement for the excluded original only.
 - Frontier full-OfOne strategic repeat-1 remains excluded and immutable.
+- Frontier full-OfOne regulated wastewater repeat-1 remains excluded and immutable.
 - Remedial frontier full-OfOne rerun 1 was harvested but rejected before matrix insertion because the output was an advisory research report, not a benchmark raw output package.
 - Remedial frontier full-OfOne rerun 2 was harvested with the required benchmark raw-output package shape, but computed local validation failed; it remains outside aggregate scoring and outside `remedial_runs`.
 - Remedial frontier full-OfOne rerun 3 was harvested with benchmark package sections and machine artifacts, but computed local validation failed current benchmark trace shape and relation-legality checks; it remains outside aggregate scoring and outside `remedial_runs`.
 - Remedial frontier full-OfOne rerun 4 was harvested but rejected before matrix insertion because the output was a meta/advisory report, not a benchmark raw output package.
 - A same-shape attachment-led Deep Research remedial rerun is now barred for this frontier full-OfOne slot.
 - Controlled Mode A rerun 5 passed computed local validation, local review, and matrix insertion as replacement evidence only. It does not mutate the excluded original and does not support aggregate comparison or superiority claims by itself.
-- No empirical superiority or method-performance claim is supported.
+- Three original run slots are excluded before aggregate scoring; no empirical superiority or method-performance claim is supported.
 
 ## Remedial Reruns
 

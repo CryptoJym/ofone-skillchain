@@ -1,0 +1,288 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.artifact.json",
+  "operation": {
+    "operation_id": "trigger_activation",
+    "label": "Trigger activation",
+    "description": "Activate a trigger and patch all affected downstream dependencies."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [
+    {
+      "trigger_id": "T1",
+      "transition": "patch",
+      "affected_objects": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5"
+      ]
+    }
+  ],
+  "affected_closure": [
+    {
+      "id": "IV:U1",
+      "type": "information_value",
+      "label": "Name one target jurisdiction, one discharge pathway, the likely receiving water or POTW, and the primary permitting authority."
+    },
+    {
+      "id": "IV:U2",
+      "type": "information_value",
+      "label": "Obtain representative composite sampling, variability bounds, and mass-balance data for pollutants and residuals from the target waste stream."
+    },
+    {
+      "id": "IV:U3",
+      "type": "information_value",
+      "label": "Design and run a pilot with success metrics tied to the intended permit or pretreatment path and residuals disposition plan."
+    },
+    {
+      "id": "IV:U4",
+      "type": "information_value",
+      "label": "Choose between direct-discharge operator, indirect-discharge/POTW path, or channel/EPC/O&M model for the selected opportunity."
+    },
+    {
+      "id": "IV:U5",
+      "type": "information_value",
+      "label": "Convert the customer ask into a conditional LOI or pilot agreement with explicit compliance, schedule, and evidence contingencies."
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "O1_scope_path",
+      "type": "option_move",
+      "label": "query"
+    },
+    {
+      "id": "O2_run_pilot",
+      "type": "option_move",
+      "label": "test"
+    },
+    {
+      "id": "O3_conditional_partner",
+      "type": "option_move",
+      "label": "revise"
+    },
+    {
+      "id": "O4_launch_now",
+      "type": "option_move",
+      "label": "act"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Proceed with bounded diligence now: lock one candidate jurisdiction and discharge pathway, define representative influent and residuals, and structure only a conditional pilot or diligence-scoped customer commitment. Do not operationally launch or imply guaranteed compliance yet."
+    },
+    {
+      "id": "T2",
+      "type": "trigger",
+      "label": "regime_shift"
+    },
+    {
+      "id": "T3",
+      "type": "trigger",
+      "label": "review_required"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "U1",
+      "type": "unknown",
+      "label": "Named target jurisdiction, receiving water or POTW, and permitting authority are not fixed."
+    },
+    {
+      "id": "U2",
+      "type": "unknown",
+      "label": "Representative influent composition, variability, and mass-balance data are not fixed."
+    },
+    {
+      "id": "U3",
+      "type": "unknown",
+      "label": "Pilot-performance evidence on representative influent and residual handling is missing."
+    },
+    {
+      "id": "U4",
+      "type": "unknown",
+      "label": "Partner path is not fixed across direct-discharge operator, indirect-discharge/POTW path, or channel/EPC/O&M structure."
+    },
+    {
+      "id": "U5",
+      "type": "unknown",
+      "label": "Customer commitment is not scoped to diligence, pilot, or launch and therefore risks over-commitment."
+    },
+    {
+      "id": "X10",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X11",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X12",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X13",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X7",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X8",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X9",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "information_value": [
+      "IV:U1",
+      "IV:U2",
+      "IV:U3",
+      "IV:U4",
+      "IV:U5"
+    ],
+    "loop": [
+      "L1"
+    ],
+    "option_move": [
+      "O1_scope_path",
+      "O2_run_pilot",
+      "O3_conditional_partner",
+      "O4_launch_now"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "trigger": [
+      "T2",
+      "T3"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "unknown": [
+      "U1",
+      "U2",
+      "U3",
+      "U4",
+      "U5"
+    ],
+    "edge": [
+      "X10",
+      "X11",
+      "X12",
+      "X13",
+      "X4",
+      "X5",
+      "X7",
+      "X8",
+      "X9"
+    ]
+  },
+  "affected_semantic_layers": [
+    "workflow_state"
+  ],
+  "invalidated_claims": [],
+  "reopened_gates": [],
+  "required_approvals": [
+    {
+      "gate_id": "G1",
+      "status": "open",
+      "reviewer": "executive decision owner with regulatory/compliance reviewer",
+      "required_decision": "approve diligence only, approve pilot only, or block launch until jurisdiction, influent, discharge path, and residuals plan are fixed."
+    },
+    {
+      "gate_id": "G2",
+      "status": "open",
+      "reviewer": "technical lead plus regulatory/compliance reviewer",
+      "required_decision": "confirm pilot representativeness against the selected regulatory path and target influent before commercial use."
+    },
+    {
+      "gate_id": "G3",
+      "status": "open",
+      "reviewer": "executive decision owner plus customer-facing owner",
+      "required_decision": "keep commitment conditional and diligence-scoped unless U1 through U5 are materially resolved and G1 can be closed."
+    }
+  ],
+  "suggested_transition": "human_review",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Trigger activation changes T1:trigger; 28 downstream object(s) are in closure, so the current decision rendering must be regenerated. human review blocks release.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "trigger_transition_check",
+    "rendering_regeneration",
+    "human_gate_review"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "trigger_activation",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Activate a trigger and patch all affected downstream dependencies."
+    },
+    {
+      "op": "collect_approvals",
+      "targets": [
+        "G1",
+        "G2",
+        "G3"
+      ],
+      "effect": "Route changed decision state to named reviewers."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "trigger_activation on T1 affects 28 downstream object(s); transition=human_review; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "collect required approvals: G1:executive decision owner with regulatory/compliance reviewer, G2:technical lead plus regulatory/compliance reviewer, G3:executive decision owner plus customer-facing owner",
+      "regenerate decision rendering",
+      "record trigger state change in patch history or review log",
+      "route through the required human gate before release"
+    ]
+  }
+}

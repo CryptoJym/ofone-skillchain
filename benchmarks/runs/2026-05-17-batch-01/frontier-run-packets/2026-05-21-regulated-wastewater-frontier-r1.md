@@ -5,11 +5,11 @@ Batch: `2026-05-17-batch-01`
 Case: `case-regulated-wastewater-market-entry-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `full_ofone_active_researching`
+Status: `full_ofone_harvested_reviewed_excluded_pending_publication`
 
 This packet prepares the next predeclared frontier reasoning slice after the strategic repeat-1 frontier slice and controlled full-OfOne replacement rerun5 were published and Pages-confirmed.
 
-This packet now records launch, harvest, and local-review proof for the direct-answer and light-structured arms. Do not mark the full-OfOne regulated wastewater frontier slot complete until it has a separate clean isolated ChatGPT Deep Research conversation with visible current Pro/frontier model, highest available reasoning mode, Deep Research enabled when available, generated plan or equivalent run-start proof, Start/countdown action, active research state, stop-control evidence, completed report harvest, local review, commit/push, and Pages confirmation.
+This packet now records launch, harvest, and local-review proof for all three regulated wastewater frontier arms. The direct-answer and light-structured arms are aggregate-eligible. The full-OfOne arm completed and has raw/artifact/validator/rendering/patch/review evidence, but computed local validation failed semantic relation checks, so it is excluded before aggregate scoring and remains publication-pending until commit/push/Pages confirmation.
 
 Launch updates:
 
@@ -30,6 +30,7 @@ Launch updates:
 - 2026-05-21T05:15:00-06:00 observation: the active full-OfOne arm remains in progress. Visible plan title remains `Regulated wastewater market entry`; step 1 is complete, step 2 is active, status text changed to `Clarifying top-level schema requirements...`, count remains `17 searches` and `17 sources searched`, and `Stop research` remains present. No completed report is visible, so the full-OfOne output is not harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-21T05:32:08-06:00 observation: the active full-OfOne arm resumed material progress before crossing into a stall state. Visible plan title remains `Regulated wastewater market entry`; step 1 is complete, step 2 is active, status text changed to `Defining JSON structure and frame types...`, count remains `17 searches` and `17 sources searched`, and `Stop research` remains present. No completed report is visible, so the full-OfOne output is not harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-21T05:37:50-06:00 observation: the active full-OfOne arm shows further material progress. Visible plan title remains `Regulated wastewater market entry`; step 1 is complete, step 2 is active, status text changed to `Addressing potential issues and refining schema elements...`, count remains `17 searches` and `17 sources searched`, and `Stop research` remains present. No completed report is visible, so the full-OfOne output is not harvested, reviewed, complete, or aggregate-eligible.
+- 2026-05-21T05:45:37-06:00 completion, harvest, and local review: the full-OfOne arm completed in ChatGPT Deep Research with visible metadata `Research completed in 45m`, `5 citations`, `22 searches`, `21 May`, `5 sources`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. Exported Markdown source `/Users/jamesbrady/Downloads/deep-research-report (42).md` was copied to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md` with SHA-256 `047dbd2e832eea80067ef3865ab056158dc9bb5c67b391b809783afd89170a9e`. Artifact JSON, computed validator JSON, rendering, patch report, and local review were added. Computed local validation failed semantic relation legality/family checks, so the full-OfOne slot is completed and reviewed but excluded before aggregate scoring and not aggregate-eligible. Publication and Pages parity remain pending until commit/push.
 
 ## Execution Order
 

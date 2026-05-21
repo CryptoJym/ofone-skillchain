@@ -30,10 +30,10 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 40,
-    "completed": 50,
-    "reviewed": 50,
-    "excluded": 2,
+    "queued": 39,
+    "completed": 51,
+    "reviewed": 51,
+    "excluded": 3,
     "aggregate_eligible": 50,
     "remedial": 2
   },
@@ -1614,6 +1614,55 @@
         "copied_example_risk": "low",
         "evidence_provenance_adequacy": "primary public regulatory sources are cited for permitting, reuse, residuals, PFAS, partner, customer-commitment, and compliance claims; missing case-specific evidence remains explicit",
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
+      },
+      "status": "completed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:047dbd2e832eea80067ef3865ab056158dc9bb5c67b391b809783afd89170a9e",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (42).md",
+      "harvested_at": "2026-05-21T05:45:37-06:00",
+      "visible_report_metadata": "Research completed in 45m; 5 citations; 22 searches; 21 May; 5 sources; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0ee4ad-8854-83e8-866e-f671c12880da",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md",
+      "aggregate_eligible": false,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Computed local validator failed semantic graph checks despite case-bound artifact identity and required package artifacts.",
+        "reviewer_notes": "Run is case-bound and harvested, but full-OfOne outputs must pass executable local validation before aggregate eligibility."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "source-backed regulatory, permitting, reuse, residuals, PFAS, partner, customer-commitment, and compliance evidence is separated from missing case-specific proof; computed semantic validation still failed",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, artifact JSON, validator JSON, rendering, patch report, and review file all identify the benchmark run and case-regulated-wastewater-market-entry-001"
+      },
+      "benchmark_trace": {
+        "case_id": "case-regulated-wastewater-market-entry-001",
+        "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+        "case_file": "benchmarks/cases/regulated-wastewater-market-entry.md",
+        "case_file_sha256": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:2849a7b8ab7af3553a448c44916d236e5cdd8dc4c4e37dd9fc5e3a18e4398b0b"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.validator.json",
+        "validator_sha256": "sha256:a5418d11c048b22749b69d4f76b47f6a0dfe3a2bb823932a5d73750a3b21f2c1",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.patch.json",
+        "patch_sha256": "sha256:49c41e22d98e027e5c0dc70ff733669e9be0383de98e16e06f22709618afe9e5",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.rendering.md",
+        "rendering_sha256": "sha256:55b6ab910eb831fd9869a4b969c804658fb7710f1e5fc5af782492349552db45"
       },
       "status": "completed"
     }
@@ -3197,12 +3246,61 @@
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-regulated-wastewater-market-entry-001"
       },
       "status": "reviewed"
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:047dbd2e832eea80067ef3865ab056158dc9bb5c67b391b809783afd89170a9e",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (42).md",
+      "harvested_at": "2026-05-21T05:45:37-06:00",
+      "visible_report_metadata": "Research completed in 45m; 5 citations; 22 searches; 21 May; 5 sources; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0ee4ad-8854-83e8-866e-f671c12880da",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md",
+      "aggregate_eligible": false,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Computed local validator failed semantic graph checks despite case-bound artifact identity and required package artifacts.",
+        "reviewer_notes": "Run is case-bound and harvested, but full-OfOne outputs must pass executable local validation before aggregate eligibility."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "source-backed regulatory, permitting, reuse, residuals, PFAS, partner, customer-commitment, and compliance evidence is separated from missing case-specific proof; computed semantic validation still failed",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, artifact JSON, validator JSON, rendering, patch report, and review file all identify the benchmark run and case-regulated-wastewater-market-entry-001"
+      },
+      "benchmark_trace": {
+        "case_id": "case-regulated-wastewater-market-entry-001",
+        "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+        "case_file": "benchmarks/cases/regulated-wastewater-market-entry.md",
+        "case_file_sha256": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:2849a7b8ab7af3553a448c44916d236e5cdd8dc4c4e37dd9fc5e3a18e4398b0b"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.validator.json",
+        "validator_sha256": "sha256:a5418d11c048b22749b69d4f76b47f6a0dfe3a2bb823932a5d73750a3b21f2c1",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.patch.json",
+        "patch_sha256": "sha256:49c41e22d98e027e5c0dc70ff733669e9be0383de98e16e06f22709618afe9e5",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.rendering.md",
+        "rendering_sha256": "sha256:55b6ab910eb831fd9869a4b969c804658fb7710f1e5fc5af782492349552db45"
+      },
+      "status": "reviewed"
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and frontier_reasoning now has three reviewed strategic repeat-1 slots plus regulated wastewater direct-answer and light-structured text arms; the strategic full_ofone frontier original remains excluded by computed validator failure.",
-    "allowed_claim": "Batch 01 has 50 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots, three frontier_reasoning strategic repeat-1 slots, and the regulated wastewater frontier_reasoning direct-answer and light-structured repeat-1 slots. Two original run slots are excluded before aggregate scoring, one agentic remedial replacement and one controlled frontier replacement exist, and no performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice agentic_coding full_ofone slot from aggregate scoring, the agentic_coding family is locally complete with one remedial replacement, and frontier_reasoning now has three reviewed strategic repeat-1 slots plus all three regulated wastewater repeat-1 slots. Both original frontier full_ofone originals completed but remain excluded by computed validator failures.",
+    "allowed_claim": "Batch 01 has 51 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots, three frontier_reasoning strategic repeat-1 slots, and three regulated wastewater frontier_reasoning repeat-1 slots. Three original run slots are excluded before aggregate scoring, one agentic remedial replacement and one controlled frontier replacement exist, and no performance comparison is supported."
   },
   "excluded_runs": [
     {
@@ -3327,6 +3425,71 @@
         "reason": "Frontier full-OfOne repeat-1 artifact is preserved immutably as excluded. Four same-shape remedial attempts failed. Controlled Mode A rerun 5 is validator-valid, locally reviewed, and recorded in remedial_runs as replacement evidence for aggregate scoring only.",
         "aggregate_policy": "replace_for_aggregate_only",
         "latest_successful_rerun": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+      "case_id": "case-regulated-wastewater-market-entry-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:047dbd2e832eea80067ef3865ab056158dc9bb5c67b391b809783afd89170a9e",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (42).md",
+      "harvested_at": "2026-05-21T05:45:37-06:00",
+      "visible_report_metadata": "Research completed in 45m; 5 citations; 22 searches; 21 May; 5 sources; title Benchmark Raw Output; Status: completed",
+      "conversation_url": "https://chatgpt.com/c/6a0ee4ad-8854-83e8-866e-f671c12880da",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.artifact.json",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md",
+      "aggregate_eligible": false,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "fail",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Computed local validator failed semantic graph checks despite case-bound artifact identity and required package artifacts.",
+        "reviewer_notes": "Run is case-bound and harvested, but full-OfOne outputs must pass executable local validation before aggregate eligibility."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "source-backed regulatory, permitting, reuse, residuals, PFAS, partner, customer-commitment, and compliance evidence is separated from missing case-specific proof; computed semantic validation still failed",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, artifact JSON, validator JSON, rendering, patch report, and review file all identify the benchmark run and case-regulated-wastewater-market-entry-001"
+      },
+      "benchmark_trace": {
+        "case_id": "case-regulated-wastewater-market-entry-001",
+        "run_id": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+        "case_file": "benchmarks/cases/regulated-wastewater-market-entry.md",
+        "case_file_sha256": "sha256:790cd65cf34d0572c9e171127e58aebadbf8ad0c8f09e16d044d6dbbd5b5ec16",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:2849a7b8ab7af3553a448c44916d236e5cdd8dc4c4e37dd9fc5e3a18e4398b0b"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.validator.json",
+        "validator_sha256": "sha256:a5418d11c048b22749b69d4f76b47f6a0dfe3a2bb823932a5d73750a3b21f2c1",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.patch.json",
+        "patch_sha256": "sha256:49c41e22d98e027e5c0dc70ff733669e9be0383de98e16e06f22709618afe9e5",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.rendering.md",
+        "rendering_sha256": "sha256:55b6ab910eb831fd9869a4b969c804658fb7710f1e5fc5af782492349552db45"
+      },
+      "status": "excluded",
+      "exclusion_reason": "semantic_validation_failure_relation_legality_and_family",
+      "independent_adjudication": {
+        "decision": "reject",
+        "result_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1.md",
+        "result_sha256": "sha256:92b54a984eb77efc56964e92f2bd03f83b907e482d936dc085f071f3b6e2e11a",
+        "reviewer": "local Codex unblinded review plus executable OfOne validator",
+        "harvested_at": "2026-05-21T05:45:37-06:00",
+        "reason": "Computed validator rejected illegal option_move-to-unknown updates, illegal claim-to-gate supports, and invalid relation family for gate-to-rendering constrains."
+      },
+      "rerun_plan": {
+        "required": true,
+        "status": "not_started",
+        "rerun_of": "2026-05-17-batch-01__case-regulated-wastewater-market-entry-001__full_ofone__frontier_reasoning__r1",
+        "reason": "Frontier full-OfOne regulated wastewater repeat-1 artifact is preserved immutably as excluded because computed local validation failed semantic graph checks. Any replacement must use a repaired prompt/protocol or controlled execution path before aggregate eligibility.",
+        "aggregate_policy": "replace_for_aggregate_only"
       }
     }
   ],
