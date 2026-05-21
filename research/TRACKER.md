@@ -229,6 +229,7 @@ Date: 2026-05-17
 - 2026-05-20T22:52:32-06:00: The remedial frontier full-OfOne rerun remains active in ChatGPT Deep Research. Visible status text changed to `Planning deep research and citation strategy...`; `Stop research` remains present. No completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-20T22:54:18-06:00: The remedial frontier full-OfOne rerun remains active in ChatGPT Deep Research. Visible status text changed to `Inspecting relevant docs and contracts...`; `Stop research` remains present. No completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
 - 2026-05-20T23:11:54-06:00: The remedial frontier full-OfOne rerun remains active after extended observation. Visible progress: step 1 complete, step 2 active, status text `Clarifying data needs and recommendations...`, count `49 searches` / `49 sources searched`, and `Stop research` present. No completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
+- 2026-05-20T23:21:50-06:00: The remedial frontier full-OfOne rerun remains active with material status progress. Visible progress remains step 1 complete and step 2 active; status text changed to `Considering frameworks and resources...`; count remains `49 searches` / `49 sources searched`; `Stop research` remains present. No completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
 
 ## Required Launch Metadata
 
