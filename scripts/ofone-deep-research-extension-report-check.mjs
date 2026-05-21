@@ -13,6 +13,8 @@ const reportRel = "research/deep-research-extension-report.json";
 const payloadRel = "research/deep-research-extension-payloads.json";
 const queueRel = "research/deep-research-launch-queue.json";
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
+const chromePreparedStatus = "prepared_not_launched";
+const chromeLaunchReadyStatus = "launch_ready";
 
 const diagnostics = [];
 
@@ -104,6 +106,10 @@ function validateReportItems(reportData, payloadData, queueData) {
       validateBlockedItem(item, payload, queueItem);
       continue;
     }
+    if (item.status === chromeLaunchReadyStatus) {
+      validateLaunchReadyItem(item, payload, queueItem);
+      continue;
+    }
     validateLaunchItem(item, payload, queueItem);
     if (item.status === "observation_blocked") validateObservationBlockedItem(item);
     if (item.status === "completed_report_visible") validateCompletedReportVisibleItem(item, payload);
@@ -128,6 +134,26 @@ function validateBlockedItem(item, payload, queueItem) {
       queueItem?.aggregate_policy === "not_eligible_until_harvest_review_publication",
     "OFONE_DEEP_RESEARCH_EXTENSION_BLOCKED_ITEM",
     `${item.item_id} remains blocked without launch, harvest, or aggregate eligibility`
+  );
+}
+
+function validateLaunchReadyItem(item, payload, queueItem) {
+  check(
+    item.extension_control.surface === "chrome_extension_plugin" &&
+      typeof item.extension_control.callable_namespace === "string" &&
+      item.extension_control.callable_namespace.includes("mcp__node_repl__js") &&
+      item.extension_control.isolated_tab_verified === false &&
+      item.extension_control.desktop_automation_used === false &&
+      !item.launch_proof &&
+      !item.latest_observation &&
+      !item.harvest_proof &&
+      payload?.launch_allowed === true &&
+      payload?.extension_action === "open_isolated_deep_research_tab" &&
+      queueItem?.status === chromePreparedStatus &&
+      queueItem?.aggregate_policy === "not_eligible_until_harvest_review_publication" &&
+      item.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication",
+    "OFONE_DEEP_RESEARCH_EXTENSION_LAUNCH_READY_ITEM",
+    `${item.item_id} is queued for Chrome-extension launch without launch proof, harvest, or aggregate eligibility`
   );
 }
 

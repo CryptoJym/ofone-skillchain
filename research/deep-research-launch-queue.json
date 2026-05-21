@@ -86,6 +86,39 @@
       "aggregate_policy": "not_eligible_until_harvest_review_publication",
       "conversation_url": "https://chatgpt.com/c/6a0f1fe5-3494-83e8-9f92-1a2b732c4958",
       "launch_proof_path": "research/deep-research-extension-report.json"
+    },
+    {
+      "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1",
+      "batch_id": "2026-05-17-batch-01",
+      "case_id": "case-formal-proof-search-001",
+      "arm": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "packet_path": "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md",
+      "prompt_anchor": "## Prompt 3: Full OfOne",
+      "status": "prepared_not_launched",
+      "blocked_reason": "Prepared for the next Chrome-extension-managed isolated Deep Research launch. Launch proof must be captured before this item can leave prepared_not_launched; the existing light-structured completed-visible blocker remains unharvested and not aggregate-eligible.",
+      "required_launch_proof": [
+        "callable Chrome extension/plugin control",
+        "clean isolated ChatGPT tab or conversation",
+        "visible current Pro/frontier-capable model label",
+        "highest available visible reasoning mode",
+        "Deep Research enabled when available",
+        "generated plan or equivalent run-start proof",
+        "Start or countdown action",
+        "visible active research state",
+        "stop-control evidence"
+      ],
+      "disallowed_surfaces": [
+        "Browser",
+        "Computer Use",
+        "coordinate clicking",
+        "AppleScript/JXA",
+        "generic desktop automation"
+      ],
+      "expected_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1.md",
+      "expected_review_path": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1.md",
+      "aggregate_policy": "not_eligible_until_harvest_review_publication"
     }
   ]
 }

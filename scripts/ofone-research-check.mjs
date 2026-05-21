@@ -264,6 +264,15 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
 
 function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payload, report, manualRecovery }) {
   const run07Row = tracker.split("\n").find((line) => line.startsWith("| 07 |")) || "";
+  const launchReadyItem = {
+    itemId: "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1",
+    queueStatus: "prepared_not_launched",
+    reportStatus: "launch_ready",
+    aggregatePolicy: "not_eligible_until_harvest_review_publication",
+    reportAggregatePolicy: "not_eligible_until_harvest_review_publication",
+    payloadLaunchAllowed: true,
+    payloadAction: "open_isolated_deep_research_tab"
+  };
   const expectedItems = [
     {
       itemId: "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
@@ -288,6 +297,9 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
     }
   ];
   const payloadText = readText(deepResearchPayloadPath, "Deep Research extension payload hash source");
+  const launchQueueItem = (queue.items || []).find((item) => item.item_id === launchReadyItem.itemId);
+  const launchPayloadItem = (payload.items || []).find((item) => item.item_id === launchReadyItem.itemId);
+  const launchReportItem = (report.items || []).find((item) => item.item_id === launchReadyItem.itemId);
 
   check(
     run07Row.includes(formalProofFrontierPacketRel) &&
@@ -306,9 +318,13 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       }) &&
       tracker.includes("formal proof-search frontier direct-answer slot is harvested, locally reviewed, and aggregate-eligible") &&
       tracker.includes("formal proof-search frontier light-structured report is completed-visible") &&
+      tracker.includes(launchReadyItem.itemId) &&
+      tracker.includes(launchReadyItem.queueStatus) &&
+      tracker.includes(launchReadyItem.reportStatus) &&
+      tracker.includes("No full-OfOne ChatGPT conversation has been opened") &&
       tracker.includes("raw Markdown harvest remains blocked"),
     "OFONE_RESEARCH_FRONTIER_ACTIVE_TRACKER_ADDENDUM",
-    "tracker addendum records direct-answer harvest proof and completed-visible light-structured harvest blocker"
+    "tracker addendum records direct-answer harvest proof, completed-visible light-structured blocker, and launch-ready full-OfOne lane"
   );
   check(
     packet.includes(`Status: \`${chromeCompletedVisibleStatus}\``) &&
@@ -322,9 +338,11 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       packet.includes("Research completed in 10m") &&
       packet.includes("locally reviewed") &&
       packet.includes("Research completed in 9m") &&
-      packet.includes("cross-origin Deep Research sandbox iframe"),
+      packet.includes("cross-origin Deep Research sandbox iframe") &&
+      packet.includes(launchReadyItem.itemId) &&
+      packet.includes("## Prompt 3: Full OfOne"),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_PACKET",
-    "frontier packet records Chrome-extension direct harvest proof and completed-visible light-structured blocker"
+    "frontier packet records Chrome-extension direct harvest proof, completed-visible light-structured blocker, and full-OfOne prompt identity"
   );
   check(
       loopDoc.includes(formalProofFrontierPacketRel) &&
@@ -334,10 +352,13 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
         return queueItem?.conversation_url && loopDoc.includes(queueItem.conversation_url);
       }) &&
       loopDoc.includes(chromeCompletedVisibleStatus) &&
+      loopDoc.includes(launchReadyItem.itemId) &&
+      loopDoc.includes(launchReadyItem.reportStatus) &&
+      loopDoc.includes("no full-OfOne ChatGPT conversation has been opened") &&
       (loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback") ||
         loopDoc.includes("do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback")),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_LOOP",
-    "recursive loop points to the completed-visible Chrome-extension run and forbids desktop-automation fallback"
+    "recursive loop points to the completed-visible Chrome-extension run, launch-ready full-OfOne lane, and forbids desktop-automation fallback"
   );
   check(
     queue.launch_surface_policy?.primary_surface === "chrome_extension_plugin" &&
@@ -347,9 +368,15 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
         return queueItem?.status === expected.queueStatus &&
           queueItem?.conversation_url?.startsWith("https://chatgpt.com/c/") &&
           queueItem?.aggregate_policy === expected.aggregatePolicy;
-      }),
+      }) &&
+      launchQueueItem?.status === launchReadyItem.queueStatus &&
+      launchQueueItem?.prompt_anchor === "## Prompt 3: Full OfOne" &&
+      launchQueueItem?.aggregate_policy === launchReadyItem.aggregatePolicy &&
+      launchQueueItem?.blocked_reason?.includes("Prepared for the next Chrome-extension-managed isolated Deep Research launch") &&
+      !launchQueueItem?.conversation_url &&
+      !launchQueueItem?.launch_proof_path,
     "OFONE_RESEARCH_FRONTIER_CHROME_QUEUE_ACTIVE",
-    "Deep Research launch queue records direct reviewed state and completed-visible light-structured state"
+    "Deep Research launch queue records direct reviewed state, completed-visible light-structured state, and prepared full-OfOne state"
   );
   check(
     payload.generated_from?.queue_path === deepResearchQueueRel &&
@@ -360,9 +387,15 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
           payloadItem?.launch_allowed === expected.payloadLaunchAllowed &&
           payloadItem?.extension_action === expected.payloadAction &&
           payloadItem?.tab_lane === reportItem?.tab_lane;
-      }),
+      }) &&
+      launchPayloadItem?.status === launchReadyItem.queueStatus &&
+      launchPayloadItem?.launch_allowed === launchReadyItem.payloadLaunchAllowed &&
+      launchPayloadItem?.extension_action === launchReadyItem.payloadAction &&
+      launchPayloadItem?.tab_lane === launchReportItem?.tab_lane &&
+      launchPayloadItem?.prompt_anchor === "## Prompt 3: Full OfOne" &&
+      launchPayloadItem?.prompt_text?.includes(launchReadyItem.itemId),
     "OFONE_RESEARCH_FRONTIER_CHROME_PAYLOAD_ACTIVE",
-    "Chrome-extension payload records completed direct lane and harvest-needed light-structured lane"
+    "Chrome-extension payload records completed direct lane, harvest-needed light-structured lane, and launch-ready full-OfOne lane"
   );
   check(
     report.payload_path === deepResearchPayloadRel &&
@@ -411,9 +444,18 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
           reportItem?.latest_observation?.active_state_visible === true &&
           reportItem?.latest_observation?.next_action === "harvest_when_completed_report_visible" &&
           !reportItem?.harvest_proof;
-      }),
+      }) &&
+      launchReportItem?.status === launchReadyItem.reportStatus &&
+      launchReportItem?.extension_control?.surface === "chrome_extension_plugin" &&
+      launchReportItem?.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
+      launchReportItem?.extension_control?.isolated_tab_verified === false &&
+      launchReportItem?.extension_control?.desktop_automation_used === false &&
+      launchReportItem?.aggregate_policy_after_report === launchReadyItem.reportAggregatePolicy &&
+      !launchReportItem?.launch_proof &&
+      !launchReportItem?.latest_observation &&
+      !launchReportItem?.harvest_proof,
     "OFONE_RESEARCH_FRONTIER_CHROME_REPORT_ACTIVE",
-    "Chrome-extension report intake records direct harvest proof and completed-visible light-structured harvest blocker"
+    "Chrome-extension report intake records direct harvest proof, completed-visible light-structured harvest blocker, and launch-ready full-OfOne lane"
   );
 
   const manualItem = (manualRecovery.items || []).find((item) =>

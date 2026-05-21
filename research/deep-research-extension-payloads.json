@@ -5,7 +5,7 @@
     "queue_path": "research/deep-research-launch-queue.json",
     "queue_id": "2026-05-21-formal-frontier-r1-chrome-extension",
     "queue_generated_at": "2026-05-21T09:34:52-06:00",
-    "queue_sha256": "sha256:fc64b816437876ec13322e9855c9e2c459719942c93dc8287ef4e3b67e14e2af"
+    "queue_sha256": "sha256:3e7e5018df0496212015dc093659a45a420ce0c4df0a450636379037a7041740"
   },
   "launch_surface_policy": {
     "primary_surface": "chrome_extension_plugin",
@@ -86,6 +86,51 @@
       "prompt_text": "You are participating in an OfOne benchmark comparison.\n\nRun metadata:\n- Batch ID: `2026-05-17-batch-01`\n- Run ID: `2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1`\n- Case ID: `case-formal-proof-search-001`\n- Arm: `light_structured`\n- Model family: `frontier_reasoning`\n- Repeat: `1`\n- Actual execution order: `frontier_reasoning formal proof-search repeat 1 light-structured after direct-answer harvest/publication gate`\n\nFrozen input hashes:\n- Case file SHA-256: `sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756`\n- Prompt file SHA-256: `sha256:4e24fffebda9b77776c871dbc2bc4e1872a609d8062f67034175594e26cb9de2`\n- Rubric SHA-256: `sha256:79216de2e2805778fff27d20c9ac19a3be02a8ed24fa0b2f0f682f5e1c18ab56`\n\nDo not inspect outputs from any other benchmark arm. Do not inspect prior Batch 01 outputs or reviews. Do not claim empirical superiority for any method.\n\n## Benchmark Arm Prompt: Light Structured\n\nUse a conventional lightweight structure to answer the case objective. You may use bullets, pros and cons, a checklist, SWOT, risk table, or short decision memo. Do not create an OfOne JSON artifact, schema-valid map, renderer output, or patch report.\n\nReturn:\n\n1. A structured answer.\n2. Key risks, unknowns, and evidence gaps.\n3. A recommendation or next step.\n\nConstraints:\n\n- Keep the structure useful but lightweight.\n- Do not use OfOne object IDs, graph schemas, or validation language as the organizing layer.\n- Do not claim empirical superiority for any method.\n- Do not inspect outputs from other benchmark arms.\n- If the case includes an update event, explain likely changes with ordinary prose or a simple table.\n\n## Case\n\nA formal reasoning task has an incomplete proof path, a candidate lemma, and possible countermodel pressure. Produce a map that separates axioms, claims, proof obligations, countermodel tests, unknowns, and update triggers.\n\nDomain mix:\n\n- formal\n\nExpected pressure points:\n\n- formal adapter fit\n- proof claim versus evidence separation\n- countermodel or contradiction handling\n- kill tests for failed proof paths\n- update behavior when a lemma is disproven\n\nBegin your answer with this exact header:\n\n# Benchmark Raw Output\n\nRun ID: `2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1`\nCase ID: `case-formal-proof-search-001`\nArm: `light_structured`\nModel family: `frontier_reasoning`\nRepeat: `1`\nStatus: `completed`\n",
       "expected_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1.md",
       "expected_review_path": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1.md",
+      "required_launch_proof": [
+        "callable Chrome extension/plugin control",
+        "clean isolated ChatGPT tab or conversation",
+        "visible current Pro/frontier-capable model label",
+        "highest available visible reasoning mode",
+        "Deep Research enabled when available",
+        "generated plan or equivalent run-start proof",
+        "Start or countdown action",
+        "visible active research state",
+        "stop-control evidence"
+      ],
+      "disallowed_surfaces": [
+        "Browser",
+        "Computer Use",
+        "coordinate clicking",
+        "AppleScript/JXA",
+        "generic desktop automation"
+      ],
+      "aggregate_policy": "not_eligible_until_harvest_review_publication",
+      "isolation": {
+        "clean_chatgpt_conversation_required": true,
+        "no_prior_batch_outputs_or_reviews": true,
+        "no_cross_arm_visibility_until_raw_harvest": true,
+        "save_raw_report_before_local_review": true
+      }
+    },
+    {
+      "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1",
+      "tab_lane": "ofone-03-2026-05-17-batch-01-case-formal-proof-search-001-full-ofone-frontier-reasoning-r1",
+      "extension_action": "open_isolated_deep_research_tab",
+      "launch_allowed": true,
+      "launch_blocked_reason": null,
+      "status": "prepared_not_launched",
+      "batch_id": "2026-05-17-batch-01",
+      "case_id": "case-formal-proof-search-001",
+      "arm": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "packet_path": "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md",
+      "packet_sha256": "sha256:b973459d1603c24b29eeb90f5082d7d83d34b6bd8663548198a82e38b13cc1ea",
+      "prompt_anchor": "## Prompt 3: Full OfOne",
+      "prompt_text_sha256": "sha256:c93667f6f91212db9ac7a90a4f758fdf98d5adf7a079efb2d4bb8776dccaf773",
+      "prompt_text": "You are participating in an OfOne benchmark comparison.\n\nRun metadata:\n- Batch ID: `2026-05-17-batch-01`\n- Run ID: `2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1`\n- Case ID: `case-formal-proof-search-001`\n- Arm: `full_ofone`\n- Model family: `frontier_reasoning`\n- Repeat: `1`\n- Actual execution order: `frontier_reasoning formal proof-search repeat 1 full-OfOne after text-arm harvest/publication gates`\n\nFrozen input hashes:\n- Case file SHA-256: `sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756`\n- Prompt file SHA-256: `sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e`\n- Full OfOne input bundle SHA-256: `sha256:fc0b94ca224173ad518f3f527356dbe998f29d3eb7ca6d4756e2b343def39c64`\n- Rubric SHA-256: `sha256:79216de2e2805778fff27d20c9ac19a3be02a8ed24fa0b2f0f682f5e1c18ab56`\n\nPublic OfOne specification surfaces:\n- Repository: https://github.com/CryptoJym/ofone-skillchain\n- GitHub Pages: https://cryptojym.github.io/ofone-skillchain/\n- Skill protocol: https://raw.githubusercontent.com/CryptoJym/ofone-skillchain/main/SKILL.md\n- Base schema: https://raw.githubusercontent.com/CryptoJym/ofone-skillchain/main/schemas/ofone.base.schema.json\n- Profile dispatcher schema: https://raw.githubusercontent.com/CryptoJym/ofone-skillchain/main/schemas/ofone.schema.json\n\nDo not inspect outputs from any other benchmark arm. Do not inspect prior Batch 01 outputs or reviews. Do not claim empirical superiority for OfOne or any method.\n\n## Benchmark Arm Prompt: Full OfOne\n\nProduce a full OfOne response for the case objective.\n\nReturn:\n\n1. A schema-valid OfOne artifact JSON for the appropriate mode.\n2. The validator result, including any warnings or blocked release state.\n3. A human-readable rendering appropriate to the case.\n4. A patch report if the case includes an update event or trigger.\n\nConstraints:\n\n- Preserve the distinction between evidence, claims, graph structure, criteria, option moves, gates, and rendering.\n- Include source identity and explicit unknowns when evidence is missing or provisional.\n- Do not treat the rendered recommendation as the internal map.\n- Do not claim empirical superiority for OfOne.\n- Do not inspect outputs from other benchmark arms.\n- If the artifact cannot pass validation, return the artifact, diagnostics, and concrete repair plan rather than hiding the failure.\n\nThe artifact must include a case-native `benchmark_trace` matching:\n\n```json\n{\n  \"case_id\": \"case-formal-proof-search-001\",\n  \"run_id\": \"2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1\",\n  \"case_file\": \"benchmarks/cases/formal-proof-search.md\",\n  \"case_file_sha256\": \"sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756\",\n  \"prompt_file\": \"benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md\",\n  \"prompt_file_sha256\": \"sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e\",\n  \"input_bundle_sha256\": \"sha256:fc0b94ca224173ad518f3f527356dbe998f29d3eb7ca6d4756e2b343def39c64\"\n}\n```\n\nFor the formal case, represent proof obligations, candidate lemma state, countermodel pressure, contradiction tests, and update triggers without asserting a proof certificate that the dossier does not provide.\n\n## Case\n\nA formal reasoning task has an incomplete proof path, a candidate lemma, and possible countermodel pressure. Produce a map that separates axioms, claims, proof obligations, countermodel tests, unknowns, and update triggers.\n\nDomain mix:\n\n- formal\n\nExpected pressure points:\n\n- formal adapter fit\n- proof claim versus evidence separation\n- countermodel or contradiction handling\n- kill tests for failed proof paths\n- update behavior when a lemma is disproven\n\nBegin your answer with this exact header:\n\n# Benchmark Raw Output\n\nRun ID: `2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1`\nCase ID: `case-formal-proof-search-001`\nArm: `full_ofone`\nModel family: `frontier_reasoning`\nRepeat: `1`\nStatus: `completed`\n\nThen provide:\n\n1. `## Artifact JSON` with one fenced JSON block.\n2. `## Validator Result` describing expected local validation status. Do not claim local validation has already run.\n3. `## Rendering` with a formal-proof-native Map rendering.\n4. `## Patch Report` with affected closure for the update trigger that would change the proof-state recommendation, or a clear no-update-applicable patch report if no trigger is represented.\n",
+      "expected_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1.md",
+      "expected_review_path": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__full_ofone__frontier_reasoning__r1.md",
       "required_launch_proof": [
         "callable Chrome extension/plugin control",
         "clean isolated ChatGPT tab or conversation",

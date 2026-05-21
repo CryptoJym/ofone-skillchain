@@ -112,19 +112,20 @@ function extractPromptBlock(packetText, anchor) {
   if (anchorIndex === -1) {
     throw new Error(`Prompt anchor not found: ${anchor}`);
   }
-  const fenceStart = packetText.indexOf("```markdown", anchorIndex);
-  if (fenceStart === -1) {
+  const afterAnchor = packetText.slice(anchorIndex);
+  const fenceMatch = afterAnchor.match(/(^|\n)(`{3,}|~{3,})markdown[^\n]*\n/);
+  if (!fenceMatch) {
     throw new Error(`No markdown prompt fence after anchor: ${anchor}`);
   }
-  const contentStart = packetText.indexOf("\n", fenceStart);
-  if (contentStart === -1) {
-    throw new Error(`Malformed markdown prompt fence after anchor: ${anchor}`);
-  }
-  const fenceEnd = packetText.indexOf("\n```", contentStart + 1);
-  if (fenceEnd === -1) {
+  const fenceStart = anchorIndex + fenceMatch.index + fenceMatch[0].length;
+  const fenceChars = fenceMatch[2];
+  const closePattern = new RegExp(`\\n${escapeRegExp(fenceChars)}[ \\t]*\\n`);
+  const closeMatch = packetText.slice(fenceStart).match(closePattern);
+  if (!closeMatch) {
     throw new Error(`Markdown prompt fence is not closed after anchor: ${anchor}`);
   }
-  return `${packetText.slice(contentStart + 1, fenceEnd).trimEnd()}\n`;
+  const fenceEnd = fenceStart + closeMatch.index;
+  return `${packetText.slice(fenceStart, fenceEnd).trimEnd()}\n`;
 }
 
 function readText(relPath) {
@@ -141,4 +142,8 @@ function slugify(value) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 96);
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

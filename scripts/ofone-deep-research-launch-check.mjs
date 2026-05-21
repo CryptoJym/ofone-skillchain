@@ -29,6 +29,8 @@ const chromeObservationBlockedStatus = "observation_blocked";
 const chromeCompletedVisibleStatus = "completed_report_visible";
 const chromeReviewedStatus = "reviewed";
 const chromeHarvestedStatus = "harvested";
+const chromePreparedStatus = "prepared_not_launched";
+const chromeLaunchReadyStatus = "launch_ready";
 
 const diagnostics = [];
 
@@ -127,28 +129,43 @@ function validateQueueItems(queue) {
   for (const item of queue.items || []) {
     const packet = readText(item.packet_path, `${item.item_id} packet`);
     const reviewed = item.status === chromeReviewedStatus;
+    const prepared = item.status === chromePreparedStatus;
     const completedVisible = item.status === chromeCompletedVisibleStatus;
-    check(
-      (reviewed || item.status === chromeActiveStatus || completedVisible) &&
-        (item.blocked_reason.includes("Resolved: Chrome extension plugin control is available") ||
-          item.blocked_reason.includes("Completed report visible through Chrome extension control")) &&
-        item.disallowed_surfaces.includes("Computer Use") &&
-        item.disallowed_surfaces.includes("generic desktop automation") &&
-        item.aggregate_policy === (reviewed ? "aggregate_eligible_after_review" : "not_eligible_until_harvest_review_publication") &&
-        item.conversation_url?.startsWith("https://chatgpt.com/c/") &&
-        item.launch_proof_path === reportRel,
-      "OFONE_DEEP_RESEARCH_ACTIVE_ITEM",
-      `${item.item_id} is tracked through Chrome extension launch proof with the expected current eligibility state`
-    );
+    if (prepared) {
+      check(
+        item.blocked_reason.includes("Prepared") &&
+          item.disallowed_surfaces.includes("Computer Use") &&
+          item.disallowed_surfaces.includes("generic desktop automation") &&
+          item.aggregate_policy === "not_eligible_until_harvest_review_publication" &&
+          !item.conversation_url &&
+          !item.launch_proof_path,
+        "OFONE_DEEP_RESEARCH_PREPARED_ITEM",
+        `${item.item_id} is queued for future Chrome-extension launch without launch proof, harvest, or aggregate eligibility`
+      );
+    } else {
+      check(
+        (reviewed || item.status === chromeActiveStatus || completedVisible) &&
+          (item.blocked_reason.includes("Resolved: Chrome extension plugin control is available") ||
+            item.blocked_reason.includes("Completed report visible through Chrome extension control")) &&
+          item.disallowed_surfaces.includes("Computer Use") &&
+          item.disallowed_surfaces.includes("generic desktop automation") &&
+          item.aggregate_policy === (reviewed ? "aggregate_eligible_after_review" : "not_eligible_until_harvest_review_publication") &&
+          item.conversation_url?.startsWith("https://chatgpt.com/c/") &&
+          item.launch_proof_path === reportRel,
+        "OFONE_DEEP_RESEARCH_ACTIVE_ITEM",
+        `${item.item_id} is tracked through Chrome extension launch proof with the expected current eligibility state`
+      );
+    }
     if (!packet) continue;
     check(
-      [chromeActiveStatus, chromeObservationBlockedStatus, chromeCompletedVisibleStatus, chromeHarvestedStatus, chromeReviewedStatus].some((status) =>
-        packet.includes(`Status: \`${status}\``)
-      ) &&
+      (prepared ||
+        [chromeActiveStatus, chromeObservationBlockedStatus, chromeCompletedVisibleStatus, chromeHarvestedStatus, chromeReviewedStatus].some((status) =>
+          packet.includes(`Status: \`${status}\``)
+        )) &&
         packet.includes(item.prompt_anchor) &&
         packet.includes(item.item_id) &&
         packet.includes("generic desktop automation are not fallback launch paths") &&
-        packet.includes(item.conversation_url),
+        (prepared || packet.includes(item.conversation_url)),
       "OFONE_DEEP_RESEARCH_PACKET_BINDING",
       `${item.item_id} queue item binds to the Chrome-extension packet, observation state, and prompt anchor`
     );
@@ -224,18 +241,27 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
     const reportItem = reportById.get(item.item_id);
     const harvested = reportItem?.status === chromeHarvestedStatus;
     const completedVisible = reportItem?.status === chromeCompletedVisibleStatus;
+    const launchReady = reportItem?.status === chromeLaunchReadyStatus;
     check(
       Boolean(reportItem) &&
         reportItem.tab_lane === payload?.tab_lane &&
-        [chromeActiveStatus, chromeObservationBlockedStatus, chromeCompletedVisibleStatus, chromeHarvestedStatus].includes(reportItem.status) &&
+        [chromeLaunchReadyStatus, chromeActiveStatus, chromeObservationBlockedStatus, chromeCompletedVisibleStatus, chromeHarvestedStatus].includes(reportItem.status) &&
         reportItem.extension_control?.surface === "chrome_extension_plugin" &&
         reportItem.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
-        reportItem.extension_control?.isolated_tab_verified === true &&
+        reportItem.extension_control?.isolated_tab_verified === (launchReady ? false : true) &&
         reportItem.extension_control?.desktop_automation_used === false &&
-        reportItem.launch_proof?.conversation_url === item.conversation_url &&
-        reportItem.launch_proof?.deep_research_enabled === true &&
-        reportItem.launch_proof?.stop_control_visible === true &&
+        (launchReady ||
+          (reportItem.launch_proof?.conversation_url === item.conversation_url &&
+            reportItem.launch_proof?.deep_research_enabled === true &&
+            reportItem.launch_proof?.stop_control_visible === true)) &&
         reportItem.aggregate_policy_after_report === (harvested ? "eligible_only_after_local_review_and_publication" : "not_eligible_until_harvest_review_publication") &&
+        (reportItem.status !== chromeLaunchReadyStatus ||
+          (item.status === chromePreparedStatus &&
+            payload?.launch_allowed === true &&
+            payload?.extension_action === "open_isolated_deep_research_tab" &&
+            !reportItem.launch_proof &&
+            !reportItem.latest_observation &&
+            !reportItem.harvest_proof)) &&
         (reportItem.status !== chromeObservationBlockedStatus ||
           (reportItem.latest_observation?.iframe_present === true &&
             reportItem.latest_observation?.completed_report_visible === false &&

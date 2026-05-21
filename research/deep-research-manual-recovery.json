@@ -2,14 +2,14 @@
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-manual-recovery.schema.json",
   "protocol_version": "ofone-deep-research-manual-recovery-0.1",
   "recovery_id": "2026-05-21-formal-frontier-light-structured-manual-recovery",
-  "generated_at": "2026-05-21T10:54:47-06:00",
+  "generated_at": "2026-05-21T12:17:44-06:00",
   "source_surface": "chrome_extension_plugin",
   "report_path": "research/deep-research-extension-report.json",
-  "report_sha256": "sha256:8afdb7350ee082b4283189de7f7461bd4643e1dca1f438a414fb718ac19af28b",
+  "report_sha256": "sha256:007734b7ccb2ca96d729a50eacdc8ac350adc227016e9465c7f67b15993f884d",
   "queue_path": "research/deep-research-launch-queue.json",
-  "queue_sha256": "sha256:fc64b816437876ec13322e9855c9e2c459719942c93dc8287ef4e3b67e14e2af",
+  "queue_sha256": "sha256:3e7e5018df0496212015dc093659a45a420ce0c4df0a450636379037a7041740",
   "payload_path": "research/deep-research-extension-payloads.json",
-  "payload_sha256": "sha256:1c1434fbdab14594b20ac883a86d66395b087804d0af2d9b46a9a3fb10ef774f",
+  "payload_sha256": "sha256:298b3a05792e0fd7224f5ca779a7bc9b7822343490f1b71bb0a66baecacc62cc",
   "items": [
     {
       "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__light_structured__frontier_reasoning__r1",
