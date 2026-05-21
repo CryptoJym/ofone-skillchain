@@ -7,10 +7,13 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 Rerun number: `4`
-Status: `prepared_not_launched`
+Status: `rejected_invalid_output_contract`
 Preflight: `passed_local_packet_check`
+Harvested: `2026-05-21T02:44:16-06:00`
 
 This packet repairs the excluded frontier full-OfOne repeat-1 slot after three failed remedial attempts. Rerun 1 returned an advisory research report instead of the benchmark package. Rerun 2 returned the package shape but failed executable local validation because evidence objects lacked `movement_jobs` and a tradeoff reversal condition incorrectly referenced gate `G1`. Rerun 3 returned benchmark package sections but omitted exact top-level run metadata, used an incomplete current-schema `benchmark_trace`, and used illegal edge endpoint/relation combinations involving `token:option`, `token:variable`, and `token:gate`.
+
+Rerun 4 completed in ChatGPT Deep Research but returned a meta/advisory report titled `Running an Unspecified OfOne Benchmark Packet Exactly` instead of executing the packet's Prompt section as the benchmark request. The raw export is preserved and reviewed, but the run is rejected before artifact extraction, execution-matrix replacement insertion, aggregate eligibility, aggregate comparison, or any superiority claim.
 
 Do not inspect or rewrite the original excluded run, failed rerun 1, failed rerun 2, failed rerun 3, other arms, prior Batch 01 outputs, or reviews. Those records are immutable evidence. This packet may be launched only from a clean isolated ChatGPT Deep Research conversation with visible launch proof.
 

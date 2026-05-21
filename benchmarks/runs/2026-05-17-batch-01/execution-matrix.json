@@ -3384,6 +3384,40 @@
         "evidence_provenance_adequacy": "case-bound evidence includes movement_jobs, but benchmark_trace shape and graph relations fail current validation",
         "artifact_source_identity": "raw output, artifact, validator, rendering, patch report, and review identify the failed remedial rerun3 slot"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4",
+      "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "rerun_number": 4,
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "status": "failed",
+      "aggregate_policy": "not_aggregate_eligible",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4.md",
+      "raw_output_sha256": "sha256:5d4de650a1c2f3f6612b718f45e7313f40433dfaf851afeaad1b3ca0f9dbd702",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (39).md",
+      "harvested_at": "2026-05-21T02:44:16-06:00",
+      "conversation_url": "https://chatgpt.com/c/6a0ec0a2-3814-83e8-8f86-23b625eace67",
+      "visible_report_metadata": "Research completed in 18m; 12 citations; 28 searches; 21 May; 12 sources; title `Running an Unspecified OfOne Benchmark Packet Exactly`.",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4.md",
+      "review_sha256": "sha256:af4a243df6834d66ebd10b45e7c746f103c19177493cce860ce869fd29a347ca",
+      "failure_reason": "Completed report was a meta/advisory analysis of an unspecified packet and did not begin with `# Benchmark Raw Output`, include exact run metadata, or contain actual case-bound `## Artifact JSON`, `## Validator Result`, `## Rendering`, and `## Patch Report` sections.",
+      "pre_score_compliance": {
+        "case_fidelity": "fail",
+        "required_outputs": "fail",
+        "independence": "unknown",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Deep Research returned a meta/advisory report rather than the required benchmark package."
+      },
+      "semantic_fidelity": {
+        "case_binding": "fail",
+        "copied_example_risk": "unknown",
+        "evidence_provenance_adequacy": "advisory report only; no benchmark artifact, validator result, rendering, or patch report exists",
+        "artifact_source_identity": "raw export and review identify the failed remedial rerun4 slot; no artifact object exists"
+      }
     }
   ]
 }
