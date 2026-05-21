@@ -4,7 +4,7 @@ Status: `in_progress`
 
 This file is reserved for aggregate findings from `2026-05-17-batch-01`.
 
-Raw output collection, local unblinded review, and the first independent frontier review have started. Forty-six of 90 predeclared run slots have completed and have local reviews across fifteen local `agentic_coding` slices plus one `frontier_reasoning` direct-answer slot:
+Raw output collection, local unblinded review, and the first independent frontier review have started. Forty-seven of 90 predeclared run slots have completed and have local reviews across fifteen local `agentic_coding` slices plus two `frontier_reasoning` strategic repeat-1 text slots:
 
 - `case-strategic-gated-diligence-001` / `direct_answer` / `agentic_coding` / repeat 1
 - `case-strategic-gated-diligence-001` / `light_structured` / `agentic_coding` / repeat 1
@@ -52,6 +52,7 @@ Raw output collection, local unblinded review, and the first independent frontie
 - `case-public-sector-ai-policy-audit-001` / `light_structured` / `agentic_coding` / repeat 3
 - `case-public-sector-ai-policy-audit-001` / `full_ofone` / `agentic_coding` / repeat 3
 - `case-strategic-gated-diligence-001` / `direct_answer` / `frontier_reasoning` / repeat 1
+- `case-strategic-gated-diligence-001` / `light_structured` / `frontier_reasoning` / repeat 1
 
 Run 06 independently adjudicated the first slice. It accepted the direct-answer and light-structured slots for later aggregate scoring, but rejected the full-OfOne slot because the artifact identity is copied from `case-strategy-micro-001` rather than bound to `case-strategic-gated-diligence-001`.
 
@@ -89,7 +90,7 @@ The formal proof-search repeat-3 slice completed after the regulated wastewater 
 
 The public-sector AI policy audit repeat-3 slice completed after the formal proof-search repeat-3 slice. All three policy-audit repeat-3 `agentic_coding` arms passed local pre-score compliance. The full-OfOne policy repeat-3 artifact is case-native, schema-valid, benchmark-trace-bound, and includes validator, Audit rendering, patch, review-log objects, and local review artifacts. The slice is published and Pages-confirmed after public commit `bb8b474`.
 
-The next predeclared model family is `frontier_reasoning`. A strategic gated diligence repeat-1 packet exists at `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-18-strategic-gated-diligence-frontier-r1.md` for separate direct-answer, light-structured, and full-OfOne frontier runs. The direct-answer arm completed in ChatGPT Deep Research at https://chatgpt.com/c/6a0e3e09-fd6c-83e8-a914-36445d70d090 with visible report metadata `Research completed in 17m`, `6 citations`, and `81 searches`. Its raw Markdown was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__frontier_reasoning__r1.md`, locally reviewed at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__frontier_reasoning__r1.md`, and accepted as aggregate-eligible. The light-structured and full-OfOne frontier arms remain queued/not launched, and no frontier aggregate comparison is supported.
+The next predeclared model family is `frontier_reasoning`. A strategic gated diligence repeat-1 packet exists at `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-18-strategic-gated-diligence-frontier-r1.md` for separate direct-answer, light-structured, and full-OfOne frontier runs. The direct-answer arm completed in ChatGPT Deep Research at https://chatgpt.com/c/6a0e3e09-fd6c-83e8-a914-36445d70d090 with visible report metadata `Research completed in 17m`, `6 citations`, and `81 searches`. Its raw Markdown was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__frontier_reasoning__r1.md`, locally reviewed at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__direct_answer__frontier_reasoning__r1.md`, and accepted as aggregate-eligible. The light-structured arm completed in the separate ChatGPT Deep Research conversation at https://chatgpt.com/c/6a0e7bcd-43b0-83e8-9a92-5195521c42fe with visible completed report title `Benchmark Raw Output` and run metadata `Status: completed`; its raw Markdown was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`, locally reviewed at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`, and accepted as aggregate-eligible. The full-OfOne frontier arm remains queued/not launched, and no frontier aggregate comparison is supported.
 
 Current aggregate eligibility among reviewed local slots:
 
@@ -100,6 +101,7 @@ Current aggregate eligibility among reviewed local slots:
 | strategic / original `full_ofone` / `agentic_coding` / repeat 1 | excluded | Wrong-case copied artifact; schema-valid is not benchmark-valid. |
 | strategic / `full_ofone` / `agentic_coding` / repeat 1 / remedial rerun 1 | eligible for future aggregate scoring as replacement | Case-native artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
 | strategic / `direct_answer` / `frontier_reasoning` / repeat 1 | eligible | Completed in ChatGPT Deep Research; harvested raw Markdown; passed pre-score compliance and local review. |
+| strategic / `light_structured` / `frontier_reasoning` / repeat 1 | eligible | Completed in ChatGPT Deep Research; harvested raw Markdown; passed pre-score compliance and local review. |
 | scientific / `direct_answer` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | scientific / `light_structured` / `agentic_coding` / repeat 1 | eligible | Passes pre-score compliance gate. |
 | scientific / `full_ofone` / `agentic_coding` / repeat 1 | eligible | Case-native Map artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |

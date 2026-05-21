@@ -30,11 +30,11 @@
   "review_path_template": "benchmarks/reviews/2026-05-17-batch-01/{run_id}.md",
   "execution_order_policy": "Rotate case, arm, model family, and repeat order before execution. Store actual order in each raw output header.",
   "completion": {
-    "queued": 44,
-    "completed": 46,
-    "reviewed": 46,
+    "queued": 43,
+    "completed": 47,
+    "reviewed": 47,
     "excluded": 1,
-    "aggregate_eligible": 46,
+    "aggregate_eligible": 47,
     "remedial": 1
   },
   "completed_runs": [
@@ -1477,6 +1477,36 @@
         "evidence_provenance_adequacy": "public launch/risk-governance sources used for general support; missing case-specific evidence remains explicit",
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-strategic-gated-diligence-001"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "light_structured",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:f70a55a9dee97cebc5d0138f57ef887c948dabc452fb2071dec4624fd13b55e6",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (33).md",
+      "harvested_at": "2026-05-20T21:43:46-06:00",
+      "visible_report_metadata": "Completed report visible with title `Benchmark Raw Output`; run metadata shows Status: `completed`; export to Markdown succeeded.",
+      "conversation_url": "https://chatgpt.com/c/6a0e7bcd-43b0-83e8-9a92-5195521c42fe",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier light-structured run is harvested from a completed ChatGPT Deep Research report and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "public launch, deployment, and risk-governance sources used for general support; missing case-specific evidence remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-strategic-gated-diligence-001"
+      },
+      "status": "completed"
     }
   ],
   "reviewed_runs": [
@@ -2919,12 +2949,42 @@
         "evidence_provenance_adequacy": "public launch/risk-governance sources used for general support; missing case-specific evidence remains explicit",
         "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-strategic-gated-diligence-001"
       }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "light_structured",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md",
+      "raw_output_sha256": "sha256:f70a55a9dee97cebc5d0138f57ef887c948dabc452fb2071dec4624fd13b55e6",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (33).md",
+      "harvested_at": "2026-05-20T21:43:46-06:00",
+      "visible_report_metadata": "Completed report visible with title `Benchmark Raw Output`; run metadata shows Status: `completed`; export to Markdown succeeded.",
+      "conversation_url": "https://chatgpt.com/c/6a0e7bcd-43b0-83e8-9a92-5195521c42fe",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Pre-score gate passed before metric scoring. Frontier light-structured run is harvested from a completed ChatGPT Deep Research report and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "public launch, deployment, and risk-governance sources used for general support; missing case-specific evidence remains explicit",
+        "artifact_source_identity": "raw Markdown output, conversation URL, downloaded export, review file, and run metadata all identify the benchmark run and case-strategic-gated-diligence-001"
+      },
+      "status": "reviewed"
     }
   ],
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, the agentic_coding family is locally complete, and the frontier_reasoning family has only one reviewed direct-answer slot.",
-    "allowed_claim": "Batch 01 has 46 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus one frontier_reasoning direct-answer slot; one original run is excluded and one remedial replacement exists. No performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, the agentic_coding family is locally complete, and the frontier_reasoning family has two reviewed strategic repeat-1 text slots; the frontier full_ofone arm is still queued.",
+    "allowed_claim": "Batch 01 has 47 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus frontier_reasoning direct-answer and light-structured strategic repeat-1 slots; one original run is excluded and one remedial replacement exists. No performance comparison is supported."
   },
   "excluded_runs": [
     {
