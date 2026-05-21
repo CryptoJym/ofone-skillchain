@@ -32,6 +32,7 @@ Use this packet only when the operator can verify a clean ChatGPT Deep Research 
 - 2026-05-21T00:17:38-06:00: Launched from a clean ChatGPT root/new-chat surface. Clean composer initially showed `Extended Pro`; after Deep Research was enabled, the composer showed `Pro`.
 - Context delivery: prompt packet was delivered as `Pasted text(13).txt`; the visible instruction explicitly named remedial run `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2`.
 - Deep Research proof: generated plan title `Strategic gated diligence`; `Start` clicked; visible active status `Researching...`; `Stop research` present.
+- 2026-05-21T00:25:58-06:00 observation: still active; step 1 complete, step 2 active, status text `Considering search options for codeload URL...`, `17 searches`, `17 sources searched`, and `Stop research` present.
 - This is launch proof only. No completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
 
 ## Frozen Inputs
