@@ -22,6 +22,7 @@ const loopRel = "research/recursive-improvement-loop.md";
 const statusRel = "research/status/2026-05-17-07-ofone-post-run06-hardening-review.md";
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 const chromeActiveStatus = "active_researching";
+const chromeObservationBlockedStatus = "observation_blocked";
 const activeFormalProofFrontierConversationUrl = "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b";
 
 const diagnostics = [];
@@ -117,13 +118,15 @@ function validateQueueItems(queue) {
     );
     if (!packet) continue;
     check(
-      packet.includes(`Status: \`${chromeActiveStatus}\``) &&
+      [chromeActiveStatus, chromeObservationBlockedStatus].some((status) =>
+        packet.includes(`Status: \`${status}\``)
+      ) &&
         packet.includes(item.prompt_anchor) &&
         packet.includes(item.item_id) &&
         packet.includes("generic desktop automation are not fallback launch paths") &&
         packet.includes(activeFormalProofFrontierConversationUrl),
       "OFONE_DEEP_RESEARCH_PACKET_BINDING",
-      `${item.item_id} queue item binds to the active Chrome-extension packet and prompt anchor`
+      `${item.item_id} queue item binds to the Chrome-extension packet, observation state, and prompt anchor`
     );
   }
 }
@@ -182,7 +185,7 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
     check(
       Boolean(reportItem) &&
         reportItem.tab_lane === payload?.tab_lane &&
-        reportItem.status === chromeActiveStatus &&
+        [chromeActiveStatus, chromeObservationBlockedStatus].includes(reportItem.status) &&
         reportItem.extension_control?.surface === "chrome_extension_plugin" &&
         reportItem.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
         reportItem.extension_control?.isolated_tab_verified === true &&
@@ -191,6 +194,10 @@ function validateExtensionReport(queue, payloads, report, reportScript) {
         reportItem.launch_proof?.deep_research_enabled === true &&
         reportItem.launch_proof?.stop_control_visible === true &&
         reportItem.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication" &&
+        (reportItem.status !== chromeObservationBlockedStatus ||
+          (reportItem.latest_observation?.iframe_present === true &&
+            reportItem.latest_observation?.completed_report_visible === false &&
+            reportItem.latest_observation?.next_action === "observe_again_without_relaunch")) &&
         !reportItem.harvest_proof,
       "OFONE_DEEP_RESEARCH_EXTENSION_REPORT_ITEM",
       `${item.item_id} extension report preserves active launch proof without harvest proof`
@@ -237,7 +244,8 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
       loop.includes(reportRel) &&
       loop.includes(contractRel) &&
       loop.includes("launch queue") &&
-      loop.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback"),
+      (loop.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback") ||
+        loop.includes("do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback")),
     "OFONE_DEEP_RESEARCH_LOOP_LINK",
     "recursive loop points to the extension queue/payloads/report and preserves fallback ban"
   );
@@ -259,8 +267,9 @@ function validatePublishedContract({ queue, contract, tracker, loop, statusLedge
     "payload generator extracts exact prompt blocks and preserves extension isolation semantics"
   );
   check(
-    reportScript.includes("extension report matches schema") &&
+      reportScript.includes("extension report matches schema") &&
       reportScript.includes("raw_output_sha256") &&
+      reportScript.includes("OFONE_DEEP_RESEARCH_EXTENSION_LATEST_OBSERVATION") &&
       reportScript.includes("not_eligible_until_harvest_review_publication"),
     "OFONE_DEEP_RESEARCH_REPORT_CHECKER_DOC",
     "report checker verifies active launch state and future harvested raw-output hash proof"

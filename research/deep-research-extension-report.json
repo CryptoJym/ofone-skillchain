@@ -2,15 +2,15 @@
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-report.schema.json",
   "protocol_version": "ofone-deep-research-extension-report-0.1",
   "report_id": "2026-05-21-formal-frontier-r1-extension-observation",
-  "generated_at": "2026-05-21T13:41:10.557Z",
+  "generated_at": "2026-05-21T07:58:10-06:00",
   "payload_path": "research/deep-research-extension-payloads.json",
-  "payload_sha256": "sha256:e2cca2e3f3ff9f1edaab5b98063cdfb92b554ae087bc6d5dc6420f3e441c72d5",
+  "payload_sha256": "sha256:3d715c00221c8e8d2edca0f92b4b27104df7b5635bc10aa005bce32d503627b5",
   "source_surface": "chrome_extension_plugin",
   "items": [
     {
       "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
       "tab_lane": "ofone-01-2026-05-17-batch-01-case-formal-proof-search-001-direct-answer-frontier-reasoning-r1",
-      "status": "active_researching",
+      "status": "observation_blocked",
       "extension_control": {
         "surface": "chrome_extension_plugin",
         "callable_namespace": "mcp__node_repl__js + openai-bundled/chrome browser-client extension backend",
@@ -28,6 +28,19 @@
         "active_state": "Summarizing sources and establishing testing methods...",
         "stop_control_visible": true,
         "observed_at": "2026-05-21T13:41:10.557Z"
+      },
+      "latest_observation": {
+        "observed_at": "2026-05-21T07:58:10-06:00",
+        "conversation_url": "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b",
+        "browser_surface": "chrome_extension_plugin",
+        "iframe_present": true,
+        "iframe_text_readable": false,
+        "completed_report_visible": false,
+        "stop_control_visible": false,
+        "active_state_visible": false,
+        "response_text_available": false,
+        "visible_state": "Chrome extension observation reached the ChatGPT conversation and found the internal Deep Research iframe mounted, but the iframe body returned empty text; the outer ChatGPT DOM exposed no Stop research control, no progress text, no Research completed metadata, and Copy response returned only the original prompt. No harvest was performed.",
+        "next_action": "observe_again_without_relaunch"
       }
     }
   ]

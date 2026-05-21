@@ -31,6 +31,7 @@ const deepResearchReportRel = "research/deep-research-extension-report.json";
 const deepResearchReportPath = path.join(repoRoot, deepResearchReportRel);
 const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 const chromeActiveStatus = "active_researching";
+const chromeObservationBlockedStatus = "observation_blocked";
 const formalProofFrontierConversationUrl = "https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b";
 
 const diagnostics = [];
@@ -265,32 +266,36 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
 
   check(
     run07Row.includes(formalProofFrontierPacketRel) &&
-      run07Row.includes(`status \`${chromeActiveStatus}\``),
+      run07Row.includes(`status \`${chromeObservationBlockedStatus}\``) &&
+      run07Row.includes("mounted blank Deep Research iframe"),
     "OFONE_RESEARCH_FRONTIER_ACTIVE_TRACKER_ROW",
-    "tracker Run 07 row records the current formal frontier Chrome-extension active state"
+    "tracker Run 07 row records the current formal frontier Chrome-extension observation-blocked state"
   );
   check(
-    tracker.includes(`Status marker: \`${chromeActiveStatus}\``) &&
+    tracker.includes(`Status marker: \`${chromeObservationBlockedStatus}\``) &&
       tracker.includes(formalProofFrontierConversationUrl) &&
       tracker.includes("no formal proof-search frontier slot is harvested, reviewed, complete, or aggregate-eligible"),
     "OFONE_RESEARCH_FRONTIER_ACTIVE_TRACKER_ADDENDUM",
     "tracker addendum records active launch proof while preserving no harvest, review, completion, or aggregate eligibility"
   );
   check(
-    packet.includes(`Status: \`${chromeActiveStatus}\``) &&
+    packet.includes(`Status: \`${chromeObservationBlockedStatus}\``) &&
       packet.includes("callable Chrome extension/plugin control") &&
       packet.includes("generic desktop automation are not fallback launch paths") &&
-      packet.includes(formalProofFrontierConversationUrl),
+      packet.includes(formalProofFrontierConversationUrl) &&
+      packet.includes("no harvest, relaunch, review, completion, or aggregate eligibility"),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_PACKET",
-    "frontier packet records Chrome-extension launch proof and preserves the not-harvested boundary"
+    "frontier packet records Chrome-extension launch proof and preserves the observation-blocked boundary"
   );
   check(
-    loopDoc.includes(formalProofFrontierPacketRel) &&
+      loopDoc.includes(formalProofFrontierPacketRel) &&
       loopDoc.includes(deepResearchReportRel) &&
       loopDoc.includes(formalProofFrontierConversationUrl) &&
-      loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback"),
+      loopDoc.includes(chromeObservationBlockedStatus) &&
+      (loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback") ||
+        loopDoc.includes("do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback")),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_LOOP",
-    "recursive loop points to the active Chrome-extension run and forbids desktop-automation fallback"
+    "recursive loop points to the observation-blocked Chrome-extension run and forbids desktop-automation fallback"
   );
   check(
     queue.launch_surface_policy?.primary_surface === "chrome_extension_plugin" &&
@@ -315,7 +320,7 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
     report.payload_path === deepResearchPayloadRel &&
       payloadText &&
       report.payload_sha256 === `sha256:${sha256(payloadText)}` &&
-      reportItem?.status === chromeActiveStatus &&
+      [chromeActiveStatus, chromeObservationBlockedStatus].includes(reportItem?.status) &&
       reportItem?.extension_control?.surface === "chrome_extension_plugin" &&
       reportItem?.extension_control?.callable_namespace?.includes("mcp__node_repl__js") &&
       reportItem?.extension_control?.isolated_tab_verified === true &&
@@ -323,6 +328,10 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       reportItem?.launch_proof?.conversation_url === formalProofFrontierConversationUrl &&
       reportItem?.launch_proof?.deep_research_enabled === true &&
       reportItem?.launch_proof?.stop_control_visible === true &&
+      reportItem?.latest_observation?.conversation_url === formalProofFrontierConversationUrl &&
+      reportItem?.latest_observation?.iframe_present === true &&
+      reportItem?.latest_observation?.completed_report_visible === false &&
+      reportItem?.latest_observation?.next_action === "observe_again_without_relaunch" &&
       !reportItem?.harvest_proof &&
       reportItem?.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication",
     "OFONE_RESEARCH_FRONTIER_CHROME_REPORT_ACTIVE",

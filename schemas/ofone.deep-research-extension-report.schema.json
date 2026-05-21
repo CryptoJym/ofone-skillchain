@@ -84,6 +84,7 @@
             "launch_ready",
             "launched",
             "active_researching",
+            "observation_blocked",
             "completed_report_visible",
             "harvested",
             "rejected"
@@ -200,6 +201,65 @@
         "blocker": {
           "type": "string",
           "minLength": 1
+        },
+        "latest_observation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "observed_at",
+            "conversation_url",
+            "browser_surface",
+            "iframe_present",
+            "iframe_text_readable",
+            "completed_report_visible",
+            "stop_control_visible",
+            "active_state_visible",
+            "response_text_available",
+            "visible_state",
+            "next_action"
+          ],
+          "properties": {
+            "observed_at": {
+              "type": "string",
+              "minLength": 1
+            },
+            "conversation_url": {
+              "type": "string",
+              "pattern": "^https://chatgpt\\.com/c/.+"
+            },
+            "browser_surface": {
+              "const": "chrome_extension_plugin"
+            },
+            "iframe_present": {
+              "type": "boolean"
+            },
+            "iframe_text_readable": {
+              "type": "boolean"
+            },
+            "completed_report_visible": {
+              "type": "boolean"
+            },
+            "stop_control_visible": {
+              "type": "boolean"
+            },
+            "active_state_visible": {
+              "type": "boolean"
+            },
+            "response_text_available": {
+              "type": "boolean"
+            },
+            "visible_state": {
+              "type": "string",
+              "minLength": 1
+            },
+            "next_action": {
+              "enum": [
+                "observe_again_without_relaunch",
+                "harvest_when_completed_report_visible",
+                "operator_manual_recovery_required"
+              ]
+            }
+          }
         },
         "aggregate_policy_after_report": {
           "enum": [

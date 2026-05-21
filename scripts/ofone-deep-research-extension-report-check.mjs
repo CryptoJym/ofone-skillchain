@@ -75,6 +75,8 @@ function validateReportItems(reportData, payloadData, queueData) {
       continue;
     }
     validateLaunchItem(item, payload, queueItem);
+    if (item.status === "observation_blocked") validateObservationBlockedItem(item);
+    if (item.latest_observation) validateLatestObservation(item);
     if (["harvested", "rejected"].includes(item.status)) validateHarvestItem(item, payload);
   }
 }
@@ -95,6 +97,39 @@ function validateBlockedItem(item, payload, queueItem) {
       queueItem?.aggregate_policy === "not_eligible_until_harvest_review_publication",
     "OFONE_DEEP_RESEARCH_EXTENSION_BLOCKED_ITEM",
     `${item.item_id} remains blocked without launch, harvest, or aggregate eligibility`
+  );
+}
+
+function validateObservationBlockedItem(item) {
+  const observation = item.latest_observation || {};
+  check(
+    item.launch_proof &&
+      observation.browser_surface === "chrome_extension_plugin" &&
+      observation.iframe_present === true &&
+      observation.completed_report_visible === false &&
+      observation.stop_control_visible === false &&
+      observation.active_state_visible === false &&
+      observation.response_text_available === false &&
+      observation.next_action === "observe_again_without_relaunch" &&
+      !item.harvest_proof &&
+      item.aggregate_policy_after_report === "not_eligible_until_harvest_review_publication",
+    "OFONE_DEEP_RESEARCH_EXTENSION_OBSERVATION_BLOCKED_ITEM",
+    `${item.item_id} current observation is blocked without harvest or aggregate eligibility`
+  );
+}
+
+function validateLatestObservation(item) {
+  const observation = item.latest_observation || {};
+  const proof = item.launch_proof || {};
+  check(
+    observation.conversation_url === proof.conversation_url &&
+      observation.browser_surface === "chrome_extension_plugin" &&
+      typeof observation.visible_state === "string" &&
+      observation.visible_state.length > 0 &&
+      observation.completed_report_visible !== true &&
+      !item.harvest_proof,
+    "OFONE_DEEP_RESEARCH_EXTENSION_LATEST_OBSERVATION",
+    `${item.item_id} latest observation is bound to the launched conversation and remains unharvested`
   );
 }
 
