@@ -24,7 +24,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - Frontier full-OfOne strategic repeat-1 remains excluded and immutable.
 - Remedial frontier full-OfOne rerun 1 was harvested but rejected before matrix insertion because the output was an advisory research report, not a benchmark raw output package.
 - Remedial frontier full-OfOne rerun 2 was harvested with the required benchmark raw-output package shape, but computed local validation failed; it remains outside aggregate scoring and outside `remedial_runs`.
-- Remedial frontier full-OfOne rerun 3 is prepared-not-launched only; it is not a completed run, not in `remedial_runs`, and not aggregate-eligible.
+- Remedial frontier full-OfOne rerun 3 is active-researching only; it is not a completed run, not in `remedial_runs`, and not aggregate-eligible.
 - No empirical superiority or method-performance claim is supported.
 
 ## Remedial Reruns
@@ -34,7 +34,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1` | `reviewed` | `replace_for_aggregate_only` | Case-native artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `failed` | `not_aggregate_eligible` | Raw export preserved with SHA-256 `c0900989fe10e528648ea57d6f20f1f18f662fcff89bb04194bbc99fb5a9d385`, but exact benchmark header, artifact JSON, validator, rendering, and patch sections were absent. |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `failed` | `not_aggregate_eligible` | Raw export preserved with SHA-256 `dfdae1034abf0e0521df5103bfa297c605ac5ef149b4a3f85490f070e7179bd8`; artifact, validator, rendering, patch, and review were generated, but computed local validation failed missing evidence `movement_jobs` fields and a tradeoff reversal-condition defect. Review: `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2.md`. |
-| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `prepared_not_launched` | `not_aggregate_eligible` | Packet prepared at `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-rerun3.md`; no launch, raw output, artifact, validator, rendering, patch report, review, or matrix insertion exists yet. |
+| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `active_researching` | `not_aggregate_eligible` | Launched in ChatGPT Deep Research at https://chatgpt.com/c/6a0eb57b-6b08-83e8-a3e2-16e26adc497f with visible `Researching...` and `Stop research` proof; no completed report, raw output, artifact, validator, rendering, patch report, review, or matrix insertion exists yet. |
 
 ## Rerun Semantics
 

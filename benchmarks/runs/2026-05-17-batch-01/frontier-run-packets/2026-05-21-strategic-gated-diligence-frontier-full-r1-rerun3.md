@@ -7,7 +7,7 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 Rerun number: `3`
-Status: `prepared_not_launched`
+Status: `active_researching`
 
 This packet repairs the excluded frontier full-OfOne repeat-1 slot after two failed remedial attempts. Rerun 1 returned an advisory research report instead of the benchmark package. Rerun 2 returned the package shape but failed executable local validation because evidence objects lacked required `movement_jobs` and `tradeoff_surface.reversal_conditions` used gate `G1`, which is not a valid reversal-condition endpoint.
 
@@ -28,9 +28,16 @@ Next remedial run:
 
 ## Launch Proof
 
-- Status: `prepared_not_launched`
-- Conversation: `none`
-- This is packet preparation only. No ChatGPT conversation, completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
+- 2026-05-21T01:35:43-06:00: Launched remedial frontier full-OfOne rerun 3 in a clean ChatGPT Deep Research conversation at https://chatgpt.com/c/6a0eb57b-6b08-83e8-a3e2-16e26adc497f.
+- Status: `active_researching`
+- Observed model/mode before launch: expanded model selector showed `Latest - 5.5`; selected option showed `Pro - Extended`; composer showed `Pro` after Deep Research was enabled.
+- Deep Research was enabled before submit; the composer showed `Deep research, click to remove`.
+- Packet delivery: prompt packet was pasted as a document attachment labeled `Pasted text(14).txt`; the visible user message instructed ChatGPT to run the attached OfOne benchmark packet exactly as the prompt.
+- Generated plan title: `Run OfOne benchmark packet`.
+- Start action: clicked `Start` on the Deep Research plan card.
+- Active proof: card shows `Researching...`; `Stop research` button is visible.
+- 2026-05-21T01:39:00-06:00: The active run shows material progress. The first plan step is complete, the second step is active, visible status text is `Considering how to parse and combine schemas...`, count shows `2 searches` and `2 sources searched`, and `Stop research` remains present.
+- This is launch proof only. No completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
 
 ## Frozen Inputs
 
