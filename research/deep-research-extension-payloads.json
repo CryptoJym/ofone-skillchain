@@ -1,0 +1,70 @@
+{
+  "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-payloads.schema.json",
+  "protocol_version": "ofone-deep-research-extension-payloads-0.1",
+  "generated_from": {
+    "queue_path": "research/deep-research-launch-queue.json",
+    "queue_id": "2026-05-21-formal-frontier-r1-chrome-extension",
+    "queue_generated_at": "2026-05-21T07:01:44-06:00",
+    "queue_sha256": "sha256:16d9189b3f00e3ad14eb7b849e64a895d1cfe46f703dbbaf1e4fe464002bc3c1"
+  },
+  "launch_surface_policy": {
+    "primary_surface": "chrome_extension_plugin",
+    "requires_isolated_tab": true,
+    "supports_parallel_tabs": true,
+    "desktop_automation_fallback_allowed": false,
+    "blocked_status": "prepared_blocked_chrome_extension_unavailable"
+  },
+  "concurrency_model": {
+    "one_item_per_tab": true,
+    "isolated_conversation_per_item": true,
+    "cross_tab_visibility_before_harvest": false,
+    "parallel_tabs_allowed": true
+  },
+  "items": [
+    {
+      "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
+      "tab_lane": "ofone-01-2026-05-17-batch-01-case-formal-proof-search-001-direct-answer-frontier-reasoning-r1",
+      "extension_action": "wait_for_callable_chrome_extension_control",
+      "launch_allowed": false,
+      "launch_blocked_reason": "No callable Chrome extension/plugin namespace is exposed in the current Codex tool surface.",
+      "status": "prepared_blocked_chrome_extension_unavailable",
+      "batch_id": "2026-05-17-batch-01",
+      "case_id": "case-formal-proof-search-001",
+      "arm": "direct_answer",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "packet_path": "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md",
+      "packet_sha256": "sha256:03fe7359c4262417a7aca321a1c128535e6e98badc6ddcd61623ba5a68bd8931",
+      "prompt_anchor": "## Prompt 1: Direct Answer",
+      "prompt_text_sha256": "sha256:7fb8435ade0c0ebb332e4775f35444b3ed3efee012aa043fe2e983005c19df15",
+      "prompt_text": "You are participating in an OfOne benchmark comparison.\n\nRun metadata:\n- Batch ID: `2026-05-17-batch-01`\n- Run ID: `2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1`\n- Case ID: `case-formal-proof-search-001`\n- Arm: `direct_answer`\n- Model family: `frontier_reasoning`\n- Repeat: `1`\n- Actual execution order: `frontier_reasoning formal proof-search repeat 1 direct-answer after regulated wastewater frontier repeat-1 replacement publication`\n\nFrozen input hashes:\n- Case file SHA-256: `sha256:01634155f084b1646ac6930ab1cdc4787575fff4daf285c017271e0e2719e756`\n- Prompt file SHA-256: `sha256:989509f9fb40d4af7287be8cda80822dac309f7e5d0dbe2cfb49ed17c448f659`\n- Rubric SHA-256: `sha256:79216de2e2805778fff27d20c9ac19a3be02a8ed24fa0b2f0f682f5e1c18ab56`\n\nDo not inspect outputs from any other benchmark arm. Do not inspect prior Batch 01 outputs or reviews. Do not claim empirical superiority for any method.\n\n## Benchmark Arm Prompt: Direct Answer\n\nAnswer the case objective directly. Do not create an OfOne JSON artifact, claim graph, renderer output, or patch report.\n\nReturn:\n\n1. A direct answer or recommendation.\n2. A short confidence or uncertainty statement.\n3. Source notes or explicit evidence gaps.\n\nConstraints:\n\n- Keep evidence and assumptions distinguishable.\n- Do not claim empirical superiority for any method.\n- Do not inspect outputs from other benchmark arms.\n- If the case includes an update event, state how your answer would change in prose only.\n\n## Case\n\nA formal reasoning task has an incomplete proof path, a candidate lemma, and possible countermodel pressure. Produce a map that separates axioms, claims, proof obligations, countermodel tests, unknowns, and update triggers.\n\nDomain mix:\n\n- formal\n\nExpected pressure points:\n\n- formal adapter fit\n- proof claim versus evidence separation\n- countermodel or contradiction handling\n- kill tests for failed proof paths\n- update behavior when a lemma is disproven\n\nBegin your answer with this exact header:\n\n# Benchmark Raw Output\n\nRun ID: `2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1`\nCase ID: `case-formal-proof-search-001`\nArm: `direct_answer`\nModel family: `frontier_reasoning`\nRepeat: `1`\nStatus: `completed`\n",
+      "expected_output_path": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "expected_review_path": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1.md",
+      "required_launch_proof": [
+        "callable Chrome extension/plugin control",
+        "clean isolated ChatGPT tab or conversation",
+        "visible current Pro/frontier-capable model label",
+        "highest available visible reasoning mode",
+        "Deep Research enabled when available",
+        "generated plan or equivalent run-start proof",
+        "Start or countdown action",
+        "visible active research state",
+        "stop-control evidence"
+      ],
+      "disallowed_surfaces": [
+        "Browser",
+        "Computer Use",
+        "coordinate clicking",
+        "AppleScript/JXA",
+        "generic desktop automation"
+      ],
+      "aggregate_policy": "not_eligible_until_harvest_review_publication",
+      "isolation": {
+        "clean_chatgpt_conversation_required": true,
+        "no_prior_batch_outputs_or_reviews": true,
+        "no_cross_arm_visibility_until_raw_harvest": true,
+        "save_raw_report_before_local_review": true
+      }
+    }
+  ]
+}

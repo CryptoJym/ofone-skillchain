@@ -19,6 +19,7 @@ const schemaNames = [
   "ofone.audit.schema.json",
   "ofone.review.schema.json",
   "ofone.deep-research-launch.schema.json",
+  "ofone.deep-research-extension-payloads.schema.json",
   "ofone.schema.json"
 ];
 

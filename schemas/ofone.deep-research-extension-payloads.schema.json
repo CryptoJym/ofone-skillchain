@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-payloads.schema.json",
+  "title": "OfOne Chrome Extension Deep Research Payloads",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "generated_from",
+    "launch_surface_policy",
+    "concurrency_model",
+    "items"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "protocol_version": {
+      "const": "ofone-deep-research-extension-payloads-0.1"
+    },
+    "generated_from": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "queue_path",
+        "queue_id",
+        "queue_generated_at",
+        "queue_sha256"
+      ],
+      "properties": {
+        "queue_path": { "$ref": "#/$defs/repoPath" },
+        "queue_id": { "type": "string", "minLength": 1 },
+        "queue_generated_at": { "type": "string", "minLength": 1 },
+        "queue_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "launch_surface_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_surface",
+        "requires_isolated_tab",
+        "supports_parallel_tabs",
+        "desktop_automation_fallback_allowed",
+        "blocked_status"
+      ],
+      "properties": {
+        "primary_surface": {
+          "const": "chrome_extension_plugin"
+        },
+        "requires_isolated_tab": {
+          "const": true
+        },
+        "supports_parallel_tabs": {
+          "const": true
+        },
+        "desktop_automation_fallback_allowed": {
+          "const": false
+        },
+        "blocked_status": {
+          "const": "prepared_blocked_chrome_extension_unavailable"
+        }
+      }
+    },
+    "concurrency_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "one_item_per_tab",
+        "isolated_conversation_per_item",
+        "cross_tab_visibility_before_harvest",
+        "parallel_tabs_allowed"
+      ],
+      "properties": {
+        "one_item_per_tab": { "const": true },
+        "isolated_conversation_per_item": { "const": true },
+        "cross_tab_visibility_before_harvest": { "const": false },
+        "parallel_tabs_allowed": { "const": true }
+      }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/payloadItem" }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^/].*"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "payloadItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id",
+        "tab_lane",
+        "extension_action",
+        "launch_allowed",
+        "launch_blocked_reason",
+        "status",
+        "batch_id",
+        "case_id",
+        "arm",
+        "model_family",
+        "repeat",
+        "packet_path",
+        "packet_sha256",
+        "prompt_anchor",
+        "prompt_text_sha256",
+        "prompt_text",
+        "expected_output_path",
+        "expected_review_path",
+        "required_launch_proof",
+        "disallowed_surfaces",
+        "aggregate_policy",
+        "isolation"
+      ],
+      "properties": {
+        "item_id": { "type": "string", "minLength": 1 },
+        "tab_lane": { "type": "string", "minLength": 1 },
+        "extension_action": {
+          "enum": [
+            "open_isolated_deep_research_tab",
+            "wait_for_callable_chrome_extension_control"
+          ]
+        },
+        "launch_allowed": { "type": "boolean" },
+        "launch_blocked_reason": {
+          "type": ["string", "null"]
+        },
+        "status": {
+          "enum": [
+            "prepared_not_launched",
+            "prepared_blocked_chrome_extension_unavailable",
+            "launched",
+            "active_researching",
+            "harvested",
+            "reviewed",
+            "rejected",
+            "blocked"
+          ]
+        },
+        "batch_id": { "type": "string", "minLength": 1 },
+        "case_id": { "type": "string", "minLength": 1 },
+        "arm": {
+          "enum": ["direct_answer", "light_structured", "full_ofone"]
+        },
+        "model_family": {
+          "enum": ["agentic_coding", "frontier_reasoning"]
+        },
+        "repeat": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "packet_path": { "$ref": "#/$defs/repoPath" },
+        "packet_sha256": { "$ref": "#/$defs/sha256" },
+        "prompt_anchor": { "type": "string", "minLength": 1 },
+        "prompt_text_sha256": { "$ref": "#/$defs/sha256" },
+        "prompt_text": { "type": "string", "minLength": 1 },
+        "expected_output_path": { "$ref": "#/$defs/repoPath" },
+        "expected_review_path": { "$ref": "#/$defs/repoPath" },
+        "required_launch_proof": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "disallowed_surfaces": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "aggregate_policy": {
+          "enum": [
+            "not_eligible_until_harvest_review_publication",
+            "replacement_only_after_local_validation",
+            "aggregate_eligible_after_review"
+          ]
+        },
+        "isolation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "clean_chatgpt_conversation_required",
+            "no_prior_batch_outputs_or_reviews",
+            "no_cross_arm_visibility_until_raw_harvest",
+            "save_raw_report_before_local_review"
+          ],
+          "properties": {
+            "clean_chatgpt_conversation_required": { "const": true },
+            "no_prior_batch_outputs_or_reviews": { "const": true },
+            "no_cross_arm_visibility_until_raw_harvest": { "const": true },
+            "save_raw_report_before_local_review": { "const": true }
+          }
+        }
+      }
+    }
+  }
+}

@@ -11,10 +11,15 @@ The extension surface is the primary launch and observation mechanism for recurs
 The current machine-readable queue is:
 
 - `research/deep-research-launch-queue.json`
+- Extension payloads: `research/deep-research-extension-payloads.json`
 - Schema: `schemas/ofone.deep-research-launch.schema.json`
+- Payload schema: `schemas/ofone.deep-research-extension-payloads.schema.json`
 - Checker: `npm run deep-research:check`
+- Payload freshness checker: `npm run deep-research:payloads`
 
 Each queue item identifies the benchmark slot, packet path, prompt anchor, expected output path, expected review path, required launch proof, and disallowed surfaces. A queue item may be ready for extension launch, blocked, active, harvested, reviewed, or rejected, but it is not complete until local harvest, review, verification, publication, and Pages parity all exist.
+
+The extension payload file expands each queue item into one isolated tab lane with the exact prompt text extracted from the packet, packet and prompt SHA-256 hashes, expected harvest paths, isolation constraints, and launch-block status. Regenerate it after queue edits with `npm run deep-research:payloads:write`, then verify it with `npm run deep-research:payloads` and `npm run deep-research:check`.
 
 ## Extension Duties
 
@@ -23,7 +28,7 @@ For each queue item, the extension should:
 1. Open a clean isolated ChatGPT tab or conversation.
 2. Select the current Pro/frontier-capable model and highest available reasoning mode.
 3. Enable Deep Research when available.
-4. Submit only the prompt section for the target arm.
+4. Submit only the `prompt_text` from the matching item in `research/deep-research-extension-payloads.json`.
 5. Capture launch proof: model label, reasoning label, Deep Research state, conversation URL, generated plan title, Start/countdown action, active research state, and stop-control evidence.
 6. Preserve the queue item as active while stop-control remains visible.
 7. Harvest only after a completed report is visible.
