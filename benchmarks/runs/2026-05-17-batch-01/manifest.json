@@ -48,12 +48,12 @@
       {
         "family_id": "frontier_reasoning",
         "target": "GPT-5.5 Pro or current ChatGPT Pro Deep Research-equivalent reviewer available to the operator",
-        "status": "not_started"
+        "status": "in_progress"
       },
       {
         "family_id": "agentic_coding",
         "target": "Codex-style implementation and validation reviewer available in the repo workflow",
-        "status": "in_progress"
+        "status": "completed"
       }
     ],
     "randomization": "Run order should be randomized or rotated by case and arm before execution. Store actual order in run records.",
@@ -114,7 +114,7 @@
   },
   "release_guard": {
     "superiority_claims_allowed": false,
-    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, and the suite remains far below the declared superiority-claim minimum.",
-    "allowed_claim": "Batch 01 has 45 completed and locally reviewed predeclared run slots, one independent review, one excluded original run, and one remedial replacement; no performance comparison is supported."
+    "reason": "Batch 01 is still in progress. Run 06 rejected one first-slice full_ofone slot from aggregate scoring, the agentic_coding family is locally complete, and the frontier_reasoning family has only one reviewed direct-answer slot.",
+    "allowed_claim": "Batch 01 has 46 completed and locally reviewed predeclared run slots: all 45 agentic_coding slots plus one frontier_reasoning direct-answer slot; one original run is excluded and one remedial replacement exists. No performance comparison is supported."
   }
 }
