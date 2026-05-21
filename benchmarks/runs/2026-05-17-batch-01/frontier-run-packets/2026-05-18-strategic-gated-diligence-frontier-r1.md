@@ -5,7 +5,7 @@ Batch: `2026-05-17-batch-01`
 Case: `case-strategic-gated-diligence-001`
 Model family: `frontier_reasoning`
 Repeat: `1`
-Status: `light_structured_ambiguous_external_state`
+Status: `full_ofone_ready_to_launch`
 
 This packet prepares the next predeclared uncompleted Batch 01 slice for a frontier reasoning model. It is not a completed benchmark run, not launch proof, and not aggregate evidence.
 
@@ -13,7 +13,8 @@ Launch updates:
 
 - The direct-answer arm was launched on 2026-05-20 at https://chatgpt.com/c/6a0e3e09-fd6c-83e8-a914-36445d70d090. It completed with visible metadata `Research completed in 17m`, `6 citations`, and `81 searches`; its raw output and local review are harvested, committed, pushed, and Pages-confirmed.
 - The light-structured arm was launched on 2026-05-20 at https://chatgpt.com/c/6a0e7bcd-43b0-83e8-9a92-5195521c42fe. Observed proof: clean new ChatGPT conversation, `Latest • 5.5`, `Pro • Extended`, Deep Research enabled, generated plan title `Reversible diligence decision plan`, `Start` clicked, visible `Researching...`, and `Stop research` present.
-- 2026-05-20T21:43:46-06:00 harvest: the light-structured conversation showed completed report title `Benchmark Raw Output`, visible run metadata for `2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1`, and `Status: completed`. Exported Markdown `/Users/jamesbrady/Downloads/deep-research-report (33).md` was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`; local review was added at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`; the slot is complete/reviewed locally pending commit, push, and Pages confirmation. Do not launch the full-OfOne frontier arm until this publication gate is current.
+- 2026-05-20T21:43:46-06:00 harvest: the light-structured conversation showed completed report title `Benchmark Raw Output`, visible run metadata for `2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1`, and `Status: completed`. Exported Markdown `/Users/jamesbrady/Downloads/deep-research-report (33).md` was harvested to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`; local review was added at `benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__light_structured__frontier_reasoning__r1.md`.
+- 2026-05-20T21:55:55-06:00 publication: commit `7d3f545` pushed the light-structured frontier harvest, local review, execution matrix, checker attestation, public links, and status updates to `main`; `npm run pages:check` passed after GitHub Pages caught up. The full-OfOne frontier arm may now be launched only from a clean, isolated ChatGPT Deep Research conversation with visible model/mode, Deep Research, Start, active research, and stop-control proof.
 
 Use this packet only when the operator can verify:
 
