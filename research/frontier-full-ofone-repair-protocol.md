@@ -45,6 +45,10 @@ Use a controlled local or operator-driven execution path that can emit the requi
 
 The run cannot enter `remedial_runs`, aggregate comparison, or any superiority claim until `npm run validate`, `npm run benchmark`, local review, and Pages parity all pass.
 
+Active Mode A contract: `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md`.
+
+That contract freezes rerun 5 as `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5`, preserves the original excluded run as immutable evidence, and keeps same-shape attachment-led Deep Research reruns barred. Run `npm run frontier:controlled:check` before any Mode A execution to verify the exact run ID, source hashes, required output sections, and matrix non-insertion state.
+
 ### Mode B: Inline Deep Research Launch Contract
 
 Use ChatGPT Deep Research only if the visible first user message itself contains the full executable output contract inline. The visible message must include:
@@ -67,6 +71,7 @@ If another attempt returns a meta/advisory report, omits the exact benchmark pac
 Before publication or resubmission, run:
 
 ```bash
+npm run frontier:controlled:check
 npm run frontier:protocol:check
 npm run schema:check
 npm run validate

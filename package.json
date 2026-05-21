@@ -13,6 +13,7 @@
     "benchmark": "node scripts/ofone-benchmark.mjs",
     "frontier:check": "node scripts/ofone-frontier-packet-check.mjs",
     "frontier:protocol:check": "node scripts/ofone-frontier-repair-protocol-check.mjs",
+    "frontier:controlled:check": "node scripts/ofone-frontier-controlled-contract-check.mjs",
     "pages:check": "node scripts/ofone-pages-check.mjs",
     "research:check": "node scripts/ofone-research-check.mjs",
     "review:check": "node scripts/ofone-review-check.mjs research/review-sidecars/*.json",
