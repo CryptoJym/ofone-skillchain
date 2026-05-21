@@ -8,7 +8,9 @@ import Ajv2020 from "ajv/dist/2020.js";
 const args = process.argv.slice(2);
 const write = args.includes("--write");
 const jsonOutput = args.includes("--json");
+const scanSources = args.includes("--scan-sources");
 const sourceArg = valueAfter("--source");
+const sourceGlobArg = valueAfter("--source-glob");
 const itemIdArg = valueAfter("--item-id");
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +35,7 @@ if (recovery && report && queue && payload) {
   validateRecoveryBinding(recovery);
   validateRecoveryItems(recovery, report, queue, payload);
   if (sourceArg) validateSourceExport(recovery);
+  if (scanSources) validateSourceScan(recovery);
 }
 
 const passed = diagnostics.every((diagnostic) => diagnostic.severity !== "error");
@@ -155,8 +158,8 @@ function validateSourceExport(recoveryData) {
     return;
   }
 
-  const sourceText = fs.readFileSync(sourcePath, "utf8");
-  const missingMarkers = item.required_raw_markers.filter((marker) => !sourceText.includes(marker));
+  const sourceCandidate = evaluateSourceCandidate(item, sourcePath);
+  const missingMarkers = sourceCandidate.missingMarkers;
   check(
     missingMarkers.length === 0,
     "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_MARKERS",
@@ -165,7 +168,7 @@ function validateSourceExport(recoveryData) {
       : `${path.basename(sourcePath)} missing required marker(s): ${missingMarkers.join("; ")}`
   );
   check(
-    !sourceText.includes("__direct_answer__frontier_reasoning__r1"),
+    !sourceCandidate.hasForbiddenDirectArm,
     "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_NOT_DIRECT_ARM",
     `${path.basename(sourcePath)} is not the already-harvested direct-answer export`
   );
@@ -185,6 +188,80 @@ function validateSourceExport(recoveryData) {
     "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_OUTPUT_WRITTEN",
     `wrote raw output to ${item.expected_raw_output_path}; local review and state promotion are still required`
   );
+}
+
+function validateSourceScan(recoveryData) {
+  const item = selectRecoveryItem(recoveryData);
+  if (!item) return;
+
+  const sourceGlob = sourceGlobArg || item.expected_source_glob;
+  const candidates = expandSimpleGlob(sourceGlob);
+  check(
+    candidates.length > 0,
+    "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_CANDIDATES",
+    candidates.length > 0
+      ? `found ${candidates.length} candidate source file(s) for ${sourceGlob}`
+      : `no candidate source files found for ${sourceGlob}`
+  );
+  if (candidates.length === 0) return;
+
+  const evaluated = candidates.map((candidatePath) => evaluateSourceCandidate(item, candidatePath));
+  const valid = evaluated.filter((candidate) => candidate.valid);
+  check(
+    valid.length > 0,
+    "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID",
+    valid.length > 0
+      ? `found ${valid.length} valid native Markdown export candidate(s); newest: ${valid[0].source_path}`
+      : `no valid native Markdown export found; newest candidate issue(s): ${formatCandidateFailures(evaluated.slice(0, 5))}`
+  );
+}
+
+function evaluateSourceCandidate(item, sourcePath) {
+  const resolvedPath = path.resolve(sourcePath);
+  const sourceText = fs.readFileSync(resolvedPath, "utf8");
+  const missingMarkers = item.required_raw_markers.filter((marker) => !sourceText.includes(marker));
+  const hasForbiddenDirectArm = sourceText.includes("__direct_answer__frontier_reasoning__r1");
+  const stat = fs.statSync(resolvedPath);
+  return {
+    source_path: resolvedPath,
+    missingMarkers,
+    hasForbiddenDirectArm,
+    valid: missingMarkers.length === 0 && !hasForbiddenDirectArm,
+    mtimeMs: stat.mtimeMs
+  };
+}
+
+function expandSimpleGlob(pattern) {
+  if (!pattern) return [];
+  const absolutePattern = path.resolve(pattern);
+  if (!absolutePattern.includes("*")) return fs.existsSync(absolutePattern) ? [absolutePattern] : [];
+
+  const directory = path.dirname(absolutePattern);
+  const basenamePattern = path.basename(absolutePattern);
+  if (!fs.existsSync(directory)) return [];
+
+  const regex = new RegExp(`^${basenamePattern.split("*").map(escapeRegExp).join(".*")}$`);
+  return fs
+    .readdirSync(directory)
+    .filter((entry) => regex.test(entry))
+    .map((entry) => path.join(directory, entry))
+    .filter((candidatePath) => fs.statSync(candidatePath).isFile())
+    .sort((left, right) => fs.statSync(right).mtimeMs - fs.statSync(left).mtimeMs);
+}
+
+function formatCandidateFailures(candidates) {
+  return candidates
+    .map((candidate) => {
+      const issues = [];
+      if (candidate.missingMarkers.length > 0) issues.push(`missing ${candidate.missingMarkers.length} marker(s)`);
+      if (candidate.hasForbiddenDirectArm) issues.push("contains direct-answer arm marker");
+      return `${path.basename(candidate.source_path)}: ${issues.join(", ") || "unknown mismatch"}`;
+    })
+    .join("; ");
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function selectRecoveryItem(recoveryData) {

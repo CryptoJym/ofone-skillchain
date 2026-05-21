@@ -179,6 +179,7 @@ npm run deep-research:payloads:write
 npm run deep-research:payloads
 npm run deep-research:report
 npm run deep-research:manual-recovery
+npm run deep-research:manual-recovery:scan
 npm run deep-research:check
 ```
 
@@ -186,6 +187,12 @@ The report checker keeps a blocked item blocked until a callable Chrome extensio
 
 ```bash
 npm run deep-research:manual-recovery -- --source /absolute/path/to/deep-research-report.md
+```
+
+When a native export may already be in the expected Downloads glob, scan the expected source files before using `--write`:
+
+```bash
+npm run deep-research:manual-recovery:scan
 ```
 
 Future `launched`, `active_researching`, `observation_blocked`, `completed_report_visible`, `harvested`, or `rejected` states must be backed by the schema fields in `schemas/ofone.deep-research-extension-report.schema.json`; prose notes alone do not make a slot complete or aggregate-eligible.

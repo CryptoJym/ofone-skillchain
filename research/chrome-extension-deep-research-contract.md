@@ -22,6 +22,7 @@ The current machine-readable queue is:
 - Payload freshness checker: `npm run deep-research:payloads`
 - Report intake checker: `npm run deep-research:report`
 - Manual recovery checker: `npm run deep-research:manual-recovery`
+- Manual recovery source scanner: `npm run deep-research:manual-recovery:scan`
 
 Each queue item identifies the benchmark slot, packet path, prompt anchor, expected output path, expected review path, required launch proof, and disallowed surfaces. A queue item may be ready for extension launch, blocked, active, harvested, reviewed, or rejected, but it is not complete until local harvest, review, verification, publication, and Pages parity all exist.
 
@@ -29,7 +30,7 @@ The extension payload file expands each queue item into one isolated tab lane wi
 
 The extension report file is the only accepted local intake for launch and harvest observations from the Chrome extension/plugin. It records whether the extension surface is unavailable, launch-ready, launched, active, completed, harvested, or rejected; binds that report to the exact payload file hash; records the current Chrome-extension availability diagnostic; and requires explicit launch or harvest proof before a blocked queue item can advance.
 
-The manual recovery gate is only for a narrow completed-visible state: Chrome extension control is callable, launch proof exists, the completed report is visible, allowed extension probes have failed to expose raw Markdown, and no disallowed browser/desktop/OCR fallback may be used. It is hash-bound to the current queue, payload, and report files. It may validate a native ChatGPT Markdown export from the recorded conversation, but it cannot by itself promote a slot to harvested, reviewed, complete, or aggregate-eligible.
+The manual recovery gate is only for a narrow completed-visible state: Chrome extension control is callable, launch proof exists, the completed report is visible, allowed extension probes have failed to expose raw Markdown, and no disallowed browser/desktop/OCR fallback may be used. It is hash-bound to the current queue, payload, and report files. It may validate a native ChatGPT Markdown export from the recorded conversation, and its source scanner can check the expected Downloads glob for a marker-valid native export, but it cannot by itself promote a slot to harvested, reviewed, complete, or aggregate-eligible.
 
 ## Extension Duties
 

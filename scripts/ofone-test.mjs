@@ -24,6 +24,7 @@ try {
   runReviewSidecarCheck();
   runToolingContractCheck();
   runManualRecoveryWriteSafetyCheck();
+  runManualRecoverySourceScanCheck();
   runSkillInstallSmokeTest();
   runInvalidReviewSidecarChecks();
   for (const fixture of fixtures) runInvalidFixture(fixture);
@@ -408,6 +409,7 @@ function runToolingContractCheck() {
     ["package Deep Research payload write script", packageJson.scripts?.["deep-research:payloads:write"] === "node scripts/ofone-deep-research-extension-payloads.mjs --write"],
     ["package Deep Research report script", packageJson.scripts?.["deep-research:report"] === "node scripts/ofone-deep-research-extension-report-check.mjs"],
     ["package Deep Research manual recovery script", packageJson.scripts?.["deep-research:manual-recovery"] === "node scripts/ofone-deep-research-manual-recovery.mjs --check"],
+    ["package Deep Research manual recovery scan script", packageJson.scripts?.["deep-research:manual-recovery:scan"] === "node scripts/ofone-deep-research-manual-recovery.mjs --check --scan-sources"],
     ["package Deep Research manual recovery write script", packageJson.scripts?.["deep-research:manual-recovery:write"] === "node scripts/ofone-deep-research-manual-recovery.mjs --write"],
     ["package frontier packet preflight script", packageJson.scripts?.["frontier:check"] === "node scripts/ofone-frontier-packet-check.mjs"],
     ["package frontier repair protocol script", packageJson.scripts?.["frontier:protocol:check"] === "node scripts/ofone-frontier-repair-protocol-check.mjs"],
@@ -785,6 +787,79 @@ function runManualRecoveryWriteSafetyCheck() {
   failures += 1;
   console.error("FAIL manual recovery write safety");
   console.error("expected forbidden direct-arm source to fail without writing output");
+  console.error(`actual diagnostic codes: ${[...codes].join(", ") || "(none)"}`);
+  console.error(result.stdout);
+  console.error(result.stderr);
+}
+
+function runManualRecoverySourceScanCheck() {
+  const recovery = JSON.parse(fs.readFileSync(path.join(repoRoot, "research", "deep-research-manual-recovery.json"), "utf8"));
+  const item = (recovery.items || []).find((candidate) => candidate.status === "awaiting_operator_export");
+  if (!item) {
+    failures += 1;
+    console.error("FAIL manual recovery source scan");
+    console.error("expected one awaiting manual recovery item");
+    return;
+  }
+
+  const scanDir = path.join(tempDir, "manual-recovery-scan");
+  fs.mkdirSync(scanDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(scanDir, "deep-research-report-invalid.md"),
+    [
+      "# Benchmark Raw Output",
+      "",
+      "Run ID: `wrong-run`",
+      "Arm: `light_structured`",
+      "Model family: `frontier_reasoning`",
+      "Repeat: `1`",
+      "Status: `completed`"
+    ].join("\n")
+  );
+  const validPath = path.join(scanDir, "deep-research-report-valid.md");
+  fs.writeFileSync(
+    validPath,
+    [
+      "# Benchmark Raw Output",
+      "",
+      ...item.required_raw_markers,
+      "",
+      "Synthetic positive fixture for manual recovery source discovery."
+    ].join("\n")
+  );
+
+  const result = spawnSync(process.execPath, [
+    "scripts/ofone-deep-research-manual-recovery.mjs",
+    "--check",
+    "--scan-sources",
+    "--source-glob",
+    path.join(scanDir, "deep-research-report*.md"),
+    "--json",
+    "--item-id",
+    item.item_id
+  ], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+
+  let codes = new Set();
+  let validMessage = "";
+  try {
+    const parsed = JSON.parse(result.stdout);
+    codes = new Set((parsed.diagnostics || []).map((diagnostic) => diagnostic.code));
+    validMessage = (parsed.diagnostics || []).find((diagnostic) => diagnostic.code === "OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID")?.message || "";
+  } catch {
+    codes = new Set();
+  }
+
+  if (result.status === 0 && codes.has("OFONE_DEEP_RESEARCH_MANUAL_RECOVERY_SOURCE_SCAN_VALID") && validMessage.includes(validPath)) {
+    console.log("PASS manual recovery source scan");
+    return;
+  }
+
+  failures += 1;
+  console.error("FAIL manual recovery source scan");
+  console.error("expected scan to find the synthetic valid native export candidate");
   console.error(`actual diagnostic codes: ${[...codes].join(", ") || "(none)"}`);
   console.error(result.stdout);
   console.error(result.stderr);
