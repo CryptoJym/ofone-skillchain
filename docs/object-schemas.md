@@ -41,7 +41,8 @@ npm run validate
   "source_owner": "publisher, local owner, tool, or witness",
   "chain_of_custody": "how the source entered the artifact",
   "supports": ["C1"],
-  "risks": ["stale", "selection_bias"]
+  "risks": ["stale", "selection_bias"],
+  "movement_jobs": ["GROUND", "BOUND"]
 }
 ```
 
