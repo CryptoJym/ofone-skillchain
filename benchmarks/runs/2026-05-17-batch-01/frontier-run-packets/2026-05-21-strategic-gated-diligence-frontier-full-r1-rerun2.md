@@ -38,6 +38,7 @@ Use this packet only when the operator can verify a clean ChatGPT Deep Research 
 - 2026-05-21T00:34:58-06:00 observation: still active; step 1 complete, step 2 active, status text `Looking for confidence_model shape and movement_jobs...`, `17 searches`, `17 sources searched`, and `Stop research` present.
 - 2026-05-21T00:38:27-06:00 observation: still active; step 1 complete, step 2 active, status text `Completing evidence and permissions setup...`, `20 searches`, `20 sources searched`, and `Stop research` present.
 - 2026-05-21T00:41:15-06:00 observation: still active; step 1 complete, step 2 active, status text `Streamlining evidence and claim relationships...`, `20 searches`, `20 sources searched`, and `Stop research` present.
+- 2026-05-21T00:45:04-06:00 observation: still active; step 1 complete, step 2 active, status text `Defining criteria and actor roles for decision-making...`, `20 searches`, `20 sources searched`, and `Stop research` present.
 - This is launch proof only. No completed report, raw output, extracted artifact, validator result, rendering, patch report, local review, matrix insertion, aggregate eligibility, or superiority claim exists yet.
 
 ## Frozen Inputs
