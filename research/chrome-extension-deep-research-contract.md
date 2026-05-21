@@ -63,6 +63,14 @@ Required diagnostics are: current tool discovery result, `nodeRepl.requestMeta` 
 
 Current bridge method-shape notes are part of the troubleshooting contract. `browser.tabs.list()` can return only `id`, `title`, and `url`; call `browser.tabs.get(tabId)` before expecting `playwright`, `dom_cua`, `content`, `clipboard`, or `dev` helpers. `browser.tabs.content(...)` expects `{ urls, contentType }` with camelCase `contentType`, not `{ urls, content_type }`; even correctly shaped calls may fail because the Chrome backend rejects the `tabs_content` command. `tab.content.export()` takes no format argument and may fail with unsupported `tab_content_export`. `tab.content.exportGsuite(format)` takes a string format and is valid only for Google Workspace documents. These failures are valid Chrome-extension harvest probes, not evidence that a desktop-control fallback is allowed.
 
+## No-Start Handoff Rule
+
+If the Chrome extension is callable but ChatGPT Deep Research does not produce a generated plan, Start/countdown action, active research state, or stop-control evidence after submission, keep the item `prepared_not_launched` / `launch_ready`. This is a Deep Research handoff failure, not proof that the Chrome extension is unavailable.
+
+Record no-start evidence through the Chrome extension only: conversation URL, visible Deep Research/Pro controls, whether only the submitted prompt is visible, whether the internal Deep Research iframe is mounted but empty, and relevant `tab.dev.logs` entries such as `Ignoring message from unknown source MessageEvent`. A minimal Deep Research smoke-test prompt may be used to isolate whether the failure is prompt-specific, but it is not benchmark evidence and must not advance any benchmark slot.
+
+After two same-shape no-starts or one benchmark no-start plus one minimal smoke-test no-start, do not keep retrying the same launch shape. The next valid action is either a changed extension-only launch condition with fresh proof or a blocked state that preserves the prepared packet. Browser, Computer Use, coordinate clicking, AppleScript/JXA, generic desktop automation, OCR, and screenshot reconstruction remain disallowed.
+
 ## Current State
 
 The formal proof-search frontier repeat-1 direct-answer item is currently `reviewed` in `research/deep-research-launch-queue.json` and `harvested` in `research/deep-research-extension-report.json`. Chrome extension launch and harvest proof is recorded for https://chatgpt.com/c/6a0f0a85-c75c-83e8-b0d0-4c15a041cb7b with visible metadata `Research completed in 10m`, `8 citations`, `101 searches`, report title `Benchmark Raw Output`, and run metadata `Status: completed`. The raw output and local review are saved; publication parity is confirmed only after commit, push, and `npm run pages:check`.

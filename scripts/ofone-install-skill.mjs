@@ -75,6 +75,8 @@ function assertSkillSource(text) {
     "tab.content.export()",
     "tab.content.exportGsuite(format)",
     "not as permission to switch to a desktop-control fallback",
+    "Deep Research handoff failure",
+    "A minimal smoke-test prompt may be used only to isolate",
     "Do not treat a missing `browser.tabs.query()` helper as extension failure",
     "research/deep-research-extension-payloads.json",
     "research/deep-research-extension-report.json",

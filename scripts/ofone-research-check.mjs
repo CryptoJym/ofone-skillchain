@@ -323,6 +323,8 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       tracker.includes(launchReadyItem.reportStatus) &&
       tracker.includes("https://chatgpt.com/c/6a0f4f44-f800-83e8-851b-a71bbd2596d2") &&
       tracker.includes("https://chatgpt.com/c/6a0f52da-bad8-83e8-9f09-91506f511e05") &&
+      tracker.includes("https://chatgpt.com/c/6a0f5518-8494-83e8-809f-c0514a1da5ea") &&
+      tracker.includes("smoke test is diagnostic only") &&
       tracker.includes("no generated plan, Start/countdown action, active research state, or stop-control evidence") &&
       tracker.includes("Ignoring message from unknown source MessageEvent") &&
       tracker.includes("This is not valid launch proof") &&
@@ -360,9 +362,11 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       loopDoc.includes(launchReadyItem.reportStatus) &&
       loopDoc.includes("https://chatgpt.com/c/6a0f4f44-f800-83e8-851b-a71bbd2596d2") &&
       loopDoc.includes("https://chatgpt.com/c/6a0f52da-bad8-83e8-9f09-91506f511e05") &&
+      loopDoc.includes("https://chatgpt.com/c/6a0f5518-8494-83e8-809f-c0514a1da5ea") &&
       loopDoc.includes("no generated plan, Start/countdown action, active research state, or stop-control evidence") &&
       loopDoc.includes("Ignoring message from unknown source MessageEvent") &&
       loopDoc.includes("blocked on a reproduced Chrome-extension Deep Research handoff failure") &&
+      loopDoc.includes("Chrome extension is available, the Deep Research handoff is blocked") &&
       (loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback") ||
         loopDoc.includes("do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback")),
     "OFONE_RESEARCH_FRONTIER_CHROME_ACTIVE_LOOP",
@@ -461,7 +465,9 @@ function validateChromeExtensionFrontier({ tracker, loopDoc, packet, queue, payl
       launchReportItem?.aggregate_policy_after_report === launchReadyItem.reportAggregatePolicy &&
       launchReportItem?.blocker?.includes("https://chatgpt.com/c/6a0f4f44-f800-83e8-851b-a71bbd2596d2") &&
       launchReportItem?.blocker?.includes("https://chatgpt.com/c/6a0f52da-bad8-83e8-9f09-91506f511e05") &&
+      launchReportItem?.blocker?.includes("https://chatgpt.com/c/6a0f5518-8494-83e8-809f-c0514a1da5ea") &&
       launchReportItem?.blocker?.includes("not valid launch proof") &&
+      launchReportItem?.blocker?.includes("smoke-test conversation") &&
       launchReportItem?.blocker?.includes("Ignoring message from unknown source MessageEvent") &&
       !launchReportItem?.launch_proof &&
       !launchReportItem?.latest_observation &&
