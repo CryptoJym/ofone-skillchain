@@ -166,7 +166,10 @@ function validateCompletedReportVisibleItem(item, payload) {
       probeMethods.has("tab.dom_cua.get_visible_dom on ChatGPT conversation tab") &&
       probeMethods.has("tab.playwright iframe inspection on internal://deep-research") &&
       probeMethods.has("response More actions menu inspection") &&
+      probeMethods.has("tab.dev.logs on ChatGPT conversation tab") &&
       probeMethods.has("tab.content.export") &&
+      probeMethods.has("tab.content.exportGsuite with markdown/md/text/txt/html/pdf/docx") &&
+      probeMethods.has("Copy response button with sentinel clipboard restore") &&
       probeResults.has("report_text_unavailable") &&
       probeResults.has("unsupported_by_backend") &&
       probeResults.has("no_export_control_visible") &&
