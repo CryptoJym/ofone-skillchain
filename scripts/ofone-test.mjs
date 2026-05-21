@@ -363,6 +363,7 @@ function runToolingContractCheck() {
   const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, "benchmarks", "runs", "2026-05-17-batch-01", "manifest.json"), "utf8"));
   const benchmarkScript = fs.readFileSync(path.join(repoRoot, "scripts", "ofone-benchmark.mjs"), "utf8");
   const pagesScript = fs.readFileSync(path.join(repoRoot, "scripts", "ofone-pages-check.mjs"), "utf8");
+  const researchScript = fs.readFileSync(path.join(repoRoot, "scripts", "ofone-research-check.mjs"), "utf8");
   const loop = fs.readFileSync(path.join(repoRoot, "research", "recursive-improvement-loop.md"), "utf8");
   const protocol = fs.readFileSync(path.join(repoRoot, "research", "frontier-full-ofone-repair-protocol.md"), "utf8");
   const controlledContract = fs.readFileSync(path.join(repoRoot, "benchmarks", "runs", "2026-05-17-batch-01", "frontier-run-packets", "2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md"), "utf8");
@@ -436,6 +437,7 @@ function runToolingContractCheck() {
     ["pages checker frontier wastewater direct output target", pagesScript.includes("batch 01 frontier wastewater r1 direct output")],
     ["pages checker frontier wastewater direct review target", pagesScript.includes("batch 01 frontier wastewater r1 direct review")],
     ["pages checker object schemas guide target", pagesScript.includes("docs/object-schemas.md")],
+    ["pages checker research lifecycle checker target", pagesScript.includes("scripts/ofone-research-check.mjs")],
     ["pages checker frontier packet checker target", pagesScript.includes("scripts/ofone-frontier-packet-check.mjs")],
     ["pages checker frontier repair protocol checker target", pagesScript.includes("scripts/ofone-frontier-repair-protocol-check.mjs")],
     ["pages checker frontier controlled contract checker target", pagesScript.includes("scripts/ofone-frontier-controlled-contract-check.mjs")],
@@ -447,6 +449,7 @@ function runToolingContractCheck() {
     ["README review-round version note", readme.includes("Review-round labels such as `v0.7` and `v0.8`")],
     ["README launch-proof boundary", readme.includes("A prepared packet is not a launched run")],
     ["README Chrome extension launch boundary", readme.includes("Deep Research launch and observation must use the Chrome extension/plugin")],
+    ["README research lifecycle checker", readme.includes("scripts/ofone-research-check.mjs") && readme.includes("prepared-vs-launched boundary")],
     ["README frontier repair protocol", readme.includes("research/frontier-full-ofone-repair-protocol.md")],
     ["README frontier protocol command", readme.includes("npm run frontier:protocol:check")],
     ["README frontier controlled contract", readme.includes("2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md")],
@@ -553,6 +556,7 @@ function runToolingContractCheck() {
     ["index frontier repair protocol link", index.includes("./research/frontier-full-ofone-repair-protocol.md")],
     ["index frontier controlled contract link", index.includes("./benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md")],
     ["index frontier regulated controlled contract link", index.includes("./benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-regulated-wastewater-frontier-full-r1-mode-a-contract.md")],
+    ["index research lifecycle checker link", index.includes("./scripts/ofone-research-check.mjs")],
     ["recursive loop frontier repair protocol link", loop.includes("research/frontier-full-ofone-repair-protocol.md")],
     ["recursive loop Chrome extension launch boundary", loop.includes("Chrome extension/plugin") && loop.includes("not automatic fallbacks")],
     ["frontier repair protocol bars same-shape reruns", protocol.includes("Same-shape Deep Research remedial reruns are barred")],
@@ -574,6 +578,8 @@ function runToolingContractCheck() {
     ["index status ledger link", index.includes("./research/status/2026-05-17-06-ofone-batch01-independent-review.md")],
     ["index research tracker link", index.includes("./research/TRACKER.md")],
     ["package research script", packageJson.scripts?.["research:check"] === "node scripts/ofone-research-check.mjs"],
+    ["research checker Chrome blocker diagnostic", researchScript.includes("OFONE_RESEARCH_FRONTIER_CHROME_BLOCKED_PACKET")],
+    ["research checker tracker blocker diagnostic", researchScript.includes("OFONE_RESEARCH_FRONTIER_BLOCKED_TRACKER_ROW")],
     ["manifest independent review integrated state", manifest.review_plan?.independent_review_status === "integrated"],
     ["manifest independent review launch proof", Array.isArray(manifest.review_plan?.independent_review_launch?.launch_proof)],
     ["manifest independent review result", manifest.review_plan?.independent_review_result === "research/results/2026-05-17-06-ofone-batch01-independent-review-result.md"],

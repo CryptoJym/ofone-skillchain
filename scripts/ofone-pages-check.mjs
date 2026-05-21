@@ -26,6 +26,7 @@ const targets = [
   { label: "review sidecar schema", local: "schemas/ofone.review.schema.json", remote: "/schemas/ofone.review.schema.json", kind: "json" },
   { label: "object schemas guide", local: "docs/object-schemas.md", remote: "/docs/object-schemas.md" },
   { label: "review checker script", local: "scripts/ofone-review-check.mjs", remote: "/scripts/ofone-review-check.mjs" },
+  { label: "research lifecycle checker script", local: "scripts/ofone-research-check.mjs", remote: "/scripts/ofone-research-check.mjs" },
   { label: "frontier packet checker script", local: "scripts/ofone-frontier-packet-check.mjs", remote: "/scripts/ofone-frontier-packet-check.mjs" },
   { label: "frontier repair protocol checker script", local: "scripts/ofone-frontier-repair-protocol-check.mjs", remote: "/scripts/ofone-frontier-repair-protocol-check.mjs" },
   { label: "frontier controlled contract checker script", local: "scripts/ofone-frontier-controlled-contract-check.mjs", remote: "/scripts/ofone-frontier-controlled-contract-check.mjs" },

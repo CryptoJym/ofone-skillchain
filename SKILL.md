@@ -202,7 +202,7 @@ Keep domain-specific concepts in adapter extensions unless they improve almost e
 
 Do not add research tools as core primitives. Represent them as subscenes, lenses, evidence, unknowns, information-value entries, and triggers.
 
-For recursive external review, benchmark frontier runs, or ChatGPT Deep Research acquisition, use the Chrome extension/plugin as the launch and observation surface. Do not use Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation to take over the user's active browser for launch or harvest unless the user explicitly authorizes a one-off manual assist. If extension control is unavailable or clean tab isolation cannot be verified, leave a paste-ready packet and mark the run `prepared` or `blocked`.
+For recursive external review, benchmark frontier runs, or ChatGPT Deep Research acquisition, use the Chrome extension/plugin as the launch and observation surface. Prefer extension-managed clean isolated tabs so multiple Deep Research packets can run without taking over the user's active workspace. Do not use Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation to take over the user's active browser for launch or harvest unless the user explicitly authorizes a one-off manual assist. If extension control is unavailable or clean tab isolation cannot be verified, leave a paste-ready packet and mark the run `prepared` or `blocked`.
 
 Use `cross-surface-trend-intelligence` when a decision depends on current, unstable, multi-surface, or repo-grounded evidence across ChatGPT Deep Research, Grok/X, Gemini/Google, GitHub, OpenRouter, official docs, or local code. Its outputs must become OfOne objects before synthesis:
 

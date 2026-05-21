@@ -22,6 +22,7 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`scripts/ofone-validate.mjs`](./scripts/ofone-validate.mjs) - schema-backed semantic validator.
 - [`scripts/ofone-schema-check.mjs`](./scripts/ofone-schema-check.mjs) - schema identity, profile, and closed-world compatibility checker.
 - [`scripts/ofone-review-check.mjs`](./scripts/ofone-review-check.mjs) - recursive review sidecar checker.
+- [`scripts/ofone-research-check.mjs`](./scripts/ofone-research-check.mjs) - recursive research lifecycle, Chrome-extension blocker, and launch-state checker.
 - [`scripts/ofone-pages-check.mjs`](./scripts/ofone-pages-check.mjs) - maintainer-side GitHub Pages parity checker.
 - [`scripts/ofone-render.mjs`](./scripts/ofone-render.mjs) - human-readable Micro, Map, and Audit renderer.
 - [`scripts/ofone-patch.mjs`](./scripts/ofone-patch.mjs) - dependency-closure patch helper.
@@ -151,6 +152,8 @@ While an external review is active, verify launch/status isolation with:
 ```bash
 npm run research:check
 ```
+
+The research lifecycle checker enforces the prepared-vs-launched boundary, run-scoped status ledger links, and the Chrome-extension-first Deep Research policy. If no callable Chrome extension/plugin control is available, frontier packets stay prepared or blocked; Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation do not satisfy launch proof.
 
 Current convergence review context:
 
