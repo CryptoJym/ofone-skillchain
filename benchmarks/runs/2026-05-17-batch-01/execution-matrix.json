@@ -34,8 +34,8 @@
     "completed": 48,
     "reviewed": 48,
     "excluded": 2,
-    "aggregate_eligible": 47,
-    "remedial": 1
+    "aggregate_eligible": 48,
+    "remedial": 2
   },
   "completed_runs": [
     {
@@ -3202,10 +3202,11 @@
       },
       "rerun_plan": {
         "required": true,
-        "status": "failed",
+        "status": "reviewed",
         "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
-        "reason": "Frontier full-OfOne repeat-1 artifact is case-bound but not validator-valid. Preserve it immutably. Remedial rerun 1 completed as an advisory research report, rerun 2 produced an invalid package, and rerun 3 still failed required metadata and executable validation. A future repair requires a stricter prompt or local preflight around benchmark_trace shape and relation legality before aggregate eligibility.",
-        "aggregate_policy": "replace_for_aggregate_only"
+        "reason": "Frontier full-OfOne repeat-1 artifact is preserved immutably as excluded. Four same-shape remedial attempts failed. Controlled Mode A rerun 5 is validator-valid, locally reviewed, and recorded in remedial_runs as replacement evidence for aggregate scoring only.",
+        "aggregate_policy": "replace_for_aggregate_only",
+        "latest_successful_rerun": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5"
       }
     }
   ],
@@ -3263,6 +3264,57 @@
         "patch_sha256": "sha256:be452089c33c365a808245e1f81c6df019c8dde64ddb2ba494d248e896e4795f",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.rendering.md",
         "rendering_sha256": "sha256:3321e0edd8899a9585a67547f9d81d7bd25477b60660d8ea58997596d9ea48b7"
+      }
+    },
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5",
+      "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "rerun_number": 5,
+      "rerun_reason": "Controlled Mode A replacement after four same-shape frontier full-OfOne remedial attempts failed to produce a valid aggregate-eligible benchmark package.",
+      "aggregate_policy": "replace_for_aggregate_only",
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "status": "reviewed",
+      "execution_mode": "Mode A: Controlled Non-Deep-Research Execution",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.md",
+      "raw_output_sha256": "sha256:2897a11f82baee33a0161a8d8f64b716017c3fedd9d22a2639c60caa6ad4bf86",
+      "artifact_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.artifact.json",
+      "artifact_sha256": "sha256:6bd70e20ba36bf9e63a8bc4c65127a3f1166d30590d1a63df63b2612261a14f0",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.md",
+      "review_sha256": "sha256:67c79c6fc30535dcb143ae47620b79444186d6ccc7b44087f4c65fc8789f7382",
+      "aggregate_eligible": true,
+      "pre_score_compliance": {
+        "case_fidelity": "pass",
+        "required_outputs": "pass",
+        "independence": "pass",
+        "no_superiority_compliance": "pass",
+        "auto_reject": false,
+        "reviewer_notes": "Controlled Mode A package is case-native, validator-valid, locally reviewed, and makes no unsupported superiority claim."
+      },
+      "semantic_fidelity": {
+        "case_binding": "pass",
+        "copied_example_risk": "low",
+        "evidence_provenance_adequacy": "scenario-level benchmark case, prompt, and Mode A contract evidence with stable hashes; missing operating facts remain explicit unknowns",
+        "artifact_source_identity": "raw output, artifact JSON, validator JSON, rendering, patch report, and local review all identify the controlled rerun5 slot"
+      },
+      "benchmark_trace": {
+        "case_id": "case-strategic-gated-diligence-001",
+        "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5",
+        "case_file": "benchmarks/cases/strategic-gated-diligence.md",
+        "case_file_sha256": "sha256:18a0247003e142c80c8748eb4652f900b81ca409b91ba7c370e1362d24680942",
+        "prompt_file": "benchmarks/runs/2026-05-17-batch-01/prompts/full_ofone.md",
+        "prompt_file_sha256": "sha256:613afac8909b34accb57fd2c24217bb59a28a45860e32f36f6ec5f7f4ab5587e",
+        "input_bundle_sha256": "sha256:4168a4e6533f1398611d704254b48c8fbfde5f547a4a0c79cd072a98fdbacd44"
+      },
+      "machine_artifacts": {
+        "validator_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.validator.json",
+        "validator_sha256": "sha256:de1bbeefa04a96f0da9fb2210290c206e8c421139af5abaa43c2aa6b8850093a",
+        "patch_json": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.patch.json",
+        "patch_sha256": "sha256:60c289babea552802569575f5a4ff40672835996739841753ff20d3cdcd1ce19",
+        "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.rendering.md",
+        "rendering_sha256": "sha256:116da40a3d99f20b7bce459f9de543e4e4ab0edd87c7ea5c95ee364899d211e5"
       }
     }
   ],

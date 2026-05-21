@@ -16,6 +16,7 @@ const statusPath = "research/status/2026-05-17-07-ofone-post-run06-hardening-rev
 
 const frontierRunId = "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1";
 const expectedReruns = [1, 2, 3, 4];
+const successfulRerunId = `${frontierRunId}__rerun5`;
 
 const failures = [];
 const passes = [];
@@ -39,12 +40,13 @@ function check() {
   const status = readText(statusPath);
   const matrix = readJson(matrixPath);
 
-  ok(protocol.includes("Status: `active_after_rerun4`"), "protocol state records post-rerun4 escalation");
+  ok(protocol.includes("Status: `active_after_rerun5`"), "protocol state records post-rerun5 repair state");
   ok(protocol.includes("Same-shape Deep Research remedial reruns are barred"), "protocol bars same-shape Deep Research reruns");
   ok(protocol.includes("attachment-only"), "protocol blocks attachment-only rerun launches");
   ok(protocol.includes("Mode A: Controlled Non-Deep-Research Execution"), "protocol defines controlled non-Deep-Research execution");
   ok(protocol.includes("Mode B: Inline Deep Research Launch Contract"), "protocol defines inline Deep Research launch contract");
   ok(protocol.includes("launch proof that the inline contract"), "protocol requires inline-contract launch proof");
+  ok(protocol.includes(successfulRerunId), "protocol cites the controlled rerun5 repair");
   ok(protocol.includes("Superiority claims remain blocked"), "protocol keeps superiority claims blocked");
   ok(protocol.includes("npm run frontier:protocol:check"), "protocol documents its checker command");
 
@@ -74,15 +76,25 @@ function check() {
   ok(String(rerun4?.failure_reason || "").includes("meta/advisory"), "rerun4 failure reason records meta/advisory output");
 
   const replacementRuns = Array.isArray(matrix.remedial_runs) ? matrix.remedial_runs : [];
-  const frontierReplacement = replacementRuns.find((run) => run.rerun_of === frontierRunId || run.run_id === `${frontierRunId}__rerun4`);
-  ok(!frontierReplacement, "frontier full-OfOne failed attempts are not inserted into remedial_runs");
+  const failedFrontierReplacement = replacementRuns.find((run) => run.run_id === `${frontierRunId}__rerun4`);
+  ok(!failedFrontierReplacement, "frontier full-OfOne failed rerun4 is not inserted into remedial_runs");
+  const frontierReplacement = replacementRuns.find((run) => run.run_id === successfulRerunId && run.rerun_of === frontierRunId);
+  ok(Boolean(frontierReplacement), "frontier full-OfOne rerun5 is inserted into remedial_runs after validation and review");
+  if (frontierReplacement) {
+    ok(frontierReplacement.status === "reviewed", "frontier rerun5 status is reviewed");
+    ok(frontierReplacement.aggregate_policy === "replace_for_aggregate_only", "frontier rerun5 aggregate policy is replacement only");
+    ok(frontierReplacement.aggregate_eligible === true, "frontier rerun5 is aggregate eligible as replacement evidence");
+    ok(frontierReplacement.execution_mode === "Mode A: Controlled Non-Deep-Research Execution", "frontier rerun5 records Mode A execution");
+  }
 
   ok(readme.includes(protocolPath), "README links the repair protocol");
   ok(index.includes(`./${protocolPath}`), "index links the repair protocol");
   ok(loop.includes(protocolPath), "recursive loop points to the repair protocol");
   ok(status.includes(protocolPath), "Run 07 status ledger points to the repair protocol");
   ok(loop.includes("do not launch another same-shape Deep Research remedial rerun"), "recursive loop preserves no-same-shape-rerun guard");
+  ok(loop.includes(successfulRerunId), "recursive loop records successful controlled rerun5");
   ok(status.includes("controlled non-Deep-Research execution"), "status ledger preserves controlled execution handoff");
+  ok(status.includes(successfulRerunId), "status ledger records successful controlled rerun5");
 }
 
 function readText(relativePath) {

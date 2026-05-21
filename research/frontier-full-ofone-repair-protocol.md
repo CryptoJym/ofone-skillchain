@@ -1,13 +1,13 @@
 # Frontier Full-OfOne Repair Protocol
 
-Status: `active_after_rerun4`
+Status: `active_after_rerun5`
 Batch: `2026-05-17-batch-01`
 Case: `case-strategic-gated-diligence-001`
 Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 
-This protocol governs the unrepaired frontier full-OfOne replacement slot after the original run and four remedial attempts failed before aggregate eligibility.
+This protocol governs the frontier full-OfOne replacement slot after the original run and four remedial attempts failed before aggregate eligibility. The first valid replacement is now the controlled Mode A rerun 5 package; the protocol remains active to preserve the repair boundary and block same-shape reruns.
 
 ## Evidence Basis
 
@@ -18,8 +18,9 @@ This protocol governs the unrepaired frontier full-OfOne replacement slot after 
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2` | Returned package shape, but computed local validation failed required `movement_jobs` fields and tradeoff reversal-condition semantics. | `not_aggregate_eligible` |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun3` | Returned benchmark package sections, but omitted exact run metadata and failed current-schema `benchmark_trace` and relation-legality checks. | `not_aggregate_eligible` |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun4` | Returned a meta/advisory report titled `Running an Unspecified OfOne Benchmark Packet Exactly`. | `not_aggregate_eligible` |
+| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5` | Controlled Mode A non-Deep-Research package with raw output, artifact JSON, computed validator JSON, rendering, patch report, and local review. | `replace_for_aggregate_only` |
 
-The repeated failure mode is now a process finding: attachment-led or same-shape ChatGPT Deep Research remedial launches are not a reliable way to produce this full-OfOne artifact package.
+The repeated failure mode is now a process finding: attachment-led or same-shape ChatGPT Deep Research remedial launches are not a reliable way to produce this full-OfOne artifact package. The valid rerun 5 replacement came from the controlled non-Deep-Research path and does not license another same-shape launch.
 
 ## Hard Rule
 
@@ -47,7 +48,7 @@ The run cannot enter `remedial_runs`, aggregate comparison, or any superiority c
 
 Active Mode A contract: `benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-strategic-gated-diligence-frontier-full-r1-mode-a-contract.md`.
 
-That contract freezes rerun 5 as `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5`, preserves the original excluded run as immutable evidence, and keeps same-shape attachment-led Deep Research reruns barred. Run `npm run frontier:controlled:check` before any Mode A execution to verify the exact run ID, source hashes, required output sections, and matrix non-insertion state.
+That contract freezes rerun 5 as `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5`, preserves the original excluded run as immutable evidence, and keeps same-shape attachment-led Deep Research reruns barred. Rerun 5 is now executed, validator-valid, locally reviewed, and recorded in `remedial_runs` as `replace_for_aggregate_only`; run `npm run frontier:controlled:check` to verify the exact run ID, source hashes, machine artifact hashes, reviewed matrix insertion, and original-run immutability.
 
 ### Mode B: Inline Deep Research Launch Contract
 

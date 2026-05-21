@@ -1,0 +1,177 @@
+{
+  "input": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun5.artifact.json",
+  "operation": {
+    "operation_id": "add_supporting_evidence",
+    "label": "Add supporting evidence",
+    "description": "Attach or modify evidence support and reassess supported claims."
+  },
+  "changed_objects": [
+    {
+      "id": "T1",
+      "type": "trigger",
+      "label": "new_evidence"
+    }
+  ],
+  "trigger_expansion": [],
+  "affected_closure": [
+    {
+      "id": "C3",
+      "type": "claim",
+      "label": "The reversible diligence move is the dominant next move because it can reduce launch uncertainty without crossing the release boundary."
+    },
+    {
+      "id": "COUNCIL",
+      "type": "council_result",
+      "label": "Permits reversible diligence only and keeps launch blocked."
+    },
+    {
+      "id": "KT1",
+      "type": "kill_test",
+      "label": "Gate escalation or reviewer objection shows the proposed diligence move is not actually reversible or creates launch-like exposure."
+    },
+    {
+      "id": "L1",
+      "type": "loop",
+      "label": ""
+    },
+    {
+      "id": "LENS1",
+      "type": "lens",
+      "label": "Strategic-agentic lens"
+    },
+    {
+      "id": "O1",
+      "type": "option_move",
+      "label": "query"
+    },
+    {
+      "id": "R1",
+      "type": "rendering",
+      "label": "Proceed with the reversible diligence move O1 only. Do not proceed to operational launch O2 until U1 and U2 are resolved or accepted by the launch reviewer and G1 is approved."
+    },
+    {
+      "id": "T2",
+      "type": "trigger",
+      "label": "review_required"
+    },
+    {
+      "id": "TS1",
+      "type": "tradeoff_surface",
+      "label": "TS1"
+    },
+    {
+      "id": "X4",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X5",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X6",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X8",
+      "type": "edge",
+      "label": ""
+    },
+    {
+      "id": "X9",
+      "type": "edge",
+      "label": ""
+    }
+  ],
+  "affected_by_type": {
+    "claim": [
+      "C3"
+    ],
+    "council_result": [
+      "COUNCIL"
+    ],
+    "kill_test": [
+      "KT1"
+    ],
+    "loop": [
+      "L1"
+    ],
+    "lens": [
+      "LENS1"
+    ],
+    "option_move": [
+      "O1"
+    ],
+    "rendering": [
+      "R1"
+    ],
+    "trigger": [
+      "T2"
+    ],
+    "tradeoff_surface": [
+      "TS1"
+    ],
+    "edge": [
+      "X4",
+      "X5",
+      "X6",
+      "X8",
+      "X9"
+    ]
+  },
+  "affected_semantic_layers": [
+    "argumentative",
+    "causal",
+    "workflow_state"
+  ],
+  "invalidated_claims": [
+    "C3"
+  ],
+  "reopened_gates": [],
+  "required_approvals": [],
+  "suggested_transition": "patch",
+  "rendering_affected": true,
+  "rendering_regeneration_required": true,
+  "changed_decision_meaning": "Add supporting evidence changes T1:trigger; 14 downstream object(s) are in closure, so the current decision rendering must be regenerated.",
+  "required_revalidation": [
+    "json_schema",
+    "semantic_validation",
+    "decision_surface_check",
+    "trigger_transition_check",
+    "council_review_check",
+    "rendering_regeneration"
+  ],
+  "semantic_patch_operations": [
+    {
+      "op": "add_supporting_evidence",
+      "targets": [
+        "T1"
+      ],
+      "effect": "Attach or modify evidence support and reassess supported claims."
+    },
+    {
+      "op": "reassess_claims",
+      "targets": [
+        "C3"
+      ],
+      "effect": "Recompute support, contradiction load, confidence, and failure modes."
+    },
+    {
+      "op": "regenerate_rendering",
+      "targets": [
+        "R1"
+      ],
+      "effect": "Render a new decision view after validation passes."
+    }
+  ],
+  "patch_report": {
+    "summary": "add_supporting_evidence on T1 affects 14 downstream object(s); transition=patch; rendering=affected",
+    "next_steps": [
+      "rerun validation after applying any object edits",
+      "reassess affected claims: C3",
+      "regenerate decision rendering"
+    ]
+  }
+}
