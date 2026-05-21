@@ -14,6 +14,8 @@
     "frontier:check": "node scripts/ofone-frontier-packet-check.mjs",
     "frontier:protocol:check": "node scripts/ofone-frontier-repair-protocol-check.mjs",
     "frontier:controlled:check": "node scripts/ofone-frontier-controlled-contract-check.mjs",
+    "skill:install": "node scripts/ofone-install-skill.mjs",
+    "skill:check": "node scripts/ofone-install-skill.mjs --check",
     "pages:check": "node scripts/ofone-pages-check.mjs",
     "research:check": "node scripts/ofone-research-check.mjs",
     "deep-research:check": "node scripts/ofone-deep-research-launch-check.mjs",

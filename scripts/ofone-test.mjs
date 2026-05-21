@@ -23,6 +23,7 @@ try {
   runResearchLifecycleCheck();
   runReviewSidecarCheck();
   runToolingContractCheck();
+  runSkillInstallSmokeTest();
   runInvalidReviewSidecarChecks();
   for (const fixture of fixtures) runInvalidFixture(fixture);
 } finally {
@@ -421,6 +422,7 @@ function runToolingContractCheck() {
     ["Deep Research extension payload generator file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-deep-research-extension-payloads.mjs"))],
     ["Deep Research extension report checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-deep-research-extension-report-check.mjs"))],
     ["Deep Research manual recovery checker file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-deep-research-manual-recovery.mjs"))],
+    ["local skill installer file", fs.existsSync(path.join(repoRoot, "scripts", "ofone-install-skill.mjs"))],
     ["Deep Research launch schema file", fs.existsSync(path.join(repoRoot, "schemas", "ofone.deep-research-launch.schema.json"))],
     ["Deep Research extension payload schema file", fs.existsSync(path.join(repoRoot, "schemas", "ofone.deep-research-extension-payloads.schema.json"))],
     ["Deep Research extension report schema file", fs.existsSync(path.join(repoRoot, "schemas", "ofone.deep-research-extension-report.schema.json"))],
@@ -449,6 +451,7 @@ function runToolingContractCheck() {
     ["pages checker Deep Research extension payload generator target", pagesScript.includes("scripts/ofone-deep-research-extension-payloads.mjs")],
     ["pages checker Deep Research extension report checker target", pagesScript.includes("scripts/ofone-deep-research-extension-report-check.mjs")],
     ["pages checker Deep Research manual recovery checker target", pagesScript.includes("scripts/ofone-deep-research-manual-recovery.mjs")],
+    ["pages checker local skill installer target", pagesScript.includes("scripts/ofone-install-skill.mjs")],
     ["pages checker Chrome extension contract target", pagesScript.includes("research/chrome-extension-deep-research-contract.md")],
     ["pages checker Deep Research launch queue target", pagesScript.includes("research/deep-research-launch-queue.json")],
     ["pages checker Deep Research extension payloads target", pagesScript.includes("research/deep-research-extension-payloads.json")],
@@ -507,6 +510,7 @@ function runToolingContractCheck() {
     ["README Deep Research extension payloads", readme.includes("research/deep-research-extension-payloads.json") && readme.includes("npm run deep-research:payloads")],
     ["README Deep Research extension report", readme.includes("research/deep-research-extension-report.json") && readme.includes("npm run deep-research:report")],
     ["README Deep Research manual recovery", readme.includes("research/deep-research-manual-recovery.json") && readme.includes("npm run deep-research:manual-recovery")],
+    ["README local skill installer", readme.includes("npm run skill:install") && readme.includes("npm run skill:check")],
     ["skill Chrome extension payload boundary", fs.readFileSync(path.join(repoRoot, "SKILL.md"), "utf8").includes("research/deep-research-extension-payloads.json")],
     ["skill Chrome extension report boundary", fs.readFileSync(path.join(repoRoot, "SKILL.md"), "utf8").includes("research/deep-research-extension-report.json")],
     ["skill Chrome extension manual recovery boundary", fs.readFileSync(path.join(repoRoot, "SKILL.md"), "utf8").includes("research/deep-research-manual-recovery.json")],
@@ -689,6 +693,35 @@ function runToolingContractCheck() {
   }
   failures += 1;
   console.error(`FAIL tooling contract: ${missing.join(", ")}`);
+}
+
+function runSkillInstallSmokeTest() {
+  const target = path.join(tempDir, "codex", "skills", "ofone", "SKILL.md");
+  const installResult = spawnSync(process.execPath, ["scripts/ofone-install-skill.mjs", "--target", target], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  const checkResult = spawnSync(process.execPath, ["scripts/ofone-install-skill.mjs", "--check", "--target", target], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  const installedText = fs.existsSync(target) ? fs.readFileSync(target, "utf8") : "";
+  const passed = installResult.status === 0 &&
+    checkResult.status === 0 &&
+    installedText === fs.readFileSync(path.join(repoRoot, "SKILL.md"), "utf8") &&
+    installedText.includes("stop normal workflow and troubleshoot extension availability first");
+
+  if (passed) {
+    console.log("PASS local skill installer");
+    return;
+  }
+
+  failures += 1;
+  console.error("FAIL local skill installer");
+  console.error(installResult.stdout);
+  console.error(installResult.stderr);
+  console.error(checkResult.stdout);
+  console.error(checkResult.stderr);
 }
 
 function runInvalidReviewSidecarChecks() {

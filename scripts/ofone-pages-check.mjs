@@ -36,6 +36,7 @@ const targets = [
   { label: "Deep Research extension payload generator", local: "scripts/ofone-deep-research-extension-payloads.mjs", remote: "/scripts/ofone-deep-research-extension-payloads.mjs" },
   { label: "Deep Research extension report checker", local: "scripts/ofone-deep-research-extension-report-check.mjs", remote: "/scripts/ofone-deep-research-extension-report-check.mjs" },
   { label: "Deep Research manual recovery checker", local: "scripts/ofone-deep-research-manual-recovery.mjs", remote: "/scripts/ofone-deep-research-manual-recovery.mjs" },
+  { label: "local skill installer", local: "scripts/ofone-install-skill.mjs", remote: "/scripts/ofone-install-skill.mjs" },
   { label: "Chrome extension Deep Research contract", local: "research/chrome-extension-deep-research-contract.md", remote: "/research/chrome-extension-deep-research-contract.md" },
   { label: "Deep Research launch queue", local: "research/deep-research-launch-queue.json", remote: "/research/deep-research-launch-queue.json", kind: "json" },
   { label: "Deep Research extension payloads", local: "research/deep-research-extension-payloads.json", remote: "/research/deep-research-extension-payloads.json", kind: "json" },

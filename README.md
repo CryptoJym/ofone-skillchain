@@ -31,6 +31,7 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`scripts/ofone-deep-research-extension-payloads.mjs`](./scripts/ofone-deep-research-extension-payloads.mjs) - deterministic Chrome-extension payload generator.
 - [`scripts/ofone-deep-research-extension-report-check.mjs`](./scripts/ofone-deep-research-extension-report-check.mjs) - Chrome-extension report intake checker.
 - [`scripts/ofone-deep-research-manual-recovery.mjs`](./scripts/ofone-deep-research-manual-recovery.mjs) - manual export recovery checker/importer for iframe-blocked Deep Research reports.
+- [`scripts/ofone-install-skill.mjs`](./scripts/ofone-install-skill.mjs) - local Codex skill installer/checker to keep the live OfOne skill aligned with this repo.
 - [`scripts/ofone-pages-check.mjs`](./scripts/ofone-pages-check.mjs) - maintainer-side GitHub Pages parity checker.
 - [`scripts/ofone-render.mjs`](./scripts/ofone-render.mjs) - human-readable Micro, Map, and Audit renderer.
 - [`scripts/ofone-patch.mjs`](./scripts/ofone-patch.mjs) - dependency-closure patch helper.
@@ -63,12 +64,14 @@ Charter -> Geometry Kernel -> Adapter Projection -> Scene Map -> Evidence Ledger
 
 ## Install Locally For Codex
 
-Copy `SKILL.md` into a Codex skill directory:
+Install the repo `SKILL.md` into the local Codex skill directory:
 
 ```bash
-mkdir -p ~/.codex/skills/ofone
-cp SKILL.md ~/.codex/skills/ofone/SKILL.md
+npm run skill:install
+npm run skill:check
 ```
+
+The installer writes `~/.codex/skills/ofone/SKILL.md` and verifies its SHA-256 hash against the repo source. This keeps the live skill on the Chrome-extension-first Deep Research contract instead of drifting back to manual browser-control instructions.
 
 Then use it when mapping a bounded domain, stress-testing understanding, or producing a decision-ready research map.
 
@@ -79,6 +82,7 @@ npm run validate
 npm run schema:check
 npm run review:check
 npm run benchmark
+npm run skill:check
 npm test
 ```
 
