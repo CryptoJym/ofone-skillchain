@@ -3202,9 +3202,9 @@
       },
       "rerun_plan": {
         "required": true,
-        "status": "queued",
+        "status": "failed",
         "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
-        "reason": "Frontier full-OfOne repeat-1 artifact is case-bound but not validator-valid. Preserve it immutably and launch a remedial frontier full-OfOne rerun before treating the slot as aggregate-eligible.",
+        "reason": "Frontier full-OfOne repeat-1 artifact is case-bound but not validator-valid. Preserve it immutably. Remedial rerun 1 completed as an advisory research report rather than the benchmark raw output package and is not aggregate-eligible; a stricter rerun 2 is required before treating the slot as aggregate-eligible.",
         "aggregate_policy": "replace_for_aggregate_only"
       }
     }
@@ -3263,6 +3263,42 @@
         "patch_sha256": "sha256:be452089c33c365a808245e1f81c6df019c8dde64ddb2ba494d248e896e4795f",
         "rendering_md": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1.rendering.md",
         "rendering_sha256": "sha256:3321e0edd8899a9585a67547f9d81d7bd25477b60660d8ea58997596d9ea48b7"
+      }
+    }
+  ],
+  "remedial_attempts": [
+    {
+      "run_id": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1",
+      "rerun_of": "2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1",
+      "rerun_number": 1,
+      "case_id": "case-strategic-gated-diligence-001",
+      "arm_id": "full_ofone",
+      "model_family": "frontier_reasoning",
+      "repeat": 1,
+      "status": "failed",
+      "aggregate_policy": "not_aggregate_eligible",
+      "raw_output": "benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1.md",
+      "raw_output_sha256": "sha256:c0900989fe10e528648ea57d6f20f1f18f662fcff89bb04194bbc99fb5a9d385",
+      "source_download": "/Users/jamesbrady/Downloads/deep-research-report (36).md",
+      "harvested_at": "2026-05-21T00:02:00-06:00",
+      "conversation_url": "https://chatgpt.com/c/6a0e8efd-2234-83e8-af43-a7e25266034d",
+      "visible_report_metadata": "Research completed in 1h 7m; 10 citations; 117 searches; 20 May; 10 sources; title `Strategic Gated Diligence Remedial Run Research Report`.",
+      "review_file": "benchmarks/reviews/2026-05-17-batch-01/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1.md",
+      "review_sha256": "sha256:17250d4766bc7688af9e12e887057e1dcfbd1ac9b7a0a9e57d2d47d3dc8cb86d",
+      "failure_reason": "Completed report did not begin with `# Benchmark Raw Output` and did not contain actual `## Artifact JSON`, `## Validator Result`, `## Rendering`, or `## Patch Report` sections.",
+      "pre_score_compliance": {
+        "case_fidelity": "fail",
+        "required_outputs": "fail",
+        "independence": "unknown",
+        "no_superiority_compliance": "pass",
+        "auto_reject": true,
+        "reject_reason": "Deep Research returned an advisory research report rather than the required benchmark package."
+      },
+      "semantic_fidelity": {
+        "case_binding": "fail",
+        "copied_example_risk": "unknown",
+        "evidence_provenance_adequacy": "advisory report only; no benchmark artifact, validator result, rendering, or patch report exists",
+        "artifact_source_identity": "raw export and review identify the failed remedial run; no artifact object exists"
       }
     }
   ]

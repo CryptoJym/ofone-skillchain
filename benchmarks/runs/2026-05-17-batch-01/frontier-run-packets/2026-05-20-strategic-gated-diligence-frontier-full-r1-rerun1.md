@@ -7,7 +7,7 @@ Arm: `full_ofone`
 Model family: `frontier_reasoning`
 Repeat: `1`
 Rerun number: `1`
-Status: `active_researching`
+Status: `rejected_invalid_output_contract`
 
 This packet repairs the excluded frontier full-OfOne repeat-1 slot without mutating the original completed output.
 
@@ -44,6 +44,7 @@ This is launch proof only. Do not harvest or mark the remedial run complete unti
 - `2026-05-20T23:21:50-06:00`: Run remains active in ChatGPT Deep Research with material status progress. Visible progress remains step 1 complete and step 2 active; status text changed to `Considering frameworks and resources...`; count remains `49 searches` / `49 sources searched`; `Stop research` remains present. No completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
 - `2026-05-20T23:26:59-06:00`: Run remains active in ChatGPT Deep Research with material status progress. Visible progress remains step 1 complete and step 2 active; status text changed to `Clarifying source review protocols...`; count remains `49 searches` / `49 sources searched`; `Stop research` remains present. No completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
 - `2026-05-20T23:43:56-06:00`: Run remains active in ChatGPT Deep Research and unchanged past the watchdog threshold. Visible progress remains step 1 complete and step 2 active; status text remains `Clarifying source review protocols...`; count remains `49 searches` / `49 sources searched`; `Stop research` remains present. Treat as possible active-run stall evidence only; no completed report is visible, and no remedial output is harvested, reviewed, complete, or aggregate-eligible.
+- `2026-05-21T00:02:00-06:00`: Run completed in ChatGPT Deep Research. Visible metadata: `Research completed in 1h 7m`, `10 citations`, `117 searches`, `20 May`, `10 sources`, title `Strategic Gated Diligence Remedial Run Research Report`. Exported Markdown source `/Users/jamesbrady/Downloads/deep-research-report (36).md` was copied to `benchmarks/runs/2026-05-17-batch-01/outputs/2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1.md` with SHA-256 `c0900989fe10e528648ea57d6f20f1f18f662fcff89bb04194bbc99fb5a9d385`. Contract scan found no exact `# Benchmark Raw Output`, `Run ID:`, `Status: completed`, `## Artifact JSON`, fenced JSON artifact, `## Validator Result`, `## Rendering`, or `## Patch Report` sections. The run is rejected before artifact extraction, matrix insertion, review aggregate eligibility, or any superiority comparison.
 
 ## Frozen Inputs
 
@@ -180,11 +181,11 @@ Then provide:
 
 After completion:
 
-1. Save raw Markdown exactly at the expected remedial raw-output path.
-2. Extract the artifact JSON without rewriting meaning.
-3. Run local validation and save computed validator JSON.
-4. Run local rendering and save computed rendering Markdown.
-5. Run local patch analysis and save computed patch JSON.
-6. Add local review notes from the Batch 01 review template.
-7. Add the remedial run record to `execution-matrix.json` only after files exist and pre-score compliance passes.
-8. Keep superiority claims blocked.
+1. Save raw Markdown exactly at the expected remedial raw-output path. `done`
+2. Extract the artifact JSON without rewriting meaning. `rejected`: required section absent.
+3. Run local validation and save computed validator JSON. `rejected`: no artifact JSON exists to validate.
+4. Run local rendering and save computed rendering Markdown. `rejected`: no artifact JSON exists to render.
+5. Run local patch analysis and save computed patch JSON. `rejected`: no artifact JSON exists to patch.
+6. Add local review notes from the Batch 01 review template. `done`: rejected-invalid-output-contract review added.
+7. Add the remedial run record to `execution-matrix.json` only after files exist and pre-score compliance passes. `blocked`: pre-score compliance failed.
+8. Keep superiority claims blocked. `done`

@@ -21,7 +21,8 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - Light-structured first-slice run remains aggregate-eligible.
 - Original full-OfOne first-slice run remains excluded and immutable.
 - Remedial full-OfOne rerun 1 is reviewed and aggregate-eligible as a replacement for the excluded original only.
-- Frontier full-OfOne strategic repeat-1 remains excluded and immutable until a remedial frontier rerun passes validation and review.
+- Frontier full-OfOne strategic repeat-1 remains excluded and immutable.
+- Remedial frontier full-OfOne rerun 1 was harvested but rejected before matrix insertion because the output was an advisory research report, not a benchmark raw output package.
 - No empirical superiority or method-performance claim is supported.
 
 ## Remedial Reruns
@@ -29,7 +30,8 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 | Run ID | Replaces | Status | Aggregate Policy | Notes |
 | --- | --- | --- | --- | --- |
 | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1__rerun1` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__agentic_coding__r1` | `reviewed` | `replace_for_aggregate_only` | Case-native artifact with benchmark trace binding, validator output, rendering, patch report, and local review. |
-| pending | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `queued` | `replace_for_aggregate_only` | Remedial frontier rerun is required because the harvested artifact is case-bound but not validator-valid. |
+| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun1` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `failed` | `not_aggregate_eligible` | Raw export preserved with SHA-256 `c0900989fe10e528648ea57d6f20f1f18f662fcff89bb04194bbc99fb5a9d385`, but exact benchmark header, artifact JSON, validator, rendering, and patch sections were absent. |
+| `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1__rerun2` | `2026-05-17-batch-01__case-strategic-gated-diligence-001__full_ofone__frontier_reasoning__r1` | `prepared_not_launched` | `replace_for_aggregate_only` | Stricter output-contract packet prepared; no launch, harvest, review, or aggregate eligibility exists yet. |
 
 ## Rerun Semantics
 
@@ -39,6 +41,7 @@ Schema-valid is not benchmark-valid. A full-OfOne run must pass the pre-score co
 - The first remedial rerun repairs the excluded repeat-1 slot and does not consume repeat 2 or repeat 3.
 - The frontier full-OfOne remedial rerun should repair the excluded frontier repeat-1 slot without mutating the original completed output.
 - A remedial rerun can replace the excluded original for aggregate scoring only after it passes pre-score compliance, benchmark trace binding, machine-artifact hash checks, and review/adjudication.
+- Failed remedial attempts may be recorded as evidence outside `remedial_runs`; they do not increase completion/remedial counters and cannot replace an excluded original.
 - Remedial reruns are tracked in `execution-matrix.json` under `remedial_runs`; they do not consume a new predeclared repeat slot.
 
 ## Provenance Binding
