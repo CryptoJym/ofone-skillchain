@@ -2,12 +2,12 @@
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-report.schema.json",
   "protocol_version": "ofone-deep-research-extension-report-0.1",
   "report_id": "2026-05-21-formal-frontier-r1-extension-harvest",
-  "generated_at": "2026-05-21T12:17:44-06:00",
+  "generated_at": "2026-05-21T12:33:26-06:00",
   "payload_path": "research/deep-research-extension-payloads.json",
   "payload_sha256": "sha256:298b3a05792e0fd7224f5ca779a7bc9b7822343490f1b71bb0a66baecacc62cc",
   "source_surface": "chrome_extension_plugin",
   "extension_availability": {
-    "observed_at": "2026-05-21T17:41:42Z",
+    "observed_at": "2026-05-21T18:33:26Z",
     "tool_discovery_query": "node_repl Chrome extension globalThis.browser browser.tabs.list",
     "callable_namespace": "mcp__node_repl__js",
     "request_meta_keys": [
@@ -32,7 +32,7 @@
       "selected"
     ],
     "tabs_list_ok": true,
-    "tabs_observed": 1,
+    "tabs_observed": 2,
     "blocked_namespace": null,
     "diagnosis": "available"
   },
@@ -273,6 +273,7 @@
         "isolated_tab_verified": false,
         "desktop_automation_used": false
       },
+      "blocker": "Chrome-extension submission attempt created ChatGPT conversation https://chatgpt.com/c/6a0f4f44-f800-83e8-851b-a71bbd2596d2 with Deep research and Pro controls visible, but observation after submission showed only the submitted user prompt. No generated plan, Start/countdown action, active research state, or stop-control evidence was visible, so this is not valid launch proof and the item remains launch_ready.",
       "aggregate_policy_after_report": "not_eligible_until_harvest_review_publication"
     }
   ]
