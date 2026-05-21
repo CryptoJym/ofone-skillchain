@@ -19,6 +19,7 @@
     "deep-research:check": "node scripts/ofone-deep-research-launch-check.mjs",
     "deep-research:payloads": "node scripts/ofone-deep-research-extension-payloads.mjs --check",
     "deep-research:payloads:write": "node scripts/ofone-deep-research-extension-payloads.mjs --write",
+    "deep-research:report": "node scripts/ofone-deep-research-extension-report-check.mjs",
     "review:check": "node scripts/ofone-review-check.mjs research/review-sidecars/*.json",
     "test": "node scripts/ofone-test.mjs"
   },

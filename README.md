@@ -21,12 +21,14 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`schemas/ofone.review.schema.json`](./schemas/ofone.review.schema.json) - recursive review sidecar schema.
 - [`schemas/ofone.deep-research-launch.schema.json`](./schemas/ofone.deep-research-launch.schema.json) - Chrome-extension Deep Research launch queue schema.
 - [`schemas/ofone.deep-research-extension-payloads.schema.json`](./schemas/ofone.deep-research-extension-payloads.schema.json) - Chrome-extension isolated-tab payload schema.
+- [`schemas/ofone.deep-research-extension-report.schema.json`](./schemas/ofone.deep-research-extension-report.schema.json) - Chrome-extension launch/harvest report schema.
 - [`scripts/ofone-validate.mjs`](./scripts/ofone-validate.mjs) - schema-backed semantic validator.
 - [`scripts/ofone-schema-check.mjs`](./scripts/ofone-schema-check.mjs) - schema identity, profile, and closed-world compatibility checker.
 - [`scripts/ofone-review-check.mjs`](./scripts/ofone-review-check.mjs) - recursive review sidecar checker.
 - [`scripts/ofone-research-check.mjs`](./scripts/ofone-research-check.mjs) - recursive research lifecycle, Chrome-extension blocker, and launch-state checker.
 - [`scripts/ofone-deep-research-launch-check.mjs`](./scripts/ofone-deep-research-launch-check.mjs) - Chrome-extension launch queue checker.
 - [`scripts/ofone-deep-research-extension-payloads.mjs`](./scripts/ofone-deep-research-extension-payloads.mjs) - deterministic Chrome-extension payload generator.
+- [`scripts/ofone-deep-research-extension-report-check.mjs`](./scripts/ofone-deep-research-extension-report-check.mjs) - Chrome-extension report intake checker.
 - [`scripts/ofone-pages-check.mjs`](./scripts/ofone-pages-check.mjs) - maintainer-side GitHub Pages parity checker.
 - [`scripts/ofone-render.mjs`](./scripts/ofone-render.mjs) - human-readable Micro, Map, and Audit renderer.
 - [`scripts/ofone-patch.mjs`](./scripts/ofone-patch.mjs) - dependency-closure patch helper.
@@ -45,6 +47,7 @@ Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. 
 - [`research/chrome-extension-deep-research-contract.md`](./research/chrome-extension-deep-research-contract.md) - Chrome-extension-first Deep Research launch contract.
 - [`research/deep-research-launch-queue.json`](./research/deep-research-launch-queue.json) - machine-readable isolated-tab launch queue for the current blocked frontier item.
 - [`research/deep-research-extension-payloads.json`](./research/deep-research-extension-payloads.json) - exact per-tab prompt payloads for Chrome-extension launch.
+- [`research/deep-research-extension-report.json`](./research/deep-research-extension-report.json) - Chrome-extension observation/report intake for launch and harvest proof.
 - [`media/hyperframes/ofone-walkthrough.hyperframe.json`](./media/hyperframes/ofone-walkthrough.hyperframe.json) - visual hyperframe for the OfOne operating walkthrough.
 - [`media/remotion/`](./media/remotion/) - Remotion walkthrough scaffold and voiceover source.
 - [`index.html`](./index.html) - GitHub Pages site.
@@ -162,13 +165,16 @@ npm run research:check
 
 The research lifecycle checker enforces the prepared-vs-launched boundary, run-scoped status ledger links, and the Chrome-extension-first Deep Research policy. If no callable Chrome extension/plugin control is available, frontier packets stay prepared or blocked; Computer Use, coordinate clicking, AppleScript/JXA, and generic desktop automation do not satisfy launch proof.
 
-The Chrome-extension handoff contract is captured in [`research/chrome-extension-deep-research-contract.md`](./research/chrome-extension-deep-research-contract.md) with the current machine-readable queue at [`research/deep-research-launch-queue.json`](./research/deep-research-launch-queue.json) and exact isolated-tab payloads at [`research/deep-research-extension-payloads.json`](./research/deep-research-extension-payloads.json). Regenerate payloads after queue edits and validate them with:
+The Chrome-extension handoff contract is captured in [`research/chrome-extension-deep-research-contract.md`](./research/chrome-extension-deep-research-contract.md) with the current machine-readable queue at [`research/deep-research-launch-queue.json`](./research/deep-research-launch-queue.json), exact isolated-tab payloads at [`research/deep-research-extension-payloads.json`](./research/deep-research-extension-payloads.json), and the current observation/report intake at [`research/deep-research-extension-report.json`](./research/deep-research-extension-report.json). Regenerate payloads after queue edits and validate payload/report state with:
 
 ```bash
 npm run deep-research:payloads:write
 npm run deep-research:payloads
+npm run deep-research:report
 npm run deep-research:check
 ```
+
+The report checker keeps a blocked item blocked until a callable Chrome extension/plugin surface records isolated-tab launch proof. Future `launched`, `active_researching`, `completed_report_visible`, `harvested`, or `rejected` states must be backed by the schema fields in `schemas/ofone.deep-research-extension-report.schema.json`; prose notes alone do not make a slot complete or aggregate-eligible.
 
 Current convergence review context:
 

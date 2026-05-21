@@ -1,0 +1,24 @@
+{
+  "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.deep-research-extension-report.schema.json",
+  "protocol_version": "ofone-deep-research-extension-report-0.1",
+  "report_id": "2026-05-21-formal-frontier-r1-extension-observation",
+  "generated_at": "2026-05-21T07:18:52-06:00",
+  "payload_path": "research/deep-research-extension-payloads.json",
+  "payload_sha256": "sha256:c0758d8cfa686d86d9b0c079f96ce5563d9edda672755e6b99ae6da4b2fe1423",
+  "source_surface": "codex_tool_discovery",
+  "items": [
+    {
+      "item_id": "2026-05-17-batch-01__case-formal-proof-search-001__direct_answer__frontier_reasoning__r1",
+      "tab_lane": "ofone-01-2026-05-17-batch-01-case-formal-proof-search-001-direct-answer-frontier-reasoning-r1",
+      "status": "observed_blocked",
+      "extension_control": {
+        "surface": "unavailable",
+        "callable_namespace": null,
+        "isolated_tab_verified": false,
+        "desktop_automation_used": false
+      },
+      "blocker": "Current callable tool discovery does not expose a Chrome extension/plugin namespace for isolated ChatGPT tab control. Computer Use, Browser, coordinate clicking, AppleScript/JXA, and generic desktop automation remain disallowed launch/harvest surfaces.",
+      "aggregate_policy_after_report": "not_eligible_blocked"
+    }
+  ]
+}
