@@ -20,6 +20,9 @@ const run07ResultRel = "research/results/2026-05-17-07-ofone-post-run06-hardenin
 const run07SynthesisRel = "research/results/2026-05-17-07-ofone-post-run06-hardening-review-synthesis.md";
 const loopRel = "research/recursive-improvement-loop.md";
 const loopPath = path.join(repoRoot, loopRel);
+const formalProofFrontierPacketRel = "benchmarks/runs/2026-05-17-batch-01/frontier-run-packets/2026-05-21-formal-proof-search-frontier-r1.md";
+const formalProofFrontierPacketPath = path.join(repoRoot, formalProofFrontierPacketRel);
+const chromeBlockedStatus = "prepared_blocked_chrome_extension_unavailable";
 
 const diagnostics = [];
 
@@ -28,6 +31,7 @@ const manifest = readJson(manifestPath, "batch 01 manifest");
 const status = readText(statusPath, "run 06 status ledger");
 const run07Status = readText(run07StatusPath, "run 07 status ledger");
 const loopDoc = readText(loopPath, "recursive improvement loop");
+const formalProofFrontierPacket = readText(formalProofFrontierPacketPath, "formal proof-search frontier packet");
 
 if (tracker && manifest && status) {
   validateRun06Status({ tracker, manifest, status });
@@ -37,6 +41,9 @@ if (tracker && run07Status) {
 }
 if (tracker && loopDoc) {
   validateRecursiveLoop({ tracker, loopDoc });
+}
+if (tracker && loopDoc && formalProofFrontierPacket) {
+  validateChromeExtensionBlockedFrontier({ tracker, loopDoc, packet: formalProofFrontierPacket });
 }
 
 const passed = diagnostics.every((diagnostic) => diagnostic.severity !== "error");
@@ -226,6 +233,39 @@ function validateRecursiveLoop({ tracker, loopDoc }) {
       loopDoc.includes("Current mode: `benchmark_handoff`"),
     "OFONE_RESEARCH_LOOP_CURRENT_RUN",
     "recursive loop doc points to the Run 07 ledger/result and benchmark-handoff mode"
+  );
+}
+
+function validateChromeExtensionBlockedFrontier({ tracker, loopDoc, packet }) {
+  const run07Row = tracker.split("\n").find((line) => line.startsWith("| 07 |")) || "";
+
+  check(
+    run07Row.includes(formalProofFrontierPacketRel) &&
+      run07Row.includes(`status \`${chromeBlockedStatus}\``),
+    "OFONE_RESEARCH_FRONTIER_BLOCKED_TRACKER_ROW",
+    "tracker Run 07 row records the current formal frontier Chrome-extension blocker"
+  );
+  check(
+    tracker.includes(`Status marker: \`${chromeBlockedStatus}\``) &&
+      tracker.includes("No ChatGPT conversation was opened") &&
+      tracker.includes("no formal proof-search frontier slot is launched, harvested, reviewed, complete, or aggregate-eligible"),
+    "OFONE_RESEARCH_FRONTIER_BLOCKED_TRACKER_ADDENDUM",
+    "tracker addendum records no launch, no prompt submission, and no aggregate eligibility"
+  );
+  check(
+    packet.includes(`Status: \`${chromeBlockedStatus}\``) &&
+      packet.includes("callable Chrome extension/plugin control") &&
+      packet.includes("generic desktop automation are not fallback launch paths") &&
+      packet.includes("No ChatGPT conversation was opened"),
+    "OFONE_RESEARCH_FRONTIER_CHROME_BLOCKED_PACKET",
+    "frontier packet carries the Chrome-extension blocker and preserves the not-launched boundary"
+  );
+  check(
+    loopDoc.includes(formalProofFrontierPacketRel) &&
+      loopDoc.includes("blocked pending callable Chrome extension/plugin control") &&
+      loopDoc.includes("Do not use Browser, Computer Use, coordinate clicking, AppleScript/JXA, or generic desktop automation as fallback"),
+    "OFONE_RESEARCH_FRONTIER_CHROME_BLOCKED_LOOP",
+    "recursive loop points to the blocked packet and forbids desktop-automation launch fallback"
   );
 }
 
