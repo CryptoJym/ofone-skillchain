@@ -1,9 +1,9 @@
 # OfOne Question Geometry Engine
 
-**Status:** Executable architecture introduced in OfOne 0.7.0  
+**Status:** Executable architecture introduced in OfOne 0.7.0; enforcement hardened in the current 0.7.0 line  
 **Purpose:** Turn OfOne from a decision-map compiler with query annotations into an adaptive, machine-enforced inquiry policy.
 
-## 1. The Claim
+## 1. The claim
 
 OfOne does not assume that one fixed list or order of questions is optimal in every domain.
 
@@ -11,23 +11,13 @@ The portable claim is narrower and stronger:
 
 > A bounded inquiry can be represented as a changing epistemic state. At each state, candidate questions, observations, tests, proofs, or interventions can be compared by their expected effect on uncertainty, causal discrimination, decision regret, future inquiry options, cost, delay, and risk. Every answer changes the state and therefore changes the question landscape.
 
-There is no context-free best question. There can be a best next information action relative to:
+There is no context-free best question. There can be a best next information action relative to an active frame, hypotheses, beliefs, an answer channel, a decision objective, costs, risks, and an explicit stopping rule.
 
-- an active frame;
-- a set of hypotheses or model classes;
-- a belief or uncertainty state;
-- an answer-channel model;
-- a decision objective and loss basis;
-- costs, delays, rights, and risks;
-- and a stopping rule.
+## 2. Two coupled geometries
 
-## 2. Representation Geometry and Navigation Geometry
+### Representation geometry
 
-OfOne now separates two coupled systems.
-
-### 2.1 Representation geometry
-
-The existing OfOne artifact represents the bounded terrain:
+The OfOne artifact represents the bounded terrain:
 
 ```text
 charter
@@ -39,9 +29,9 @@ charter
 -> gates, triggers, and decision rendering
 ```
 
-### 2.2 Navigation geometry
+### Navigation geometry
 
-The Question Geometry sidecar decides how to explore that terrain:
+The Question Geometry sidecar determines how to explore it:
 
 ```text
 frame and decision
@@ -56,353 +46,302 @@ frame and decision
 = next question, reframe, escalation, or release
 ```
 
-The map and navigator remain separate so that a valid representation is not mistaken for a good search policy.
+A valid map is not automatically a good search policy. The two systems therefore remain separate but linked.
 
-## 3. Epistemic State
+## 3. Epistemic state and question operators
 
-At iteration `t`, the engine treats inquiry state as:
+At iteration `t`, inquiry state is:
 
 \[
 x_t = (F_t, H_t, b_t, U_t, D_t, C_t, G_t)
 \]
 
-where:
+where `F` is the frame, `H` the model set, `b` the belief state, `U` the unknowns, `D` the decision model, `C` the causal-depth graph, and `G` governance and stopping configuration.
 
-- `F_t` is the active frame and its assumptions;
-- `H_t` is the active hypothesis or model-class set;
-- `b_t` is the belief state or robust scenario set;
-- `U_t` is the set of addressable unknowns;
-- `D_t` is the decision model and loss/utility basis;
-- `C_t` is the causal-depth graph;
-- `G_t` is the governance, cost, risk, and stopping configuration.
+A question is not merely text. It has:
 
-A question `q` is not merely text. It is an operator with:
-
-- a type;
-- targets;
+- a type and target;
 - an answer space;
 - an answer-channel model;
-- direct and future value;
 - prerequisites;
-- costs, risks, and delay;
-- and answer-conditioned state transitions.
+- cost, delay, and risk;
+- expected direct and future value;
+- declared answer effects;
+- and a runtime-issued selection receipt.
 
-An answer `a` moves the inquiry to a new state:
+An answer moves the inquiry:
 
 \[
 x_{t+1} = T(x_t, q, a)
 \]
 
-The engine must recompute the landscape after every transition.
+The landscape is recomputed after every accepted transition.
 
-## 4. The Question Landscape
+## 4. The dynamic question landscape
 
-For a state `x`, the available questions form `Q(x)`. Each state therefore has its own local question field. Answers deform the field by changing beliefs, active hypotheses, resolved unknowns, prerequisites, causal structure, and decision sensitivity.
+For a state `x`, available questions form `Q(x)`. Answers deform this field by changing beliefs, model classes, unknowns, causal structure, prerequisites, governance, and decision sensitivity.
 
 The engine records:
 
-- all scored questions;
+- every scored question;
 - the Pareto frontier;
-- declared or computed dominance exclusions;
+- declared dominance exclusions;
 - ranked eligible questions;
-- local maxima;
-- local minima;
+- local maxima and minima;
 - plateaus;
 - the selected question;
 - and the maximum remaining net question value.
 
-### 4.1 Local maxima
+A local maximum can be the correct immediate move or a myopic trap. A local minimum can still be a bridge, calibration, safety, source-lineage, or frame-change question whose future value exceeds its immediate score. This is why the runtime includes lookahead, unlock value, model-expansion probes, and operator switching.
 
-A local maximum is a question whose score is not lower than neighboring questions sharing a target or operator family. It may be the right immediate move, but it may also be a myopic trap.
+The space is usually discrete and non-smooth. Gradient language is a metaphor; the implementation uses graph search, Pareto filtering, bounded lookahead, and explicit escape operators.
 
-Examples:
+## 5. Multi-objective question value
 
-- a cheap survey that confirms the current model but cannot falsify it;
-- another source that appears independent but shares the same upstream data;
-- a high-information descriptive question that cannot change the decision;
-- a highly discriminating question that blocks access to a safer later experiment.
+The default value vector includes:
 
-### 4.2 Local minima
+```text
+expected decision gain
+expected information gain
+Fisher–Rao belief displacement
+causal discrimination
+model-expansion value
+unlock value
+robustness gain
+actionability
+novelty
+bounded lookahead
+exploration value
+minus cost, risk, delay, and redundancy
+```
 
-A local minimum is not automatically useless. It can be:
+The engine preserves the Pareto frontier before scalarization because question quality is generally only partially ordered.
 
-- a bridge question that unlocks a valuable measurement;
-- an oracle-calibration probe;
-- a safety or permission gate;
-- a frame challenge;
-- a source-lineage check;
-- or an exploration move that escapes a deceptive basin.
+## 6. Information-theoretic components
 
-This is why the engine includes bounded lookahead and unlock value rather than optimizing one-step information gain alone.
+### Entropy and expected information gain
 
-### 4.3 Other landscape structures
-
-A serious implementation must also expect:
-
-- **plateaus:** many questions have nearly equal value;
-- **ridges:** one operator family remains useful across many states;
-- **saddles:** a question improves one objective while worsening another;
-- **disconnected basins:** the current vocabulary cannot reach a missing model class;
-- **hysteresis:** path-dependent answers change which later questions are possible;
-- **moving targets:** asking changes the system being observed.
-
-Question space is usually discrete and non-smooth. Gradient metaphors are useful, but the runtime uses graph search, Pareto filtering, explicit lookahead, and escape operators rather than pretending a differentiable global surface always exists.
-
-## 5. Multi-Objective Question Value
-
-The default value vector is:
+For hypotheses `h`, belief state `b(h)`, question `q`, and answer channel `P(a | h,q)`:
 
 \[
-V(q \mid x) = (
-\Delta D,
-I,
-\Delta_{FR},
-C_d,
-M_e,
-U_l,
-R_g,
-A,
-N,
-L,
-E,
--C,
--R,
--T,
--Z
-)
+b_{q,a}(h)=\frac{P(a\mid h,q)b(h)}{\sum_{h'}P(a\mid h',q)b(h')}
 \]
-
-where:
-
-- `ΔD`: expected decision-value or regret improvement;
-- `I`: expected information gain;
-- `Δ_FR`: expected Fisher–Rao displacement on the belief simplex;
-- `C_d`: causal discrimination;
-- `M_e`: model-expansion value;
-- `U_l`: unlock value;
-- `R_g`: robustness gain;
-- `A`: actionability;
-- `N`: novelty;
-- `L`: bounded lookahead value;
-- `E`: exploration bonus for uncertain scoring;
-- `C`: cost;
-- `R`: risk;
-- `T`: delay;
-- `Z`: redundancy.
-
-The engine preserves the Pareto frontier before applying a configured scalarization. This is important because question quality is generally only partially ordered.
-
-## 6. Information-Theoretic Components
-
-### 6.1 Entropy and expected information gain
-
-In probabilistic mode, hypotheses `h` have beliefs `b(h)`. A question has an answer channel `P(a | h, q)`. The posterior is:
 
 \[
-b_{q,a}(h) = \frac{P(a \mid h,q)b(h)}{\sum_{h'} P(a \mid h',q)b(h')}
+EIG(q)=H(b)-\sum_a P(a\mid q)H(b_{q,a})
 \]
 
-Expected information gain is:
+### Expected decision value
+
+For utility `U(d,h)`:
 
 \[
-EIG(q) = H(b) - \sum_a P(a \mid q)H(b_{q,a})
+V(b)=\max_d\sum_h b(h)U(d,h)
 \]
-
-This favors questions expected to reduce uncertainty, but it is not sufficient by itself.
-
-### 6.2 Expected decision value
-
-Let `U(d,h)` be the value of decision `d` when `h` is true. Current decision value is:
 
 \[
-V(b) = \max_d \sum_h b(h)U(d,h)
+EVSI(q)=\sum_aP(a\mid q)V(b_{q,a})-V(b)
 \]
 
-Expected sample information value is:
+The runtime then subtracts costs, risks, delay, and redundancy. The most informative question is not necessarily the most decision-useful question.
+
+### Residual value of perfect information
 
 \[
-EVSI(q) = \sum_a P(a \mid q)V(b_{q,a}) - V(b)
+EVPI=\sum_hb(h)\max_dU(d,h)-\max_d\sum_hb(h)U(d,h)
 \]
 
-The runtime subtracts cost, risk, delay, and redundancy through the configured score. A fascinating question with no decision effect can therefore lose to a smaller but decisive measurement.
+Normalized EVPI is a convergence guard: large residual EVPI means information can still materially improve the decision.
 
-### 6.3 Expected value of perfect information
+### Information geometry
 
-The residual value of perfect information is:
+Belief states live on a probability simplex. The engine computes Fisher–Rao distance:
 
 \[
-EVPI = \sum_h b(h)\max_d U(d,h) - \max_d \sum_h b(h)U(d,h)
+d_{FR}(p,q)=2\arccos\left(\sum_i\sqrt{p_iq_i}\right)
 \]
 
-OfOne uses normalized EVPI as a convergence guard. A large residual EVPI means that uncertainty can still materially improve the decision, even when the current leading option has a visible margin.
+This measures expected movement through model space, not only entropy reduction.
 
-### 6.4 Information geometry
+### Noisy channels, dependence, and dominance
 
-Belief states live on a probability simplex. The runtime computes Fisher–Rao distance:
+Question quality depends on the oracle. Answer provenance records noise, missingness, source dependencies, custody, and evidence identity. Repeated observations from one upstream process do not count as independent confirmation.
 
-\[
-d_{FR}(p,q) = 2\arccos\left(\sum_i\sqrt{p_iq_i}\right)
-\]
+The runtime supports explicit Blackwell-style dominance declarations. A noisier experiment is excluded unless its lower cost, risk, or delay makes it preferable.
 
-Expected normalized displacement measures how far a question is likely to move the belief state, not merely how many entropy bits it removes. Two questions can have similar entropy reduction but induce very different movements through model space.
+### Bounded planning
 
-### 6.5 Noisy channels and oracle quality
+One-step lookahead captures bridge questions that unlock stronger later actions. The architecture is compatible with deeper belief-state or POMDP planning, but does not claim exact global planning is tractable in arbitrary open worlds.
 
-A question is only as useful as its answer channel. The schema therefore records:
+## 7. Typed causal-depth traversal
 
-- noise;
-- missingness;
-- deception risk;
-- source dependencies;
-- and the oracle or measurement process.
+The useful idea inside Five Whys is causal descent, not the number five.
 
-Repeated evidence from one upstream mechanism must not be counted as independent confirmation.
+Every why link identifies:
 
-### 6.6 Blackwell dominance
+- the explanandum and contrast: why `P` rather than `Q`;
+- the kind of explanation: cause, mechanism, motive, purpose, justification, definition, enabling condition, constraint, or historical origin;
+- evidence and confidence;
+- a counterfactual or intervention test for causal links;
+- alternative contributing causes;
+- and a reopening or rejection condition.
 
-If one information experiment can be produced by adding noise to another, the noisier experiment is decision-theoretically dominated unless it is cheaper, safer, faster, or otherwise constrained. The current engine supports explicit dominance declarations and excludes dominated questions. A future exact finite-experiment solver can automate more of the Blackwell partial order.
-
-### 6.7 Rate–distortion interpretation
-
-Inquiry is resource-bounded compression. The goal is not a complete model of the universe; it is a representation whose remaining distortion is acceptable for the decision.
-
-- distortion corresponds to decision regret, causal error, or violated constraints;
-- rate corresponds to question cost, time, tokens, experiments, and access;
-- the convergence surface is the declared distortion tolerance under resource and safety limits.
-
-### 6.8 Nonmyopic planning
-
-A low-value question can unlock a high-value later question. The runtime therefore computes a one-step expected lookahead from answer-conditioned state transitions and allows configured supplied lookahead where a deeper plan has been evaluated externally.
-
-The architecture is compatible with deeper belief-state planning or POMDP solvers, but it does not claim that exact global planning is tractable in arbitrary domains.
-
-### 6.9 Adaptive-submodularity caveat
-
-Greedy selection can have strong guarantees when information value exhibits adaptive diminishing returns. The runtime never assumes this universally. If complementarity, delayed unlocks, adversarial answers, or path dependence are material, bounded lookahead and model-expansion probes are required.
-
-### 6.10 Causal information versus observational information
-
-Observation can discriminate correlations without identifying interventions. Causal and mechanism questions therefore require counterfactual or intervention tests. The engine rejects a causal-depth link that merely restates the explanandum or lacks a testable causal implication.
-
-## 7. Typed Causal-Depth Traversal
-
-The useful idea behind the Five Whys is causal descent, not the number five.
-
-A why query must be typed:
-
-- cause;
-- mechanism;
-- reason or motive;
-- purpose or function;
-- justification;
-- constitutive definition;
-- enabling condition;
-- constraint;
-- historical origin.
-
-It must also state a contrast: why `P` rather than `Q`?
-
-The traversal is a graph, not necessarily a line. Multiple contributing causes, interactions, feedback, delays, and necessary/sufficient conditions may branch. Each material causal target must reach a justified, frame-relative bedrock node before release.
+The traversal is a graph, not necessarily a line. Only **supported** links count toward a path to bedrock; hypothesized links remain open inquiry. Each material causal target must reach a justified, evidence-backed, frame-relative bedrock node before release.
 
 See [`causal-depth-traversal.md`](./causal-depth-traversal.md).
 
-## 8. Three Epistemic Modes
+## 8. Three epistemic modes
 
-### Heuristic
+- **Heuristic:** use bounded qualitative judgments when probabilities would be fabricated.
+- **Probabilistic:** compute posteriors, entropy, information gain, decision value, EVPI, and Fisher–Rao displacement.
+- **Robust:** compare multiple belief scenarios using minimax regret or maximin utility when one distribution is not credible.
 
-Use when probabilities would be fabricated. The agent supplies bounded ordinal or normalized judgments with rationales. The validator still enforces targets, costs, risks, causal tests, required passes, and stopping gates.
+## 9. Runtime-issued selection
 
-### Probabilistic
+A candidate being present in the state does not authorize answering it. The runtime must select it and issue a receipt binding:
 
-Use when hypotheses, priors, and answer likelihoods are defensible. The engine computes posteriors, entropy, information gain, decision value, EVPI, and Fisher–Rao displacement.
+- question ID;
+- iteration;
+- current history head;
+- protected-state hash;
+- landscape hash;
+- selector and reason;
+- and eligibility at selection time.
 
-### Robust
+Only the currently selected, receipt-bound question can be answered. A forged status edit or an answer to a merely pending question is rejected.
 
-Use when one probability distribution is not credible. The decision model accepts multiple belief scenarios and uses either:
+## 10. Answer provenance and qualified challenge passes
 
-- minimax regret; or
-- maximin utility.
+Every accepted answer requires provenance:
 
-Robustness is derived from worst-case regret across the supplied scenario set. This is preferable to false precision when uncertainty about the probabilities is itself material.
+- source type and stable source ID;
+- observation time;
+- reliability;
+- custody statement;
+- evidence references;
+- and a content hash when the source class requires one.
 
-## 9. Enforced Runtime State Machine
+A challenge pass is not completed by a tag or by mentioning its name. It requires an answered tagged question plus pass-specific structured details, a substantive rationale, a compatible evidentiary basis, and a qualifying outcome. Unsupported agent inference cannot self-certify an evidence, intervention, or independent-review pass.
 
-The executable boundary is:
+Required default passes are:
+
+- `causal_depth`;
+- `frame_challenge`;
+- `model_expansion`;
+- `adversarial`;
+- `source_independence`;
+- `stopping_counterexample`.
+
+## 11. Tamper-evident history
+
+The history is an append-only hash chain. Each event binds:
+
+- the previous event hash;
+- question and answer;
+- selection receipt;
+- provenance;
+- declared and external effects;
+- qualified pass results;
+- before/after metrics;
+- protected-state hashes;
+- and the event hash itself.
+
+The validator checks the entire chain, iteration count, question state, selection identity, effect hashes, and current protected state. Editing an earlier answer, changing policy after initialization, rewriting beliefs or unknowns outside an event, or fabricating an iteration invalidates the state.
+
+## 12. Human-owned governance
+
+The runtime, not question effects, owns convergence and governance state. Question-declared or externally supplied effects cannot write `convergence`, accept risk, or fabricate a waiver.
+
+Accepted residual unknowns require typed, expiring records with:
+
+- a named human actor, role, and authority;
+- scope and rationale;
+- acceptance and expiry timestamps;
+- evidence references;
+- and reopening conditions.
+
+A robustness/EVPI waiver is also a typed, expiring human decision. It must specify quantitative minimum robustness and maximum residual-EVPI bounds. It applies only when the actual state falls within those bounds. Legacy bare booleans or anonymous `waived_by` strings are invalid.
+
+## 13. Enforced state machine
 
 ```text
-active
+uninitialized
+-> active
 -> waiting_for_answer
 -> active
 -> ...
 -> converged | human_review_required | invalid
 ```
 
-The agent cannot directly set `converged`. The stop command recomputes all gates:
+Initialization establishes the canonical protected-state hash before the first selection. The agent cannot directly set `converged`.
 
 ```bash
+node scripts/ofone-question-loop.mjs initialize <state.json> --write
+node scripts/ofone-question-loop.mjs step <state.json> --write
+node scripts/ofone-question-loop.mjs answer <state.json> <question_id> <answer> --context <context.json> --write
 node scripts/ofone-question-loop.mjs attempt-stop <state.json> --write
 ```
 
-- exit `0`: release allowed;
-- exit `2`: stop rejected and next directive returned;
-- exit `1`: invalid state or runtime failure.
+Exit codes:
 
-A rejected stop is itself a transition back into inquiry.
+- `0`: the operation succeeded; for `attempt-stop`, release is allowed;
+- `2`: stop rejected and the next directive is mandatory;
+- `1`: invalid state or runtime failure.
 
-## 10. Persistence Without Runaway Behavior
+## 14. Persistence without runaway behavior
 
-The purpose of the harness is to resist premature closure. It does not reward stubborn repetition.
+The harness resists premature closure but does not reward stubborn repetition.
 
-Material progress includes:
+Material progress includes entropy reduction, unresolved-impact reduction, robustness gain, causal-depth gain, and contradiction resolution. After a configured stall window, repeated low-progress questions force an operator change among measurement, causal contrast, intervention, source change, scale change, model expansion, adversarial review, or reframing.
 
-- entropy reduction;
-- reduction in unresolved decision impact;
-- decision-robustness gain;
-- causal-depth coverage gain;
-- contradiction resolution.
+A maximum iteration count is a human-review safety boundary, not an epistemic claim that a fixed number of questions is sufficient.
 
-After a configurable stall window, repeated low-progress questions force an operator change. The engine synthesizes an escape question targeting a missing challenge pass or the highest-impact unresolved unknown.
-
-A configurable maximum iteration count creates a human-review boundary. It is not a claim that a fixed number of questions is sufficient.
-
-## 11. Machine-Checked Convergence
+## 15. Machine-checked convergence
 
 Release is blocked while any of these remain:
 
-- required challenge pass missing;
-- unaccepted high-impact or decision-blocking unknown;
-- material causal target without frame-relative bedrock;
-- invalid or circular causal explanation;
-- unresolved decision-sensitive contradiction;
+- invalid or tampered history;
+- an unanswered selected question;
+- a required qualified challenge pass missing;
+- an unaccepted high-impact or decision-blocking unknown;
+- a material causal target without supported frame-relative bedrock;
+- an invalid, circular, or tautological causal explanation;
+- an unresolved decision-sensitive contradiction;
 - decision robustness below threshold;
 - residual EVPI above threshold;
-- a robustness/EVPI waiver present without a named `waived_by` owner;
-- positive-net-value eligible question;
-- residual risk without a named owner;
-- or iteration safety boundary reached.
+- a positive-net-value eligible question;
+- an invalid, expired, future-dated, anonymous, overly broad, or quantitatively inapplicable risk record or waiver;
+- or the iteration safety boundary.
 
-The final rendering must include residual uncertainty, reversal evidence, and reopening triggers.
+When release is allowed, the final rendering must still expose residual uncertainty, reversal evidence, and reopening triggers.
 
-## 12. Files
+## 16. Files
 
 - `schemas/ofone.question-geometry.schema.json`
 - `lib/question-geometry.mjs`
+- `lib/question-geometry/integrity.mjs`
+- `lib/question-geometry/selection.mjs`
+- `lib/question-geometry/passes.mjs`
+- `lib/question-geometry/governance.mjs`
 - `scripts/ofone-question-loop.mjs`
 - `scripts/ofone-question-geometry-check.mjs`
 - `scripts/ofone-question-geometry-test.mjs`
+- `scripts/ofone-question-cli-smoke.mjs`
 - `scripts/ofone-question-benchmark.mjs`
 - `examples/question-geometry/causal-depth.json`
+- `examples/question-geometry/answer-contexts/`
 - `skills/question-geometry/PROTOCOL.md`
 - `benchmarks/question-geometry/`
 
-## 13. Current Boundaries
+## 17. Current boundaries
 
-The engine is executable, but the following claims remain unearned until broader benchmarks exist:
+The engine is executable, but these claims remain unearned until broader benchmarks exist:
 
 - universal superiority over domain-specialist inquiry;
 - globally optimal question sequences in arbitrary open worlds;
-- exact automated Blackwell comparison for all finite experiments;
-- reliable automatic generation of complete hypothesis spaces;
-- or guaranteed discovery of unknown unknowns.
+- exact automatic Blackwell comparison for all finite experiments;
+- reliable generation of complete model classes;
+- guaranteed discovery of unknown unknowns;
+- or proof that the current weighting and stop thresholds are optimal.
 
-The architecture makes those gaps explicit and benchmarkable rather than hiding them behind persuasive language.
+The architecture makes these gaps explicit and benchmarkable instead of hiding them behind persuasive language.

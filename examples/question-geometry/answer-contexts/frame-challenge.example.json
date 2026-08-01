@@ -1,9 +1,34 @@
 {
-  "provenance": "operator interview with the retention analyst who owns the conversion dashboard, 2026-08-01",
-  "oracle": "human domain owner",
-  "finding": "The shared assumption that conversion declined uniformly across segments does not survive: the decline concentrates in accounts created after the onboarding change, so the frame survives only with the segment boundary made explicit.",
-  "qualifies": true,
-  "evidence_refs": ["E-COHORT-EXPORT"],
-  "custody": "dashboard export attached to the inquiry workspace before the answer was recorded",
-  "notes": "Example answer context for a frame_challenge pass. An answer qualifies its challenge pass only when provenance and a concrete finding are recorded; qualifies:false preserves the answer while explicitly declining pass credit."
+  "provenance": {
+    "source_type": "observation",
+    "source_id": "raw-event-audit:conversion-frame-001",
+    "observed_at": "2026-08-01T13:00:00Z",
+    "reliability": "high",
+    "chain_of_custody": "Raw events were sampled directly from the product event store and compared with CRM and interview summaries.",
+    "evidence_refs": [
+      "E-RAW-EVENT-SAMPLE",
+      "E-CRM-LINEAGE",
+      "E-INTERVIEW-SAMPLE"
+    ]
+  },
+  "pass_results": [
+    {
+      "pass_id": "frame_challenge",
+      "outcome": "satisfied",
+      "basis": "evidence",
+      "rationale": "The shared assumption that instrumentation was directionally usable was tested against an instrumentation-failure frame using independent raw events.",
+      "evidence_refs": [
+        "E-RAW-EVENT-SAMPLE",
+        "E-CRM-LINEAGE"
+      ],
+      "details": {
+        "tested_assumption": "The observed funnel instrumentation is directionally usable.",
+        "alternative_frame": "The apparent activation failure is an instrumentation artifact or regime shift rather than a product mechanism.",
+        "result": "The raw-event sample preserved the activation discontinuity, so the current frame survived this bounded challenge."
+      }
+    }
+  ],
+  "effects": {},
+  "risk_acceptances": [],
+  "robustness_waiver": null
 }

@@ -21,9 +21,7 @@ for (let index = 0; index < args.length; index += 1) {
   const arg = args[index];
   const nextIsTargetValue = index > 0 && args[index - 1] === "--target";
   const known = arg === "--check" || arg === "--write" || arg === "--target" || arg.startsWith("--target=");
-  if (!known && !nextIsTargetValue) {
-    fail(`unknown argument: ${arg}`);
-  }
+  if (!known && !nextIsTargetValue) fail(`unknown argument: ${arg}`);
 }
 
 const mainSkillText = fs.readFileSync(sourcePath, "utf8").trimEnd();
@@ -32,9 +30,7 @@ const sourceText = `${mainSkillText}\n\n${questionProtocolText}\n`;
 assertSkillSource(sourceText);
 const sourceHash = sha256(sourceText);
 
-if (checkOnly && !fs.existsSync(targetPath)) {
-  fail(`installed skill missing at ${targetPath}`);
-}
+if (checkOnly && !fs.existsSync(targetPath)) fail(`installed skill missing at ${targetPath}`);
 
 if (writeMode) {
   ensureWritableTarget(targetPath);
@@ -48,7 +44,7 @@ if (targetHash !== sourceHash) {
   fail(`installed skill is stale: source ${sourceHash}, target ${targetHash}`);
 }
 
-console.log(`${writeMode ? "Installed" : "Verified"} OfOne skill with Question Geometry runtime gate`);
+console.log(`${writeMode ? "Installed" : "Verified"} OfOne skill with hardened Question Geometry runtime gate`);
 console.log(`source: ${sourcePath}`);
 console.log(`question protocol: ${questionProtocolPath}`);
 console.log(`target: ${targetPath}`);
@@ -89,8 +85,16 @@ function assertSkillSource(text) {
     "# Question Geometry Runtime Gate",
     "attempt-stop <state.json> --write",
     "Exit code `2` means the stop attempt was rejected",
+    "## Runtime-Issued Selection",
+    "selection_receipt",
+    "--context <answer-context.json>",
+    "Pass Tags Are Routing Labels, Not Completion",
+    "history_integrity",
+    "accepted_risks",
+    "robustness_waiver",
     "Implement causal-depth traversal",
-    "positive-net-value eligible question remains"
+    "positive-net-value eligible question remains",
+    "a selected question remains unanswered"
   ];
 
   const missing = required.filter((needle) => !text.includes(needle));
@@ -111,12 +115,8 @@ function assertSkillSource(text) {
 function ensureWritableTarget(target) {
   if (!fs.existsSync(target)) return;
   const stat = fs.lstatSync(target);
-  if (stat.isSymbolicLink()) {
-    fail(`refusing to overwrite symlink target: ${target}`);
-  }
-  if (stat.isDirectory()) {
-    fail(`target is a directory: ${target}`);
-  }
+  if (stat.isSymbolicLink()) fail(`refusing to overwrite symlink target: ${target}`);
+  if (stat.isDirectory()) fail(`target is a directory: ${target}`);
 }
 
 function sha256(text) {

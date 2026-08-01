@@ -1,11 +1,14 @@
 {
   "$schema": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.question-geometry.schema.json",
-  "qg_version": "0.1.0",
-  "engine_id": "QG-DEMO-CONVERSION-001",
+  "qg_version": "0.2.0",
+  "engine_id": "QG-DEMO-CONVERSION-002",
   "linked_artifact_id": "OFONE-DEMO-CONVERSION-001",
   "mode": "probabilistic",
   "status": "active",
   "iteration": 0,
+  "temporal_context": {
+    "as_of": "2026-08-01T13:00:00Z"
+  },
   "objective": {
     "task": "Explain a material decline in demo-to-paid conversion and select the least-regret corrective move.",
     "decision": "Choose whether to repair onboarding, change pricing, change targeting, or continue broad investigation.",
@@ -139,7 +142,7 @@
     {
       "unknown_id": "U-SOURCE-INDEPENDENCE",
       "kind": "source_dependence",
-      "description": "Whether product analytics, CRM labels, and interview summaries share the same upstream classification error.",
+      "description": "Whether product analytics, CRM labels, and interview summaries share one upstream error.",
       "impact": 0.72,
       "status": "open",
       "blocks": [
@@ -170,7 +173,7 @@
     {
       "unknown_id": "U-ADVERSARIAL",
       "kind": "adversarial",
-      "description": "Whether incentives or reporting practices are distorting the evidence presented to the decision owner.",
+      "description": "Whether incentives or reporting practices distort evidence presented to the decision owner.",
       "impact": 0.66,
       "status": "open",
       "blocks": [
@@ -184,6 +187,7 @@
       "reopen_condition": "ownership, compensation, or reporting incentives change"
     }
   ],
+  "contradictions": [],
   "decision_model": {
     "actions": [
       {
@@ -232,7 +236,6 @@
       }
     ],
     "utility_scale": 7,
-    "robustness": 0.1,
     "loss_definition": "opportunity cost plus risk of implementing the wrong causal remedy",
     "hard_constraints": [
       "do not make an irreversible pricing change from one correlated source"
@@ -265,7 +268,7 @@
       },
       {
         "node_id": "CN-EVENT-CONTRACT",
-        "proposition": "The activation event contract omits a required integration completion state, making failure both real and under-observed.",
+        "proposition": "The activation event contract omits a required integration-completion state, making failure real and under-observed.",
         "status": "bedrock",
         "evidence_refs": [
           "E-EVENT-SCHEMA",
@@ -274,7 +277,7 @@
         "bedrock": {
           "type": "observable_mechanism",
           "frame_relative": true,
-          "justification": "Within the declared product-funnel frame, this mechanism is measurable, intervenable, and sufficient to choose a reversible repair experiment.",
+          "justification": "Within the product-funnel frame, the mechanism is measurable, intervenable, and sufficient to choose a reversible repair experiment.",
           "reopen_condition": "repairing and instrumenting the event contract does not improve activation for the affected cohort"
         }
       }
@@ -291,7 +294,7 @@
           "E-COHORT-SAMPLE"
         ],
         "counterfactual_test": "Compare matched cohorts before and after the activation dependency appeared.",
-        "intervention_test": "Provide guided completion of the dependency and measure conversion recovery.",
+        "intervention_test": "Provide guided completion and measure conversion recovery.",
         "alternatives_considered": [
           "pricing exposure",
           "lead-quality mix",
@@ -325,7 +328,7 @@
     {
       "question_id": "Q-DISCRIMINATE",
       "type": "discriminating",
-      "text": "Within matched high-intent cohorts, does the conversion decline begin at the newly introduced activation dependency rather than after price exposure or by acquisition source?",
+      "text": "Within matched high-intent cohorts, does the decline begin at the activation dependency rather than after price exposure or by acquisition source?",
       "targets": [
         "U-DRIVER",
         "H-ONBOARDING",
@@ -364,14 +367,7 @@
             "source_pattern": 0.15,
             "indeterminate": 0.5
           }
-        },
-        "oracle": "matched cohort and event-level analysis",
-        "noise_notes": "instrumentation may miss the integration-complete state",
-        "deception_notes": "none assumed; raw events should be inspected",
-        "missingness_notes": "some legacy cohorts lack the new event",
-        "source_dependencies": [
-          "product event pipeline"
-        ]
+        }
       },
       "answer_effects": {
         "activation_failure": {
@@ -384,8 +380,7 @@
             "H-LEAD-QUALITY": 0.8
           },
           "retire_questions": [
-            "Q-PRICE-ONLY",
-            "Q-SOURCE-ONLY"
+            "Q-PRICE-ONLY"
           ]
         },
         "pricing_pattern": {
@@ -430,6 +425,7 @@
       "pass_tags": [
         "causal_depth"
       ],
+      "pass_conditions": {},
       "metrics": {
         "causal_discrimination": 1,
         "unlock_value": 0.8,
@@ -482,6 +478,15 @@
       "pass_tags": [
         "frame_challenge"
       ],
+      "pass_conditions": {
+        "frame_challenge": {
+          "qualifying_answers": [
+            "frame_survives",
+            "frame_fails"
+          ],
+          "minimum_reliability": "medium"
+        }
+      },
       "metrics": {
         "model_expansion": 0.85,
         "robustness_gain": 0.85,
@@ -534,6 +539,15 @@
       "pass_tags": [
         "model_expansion"
       ],
+      "pass_conditions": {
+        "model_expansion": {
+          "qualifying_answers": [
+            "no_material_surprise",
+            "new_model_required"
+          ],
+          "minimum_reliability": "medium"
+        }
+      },
       "metrics": {
         "model_expansion": 1,
         "information_gain": 0.55,
@@ -546,7 +560,7 @@
     {
       "question_id": "Q-ADVERSARIAL",
       "type": "adversarial",
-      "text": "Who benefits if the activation explanation is accepted, and can raw evidence contradict the incentives of the reporting owners?",
+      "text": "Who benefits if the activation explanation is accepted, and can raw evidence contradict the incentives of reporting owners?",
       "targets": [
         "U-ADVERSARIAL"
       ],
@@ -587,6 +601,15 @@
       "pass_tags": [
         "adversarial"
       ],
+      "pass_conditions": {
+        "adversarial": {
+          "qualifying_answers": [
+            "no_material_distortion",
+            "material_distortion"
+          ],
+          "minimum_reliability": "medium"
+        }
+      },
       "metrics": {
         "robustness_gain": 0.95,
         "model_expansion": 0.45,
@@ -598,7 +621,7 @@
     {
       "question_id": "Q-SOURCE-INDEPENDENCE",
       "type": "source_independence",
-      "text": "Do product events, CRM stage labels, and interviews independently support the mechanism, or do they inherit one upstream classification error?",
+      "text": "Do product events, CRM stage labels, and interviews independently support the mechanism, or inherit one upstream error?",
       "targets": [
         "U-SOURCE-INDEPENDENCE"
       ],
@@ -638,6 +661,15 @@
       "pass_tags": [
         "source_independence"
       ],
+      "pass_conditions": {
+        "source_independence": {
+          "qualifying_answers": [
+            "independent_support",
+            "shared_failure_mode"
+          ],
+          "minimum_reliability": "medium"
+        }
+      },
       "metrics": {
         "information_gain": 0.45,
         "robustness_gain": 1,
@@ -649,7 +681,7 @@
     {
       "question_id": "Q-STOP-COUNTEREXAMPLE",
       "type": "stopping_counterexample",
-      "text": "What plausible low-cost evidence would reverse the onboarding-repair decision, and has that evidence been actively sought rather than merely imagined?",
+      "text": "What plausible low-cost evidence would reverse the onboarding-repair decision, and has it been actively sought?",
       "targets": [
         "DECISION",
         "U-MODEL-CLASS"
@@ -685,6 +717,14 @@
       "pass_tags": [
         "stopping_counterexample"
       ],
+      "pass_conditions": {
+        "stopping_counterexample": {
+          "qualifying_answers": [
+            "reversal_tested"
+          ],
+          "minimum_reliability": "medium"
+        }
+      },
       "metrics": {
         "decision_gain": 0.55,
         "robustness_gain": 1,
@@ -712,6 +752,7 @@
       "delay": 0.05,
       "prerequisites": [],
       "pass_tags": [],
+      "pass_conditions": {},
       "metrics": {
         "information_gain": 0.15,
         "actionability": 0.1,
@@ -721,37 +762,7 @@
       "status": "pending",
       "dominance": {
         "dominated_by": "Q-DISCRIMINATE",
-        "reason": "The broader matched-cohort question subsumes this noisy indicator at acceptable incremental cost."
-      }
-    },
-    {
-      "question_id": "Q-SOURCE-ONLY",
-      "type": "evidence",
-      "text": "Did lead source mix change?",
-      "targets": [
-        "H-LEAD-QUALITY"
-      ],
-      "answer_space": [
-        "yes",
-        "no"
-      ],
-      "costs": {
-        "time": 0.1
-      },
-      "risks": {},
-      "delay": 0.05,
-      "prerequisites": [],
-      "pass_tags": [],
-      "metrics": {
-        "information_gain": 0.2,
-        "actionability": 0.15,
-        "novelty": 0.2,
-        "redundancy": 0.75
-      },
-      "status": "pending",
-      "dominance": {
-        "dominated_by": "Q-DISCRIMINATE",
-        "reason": "The matched-cohort discriminator includes source while also separating activation and pricing mechanisms."
+        "reason": "The matched-cohort discriminator subsumes this noisy indicator at acceptable incremental cost."
       }
     }
   ],
@@ -760,6 +771,7 @@
     "weights": {
       "decision_gain": 1.35,
       "information_gain": 1,
+      "belief_displacement": 0.55,
       "causal_discrimination": 0.95,
       "model_expansion": 0.9,
       "unlock_value": 0.85,
@@ -771,17 +783,16 @@
       "cost": 0.7,
       "risk": 0.9,
       "delay": 0.45,
-      "redundancy": 0.8,
-      "belief_displacement": 0.55
+      "redundancy": 0.8
     },
     "thresholds": {
       "minimum_net_question_value": 0.08,
       "high_impact_unknown": 0.65,
       "minimum_decision_robustness": 0.7,
+      "maximum_residual_evpi": 0.12,
       "maximum_redundancy": 0.82,
       "minimum_material_progress": 0.025,
-      "local_plateau_width": 0.03,
-      "maximum_residual_evpi": 0.12
+      "local_plateau_width": 0.03
     },
     "required_passes": [
       "causal_depth",
@@ -792,16 +803,24 @@
       "stopping_counterexample"
     ],
     "stall_window": 3,
-    "max_iterations_before_human_review": 24,
+    "max_iterations_before_human_review": 40,
     "exploration_rate": 0.12,
+    "lookahead_depth": 1,
     "current_question_id": null,
-    "lookahead_depth": 1
+    "current_selection": null
+  },
+  "convergence": {
+    "accepted_risks": [],
+    "robustness_waiver": null
   },
   "history": [],
-  "contradictions": [],
-  "convergence": {
-    "accepted_residual_unknowns": [],
-    "accepted_by": null,
-    "robustness_waiver": false
+  "history_integrity": {
+    "protocol": "ofone-question-geometry-history-v1",
+    "algorithm": "sha256",
+    "baseline_state_hash": "sha256:4c4fdf44bc67a63476ab7ca4a59ae4fea3d28905a55528e38644d9bb4f63a805",
+    "genesis_hash": "sha256:3852c53478ff7d36d0edd13273ba7a4c4f2af1156187c9b9dc1424176c168c08",
+    "head_hash": "sha256:3852c53478ff7d36d0edd13273ba7a4c4f2af1156187c9b9dc1424176c168c08",
+    "event_count": 0,
+    "last_event_id": null
   }
 }

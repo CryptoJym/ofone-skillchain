@@ -37,35 +37,61 @@ for (const file of files) {
   }
 
   const schemaPassed = validateSchema(data);
+  const schemaErrors = (validateSchema.errors || []).map((error) => ({
+    instance_path: error.instancePath,
+    schema_path: error.schemaPath,
+    keyword: error.keyword,
+    message: error.message,
+    params: error.params
+  }));
   const semantic = validateQuestionGeometry(data);
-  const convergence = evaluateConvergence(data);
-  const landscape = buildQuestionLandscape(data);
   const report = {
     file,
     passed: Boolean(schemaPassed && semantic.passed),
-    schema: {
-      passed: Boolean(schemaPassed),
-      errors: (validateSchema.errors || []).map((error) => ({
-        instance_path: error.instancePath,
-        schema_path: error.schemaPath,
-        keyword: error.keyword,
-        message: error.message,
-        params: error.params
-      }))
-    },
+    schema: { passed: Boolean(schemaPassed), errors: schemaErrors },
     semantic,
     loop_state: {
       status: data.status,
       iteration: data.iteration,
-      release_allowed: convergence.release_allowed,
-      blockers: convergence.blockers,
-      required_next_question: landscape.selected_question_id,
-      maximum_net_question_value: landscape.maximum_net_question_value,
-      pareto_frontier: landscape.pareto_frontier,
-      local_maxima: landscape.local_maxima,
-      local_minima: landscape.local_minima
+      release_allowed: false,
+      blockers: [],
+      required_next_question: null,
+      maximum_net_question_value: null,
+      pareto_frontier: [],
+      local_maxima: [],
+      local_minima: []
     }
   };
+
+  if (report.passed) {
+    try {
+      const convergence = evaluateConvergence(data);
+      const landscape = buildQuestionLandscape(data);
+      report.loop_state = {
+        status: data.status,
+        iteration: data.iteration,
+        release_allowed: convergence.release_allowed,
+        blockers: convergence.blockers,
+        required_next_question: landscape.selected_question_id,
+        maximum_net_question_value: landscape.maximum_net_question_value,
+        pareto_frontier: landscape.pareto_frontier,
+        local_maxima: landscape.local_maxima,
+        local_minima: landscape.local_minima,
+        history_head_hash: data.history_integrity?.head_hash || null
+      };
+    } catch (error) {
+      report.passed = false;
+      report.runtime_error = error.message;
+    }
+  } else {
+    report.loop_state.blockers = [
+      ...schemaErrors.map((error) => ({ code: "QG_JSON_SCHEMA", detail: `${error.instance_path || "/"}: ${error.message}` })),
+      ...semantic.findings
+        .filter((finding) => finding.severity === "error")
+        .map((finding) => ({ code: finding.code, detail: finding.object_id || finding.message }))
+    ];
+  }
+
   if (!report.passed) failed = true;
   reports.push(report);
 }

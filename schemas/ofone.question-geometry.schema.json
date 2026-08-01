@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.question-geometry.schema.json",
-  "title": "OfOne Question Geometry Engine State",
-  "description": "Machine-enforced adaptive inquiry state. Questions are operators over a changing epistemic state; answers update beliefs, causal depth, decision robustness, and the next-question landscape.",
+  "title": "OfOne Question Geometry Inquiry State",
+  "description": "Machine-enforced adaptive inquiry state with causal-depth traversal, answer-qualified challenge passes, runtime-issued selections, provenance, governance, and tamper-evident answer history.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,24 +11,27 @@
     "mode",
     "status",
     "iteration",
+    "temporal_context",
     "objective",
     "frame",
     "hypotheses",
     "unknowns",
+    "contradictions",
     "decision_model",
     "causal_depth",
     "questions",
     "policy",
+    "convergence",
     "history",
-    "contradictions",
-    "convergence"
+    "history_integrity"
   ],
   "properties": {
     "$schema": {
       "type": "string"
     },
     "qg_version": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "engine_id": {
       "type": "string",
@@ -51,15 +54,17 @@
       "enum": [
         "active",
         "waiting_for_answer",
-        "converged",
-        "blocked",
         "human_review_required",
+        "converged",
         "invalid"
       ]
     },
     "iteration": {
       "type": "integer",
       "minimum": 0
+    },
+    "temporal_context": {
+      "$ref": "#/$defs/temporalContext"
     },
     "objective": {
       "$ref": "#/$defs/objective"
@@ -80,6 +85,12 @@
         "$ref": "#/$defs/unknown"
       }
     },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contradiction"
+      }
+    },
     "decision_model": {
       "$ref": "#/$defs/decisionModel"
     },
@@ -88,6 +99,7 @@
     },
     "questions": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "$ref": "#/$defs/question"
       }
@@ -95,35 +107,66 @@
     "policy": {
       "$ref": "#/$defs/policy"
     },
-    "history": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/historyEvent"
-      }
-    },
-    "contradictions": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/contradiction"
-      }
-    },
     "convergence": {
       "$ref": "#/$defs/convergence"
     },
+    "history": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/answerEvent"
+      }
+    },
+    "history_integrity": {
+      "$ref": "#/$defs/historyIntegrity"
+    },
     "landscape": {
       "$ref": "#/$defs/landscape"
+    },
+    "validator_result": {
+      "type": "object"
     }
   },
   "$defs": {
-    "score01": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 1
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "isoTimestamp": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
     },
     "stringArray": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "numericMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "temporalContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "as_of"
+      ],
+      "properties": {
+        "as_of": {
+          "$ref": "#/$defs/isoTimestamp"
+        }
       }
     },
     "objective": {
@@ -134,23 +177,21 @@
         "decision",
         "stakes",
         "horizon",
-        "success_conditions"
+        "success_conditions",
+        "exclusions"
       ],
       "properties": {
         "task": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "decision": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "stakes": {
           "$ref": "#/$defs/stringArray"
         },
         "horizon": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "success_conditions": {
           "$ref": "#/$defs/stringArray"
@@ -170,34 +211,24 @@
         "resolution",
         "contrast",
         "assumptions",
-        "reframe_triggers"
+        "reframe_triggers",
+        "active_adapter"
       ],
       "properties": {
         "frame_id": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "type": {
-          "enum": [
-            "causal",
-            "strategic",
-            "scientific",
-            "formal",
-            "normative",
-            "hybrid",
-            "provisional"
-          ]
+          "$ref": "#/$defs/nonEmptyString"
         },
         "boundary": {
           "$ref": "#/$defs/stringArray"
         },
         "resolution": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "contrast": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "assumptions": {
           "$ref": "#/$defs/stringArray"
@@ -206,10 +237,7 @@
           "$ref": "#/$defs/stringArray"
         },
         "active_adapter": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "$ref": "#/$defs/nonEmptyString"
         }
       }
     },
@@ -219,23 +247,26 @@
       "required": [
         "hypothesis_id",
         "description",
+        "prior",
+        "belief",
         "active",
-        "other"
+        "other",
+        "decision_implications",
+        "predicted_observations",
+        "failure_conditions"
       ],
       "properties": {
         "hypothesis_id": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "description": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "prior": {
-          "$ref": "#/$defs/score01"
+          "$ref": "#/$defs/score"
         },
         "belief": {
-          "$ref": "#/$defs/score01"
+          "$ref": "#/$defs/score"
         },
         "active": {
           "type": "boolean"
@@ -264,36 +295,21 @@
         "impact",
         "status",
         "blocks",
-        "resolution_channels"
+        "resolution_channels",
+        "reopen_condition"
       ],
       "properties": {
         "unknown_id": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "kind": {
-          "enum": [
-            "parameter",
-            "structural",
-            "causal_identification",
-            "frame",
-            "model_class",
-            "objective_or_value",
-            "aleatory",
-            "temporal_or_regime",
-            "adversarial",
-            "source_dependence",
-            "intervention",
-            "inaccessible",
-            "resolution"
-          ]
+          "$ref": "#/$defs/nonEmptyString"
         },
         "description": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "impact": {
-          "$ref": "#/$defs/score01"
+          "$ref": "#/$defs/score"
         },
         "status": {
           "enum": [
@@ -309,37 +325,29 @@
           "$ref": "#/$defs/stringArray"
         },
         "reopen_condition": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "$ref": "#/$defs/nonEmptyString"
         }
       }
     },
-    "decisionAction": {
+    "contradiction": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "required": [
-        "action_id",
-        "label",
-        "utilities"
+        "contradiction_id",
+        "status"
       ],
       "properties": {
-        "action_id": {
-          "type": "string",
-          "minLength": 1
+        "contradiction_id": {
+          "$ref": "#/$defs/nonEmptyString"
         },
-        "label": {
-          "type": "string",
-          "minLength": 1
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "accepted_risk"
+          ]
         },
-        "utilities": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "reversible": {
+        "decision_sensitive": {
           "type": "boolean"
         }
       }
@@ -349,28 +357,24 @@
       "additionalProperties": false,
       "required": [
         "actions",
-        "utility_scale"
+        "utility_scale",
+        "loss_definition",
+        "hard_constraints"
       ],
       "properties": {
         "actions": {
           "type": "array",
           "minItems": 1,
           "items": {
-            "$ref": "#/$defs/decisionAction"
+            "$ref": "#/$defs/action"
           }
         },
         "utility_scale": {
           "type": "number",
           "exclusiveMinimum": 0
         },
-        "robustness": {
-          "$ref": "#/$defs/score01"
-        },
         "loss_definition": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "$ref": "#/$defs/nonEmptyString"
         },
         "hard_constraints": {
           "$ref": "#/$defs/stringArray"
@@ -389,196 +393,43 @@
         }
       }
     },
-    "bedrock": {
+    "action": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "type",
-        "frame_relative",
-        "justification",
-        "reopen_condition"
+        "action_id",
+        "label",
+        "utilities",
+        "reversible"
       ],
       "properties": {
-        "type": {
-          "enum": [
-            "decision_sufficient",
-            "observable_mechanism",
-            "controllable_root_cause",
-            "invariant_or_law",
-            "axiom_or_definition",
-            "value_commitment",
-            "authority_boundary",
-            "irreducible_stochasticity",
-            "inaccessible_or_unidentifiable",
-            "frame_boundary",
-            "accepted_residual_risk"
-          ]
+        "action_id": {
+          "$ref": "#/$defs/nonEmptyString"
         },
-        "frame_relative": {
-          "const": true
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
         },
-        "justification": {
-          "type": "string",
-          "minLength": 1
+        "utilities": {
+          "$ref": "#/$defs/numericMap"
         },
-        "reopen_condition": {
-          "type": "string",
-          "minLength": 1
-        }
-      }
-    },
-    "causalNode": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "node_id",
-        "proposition",
-        "status",
-        "evidence_refs"
-      ],
-      "properties": {
-        "node_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "proposition": {
-          "type": "string",
-          "minLength": 1
-        },
-        "status": {
-          "enum": [
-            "open",
-            "supported",
-            "disputed",
-            "bedrock"
-          ]
-        },
-        "evidence_refs": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "bedrock": {
-          "$ref": "#/$defs/bedrock"
-        }
-      },
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "status": {
-                "const": "bedrock"
-              }
-            },
-            "required": [
-              "status"
-            ]
-          },
-          "then": {
-            "required": [
-              "bedrock"
-            ],
-            "properties": {
-              "bedrock": {
-                "$ref": "#/$defs/bedrock"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "causalLink": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "link_id",
-        "from_node",
-        "to_node",
-        "why_kind",
-        "contrast",
-        "confidence",
-        "evidence_refs",
-        "alternatives_considered",
-        "status"
-      ],
-      "properties": {
-        "link_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "from_node": {
-          "type": "string",
-          "minLength": 1
-        },
-        "to_node": {
-          "type": "string",
-          "minLength": 1
-        },
-        "why_kind": {
-          "enum": [
-            "cause",
-            "mechanism",
-            "reason_or_motive",
-            "purpose_or_function",
-            "justification",
-            "constitutive_or_definition",
-            "enabling_condition",
-            "constraint",
-            "historical_origin"
-          ]
-        },
-        "contrast": {
-          "type": "string",
-          "minLength": 1
-        },
-        "confidence": {
-          "$ref": "#/$defs/score01"
-        },
-        "evidence_refs": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "counterfactual_test": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "intervention_test": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "alternatives_considered": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "status": {
-          "enum": [
-            "hypothesized",
-            "supported",
-            "disputed",
-            "rejected"
-          ]
-        }
-      }
-    },
-    "causalTarget": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "target_id",
-        "start_node",
-        "material"
-      ],
-      "properties": {
-        "target_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "start_node": {
-          "type": "string",
-          "minLength": 1
-        },
-        "material": {
+        "reversible": {
           "type": "boolean"
+        }
+      }
+    },
+    "beliefScenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_id",
+        "beliefs"
+      ],
+      "properties": {
+        "scenario_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "beliefs": {
+          "$ref": "#/$defs/numericMap"
         }
       }
     },
@@ -611,158 +462,159 @@
         }
       }
     },
-    "likelihoodByAnswer": {
-      "type": "object",
-      "minProperties": 1,
-      "additionalProperties": {
-        "$ref": "#/$defs/score01"
-      }
-    },
-    "answerModel": {
+    "causalTarget": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "likelihoods"
+        "target_id",
+        "start_node",
+        "material"
       ],
       "properties": {
-        "likelihoods": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/likelihoodByAnswer"
-          }
+        "target_id": {
+          "$ref": "#/$defs/nonEmptyString"
         },
-        "oracle": {
-          "type": [
-            "string",
-            "null"
-          ]
+        "start_node": {
+          "$ref": "#/$defs/nonEmptyString"
         },
-        "noise_notes": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "deception_notes": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "missingness_notes": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "source_dependencies": {
-          "$ref": "#/$defs/stringArray"
+        "material": {
+          "type": "boolean"
         }
       }
     },
-    "questionMetrics": {
+    "causalNode": {
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "node_id",
+        "proposition",
+        "status",
+        "evidence_refs"
+      ],
       "properties": {
-        "decision_gain": {
-          "$ref": "#/$defs/score01"
+        "node_id": {
+          "$ref": "#/$defs/nonEmptyString"
         },
-        "information_gain": {
-          "$ref": "#/$defs/score01"
+        "proposition": {
+          "$ref": "#/$defs/nonEmptyString"
         },
-        "causal_discrimination": {
-          "$ref": "#/$defs/score01"
+        "status": {
+          "enum": [
+            "hypothesized",
+            "supported",
+            "disputed",
+            "rejected",
+            "bedrock"
+          ]
         },
-        "model_expansion": {
-          "$ref": "#/$defs/score01"
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
         },
-        "unlock_value": {
-          "$ref": "#/$defs/score01"
-        },
-        "robustness_gain": {
-          "$ref": "#/$defs/score01"
-        },
-        "actionability": {
-          "$ref": "#/$defs/score01"
-        },
-        "novelty": {
-          "$ref": "#/$defs/score01"
-        },
-        "lookahead_value": {
-          "$ref": "#/$defs/score01"
-        },
-        "score_uncertainty": {
-          "$ref": "#/$defs/score01"
-        },
-        "redundancy": {
-          "$ref": "#/$defs/score01"
-        },
-        "delay": {
-          "$ref": "#/$defs/score01"
-        },
-        "belief_displacement": {
-          "$ref": "#/$defs/score01"
+        "bedrock": {
+          "$ref": "#/$defs/bedrock"
         }
       }
     },
-    "scoreMap": {
+    "bedrock": {
       "type": "object",
-      "additionalProperties": {
-        "$ref": "#/$defs/score01"
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "frame_relative",
+        "justification",
+        "reopen_condition"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "decision_sufficient",
+            "observable_mechanism",
+            "controllable_root_cause",
+            "invariant_or_law",
+            "axiom_or_definition",
+            "value_commitment",
+            "authority_boundary",
+            "irreducible_stochasticity",
+            "inaccessible_or_unidentifiable",
+            "frame_boundary",
+            "accepted_residual_risk"
+          ]
+        },
+        "frame_relative": {
+          "const": true
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "reopen_condition": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
       }
     },
-    "answerEffect": {
+    "causalLink": {
       "type": "object",
-      "additionalProperties": true,
+      "additionalProperties": false,
+      "required": [
+        "link_id",
+        "from_node",
+        "to_node",
+        "why_kind",
+        "contrast",
+        "confidence",
+        "evidence_refs",
+        "counterfactual_test",
+        "intervention_test",
+        "alternatives_considered",
+        "status"
+      ],
       "properties": {
-        "resolve_unknowns": {
+        "link_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "from_node": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "to_node": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "why_kind": {
+          "enum": [
+            "cause",
+            "mechanism",
+            "reason_or_motive",
+            "purpose_or_function",
+            "justification",
+            "constitutive_or_definition",
+            "enabling_condition",
+            "constraint",
+            "historical_origin"
+          ]
+        },
+        "contrast": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "confidence": {
+          "$ref": "#/$defs/score"
+        },
+        "evidence_refs": {
           "$ref": "#/$defs/stringArray"
         },
-        "accept_unknowns": {
+        "counterfactual_test": {
+          "type": "string"
+        },
+        "intervention_test": {
+          "type": "string"
+        },
+        "alternatives_considered": {
           "$ref": "#/$defs/stringArray"
         },
-        "eliminate_hypotheses": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "belief_multipliers": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "number",
-            "minimum": 0
-          }
-        },
-        "add_hypotheses": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/hypothesis"
-          }
-        },
-        "activate_questions": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "retire_questions": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "resolve_contradictions": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "add_causal_nodes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/causalNode"
-          }
-        },
-        "add_causal_links": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/causalLink"
-          }
-        },
-        "frame_shift": {
-          "type": "object"
-        },
-        "set_convergence": {
-          "type": "object"
+        "status": {
+          "enum": [
+            "hypothesized",
+            "supported",
+            "disputed",
+            "rejected"
+          ]
         }
       }
     },
@@ -785,8 +637,7 @@
       ],
       "properties": {
         "question_id": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "type": {
           "enum": [
@@ -809,8 +660,7 @@
           ]
         },
         "text": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/nonEmptyString"
         },
         "targets": {
           "$ref": "#/$defs/stringArray"
@@ -824,17 +674,17 @@
         "answer_effects": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/$defs/answerEffect"
+            "$ref": "#/$defs/effect"
           }
         },
         "costs": {
-          "$ref": "#/$defs/scoreMap"
+          "$ref": "#/$defs/numericMap"
         },
         "risks": {
-          "$ref": "#/$defs/scoreMap"
+          "$ref": "#/$defs/numericMap"
         },
         "delay": {
-          "$ref": "#/$defs/score01"
+          "$ref": "#/$defs/score"
         },
         "prerequisites": {
           "$ref": "#/$defs/stringArray"
@@ -842,35 +692,30 @@
         "pass_tags": {
           "$ref": "#/$defs/stringArray"
         },
+        "pass_conditions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/passCondition"
+          }
+        },
         "metrics": {
-          "$ref": "#/$defs/questionMetrics"
+          "$ref": "#/$defs/numericMap"
         },
         "status": {
           "enum": [
             "pending",
             "selected",
             "answered",
-            "retired",
-            "blocked"
+            "blocked",
+            "retired"
           ]
         },
-        "dominance": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "dominated_by": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "reason": {
-              "type": [
-                "string",
-                "null"
-              ]
-            }
-          }
+        "answer": {
+          "type": "string"
+        },
+        "answered_at_iteration": {
+          "type": "integer",
+          "minimum": 1
         },
         "generated_by_engine": {
           "type": "boolean"
@@ -878,13 +723,121 @@
         "generation_reason": {
           "type": "string"
         },
-        "answer": {},
-        "answered_at_iteration": {
-          "type": "integer",
-          "minimum": 0
+        "dominance": {
+          "$ref": "#/$defs/dominance"
+        }
+      }
+    },
+    "answerModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "likelihoods": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/$defs/score"
+            }
+          }
         },
-        "answer_context": {
-          "$ref": "#/$defs/answerContext"
+        "oracle": {
+          "type": "string"
+        },
+        "noise_notes": {
+          "type": "string"
+        },
+        "deception_notes": {
+          "type": "string"
+        },
+        "missingness_notes": {
+          "type": "string"
+        },
+        "source_dependencies": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "resolve_unknowns": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "accept_unknowns": false,
+        "eliminate_hypotheses": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "belief_multipliers": {
+          "$ref": "#/$defs/numericMap"
+        },
+        "add_hypotheses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/hypothesis"
+          }
+        },
+        "activate_questions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "retire_questions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "add_causal_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/causalNode"
+          }
+        },
+        "add_causal_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/causalLink"
+          }
+        },
+        "frame_shift": {
+          "type": "object"
+        },
+        "set_convergence": false,
+        "resolve_contradictions": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "passCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "qualifying_answers",
+        "minimum_reliability"
+      ],
+      "properties": {
+        "qualifying_answers": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "minimum_reliability": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      }
+    },
+    "dominance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dominated_by",
+        "reason"
+      ],
+      "properties": {
+        "dominated_by": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "reason": {
+          "$ref": "#/$defs/nonEmptyString"
         }
       }
     },
@@ -900,28 +853,22 @@
         "max_iterations_before_human_review",
         "exploration_rate",
         "lookahead_depth",
-        "current_question_id"
+        "current_question_id",
+        "current_selection"
       ],
       "properties": {
         "scoring_mode": {
           "enum": [
             "multi_objective",
             "information_gain",
-            "decision_value",
-            "robust"
+            "decision_value"
           ]
         },
         "weights": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "number"
-          }
+          "$ref": "#/$defs/numericMap"
         },
         "thresholds": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "number"
-          }
+          "$ref": "#/$defs/numericMap"
         },
         "required_passes": {
           "$ref": "#/$defs/stringArray"
@@ -935,7 +882,11 @@
           "minimum": 1
         },
         "exploration_rate": {
-          "$ref": "#/$defs/score01"
+          "$ref": "#/$defs/score"
+        },
+        "lookahead_depth": {
+          "type": "integer",
+          "minimum": 0
         },
         "current_question_id": {
           "type": [
@@ -943,10 +894,375 @@
             "null"
           ]
         },
-        "lookahead_depth": {
+        "current_selection": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/selectionReceipt"
+            }
+          ]
+        }
+      }
+    },
+    "selectionReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selection_protocol",
+        "selection_id",
+        "question_id",
+        "selector",
+        "selection_reason",
+        "issued_at_iteration",
+        "history_head_hash",
+        "state_hash",
+        "landscape_hash",
+        "eligible_at_selection",
+        "selection_hash"
+      ],
+      "properties": {
+        "selection_protocol": {
+          "const": "ofone-question-selection-v1"
+        },
+        "selection_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "question_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "selector": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "selection_reason": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "issued_at_iteration": {
           "type": "integer",
-          "minimum": 0,
-          "maximum": 3
+          "minimum": 0
+        },
+        "history_head_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "state_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "landscape_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "eligible_at_selection": {
+          "type": "boolean"
+        },
+        "selection_hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "convergence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted_risks",
+        "robustness_waiver"
+      ],
+      "properties": {
+        "accepted_risks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/acceptedRisk"
+          }
+        },
+        "robustness_waiver": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/robustnessWaiver"
+            }
+          ]
+        },
+        "last_evaluation": {
+          "type": "object"
+        },
+        "stopped_at_iteration": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stop_reason": {
+          "type": "string"
+        },
+        "attempted_stop_at": {
+          "$ref": "#/$defs/isoTimestamp"
+        }
+      }
+    },
+    "humanActor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "role",
+        "authority_basis"
+      ],
+      "properties": {
+        "actor_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "role": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "authority_basis": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "acceptedRisk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acceptance_id",
+        "unknown_id",
+        "accepted_by",
+        "accepted_at",
+        "expires_at",
+        "rationale",
+        "scope",
+        "reopen_conditions",
+        "evidence_refs"
+      ],
+      "properties": {
+        "acceptance_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "unknown_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "accepted_by": {
+          "$ref": "#/$defs/humanActor"
+        },
+        "accepted_at": {
+          "$ref": "#/$defs/isoTimestamp"
+        },
+        "expires_at": {
+          "$ref": "#/$defs/isoTimestamp"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "reopen_conditions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "robustnessWaiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "waiver_id",
+        "approved_by",
+        "approved_at",
+        "expires_at",
+        "rationale",
+        "scope",
+        "minimum_decision_robustness",
+        "maximum_residual_evpi",
+        "reopen_conditions",
+        "evidence_refs"
+      ],
+      "properties": {
+        "waiver_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "approved_by": {
+          "$ref": "#/$defs/humanActor"
+        },
+        "approved_at": {
+          "$ref": "#/$defs/isoTimestamp"
+        },
+        "expires_at": {
+          "$ref": "#/$defs/isoTimestamp"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "minimum_decision_robustness": {
+          "$ref": "#/$defs/score"
+        },
+        "maximum_residual_evpi": {
+          "$ref": "#/$defs/score"
+        },
+        "reopen_conditions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "historyIntegrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol",
+        "algorithm",
+        "baseline_state_hash",
+        "genesis_hash",
+        "head_hash",
+        "event_count",
+        "last_event_id"
+      ],
+      "properties": {
+        "protocol": {
+          "const": "ofone-question-geometry-history-v1"
+        },
+        "algorithm": {
+          "const": "sha256"
+        },
+        "baseline_state_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "genesis_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "head_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "event_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "last_event_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_type",
+        "source_id",
+        "observed_at",
+        "reliability",
+        "chain_of_custody",
+        "evidence_refs"
+      ],
+      "properties": {
+        "source_type": {
+          "enum": [
+            "human",
+            "human_review",
+            "tool",
+            "file",
+            "url",
+            "observation",
+            "simulation",
+            "benchmark_oracle",
+            "test_fixture",
+            "agent_inference"
+          ]
+        },
+        "source_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "observed_at": {
+          "$ref": "#/$defs/isoTimestamp"
+        },
+        "reliability": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "chain_of_custody": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "content_hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "passResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pass_id",
+        "outcome",
+        "basis",
+        "rationale",
+        "evidence_refs",
+        "details"
+      ],
+      "properties": {
+        "pass_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "outcome": {
+          "enum": [
+            "satisfied",
+            "not_satisfied",
+            "inconclusive"
+          ]
+        },
+        "basis": {
+          "enum": [
+            "evidence",
+            "counterfactual",
+            "intervention",
+            "formal_proof",
+            "independent_review",
+            "human_judgment"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "governanceAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "object_id"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "accepted_risk",
+            "robustness_waiver"
+          ]
+        },
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "unknown_id": {
+          "type": "string"
         }
       }
     },
@@ -963,59 +1279,111 @@
       ],
       "properties": {
         "entropy_reduction": {
-          "type": "number"
+          "type": "number",
+          "minimum": 0
         },
         "unresolved_impact_reduction": {
-          "type": "number"
+          "type": "number",
+          "minimum": 0
         },
         "decision_robustness_gain": {
-          "type": "number"
+          "type": "number",
+          "minimum": 0
         },
         "causal_depth_gain": {
-          "type": "number"
+          "type": "number",
+          "minimum": 0
         },
         "contradiction_reduction": {
-          "type": "number"
+          "type": "number",
+          "minimum": 0
         },
         "total": {
-          "type": "number"
+          "type": "number",
+          "minimum": 0
         }
       }
     },
-    "historyEvent": {
+    "answerEvent": {
       "type": "object",
-      "additionalProperties": true,
+      "additionalProperties": false,
       "required": [
+        "event_protocol",
+        "event_id",
         "iteration",
+        "previous_event_hash",
         "question_id",
         "question_text",
         "question_type",
         "question_family",
         "answer",
-        "pass_tags",
+        "selection_receipt",
+        "provenance",
+        "pass_results",
+        "governance_actions",
+        "declared_effects_hash",
+        "external_effects",
+        "external_effects_hash",
         "score_before",
-        "progress"
+        "progress",
+        "metrics_before",
+        "metrics_after",
+        "state_before_hash",
+        "state_after_hash",
+        "event_hash"
       ],
       "properties": {
+        "event_protocol": {
+          "const": "ofone-question-geometry-history-v1"
+        },
+        "event_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
         "iteration": {
           "type": "integer",
           "minimum": 1
         },
+        "previous_event_hash": {
+          "$ref": "#/$defs/hash"
+        },
         "question_id": {
-          "type": "string"
+          "$ref": "#/$defs/nonEmptyString"
         },
         "question_text": {
-          "type": "string"
+          "$ref": "#/$defs/nonEmptyString"
         },
         "question_type": {
-          "type": "string"
+          "$ref": "#/$defs/nonEmptyString"
         },
         "question_family": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "answer": {
           "type": "string"
         },
-        "answer": {},
-        "pass_tags": {
-          "$ref": "#/$defs/stringArray"
+        "selection_receipt": {
+          "$ref": "#/$defs/selectionReceipt"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "pass_results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/passResult"
+          }
+        },
+        "governance_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/governanceAction"
+          }
+        },
+        "declared_effects_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "external_effects_hash": {
+          "$ref": "#/$defs/hash"
         },
         "score_before": {
           "type": "number"
@@ -1023,74 +1391,26 @@
         "progress": {
           "$ref": "#/$defs/progress"
         },
-        "answer_context": {
-          "$ref": "#/$defs/answerContext"
+        "metrics_before": {
+          "type": "object",
+          "additionalProperties": true
         },
-        "prev_event_hash": {
-          "type": "string"
+        "metrics_after": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "state_before_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "state_after_hash": {
+          "$ref": "#/$defs/hash"
         },
         "event_hash": {
-          "type": "string"
-        }
-      }
-    },
-    "contradiction": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "contradiction_id",
-        "description",
-        "status",
-        "decision_sensitive"
-      ],
-      "properties": {
-        "contradiction_id": {
-          "type": "string"
+          "$ref": "#/$defs/hash"
         },
-        "description": {
-          "type": "string"
-        },
-        "status": {
-          "enum": [
-            "open",
-            "resolved",
-            "accepted"
-          ]
-        },
-        "decision_sensitive": {
-          "type": "boolean"
-        }
-      }
-    },
-    "convergence": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": [
-        "accepted_residual_unknowns",
-        "accepted_by",
-        "robustness_waiver"
-      ],
-      "properties": {
-        "accepted_residual_unknowns": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "accepted_by": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "robustness_waiver": {
-          "type": "boolean"
-        },
-        "waived_by": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "last_evaluation": {
-          "type": "object"
+        "external_effects": {
+          "type": "object",
+          "additionalProperties": true
         }
       }
     },
@@ -1099,7 +1419,8 @@
       "additionalProperties": true,
       "properties": {
         "generated_at_iteration": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
         "selected_question_id": {
           "type": [
@@ -1112,69 +1433,6 @@
             "number",
             "null"
           ]
-        },
-        "pareto_frontier": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "ranked_eligible": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "local_maxima": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "local_minima": {
-          "$ref": "#/$defs/stringArray"
-        }
-      }
-    },
-    "beliefScenario": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "scenario_id",
-        "beliefs"
-      ],
-      "properties": {
-        "scenario_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "beliefs": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": {
-            "$ref": "#/$defs/score01"
-          }
-        }
-      }
-    },
-    "answerContext": {
-      "type": [
-        "object",
-        "null"
-      ],
-      "additionalProperties": true,
-      "properties": {
-        "provenance": {
-          "type": "string"
-        },
-        "finding": {
-          "type": "string"
-        },
-        "qualifies": {
-          "type": "boolean"
-        },
-        "evidence_refs": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "oracle": {
-          "type": "string"
-        },
-        "custody": {
-          "type": "string"
-        },
-        "notes": {
-          "type": "string"
         }
       }
     }

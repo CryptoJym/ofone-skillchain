@@ -21,7 +21,6 @@ Start here:
 npm run question:check
 npm run question:test
 npm run question:landscape
-npm run question:verify
 
 node scripts/ofone-question-loop.mjs initialize examples/question-geometry/causal-depth.json --write
 node scripts/ofone-question-loop.mjs step examples/question-geometry/causal-depth.json --write
@@ -48,12 +47,13 @@ A rejected stop exits with code `2` and returns the next mandatory inquiry direc
 - selected-question-only answering;
 - answer provenance, evidence references, and custody;
 - answer-qualified challenge passes rather than tag-based completion;
-- SHA-256 answer-event chaining, so edited, deleted, or reordered history is detected and blocks release;
+- SHA-256 answer-event chaining and protected-state verification;
+- iteration/history and question/event consistency;
 - typed causal-depth traversal instead of a fixed Five Whys count;
 - frame challenge, model expansion, adversarial, source-independence, and reversal passes;
 - stall detection and operator switching;
-- residual EVPI, decision robustness, and positive-net-value-question stop guards;
-- named human ownership for waivers and accepted residual risk;
+- residual EVPI, decision robustness, selected-question, and positive-net-value-question stop guards;
+- typed, expiring human accepted-risk records and bounded robustness waivers;
 - human review at the configured runaway-safety boundary.
 
 The included interactive benchmark is a smoke test. It does not establish universal or empirical superiority.

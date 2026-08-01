@@ -10,11 +10,14 @@
     "render": "node scripts/ofone-render.mjs",
     "patch": "node scripts/ofone-patch.mjs",
     "question:check": "node scripts/ofone-question-geometry-check.mjs examples/question-geometry/causal-depth.json",
+    "question:initialize": "node scripts/ofone-question-loop.mjs initialize examples/question-geometry/causal-depth.json",
     "question:step": "node scripts/ofone-question-loop.mjs step examples/question-geometry/causal-depth.json",
     "question:landscape": "node scripts/ofone-question-loop.mjs landscape examples/question-geometry/causal-depth.json",
-    "question:test": "node scripts/ofone-question-geometry-test.mjs",
+    "question:test": "node scripts/ofone-question-geometry-test.mjs && node scripts/ofone-question-cli-smoke.mjs",
+    "question:cli:test": "node scripts/ofone-question-cli-smoke.mjs",
     "question:benchmark": "node scripts/ofone-question-benchmark.mjs benchmarks/question-geometry/suite.json",
     "question:benchmark:write": "node scripts/ofone-question-benchmark.mjs benchmarks/question-geometry/suite.json --write",
+    "question:verify": "node scripts/ofone-question-geometry-check.mjs examples/question-geometry/causal-depth.json && node scripts/ofone-question-geometry-test.mjs && node scripts/ofone-question-cli-smoke.mjs && node scripts/ofone-question-benchmark.mjs benchmarks/question-geometry/suite.json",
     "voiceover": "node scripts/ofone-generate-voiceover.mjs",
     "benchmark": "node scripts/ofone-benchmark.mjs",
     "frontier:check": "node scripts/ofone-frontier-packet-check.mjs",
@@ -32,10 +35,7 @@
     "deep-research:manual-recovery:scan": "node scripts/ofone-deep-research-manual-recovery.mjs --check --scan-sources",
     "deep-research:manual-recovery:write": "node scripts/ofone-deep-research-manual-recovery.mjs --write",
     "review:check": "node scripts/ofone-review-check.mjs research/review-sidecars/*.json",
-    "test": "node scripts/ofone-test.mjs && node scripts/ofone-question-geometry-test.mjs",
-    "question:verify": "node scripts/ofone-question-verify.mjs",
-    "question:smoke": "node scripts/ofone-question-verify.mjs --smoke",
-    "question:determinism": "node scripts/ofone-question-verify.mjs --determinism"
+    "test": "node scripts/ofone-test.mjs && node scripts/ofone-question-geometry-test.mjs && node scripts/ofone-question-cli-smoke.mjs"
   },
   "license": "MIT",
   "dependencies": {

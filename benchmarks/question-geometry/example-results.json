@@ -1,8 +1,9 @@
 {
-  "suite_id": "ofone-question-geometry-interactive-0.1",
-  "generated_at": "2026-08-01T19:28:23.976Z",
+  "suite_id": "ofone-question-geometry-interactive-0.2",
+  "generated_at": "2026-08-01T15:18:32.316Z",
+  "frozen_at": "2026-08-01T13:00:00Z",
   "status": "scaffold_example_not_superiority_evidence",
-  "release_guard": "Results from this example case are implementation smoke tests only. Method-superiority claims require predeclared hidden-state cases across domains, multiple model families or policies, repeated runs, blinded review, and failure analysis.",
+  "release_guard": "Results from this example case are implementation smoke tests only. Method-superiority claims require predeclared hidden-state cases across domains, repeated runs, independent review, calibration analysis, and failure analysis.",
   "results": [
     {
       "case_id": "qg-conversion-hidden-state-001",
@@ -27,6 +28,8 @@
           "premature_stop": true,
           "human_review_required": false,
           "final_status": "active",
+          "history_integrity_passed": true,
+          "history_head_hash": "sha256:3852c53478ff7d36d0edd13273ba7a4c4f2af1156187c9b9dc1424176c168c08",
           "transcript": []
         },
         {
@@ -35,8 +38,8 @@
           "optimal_action": "A-ONBOARDING",
           "decision_regret": 0,
           "decision_robustness": 0.7273546642631814,
-          "questions_asked": 3,
-          "cumulative_cost": 0.65,
+          "questions_asked": 2,
+          "cumulative_cost": 0.55,
           "cumulative_risk": 0.05,
           "required_pass_coverage": 0.16666666666666666,
           "blocking_unknowns_remaining": [
@@ -47,18 +50,20 @@
           "premature_stop": true,
           "human_review_required": false,
           "final_status": "active",
+          "history_integrity_passed": true,
+          "history_head_hash": "sha256:39749d8152e9dec7aa42b3af34fe6ccc9213acfeea82035e8903fe30b18966d7",
           "transcript": [
             {
               "question_id": "Q-PRICE-ONLY",
-              "answer": "yes"
-            },
-            {
-              "question_id": "Q-SOURCE-ONLY",
-              "answer": "no"
+              "answer": "yes",
+              "event_hash": "sha256:c327544d9b7abd14c1862e41b7401bea8cd8dbf3bdfb129ec006b38ad121330a",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-DISCRIMINATE",
-              "answer": "activation_failure"
+              "answer": "activation_failure",
+              "event_hash": "sha256:39749d8152e9dec7aa42b3af34fe6ccc9213acfeea82035e8903fe30b18966d7",
+              "provenance_source": "benchmark_oracle"
             }
           ]
         },
@@ -78,22 +83,32 @@
           "premature_stop": true,
           "human_review_required": false,
           "final_status": "active",
+          "history_integrity_passed": true,
+          "history_head_hash": "sha256:da5d3454dfb5d4a2ef39a9eafd3d5195dc585e191bb493a1499adb82d9f47657",
           "transcript": [
             {
               "question_id": "Q-DISCRIMINATE",
-              "answer": "activation_failure"
+              "answer": "activation_failure",
+              "event_hash": "sha256:edf1d6839e501b134db43416380fac6ec24f895e943df48fd4c78d014996b885",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-SOURCE-INDEPENDENCE",
-              "answer": "independent_support"
+              "answer": "independent_support",
+              "event_hash": "sha256:7c234c98858da21b396e229be84adb59e99d9a9034c79ce8a4d20eda3a2f6c49",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-FRAME",
-              "answer": "frame_survives"
+              "answer": "frame_survives",
+              "event_hash": "sha256:c6ae4394dd9bee5f26715c5bc00cfc0c0b1ff6f409418eb6b6cfb282edbb1519",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-MODEL-EXPANSION",
-              "answer": "no_material_surprise"
+              "answer": "no_material_surprise",
+              "event_hash": "sha256:da5d3454dfb5d4a2ef39a9eafd3d5195dc585e191bb493a1499adb82d9f47657",
+              "provenance_source": "benchmark_oracle"
             }
           ]
         },
@@ -113,22 +128,32 @@
           "premature_stop": true,
           "human_review_required": false,
           "final_status": "active",
+          "history_integrity_passed": true,
+          "history_head_hash": "sha256:2e2edd379364f86bc3889ab0564b1a18d155aaba7f43fce6bac64a8b1229bd30",
           "transcript": [
             {
               "question_id": "Q-DISCRIMINATE",
-              "answer": "activation_failure"
+              "answer": "activation_failure",
+              "event_hash": "sha256:6504b091caa7a7b24e755cad15c406fac0f48c0bc7021ff3e2b29145cb9d6450",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-FRAME",
-              "answer": "frame_survives"
+              "answer": "frame_survives",
+              "event_hash": "sha256:d94a462ad3e09af6b94dda0a0aca00f4e948896ccc4f2e5ff40415e4940b4360",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-MODEL-EXPANSION",
-              "answer": "no_material_surprise"
+              "answer": "no_material_surprise",
+              "event_hash": "sha256:43d862d9954a9d6d6881ae9234ba80b5d816df1ce7f818224692a8f3c9c1cb3c",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-ADVERSARIAL",
-              "answer": "no_material_distortion"
+              "answer": "no_material_distortion",
+              "event_hash": "sha256:2e2edd379364f86bc3889ab0564b1a18d155aaba7f43fce6bac64a8b1229bd30",
+              "provenance_source": "benchmark_oracle"
             }
           ]
         },
@@ -146,36 +171,56 @@
           "premature_stop": false,
           "human_review_required": false,
           "final_status": "converged",
+          "history_integrity_passed": true,
+          "history_head_hash": "sha256:467c2c856f6288e336d9f6ea111b49596a8c0d0fadb81321b6399794209ad335",
           "transcript": [
             {
               "question_id": "Q-DISCRIMINATE",
               "answer": "activation_failure",
-              "generated_by_engine": false
+              "generated_by_engine": false,
+              "event_hash": "sha256:9586758801ac5a4e0010bcfbf08363b409846a3dcbc1d008883b7a98e7d7c876",
+              "selection_hash": "sha256:12fdcc7817913c9781511646e6102ae0a728a099b69a5697c9a848fe2019c6c6",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-FRAME",
               "answer": "frame_survives",
-              "generated_by_engine": false
+              "generated_by_engine": false,
+              "event_hash": "sha256:435cbad8fd7d5bdabcb6fb4d6e2b77edca8dc6edf0d2defb6a4bfc5ddd245724",
+              "selection_hash": "sha256:34b837807a76e08bcc0b72f65f9d52230ac9c6a699ec9890eef7948d4c2a3d10",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-MODEL-EXPANSION",
               "answer": "no_material_surprise",
-              "generated_by_engine": false
+              "generated_by_engine": false,
+              "event_hash": "sha256:49624aa367f497ccdf763bbc66caddea8efd8c3b13906e77a80ef295b99d53c6",
+              "selection_hash": "sha256:fb5f8df35c37e319232d9b3e52d1a4871c440bed41f2505c2af0b516da1aa6ca",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-SOURCE-INDEPENDENCE",
               "answer": "independent_support",
-              "generated_by_engine": false
+              "generated_by_engine": false,
+              "event_hash": "sha256:9738d906f8a2ae87f3563813463256e3f330418e94f36f7a5ef12c408869be3a",
+              "selection_hash": "sha256:e5617324c4b38b2b2877326a06af0c72b1dd658c955ca4aedae047b119f16474",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-ADVERSARIAL",
               "answer": "no_material_distortion",
-              "generated_by_engine": false
+              "generated_by_engine": false,
+              "event_hash": "sha256:9c338c1dfd9695a2efa10d2300ee1667768f8be8f94436684cbe73050ca79b0c",
+              "selection_hash": "sha256:864729c2445bc6ebd535aae44a40c801cd0c6bf9324ea0da192dbe2135d3d8f4",
+              "provenance_source": "benchmark_oracle"
             },
             {
               "question_id": "Q-STOP-COUNTEREXAMPLE",
               "answer": "reversal_tested",
-              "generated_by_engine": false
+              "generated_by_engine": false,
+              "event_hash": "sha256:467c2c856f6288e336d9f6ea111b49596a8c0d0fadb81321b6399794209ad335",
+              "selection_hash": "sha256:811f2cfb2845ac9ac57e6903fe4de6b4defae48fa731f861f62b16f46b516adc",
+              "provenance_source": "benchmark_oracle"
             }
           ]
         }

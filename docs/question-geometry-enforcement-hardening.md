@@ -1,53 +1,118 @@
 # Question Geometry Enforcement Hardening
 
-**Status:** Implemented on top of the 0.7.0 Question Geometry engine.
-**Goal:** Close the gaps where the runtime still trusted agent narration instead of machine-checkable state.
+## Purpose
 
-## Why
+This hardening closes the gap between an agent being told to continue questioning and the runtime actually preventing premature or superficial completion.
 
-The 0.7.0 engine already refused premature stops, but three trust gaps remained:
+The Question Geometry loop now enforces four separate commitments:
 
-1. **Passes were honor-system.** A challenge pass (`frame_challenge`, `adversarial`, …) counted as complete the moment any question carrying its tag was marked answered — no evidence that the answer actually challenged anything.
-2. **Answers had no provenance.** Nothing recorded where an answer came from, who or what the oracle was, or how it entered the state.
-3. **History was editable.** The `history` array was plain JSON; an agent (or a bug) could rewrite, delete, or reorder answer events after the fact with no detection.
+1. **Selection commitment:** the runtime chooses the answerable question and issues a receipt bound to state and history.
+2. **Evidence commitment:** every answer carries explicit provenance and evidence references.
+3. **Interpretation commitment:** a challenge pass is completed only by an answer-qualified assessment with pass-specific detail.
+4. **State commitment:** each answer and resulting protected state are committed to a tamper-evident hash chain.
 
-## What is enforced now
+Human risk acceptance is a fifth, separate governance commitment. It cannot be smuggled into ordinary effects or prose.
 
-### 1. Runtime-issued, state-bound selection
+## Threat Model
 
-`applyAnswer` refuses any question that is not simultaneously the engine's issued selection (`policy.current_question_id`) and in `selected` status. The only path to answering is: `step` issues a directive, and that exact question is answered. Attempting anything else throws `not the runtime-issued selection`.
+The hardening assumes that an agent, model, or operator may accidentally or strategically attempt to:
 
-### 2. Answer provenance and custody
+- answer a convenient pending question instead of the selected one;
+- mark a question `selected` manually;
+- replay a stale selection after state changes;
+- claim a challenge pass merely because its name appeared;
+- provide an answer with no inspectable source lineage;
+- edit beliefs, unknowns, causal links, or governance state directly;
+- accept residual uncertainty anonymously or indefinitely;
+- apply a robustness waiver outside its quantitative limits;
+- or stop while a selected question remains unanswered.
 
-The CLI accepts `--context <answer-context.json>` on `answer`. A context records `provenance`, the concrete `finding`, optional `oracle`, `evidence_refs`, `custody`, and `notes` (see [`examples/question-geometry/answer-contexts/frame-challenge.example.json`](../examples/question-geometry/answer-contexts/frame-challenge.example.json), schema `$defs.answerContext`). The context is stored on both the answered question and its history event.
+These are now validation errors or convergence blockers.
 
-### 3. Answer-qualified challenge passes
+## Selection Receipts
 
-A required pass now counts toward convergence only when a history event carrying its tag has a **qualifying** context: non-empty `provenance`, non-empty `finding`, and not `qualifies: false`. Merely answering a tagged question no longer earns the pass; an unqualified pass answer surfaces the `QG_PASS_CONTEXT_MISSING` validation warning and leaves the `QG_REQUIRED_PASS` blocker in place. The `causal_depth` pass keeps its second, stronger path: the causal-depth validator itself passing on material targets.
+`step` computes the current landscape and issues `ofone-question-selection-v1`. The receipt binds:
 
-### 4. SHA-256 answer-event chaining
+```text
+question ID
++ selector and reason
++ answer-history head
++ protected state hash
++ candidate-landscape hash
++ iteration
++ eligibility
+= selection hash
+```
 
-Every history event is hash-chained: `event_hash = sha256(prev_event_hash + canonical(event))`, with the genesis hash derived from `engine_id` and `qg_version`. Editing, deleting, or reordering any event breaks the chain, which is detected in three places: semantic validation (`QG_HISTORY_CHAIN_BROKEN` errors), the convergence gate (a chain blocker that keeps `attempt-stop` at exit 2 even when every other gate is green), and `npm run question:verify`'s lifecycle smoke.
+The runtime accepts an answer only when the live receipt validates. Committed answer events preserve that receipt, proving that the answer corresponded to a question actually selected from the prior state.
 
-### 5. `initialize` subcommand
+## Provenance-Bearing Answer Events
 
-`node scripts/ofone-question-loop.mjs initialize <state.json> --write` validates a state, clears stale selections, normalizes bootstrap fields, and records the opening landscape — the sanctioned way to bring a hand-authored state into the enforced loop.
+Answers are committed as `ofone-question-geometry-history-v1` events. Required provenance includes a source type, source ID, observation time, reliability, custody, and evidence references. The event also records effect hashes, before/after metrics, before/after protected-state hashes, and its prior event hash.
 
-### 6. Continuous verification
+The resulting chain detects:
 
-- `npm run question:verify` — everything below in one gate.
-- `npm run question:smoke` — drives the real CLI through initialize → step → context-qualified answers → convergence → release, then proves a tampered history is refused.
-- `npm run question:determinism` — re-runs the interactive benchmark and requires byte-identical output (modulo timestamp) to the committed [`benchmarks/question-geometry/example-results.json`](../benchmarks/question-geometry/example-results.json).
-- [`.github/workflows/question-geometry.yml`](../.github/workflows/question-geometry.yml) — a read-only CI workflow (recovered byte-intact from the hardening branch payload) that runs `question:verify` plus the full repository suite on every pull request or push touching the engine.
+- answer edits;
+- event deletion or reordering;
+- duplicate answers;
+- mismatched question state;
+- event-count or iteration drift;
+- changed protected inquiry state;
+- and stale selection receipts.
 
-The engine's regression suite grew from 11 to 28 tests, covering selection enforcement, context qualification in all failure directions, chain tampering (edit, delete, reorder), waiver smuggling through answer effects, the iteration safety boundary, and validator negatives.
+This is tamper-evident auditability, not cryptographic identity authentication. A future signed-attestation layer may bind human or tool identities to events, but the current chain already makes silent state rewriting machine-detectable.
 
-### Benchmark honesty note
+## Answer-Qualified Challenge Passes
 
-The interactive benchmark's scripted answers now carry an explicitly labeled oracle context (`suite.oracle_context`: "scripted benchmark answers, not real inquiry") so the full-loop arm can still converge in simulation without pretending its passes were earned by real investigation. The suite remains, in its own words, `scaffold_example_not_superiority_evidence`.
+`pass_tags` nominate the type of challenge a question may satisfy. They confer no completion by themselves.
 
-## Provenance of this change
+A satisfied challenge pass must include:
 
-This hardening was delivered by the `agent/question-geometry-engine` lane as a checksum-bound, base64-chunked payload plus a self-applying workflow (commits `ded30e3..4057c91`). The chunk transport corrupted the archive: the committed chunks fail the payload's own SHA-256 acceptance check, the lane's 13 CI recovery attempts all failed, and exhaustive local reconstruction (single-deletion and two-defect searches, DEFLATE resynchronization) could not restore the exact bytes.
+- a qualifying answer under the question's `pass_conditions`;
+- adequate source reliability;
+- rationale and evidence;
+- a recognized basis;
+- and the pass-specific fields necessary to show what was actually tested.
 
-Two payload files were recovered byte-intact from the archive's undamaged prefix and adopted verbatim: the CI workflow above and the updated `QUESTION_GEOMETRY.md`. Everything else in this hardening was re-implemented from the payload's own recovered specification (its enforced-feature list, README verification counts, command surface, and file inventory). The corrupted chunks remain on the branch as evidence; no opaque payload bytes were merged.
+Failed and inconclusive pass outcomes are preserved as evidence of attempted inquiry but leave the pass incomplete.
+
+## Typed Governance
+
+`accepted_risks` and `robustness_waiver` are typed, expiring, human-owned records. The validator checks authority, scope, timestamps, evidence, reopening conditions, and quantitative applicability.
+
+A waiver does not mean “ignore confidence.” It means a named human has accepted a bounded operating region such as:
+
+```text
+decision robustness >= 0.62
+and residual EVPI <= 0.18
+until a declared expiry or reopening event
+```
+
+Outside those limits, the waiver does not apply.
+
+## Persistence Without Runaway Behavior
+
+The hardening keeps the earlier persistence rule: the engine must continue while material, positive-net-value inquiry remains. When recent questions produce little progress, it synthesizes a different operator instead of repeating the same family.
+
+The iteration ceiling remains a human-review boundary. It is not a license to release an unresolved decision, and it is not proof that inquiry must always reach the ceiling.
+
+## Runtime Commands
+
+```bash
+npm run question:check
+npm run question:test
+npm run question:benchmark
+
+node scripts/ofone-question-loop.mjs initialize <state.json> --write
+node scripts/ofone-question-loop.mjs step <state.json> --write
+node scripts/ofone-question-loop.mjs answer <state.json> <question_id> <answer> --context <answer-context.json> --write
+node scripts/ofone-question-loop.mjs attempt-stop <state.json> --write
+```
+
+The answer command also supports separate provenance, pass-assessment, effects, risk-acceptance, and waiver files, but the combined context form is preferred for reviewability.
+
+## Limits
+
+This implementation does not prove that its scoring weights are universally optimal, authenticate external identities, or eliminate model misspecification. It enforces a disciplined query policy and makes specific classes of premature closure and state manipulation observable.
+
+Empirical advantage remains a benchmark question. The interactive benchmark is a smoke-test scaffold, not evidence of universal superiority.

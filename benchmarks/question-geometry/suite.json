@@ -1,33 +1,14 @@
 {
-  "suite_id": "ofone-question-geometry-interactive-0.1",
+  "suite_id": "ofone-question-geometry-interactive-0.2",
+  "frozen_at": "2026-08-01T13:00:00Z",
   "status": "scaffold_example_not_superiority_evidence",
-  "description": "Interactive hidden-state benchmark scaffold for comparing direct stopping, fixed checklists, one-step information gain, one-step decision value, and the full enforced Question Geometry loop.",
+  "description": "Interactive hidden-state benchmark scaffold with runtime-issued selection receipts, oracle provenance, answer-qualified pass evidence, and hash-chained events.",
   "arms": [
-    {
-      "arm_id": "direct_stop",
-      "policy": "no_questions",
-      "question_budget": 0
-    },
-    {
-      "arm_id": "fixed_checklist",
-      "policy": "declared_order",
-      "question_budget": 3
-    },
-    {
-      "arm_id": "greedy_information_gain",
-      "policy": "information_gain",
-      "question_budget": 4
-    },
-    {
-      "arm_id": "greedy_decision_value",
-      "policy": "decision_value",
-      "question_budget": 4
-    },
-    {
-      "arm_id": "full_question_geometry",
-      "policy": "enforced_multi_objective_loop",
-      "question_budget": 12
-    }
+    {"arm_id": "direct_stop", "policy": "no_questions", "question_budget": 0},
+    {"arm_id": "fixed_checklist", "policy": "declared_order", "question_budget": 3},
+    {"arm_id": "greedy_information_gain", "policy": "information_gain", "question_budget": 4},
+    {"arm_id": "greedy_decision_value", "policy": "decision_value", "question_budget": 4},
+    {"arm_id": "full_question_geometry", "policy": "enforced_multi_objective_loop", "question_budget": 12}
   ],
   "cases": [
     {
@@ -35,11 +16,7 @@
       "initial_state_path": "examples/question-geometry/causal-depth.json",
       "hidden_hypothesis": "H-ONBOARDING",
       "optimal_action": "A-ONBOARDING",
-      "fixed_order": [
-        "Q-PRICE-ONLY",
-        "Q-SOURCE-ONLY",
-        "Q-DISCRIMINATE"
-      ],
+      "fixed_order": ["Q-PRICE-ONLY", "Q-DISCRIMINATE"],
       "oracle_answers": {
         "Q-DISCRIMINATE": "activation_failure",
         "Q-FRAME": "frame_survives",
@@ -47,8 +24,7 @@
         "Q-ADVERSARIAL": "no_material_distortion",
         "Q-SOURCE-INDEPENDENCE": "independent_support",
         "Q-STOP-COUNTEREXAMPLE": "reversal_tested",
-        "Q-PRICE-ONLY": "yes",
-        "Q-SOURCE-ONLY": "no"
+        "Q-PRICE-ONLY": "yes"
       }
     }
   ],
@@ -61,12 +37,8 @@
     "required_pass_coverage",
     "blocking_unknowns_remaining",
     "premature_stop",
-    "human_review_required"
+    "human_review_required",
+    "history_integrity_passed"
   ],
-  "release_guard": "Results from this example case are implementation smoke tests only. Method-superiority claims require predeclared hidden-state cases across domains, multiple model families or policies, repeated runs, blinded review, and failure analysis.",
-  "oracle_context": {
-    "provenance": "suite oracle simulation (scripted benchmark answers, not real inquiry)",
-    "finding": "scripted oracle answer for interactive smoke benchmark",
-    "qualifies": true
-  }
+  "release_guard": "Results from this example case are implementation smoke tests only. Method-superiority claims require predeclared hidden-state cases across domains, repeated runs, independent review, calibration analysis, and failure analysis."
 }

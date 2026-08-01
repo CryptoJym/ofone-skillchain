@@ -171,7 +171,9 @@ Its sharpest edge is the **stop gate**. An agent may not declare itself finished
 node scripts/ofone-question-loop.mjs attempt-stop <state.json> --write
 ```
 
-Exit code `2` means the stop was rejected — and the next mandatory question comes attached. Release requires, among other gates: every challenge pass completed with a **provenance-qualified answer** (frame challenge, model expansion, adversarial, source independence, reversal — a pass counts only when its answer records where it came from and what it found), every material "why" chain landed on justified *frame-relative bedrock* (typed causal descent — the useful idea inside "Five Whys" without the arbitrary five), no positive-net-value question left on the table, residual decision uncertainty below threshold, and any waiver or accepted residual risk carrying a **named human owner**. Hand-editing `status: "converged"` into the file does nothing: the gate recomputes everything — and every answer event is SHA-256 hash-chained, so edited, deleted, or reordered history is detected and blocks release ([`docs/question-geometry-enforcement-hardening.md`](./docs/question-geometry-enforcement-hardening.md)).
+Exit code `2` means the stop was rejected — and the next mandatory question comes attached. Release requires, among other gates: every challenge pass completed with a **provenance-qualified answer** (frame challenge, model expansion, adversarial, source independence, reversal — a pass counts only when its answer names its source, its reliability, its custody, its evidence, and what the challenge actually tested), every material "why" chain landed on justified *frame-relative bedrock* (typed causal descent — the useful idea inside "Five Whys" without the arbitrary five), no positive-net-value question left on the table, residual decision uncertainty below threshold, and any waiver or accepted residual risk carrying a **named human owner, a bounded scope, an expiry, and reopening conditions**.
+
+You also cannot answer a question the engine did not issue: `step` mints a **selection receipt** binding the question to the current state and history head, and a stale or hand-made selection is refused. Hand-editing `status: "converged"` does nothing, and neither does editing the state behind the runtime's back — every answer event chains a hash of the *protected inquiry state itself*, so silently rewriting beliefs, unknowns, or governance records is detected and blocks release ([`docs/question-geometry-enforcement-hardening.md`](./docs/question-geometry-enforcement-hardening.md)).
 
 ```bash
 npm run question:check       # schema + semantic validation of the example state
@@ -277,7 +279,7 @@ The full run ledger, launch proofs, and ~150 timestamped status entries live in 
 
 ## What is actually in the repo
 
-The machinery is real and measured: **11** JSON Schemas · **23** scripts wired to **32** `npm run` targets with no orphans in either direction · **15** negative decision-map fixtures asserting exact diagnostic codes plus a **28**-test question-engine suite plus a CLI lifecycle smoke test · **375** internal doc links with **0** dead · **1** runtime dependency (`ajv`).
+The machinery is real and measured: **11** JSON Schemas · **23** scripts wired to **32** `npm run` targets with no orphans in either direction · **15** negative decision-map fixtures asserting exact diagnostic codes plus a **28**-test question-engine suite plus a CLI lifecycle smoke test · **373** internal doc links with **0** dead · **1** runtime dependency (`ajv`).
 
 | Path | What lives there | Start with |
 |---|---|---|
