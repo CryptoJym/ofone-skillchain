@@ -1,0 +1,185 @@
+{
+  "suite_id": "ofone-question-geometry-interactive-0.1",
+  "generated_at": "2026-08-01T13:51:07.229Z",
+  "status": "scaffold_example_not_superiority_evidence",
+  "release_guard": "Results from this example case are implementation smoke tests only. Method-superiority claims require predeclared hidden-state cases across domains, multiple model families or policies, repeated runs, blinded review, and failure analysis.",
+  "results": [
+    {
+      "case_id": "qg-conversion-hidden-state-001",
+      "hidden_hypothesis": "H-ONBOARDING",
+      "arms": [
+        {
+          "arm_id": "direct_stop",
+          "chosen_action": "A-INVESTIGATE",
+          "optimal_action": "A-ONBOARDING",
+          "decision_regret": 6,
+          "decision_robustness": 0.04285714285714283,
+          "questions_asked": 0,
+          "cumulative_cost": 0,
+          "cumulative_risk": 0,
+          "required_pass_coverage": 0.16666666666666666,
+          "blocking_unknowns_remaining": [
+            "U-DRIVER",
+            "U-SOURCE-INDEPENDENCE",
+            "U-MODEL-CLASS",
+            "U-ADVERSARIAL"
+          ],
+          "premature_stop": true,
+          "human_review_required": false,
+          "final_status": "active",
+          "transcript": []
+        },
+        {
+          "arm_id": "fixed_checklist",
+          "chosen_action": "A-ONBOARDING",
+          "optimal_action": "A-ONBOARDING",
+          "decision_regret": 0,
+          "decision_robustness": 0.7273546642631814,
+          "questions_asked": 3,
+          "cumulative_cost": 0.65,
+          "cumulative_risk": 0.05,
+          "required_pass_coverage": 0.16666666666666666,
+          "blocking_unknowns_remaining": [
+            "U-SOURCE-INDEPENDENCE",
+            "U-MODEL-CLASS",
+            "U-ADVERSARIAL"
+          ],
+          "premature_stop": true,
+          "human_review_required": false,
+          "final_status": "active",
+          "transcript": [
+            {
+              "question_id": "Q-PRICE-ONLY",
+              "answer": "yes"
+            },
+            {
+              "question_id": "Q-SOURCE-ONLY",
+              "answer": "no"
+            },
+            {
+              "question_id": "Q-DISCRIMINATE",
+              "answer": "activation_failure"
+            }
+          ]
+        },
+        {
+          "arm_id": "greedy_information_gain",
+          "chosen_action": "A-ONBOARDING",
+          "optimal_action": "A-ONBOARDING",
+          "decision_regret": 0,
+          "decision_robustness": 0.7860848051306091,
+          "questions_asked": 4,
+          "cumulative_cost": 1.8,
+          "cumulative_risk": 0.05,
+          "required_pass_coverage": 0.6666666666666666,
+          "blocking_unknowns_remaining": [
+            "U-ADVERSARIAL"
+          ],
+          "premature_stop": true,
+          "human_review_required": false,
+          "final_status": "active",
+          "transcript": [
+            {
+              "question_id": "Q-DISCRIMINATE",
+              "answer": "activation_failure"
+            },
+            {
+              "question_id": "Q-SOURCE-INDEPENDENCE",
+              "answer": "independent_support"
+            },
+            {
+              "question_id": "Q-FRAME",
+              "answer": "frame_survives"
+            },
+            {
+              "question_id": "Q-MODEL-EXPANSION",
+              "answer": "no_material_surprise"
+            }
+          ]
+        },
+        {
+          "arm_id": "greedy_decision_value",
+          "chosen_action": "A-ONBOARDING",
+          "optimal_action": "A-ONBOARDING",
+          "decision_regret": 0,
+          "decision_robustness": 0.7780908787847532,
+          "questions_asked": 4,
+          "cumulative_cost": 1.75,
+          "cumulative_risk": 0.2,
+          "required_pass_coverage": 0.6666666666666666,
+          "blocking_unknowns_remaining": [
+            "U-SOURCE-INDEPENDENCE"
+          ],
+          "premature_stop": true,
+          "human_review_required": false,
+          "final_status": "active",
+          "transcript": [
+            {
+              "question_id": "Q-DISCRIMINATE",
+              "answer": "activation_failure"
+            },
+            {
+              "question_id": "Q-FRAME",
+              "answer": "frame_survives"
+            },
+            {
+              "question_id": "Q-MODEL-EXPANSION",
+              "answer": "no_material_surprise"
+            },
+            {
+              "question_id": "Q-ADVERSARIAL",
+              "answer": "no_material_distortion"
+            }
+          ]
+        },
+        {
+          "arm_id": "full_question_geometry",
+          "chosen_action": "A-ONBOARDING",
+          "optimal_action": "A-ONBOARDING",
+          "decision_regret": 0,
+          "decision_robustness": 0.8000628276713281,
+          "questions_asked": 6,
+          "cumulative_cost": 2.5500000000000003,
+          "cumulative_risk": 0.2,
+          "required_pass_coverage": 1,
+          "blocking_unknowns_remaining": [],
+          "premature_stop": false,
+          "human_review_required": false,
+          "final_status": "converged",
+          "transcript": [
+            {
+              "question_id": "Q-DISCRIMINATE",
+              "answer": "activation_failure",
+              "generated_by_engine": false
+            },
+            {
+              "question_id": "Q-FRAME",
+              "answer": "frame_survives",
+              "generated_by_engine": false
+            },
+            {
+              "question_id": "Q-MODEL-EXPANSION",
+              "answer": "no_material_surprise",
+              "generated_by_engine": false
+            },
+            {
+              "question_id": "Q-SOURCE-INDEPENDENCE",
+              "answer": "independent_support",
+              "generated_by_engine": false
+            },
+            {
+              "question_id": "Q-ADVERSARIAL",
+              "answer": "no_material_distortion",
+              "generated_by_engine": false
+            },
+            {
+              "question_id": "Q-STOP-COUNTEREXAMPLE",
+              "answer": "reversal_tested",
+              "generated_by_engine": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
