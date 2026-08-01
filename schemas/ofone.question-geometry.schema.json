@@ -1,1 +1,1134 @@
-{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://cryptojym.github.io/ofone-skillchain/schemas/ofone.question-geometry.schema.json","title":"OfOne Question Geometry Engine State","description":"Machine-enforced adaptive inquiry state. Questions are operators over a changing epistemic state; answers update beliefs, causal depth, decision robustness, and the next-question landscape.","type":"object","additionalProperties":false,"required":["qg_version","engine_id","mode","status","iteration","objective","frame","hypotheses","unknowns","decision_model","causal_depth","questions","policy","history","contradictions","convergence"],"properties":{"$schema":{"type":"string"},"qg_version":{"type":"string"},"engine_id":{"type":"string","minLength":1},"linked_artifact_id":{"type":["string","null"]},"mode":{"enum":["heuristic","probabilistic","robust"]},"status":{"enum":["active","waiting_for_answer","converged","blocked","human_review_required","invalid"]},"iteration":{"type":"integer","minimum":0},"objective":{"$ref":"#/$defs/objective"},"frame":{"$ref":"#/$defs/frame"},"hypotheses":{"type":"array","minItems":2,"items":{"$ref":"#/$defs/hypothesis"}},"unknowns":{"type":"array","items":{"$ref":"#/$defs/unknown"}},"decision_model":{"$ref":"#/$defs/decisionModel"},"causal_depth":{"$ref":"#/$defs/causalDepth"},"questions":{"type":"array","items":{"$ref":"#/$defs/question"}},"policy":{"$ref":"#/$defs/policy"},"history":{"type":"array","items":{"$ref":"#/$defs/historyEvent"}},"contradictions":{"type":"array","items":{"$ref":"#/$defs/contradiction"}},"convergence":{"$ref":"#/$defs/convergence"},"landscape":{"$ref":"#/$defs/landscape"}},"$defs":{"score01":{"type":"number","minimum":0,"maximum":1},"stringArray":{"type":"array","items":{"type":"string"}},"objective":{"type":"object","additionalProperties":false,"required":["task","decision","stakes","horizon","success_conditions"],"properties":{"task":{"type":"string","minLength":1},"decision":{"type":"string","minLength":1},"stakes":{"$ref":"#/$defs/stringArray"},"horizon":{"type":"string","minLength":1},"success_conditions":{"$ref":"#/$defs/stringArray"},"exclusions":{"$ref":"#/$defs/stringArray"}}},"frame":{"type":"object","additionalProperties":false,"required":["frame_id","type","boundary","resolution","contrast","assumptions","reframe_triggers"],"properties":{"frame_id":{"type":"string","minLength":1},"type":{"enum":["causal","strategic","scientific","formal","normative","hybrid","provisional"]},"boundary":{"$ref":"#/$defs/stringArray"},"resolution":{"type":"string","minLength":1},"contrast":{"type":"string","minLength":1},"assumptions":{"$ref":"#/$defs/stringArray"},"reframe_triggers":{"$ref":"#/$defs/stringArray"},"active_adapter":{"type":["string","null"]}}},"hypothesis":{"type":"object","additionalProperties":false,"required":["hypothesis_id","description","active","other"],"properties":{"hypothesis_id":{"type":"string","minLength":1},"description":{"type":"string","minLength":1},"prior":{"$ref":"#/$defs/score01"},"belief":{"$ref":"#/$defs/score01"},"active":{"type":"boolean"},"other":{"type":"boolean"},"decision_implications":{"$ref":"#/$defs/stringArray"},"predicted_observations":{"$ref":"#/$defs/stringArray"},"failure_conditions":{"$ref":"#/$defs/stringArray"}}},"unknown":{"type":"object","additionalProperties":false,"required":["unknown_id","kind","description","impact","status","blocks","resolution_channels"],"properties":{"unknown_id":{"type":"string","minLength":1},"kind":{"enum":["parameter","structural","causal_identification","frame","model_class","objective_or_value","aleatory","temporal_or_regime","adversarial","source_dependence","intervention","inaccessible","resolution"]},"description":{"type":"string","minLength":1},"impact":{"$ref":"#/$defs/score01"},"status":{"enum":["open","resolved","accepted_risk"]},"blocks":{"$ref":"#/$defs/stringArray"},"resolution_channels":{"$ref":"#/$defs/stringArray"},"reopen_condition":{"type":["string","null"]}}},"decisionAction":{"type":"object","additionalProperties":false,"required":["action_id","label","utilities"],"properties":{"action_id":{"type":"string","minLength":1},"label":{"type":"string","minLength":1},"utilities":{"type":"object","additionalProperties":{"type":"number"}},"reversible":{"type":"boolean"}}},"decisionModel":{"type":"object","additionalProperties":false,"required":["actions","utility_scale"],"properties":{"actions":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/decisionAction"}},"utility_scale":{"type":"number","exclusiveMinimum":0},"robustness":{"$ref":"#/$defs/score01"},"loss_definition":{"type":["string","null"]},"hard_constraints":{"$ref":"#/$defs/stringArray"},"robust_rule":{"enum":["minimax_regret","maximin"]},"belief_scenarios":{"type":"array","items":{"$ref":"#/$defs/beliefScenario"}}}},"bedrock":{"type":"object","additionalProperties":false,"required":["type","frame_relative","justification","reopen_condition"],"properties":{"type":{"enum":["decision_sufficient","observable_mechanism","controllable_root_cause","invariant_or_law","axiom_or_definition","value_commitment","authority_boundary","irreducible_stochasticity","inaccessible_or_unidentifiable","frame_boundary","accepted_residual_risk"]},"frame_relative":{"const":true},"justification":{"type":"string","minLength":1},"reopen_condition":{"type":"string","minLength":1}}},"causalNode":{"type":"object","additionalProperties":false,"required":["node_id","proposition","status","evidence_refs"],"properties":{"node_id":{"type":"string","minLength":1},"proposition":{"type":"string","minLength":1},"status":{"enum":["open","supported","disputed","bedrock"]},"evidence_refs":{"$ref":"#/$defs/stringArray"},"bedrock":{"$ref":"#/$defs/bedrock"}},"allOf":[{"if":{"properties":{"status":{"const":"bedrock"}},"required":["status"]},"then":{"required":["bedrock"],"properties":{"bedrock":{"$ref":"#/$defs/bedrock"}}}}]},"causalLink":{"type":"object","additionalProperties":false,"required":["link_id","from_node","to_node","why_kind","contrast","confidence","evidence_refs","alternatives_considered","status"],"properties":{"link_id":{"type":"string","minLength":1},"from_node":{"type":"string","minLength":1},"to_node":{"type":"string","minLength":1},"why_kind":{"enum":["cause","mechanism","reason_or_motive","purpose_or_function","justification","constitutive_or_definition","enabling_condition","constraint","historical_origin"]},"contrast":{"type":"string","minLength":1},"confidence":{"$ref":"#/$defs/score01"},"evidence_refs":{"$ref":"#/$defs/stringArray"},"counterfactual_test":{"type":["string","null"]},"intervention_test":{"type":["string","null"]},"alternatives_considered":{"$ref":"#/$defs/stringArray"},"status":{"enum":["hypothesized","supported","disputed","rejected"]}}},"causalTarget":{"type":"object","additionalProperties":false,"required":["target_id","start_node","material"],"properties":{"target_id":{"type":"string","minLength":1},"start_node":{"type":"string","minLength":1},"material":{"type":"boolean"}}},"causalDepth":{"type":"object","additionalProperties":false,"required":["targets","nodes","links"],"properties":{"targets":{"type":"array","items":{"$ref":"#/$defs/causalTarget"}},"nodes":{"type":"array","items":{"$ref":"#/$defs/causalNode"}},"links":{"type":"array","items":{"$ref":"#/$defs/causalLink"}}}},"likelihoodByAnswer":{"type":"object","minProperties":1,"additionalProperties":{"$ref":"#/$defs/score01"}},"answerModel":{"type":"object","additionalProperties":false,"required":["likelihoods"],"properties":{"likelihoods":{"type":"object","additionalProperties":{"$ref":"#/$defs/likelihoodByAnswer"}},"oracle":{"type":["string","null"]},"noise_notes":{"type":["string","null"]},"deception_notes":{"type":["string","null"]},"missingness_notes":{"type":["string","null"]},"source_dependencies":{"$ref":"#/$defs/stringArray"}}},"questionMetrics":{"type":"object","additionalProperties":false,"properties":{"decision_gain":{"$ref":"#/$defs/score01"},"information_gain":{"$ref":"#/$defs/score01"},"causal_discrimination":{"$ref":"#/$defs/score01"},"model_expansion":{"$ref":"#/$defs/score01"},"unlock_value":{"$ref":"#/$defs/score01"},"robustness_gain":{"$ref":"#/$defs/score01"},"actionability":{"$ref":"#/$defs/score01"},"novelty":{"$ref":"#/$defs/score01"},"lookahead_value":{"$ref":"#/$defs/score01"},"score_uncertainty":{"$ref":"#/$defs/score01"},"redundancy":{"$ref":"#/$defs/score01"},"delay":{"$ref":"#/$defs/score01"},"belief_displacement":{"$ref":"#/$defs/score01"}}},"scoreMap":{"type":"object","additionalProperties":{"$ref":"#/$defs/score01"}},"answerEffect":{"type":"object","additionalProperties":true,"properties":{"resolve_unknowns":{"$ref":"#/$defs/stringArray"},"accept_unknowns":{"$ref":"#/$defs/stringArray"},"eliminate_hypotheses":{"$ref":"#/$defs/stringArray"},"belief_multipliers":{"type":"object","additionalProperties":{"type":"number","minimum":0}},"add_hypotheses":{"type":"array","items":{"$ref":"#/$defs/hypothesis"}},"activate_questions":{"$ref":"#/$defs/stringArray"},"retire_questions":{"$ref":"#/$defs/stringArray"},"resolve_contradictions":{"$ref":"#/$defs/stringArray"},"add_causal_nodes":{"type":"array","items":{"$ref":"#/$defs/causalNode"}},"add_causal_links":{"type":"array","items":{"$ref":"#/$defs/causalLink"}},"frame_shift":{"type":"object"},"set_convergence":{"type":"object"}}},"question":{"type":"object","additionalProperties":false,"required":["question_id","type","text","targets","answer_space","costs","risks","delay","prerequisites","pass_tags","metrics","status"],"properties":{"question_id":{"type":"string","minLength":1},"type":{"enum":["causal_why","contrastive_why","mechanism","evidence","discriminating","model_expansion","counterfactual","intervention","calibration","frame_challenge","source_independence","adversarial","unlock","safety","stopping_counterexample","other"]},"text":{"type":"string","minLength":1},"targets":{"$ref":"#/$defs/stringArray"},"answer_space":{"$ref":"#/$defs/stringArray"},"answer_model":{"$ref":"#/$defs/answerModel"},"answer_effects":{"type":"object","additionalProperties":{"$ref":"#/$defs/answerEffect"}},"costs":{"$ref":"#/$defs/scoreMap"},"risks":{"$ref":"#/$defs/scoreMap"},"delay":{"$ref":"#/$defs/score01"},"prerequisites":{"$ref":"#/$defs/stringArray"},"pass_tags":{"$ref":"#/$defs/stringArray"},"metrics":{"$ref":"#/$defs/questionMetrics"},"status":{"enum":["pending","selected","answered","retired","blocked"]},"dominance":{"type":"object","additionalProperties":false,"properties":{"dominated_by":{"type":["string","null"]},"reason":{"type":["string","null"]}}},"generated_by_engine":{"type":"boolean"},"generation_reason":{"type":"string"},"answer":{},"answered_at_iteration":{"type":"integer","minimum":0}}},"policy":{"type":"object","additionalProperties":false,"required":["scoring_mode","weights","thresholds","required_passes","stall_window","max_iterations_before_human_review","exploration_rate","lookahead_depth","current_question_id"],"properties":{"scoring_mode":{"enum":["multi_objective","information_gain","decision_value","robust"]},"weights":{"type":"object","additionalProperties":{"type":"number"}},"thresholds":{"type":"object","additionalProperties":{"type":"number"}},"required_passes":{"$ref":"#/$defs/stringArray"},"stall_window":{"type":"integer","minimum":1},"max_iterations_before_human_review":{"type":"integer","minimum":1},"exploration_rate":{"$ref":"#/$defs/score01"},"current_question_id":{"type":["string","null"]},"lookahead_depth":{"type":"integer","minimum":0,"maximum":3}}},"progress":{"type":"object","additionalProperties":false,"required":["entropy_reduction","unresolved_impact_reduction","decision_robustness_gain","causal_depth_gain","contradiction_reduction","total"],"properties":{"entropy_reduction":{"type":"number"},"unresolved_impact_reduction":{"type":"number"},"decision_robustness_gain":{"type":"number"},"causal_depth_gain":{"type":"number"},"contradiction_reduction":{"type":"number"},"total":{"type":"number"}}},"historyEvent":{"type":"object","additionalProperties":true,"required":["iteration","question_id","question_text","question_type","question_family","answer","pass_tags","score_before","progress"],"properties":{"iteration":{"type":"integer","minimum":1},"question_id":{"type":"string"},"question_text":{"type":"string"},"question_type":{"type":"string"},"question_family":{"type":"string"},"answer":{},"pass_tags":{"$ref":"#/$defs/stringArray"},"score_before":{"type":"number"},"progress":{"$ref":"#/$defs/progress"}}},"contradiction":{"type":"object","additionalProperties":false,"required":["contradiction_id","description","status","decision_sensitive"],"properties":{"contradiction_id":{"type":"string"},"description":{"type":"string"},"status":{"enum":["open","resolved","accepted"]},"decision_sensitive":{"type":"boolean"}}},"convergence":{"type":"object","additionalProperties":true,"required":["accepted_residual_unknowns","accepted_by","robustness_waiver"],"properties":{"accepted_residual_unknowns":{"$ref":"#/$defs/stringArray"},"accepted_by":{"type":["string","null"]},"robustness_waiver":{"type":"boolean"},"last_evaluation":{"type":"object"}}},"landscape":{"type":"object","additionalProperties":true,"properties":{"generated_at_iteration":{"type":"integer"},"selected_question_id":{"type":["string","null"]},"maximum_net_question_value":{"type":["number","null"]},"pareto_frontier":{"$ref":"#/$defs/stringArray"},"ranked_eligible":{"$ref":"#/$defs/stringArray"},"local_maxima":{"$ref":"#/$defs/stringArray"},"local_minima":{"$ref":"#/$defs/stringArray"}}},"beliefScenario":{"type":"object","additionalProperties":false,"required":["scenario_id","beliefs"],"properties":{"scenario_id":{"type":"string","minLength":1},"beliefs":{"type":"object","minProperties":1,"additionalProperties":{"$ref":"#/$defs/score01"}}}}}}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cryptojym.github.io/ofone-skillchain/schemas/ofone.question-geometry.schema.json",
+  "title": "OfOne Question Geometry Engine State",
+  "description": "Machine-enforced adaptive inquiry state. Questions are operators over a changing epistemic state; answers update beliefs, causal depth, decision robustness, and the next-question landscape.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "qg_version",
+    "engine_id",
+    "mode",
+    "status",
+    "iteration",
+    "objective",
+    "frame",
+    "hypotheses",
+    "unknowns",
+    "decision_model",
+    "causal_depth",
+    "questions",
+    "policy",
+    "history",
+    "contradictions",
+    "convergence"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "qg_version": {
+      "type": "string"
+    },
+    "engine_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "linked_artifact_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "heuristic",
+        "probabilistic",
+        "robust"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "waiting_for_answer",
+        "converged",
+        "blocked",
+        "human_review_required",
+        "invalid"
+      ]
+    },
+    "iteration": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "objective": {
+      "$ref": "#/$defs/objective"
+    },
+    "frame": {
+      "$ref": "#/$defs/frame"
+    },
+    "hypotheses": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/hypothesis"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unknown"
+      }
+    },
+    "decision_model": {
+      "$ref": "#/$defs/decisionModel"
+    },
+    "causal_depth": {
+      "$ref": "#/$defs/causalDepth"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/question"
+      }
+    },
+    "policy": {
+      "$ref": "#/$defs/policy"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/historyEvent"
+      }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contradiction"
+      }
+    },
+    "convergence": {
+      "$ref": "#/$defs/convergence"
+    },
+    "landscape": {
+      "$ref": "#/$defs/landscape"
+    }
+  },
+  "$defs": {
+    "score01": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task",
+        "decision",
+        "stakes",
+        "horizon",
+        "success_conditions"
+      ],
+      "properties": {
+        "task": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stakes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "horizon": {
+          "type": "string",
+          "minLength": 1
+        },
+        "success_conditions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "exclusions": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id",
+        "type",
+        "boundary",
+        "resolution",
+        "contrast",
+        "assumptions",
+        "reframe_triggers"
+      ],
+      "properties": {
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "causal",
+            "strategic",
+            "scientific",
+            "formal",
+            "normative",
+            "hybrid",
+            "provisional"
+          ]
+        },
+        "boundary": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "resolution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contrast": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assumptions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "reframe_triggers": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "active_adapter": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "hypothesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hypothesis_id",
+        "description",
+        "active",
+        "other"
+      ],
+      "properties": {
+        "hypothesis_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prior": {
+          "$ref": "#/$defs/score01"
+        },
+        "belief": {
+          "$ref": "#/$defs/score01"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "other": {
+          "type": "boolean"
+        },
+        "decision_implications": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "predicted_observations": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "failure_conditions": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "unknown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unknown_id",
+        "kind",
+        "description",
+        "impact",
+        "status",
+        "blocks",
+        "resolution_channels"
+      ],
+      "properties": {
+        "unknown_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "parameter",
+            "structural",
+            "causal_identification",
+            "frame",
+            "model_class",
+            "objective_or_value",
+            "aleatory",
+            "temporal_or_regime",
+            "adversarial",
+            "source_dependence",
+            "intervention",
+            "inaccessible",
+            "resolution"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "$ref": "#/$defs/score01"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "accepted_risk"
+          ]
+        },
+        "blocks": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "resolution_channels": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "reopen_condition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "decisionAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_id",
+        "label",
+        "utilities"
+      ],
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "utilities": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "reversible": {
+          "type": "boolean"
+        }
+      }
+    },
+    "decisionModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actions",
+        "utility_scale"
+      ],
+      "properties": {
+        "actions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/decisionAction"
+          }
+        },
+        "utility_scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "robustness": {
+          "$ref": "#/$defs/score01"
+        },
+        "loss_definition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hard_constraints": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "robust_rule": {
+          "enum": [
+            "minimax_regret",
+            "maximin"
+          ]
+        },
+        "belief_scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/beliefScenario"
+          }
+        }
+      }
+    },
+    "bedrock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "frame_relative",
+        "justification",
+        "reopen_condition"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "decision_sufficient",
+            "observable_mechanism",
+            "controllable_root_cause",
+            "invariant_or_law",
+            "axiom_or_definition",
+            "value_commitment",
+            "authority_boundary",
+            "irreducible_stochasticity",
+            "inaccessible_or_unidentifiable",
+            "frame_boundary",
+            "accepted_residual_risk"
+          ]
+        },
+        "frame_relative": {
+          "const": true
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reopen_condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "causalNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node_id",
+        "proposition",
+        "status",
+        "evidence_refs"
+      ],
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proposition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "open",
+            "supported",
+            "disputed",
+            "bedrock"
+          ]
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "bedrock": {
+          "$ref": "#/$defs/bedrock"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "bedrock"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "bedrock"
+            ],
+            "properties": {
+              "bedrock": {
+                "$ref": "#/$defs/bedrock"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "causalLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "link_id",
+        "from_node",
+        "to_node",
+        "why_kind",
+        "contrast",
+        "confidence",
+        "evidence_refs",
+        "alternatives_considered",
+        "status"
+      ],
+      "properties": {
+        "link_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from_node": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to_node": {
+          "type": "string",
+          "minLength": 1
+        },
+        "why_kind": {
+          "enum": [
+            "cause",
+            "mechanism",
+            "reason_or_motive",
+            "purpose_or_function",
+            "justification",
+            "constitutive_or_definition",
+            "enabling_condition",
+            "constraint",
+            "historical_origin"
+          ]
+        },
+        "contrast": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "$ref": "#/$defs/score01"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "counterfactual_test": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "intervention_test": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "alternatives_considered": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "status": {
+          "enum": [
+            "hypothesized",
+            "supported",
+            "disputed",
+            "rejected"
+          ]
+        }
+      }
+    },
+    "causalTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_id",
+        "start_node",
+        "material"
+      ],
+      "properties": {
+        "target_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_node": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material": {
+          "type": "boolean"
+        }
+      }
+    },
+    "causalDepth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "targets",
+        "nodes",
+        "links"
+      ],
+      "properties": {
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/causalTarget"
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/causalNode"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/causalLink"
+          }
+        }
+      }
+    },
+    "likelihoodByAnswer": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/score01"
+      }
+    },
+    "answerModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "likelihoods"
+      ],
+      "properties": {
+        "likelihoods": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/likelihoodByAnswer"
+          }
+        },
+        "oracle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "noise_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deception_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "missingness_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_dependencies": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "questionMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "decision_gain": {
+          "$ref": "#/$defs/score01"
+        },
+        "information_gain": {
+          "$ref": "#/$defs/score01"
+        },
+        "causal_discrimination": {
+          "$ref": "#/$defs/score01"
+        },
+        "model_expansion": {
+          "$ref": "#/$defs/score01"
+        },
+        "unlock_value": {
+          "$ref": "#/$defs/score01"
+        },
+        "robustness_gain": {
+          "$ref": "#/$defs/score01"
+        },
+        "actionability": {
+          "$ref": "#/$defs/score01"
+        },
+        "novelty": {
+          "$ref": "#/$defs/score01"
+        },
+        "lookahead_value": {
+          "$ref": "#/$defs/score01"
+        },
+        "score_uncertainty": {
+          "$ref": "#/$defs/score01"
+        },
+        "redundancy": {
+          "$ref": "#/$defs/score01"
+        },
+        "delay": {
+          "$ref": "#/$defs/score01"
+        },
+        "belief_displacement": {
+          "$ref": "#/$defs/score01"
+        }
+      }
+    },
+    "scoreMap": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/score01"
+      }
+    },
+    "answerEffect": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "resolve_unknowns": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "accept_unknowns": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "eliminate_hypotheses": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "belief_multipliers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "add_hypotheses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/hypothesis"
+          }
+        },
+        "activate_questions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "retire_questions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "resolve_contradictions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "add_causal_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/causalNode"
+          }
+        },
+        "add_causal_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/causalLink"
+          }
+        },
+        "frame_shift": {
+          "type": "object"
+        },
+        "set_convergence": {
+          "type": "object"
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question_id",
+        "type",
+        "text",
+        "targets",
+        "answer_space",
+        "costs",
+        "risks",
+        "delay",
+        "prerequisites",
+        "pass_tags",
+        "metrics",
+        "status"
+      ],
+      "properties": {
+        "question_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "causal_why",
+            "contrastive_why",
+            "mechanism",
+            "evidence",
+            "discriminating",
+            "model_expansion",
+            "counterfactual",
+            "intervention",
+            "calibration",
+            "frame_challenge",
+            "source_independence",
+            "adversarial",
+            "unlock",
+            "safety",
+            "stopping_counterexample",
+            "other"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targets": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "answer_space": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "answer_model": {
+          "$ref": "#/$defs/answerModel"
+        },
+        "answer_effects": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/answerEffect"
+          }
+        },
+        "costs": {
+          "$ref": "#/$defs/scoreMap"
+        },
+        "risks": {
+          "$ref": "#/$defs/scoreMap"
+        },
+        "delay": {
+          "$ref": "#/$defs/score01"
+        },
+        "prerequisites": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "pass_tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "metrics": {
+          "$ref": "#/$defs/questionMetrics"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "selected",
+            "answered",
+            "retired",
+            "blocked"
+          ]
+        },
+        "dominance": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "dominated_by": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "generated_by_engine": {
+          "type": "boolean"
+        },
+        "generation_reason": {
+          "type": "string"
+        },
+        "answer": {},
+        "answered_at_iteration": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scoring_mode",
+        "weights",
+        "thresholds",
+        "required_passes",
+        "stall_window",
+        "max_iterations_before_human_review",
+        "exploration_rate",
+        "lookahead_depth",
+        "current_question_id"
+      ],
+      "properties": {
+        "scoring_mode": {
+          "enum": [
+            "multi_objective",
+            "information_gain",
+            "decision_value",
+            "robust"
+          ]
+        },
+        "weights": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "thresholds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "required_passes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "stall_window": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_iterations_before_human_review": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "exploration_rate": {
+          "$ref": "#/$defs/score01"
+        },
+        "current_question_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lookahead_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        }
+      }
+    },
+    "progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entropy_reduction",
+        "unresolved_impact_reduction",
+        "decision_robustness_gain",
+        "causal_depth_gain",
+        "contradiction_reduction",
+        "total"
+      ],
+      "properties": {
+        "entropy_reduction": {
+          "type": "number"
+        },
+        "unresolved_impact_reduction": {
+          "type": "number"
+        },
+        "decision_robustness_gain": {
+          "type": "number"
+        },
+        "causal_depth_gain": {
+          "type": "number"
+        },
+        "contradiction_reduction": {
+          "type": "number"
+        },
+        "total": {
+          "type": "number"
+        }
+      }
+    },
+    "historyEvent": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "iteration",
+        "question_id",
+        "question_text",
+        "question_type",
+        "question_family",
+        "answer",
+        "pass_tags",
+        "score_before",
+        "progress"
+      ],
+      "properties": {
+        "iteration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "question_id": {
+          "type": "string"
+        },
+        "question_text": {
+          "type": "string"
+        },
+        "question_type": {
+          "type": "string"
+        },
+        "question_family": {
+          "type": "string"
+        },
+        "answer": {},
+        "pass_tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "score_before": {
+          "type": "number"
+        },
+        "progress": {
+          "$ref": "#/$defs/progress"
+        }
+      }
+    },
+    "contradiction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contradiction_id",
+        "description",
+        "status",
+        "decision_sensitive"
+      ],
+      "properties": {
+        "contradiction_id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "accepted"
+          ]
+        },
+        "decision_sensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "convergence": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "accepted_residual_unknowns",
+        "accepted_by",
+        "robustness_waiver"
+      ],
+      "properties": {
+        "accepted_residual_unknowns": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "accepted_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "robustness_waiver": {
+          "type": "boolean"
+        },
+        "last_evaluation": {
+          "type": "object"
+        }
+      }
+    },
+    "landscape": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "generated_at_iteration": {
+          "type": "integer"
+        },
+        "selected_question_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "maximum_net_question_value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "pareto_frontier": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "ranked_eligible": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "local_maxima": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "local_minima": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "beliefScenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_id",
+        "beliefs"
+      ],
+      "properties": {
+        "scenario_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "beliefs": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/score01"
+          }
+        }
+      }
+    }
+  }
+}
