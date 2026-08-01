@@ -739,10 +739,14 @@ function runSkillInstallSmokeTest() {
     encoding: "utf8"
   });
   const installedText = fs.existsSync(target) ? fs.readFileSync(target, "utf8") : "";
+  const expectedBundle = `${fs.readFileSync(path.join(repoRoot, "SKILL.md"), "utf8").trimEnd()}\n\n${fs
+    .readFileSync(path.join(repoRoot, "skills", "question-geometry", "PROTOCOL.md"), "utf8")
+    .trim()}\n`;
   const passed = installResult.status === 0 &&
     checkResult.status === 0 &&
-    installedText === fs.readFileSync(path.join(repoRoot, "SKILL.md"), "utf8") &&
-    installedText.includes("stop normal workflow and troubleshoot extension availability first");
+    installedText === expectedBundle &&
+    installedText.includes("stop normal workflow and troubleshoot extension availability first") &&
+    installedText.includes("# Question Geometry Runtime Gate");
 
   if (passed) {
     console.log("PASS local skill installer");
