@@ -45,6 +45,13 @@ node scripts/ofone-question-loop.mjs answer <state.json> <question_id> <answer> 
 node scripts/ofone-question-loop.mjs attempt-stop <state.json> --write
 ```
 
+## Enforcement Hardening
+
+- Answer only the question the runtime issued through `step`; any other answer is refused by the loop.
+- Record every answer with `--context <answer-context.json>` carrying provenance and the concrete finding. A challenge pass counts toward convergence only when its answer context qualifies; narration alone earns nothing.
+- History events are SHA-256 hash-chained. Edited, deleted, or reordered events break the chain, fail validation, and block release.
+- `initialize` is the sanctioned way to bring a hand-authored state into the enforced loop.
+
 ## Effective Persistence, Not Repetition
 
 The harness exists to push beyond premature closure. It does not authorize infinite repetition.
@@ -130,7 +137,8 @@ The runtime blocks release while any of the following remain:
 - the current decision is not robust enough for the configured threshold;
 - a robustness or residual-information waiver lacks a named human owner (`waived_by`);
 - a positive-net-value eligible question remains;
-- a required challenge pass is missing;
+- a required challenge pass is missing or its answer is not provenance-qualified;
+- the answer-event hash chain is broken;
 - residual risk lacks a named human owner;
 - or the safety review boundary has been reached.
 

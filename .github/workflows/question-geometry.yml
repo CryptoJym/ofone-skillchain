@@ -1,0 +1,54 @@
+name: Question Geometry Enforcement
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/question-geometry.yml'
+      - 'QUESTION_GEOMETRY.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'lib/question-geometry.mjs'
+      - 'lib/question-geometry/**'
+      - 'scripts/ofone-question-*.mjs'
+      - 'schemas/ofone.question-geometry.schema.json'
+      - 'skills/question-geometry/**'
+      - 'examples/question-geometry/**'
+      - 'benchmarks/question-geometry/**'
+      - 'docs/question-geometry*.md'
+      - 'docs/causal-depth-traversal.md'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/question-geometry.yml'
+      - 'QUESTION_GEOMETRY.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'lib/question-geometry.mjs'
+      - 'lib/question-geometry/**'
+      - 'scripts/ofone-question-*.mjs'
+      - 'schemas/ofone.question-geometry.schema.json'
+      - 'skills/question-geometry/**'
+      - 'examples/question-geometry/**'
+      - 'benchmarks/question-geometry/**'
+      - 'docs/question-geometry*.md'
+      - 'docs/causal-depth-traversal.md'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Verify Question Geometry runtime
+        run: npm run question:verify
+      - name: Run full repository regression suite
+        run: npm test

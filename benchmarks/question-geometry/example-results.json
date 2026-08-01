@@ -1,6 +1,6 @@
 {
   "suite_id": "ofone-question-geometry-interactive-0.1",
-  "generated_at": "2026-08-01T13:51:07.229Z",
+  "generated_at": "2026-08-01T19:28:23.976Z",
   "status": "scaffold_example_not_superiority_evidence",
   "release_guard": "Results from this example case are implementation smoke tests only. Method-superiority claims require predeclared hidden-state cases across domains, multiple model families or policies, repeated runs, blinded review, and failure analysis.",
   "results": [

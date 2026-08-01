@@ -171,11 +171,12 @@ Its sharpest edge is the **stop gate**. An agent may not declare itself finished
 node scripts/ofone-question-loop.mjs attempt-stop <state.json> --write
 ```
 
-Exit code `2` means the stop was rejected — and the next mandatory question comes attached. Release requires, among other gates: every challenge pass completed (frame challenge, model expansion, adversarial, source independence, reversal), every material "why" chain landed on justified *frame-relative bedrock* (typed causal descent — the useful idea inside "Five Whys" without the arbitrary five), no positive-net-value question left on the table, residual decision uncertainty below threshold, and any waiver or accepted residual risk carrying a **named human owner**. Hand-editing `status: "converged"` into the file does nothing: the gate recomputes everything.
+Exit code `2` means the stop was rejected — and the next mandatory question comes attached. Release requires, among other gates: every challenge pass completed with a **provenance-qualified answer** (frame challenge, model expansion, adversarial, source independence, reversal — a pass counts only when its answer records where it came from and what it found), every material "why" chain landed on justified *frame-relative bedrock* (typed causal descent — the useful idea inside "Five Whys" without the arbitrary five), no positive-net-value question left on the table, residual decision uncertainty below threshold, and any waiver or accepted residual risk carrying a **named human owner**. Hand-editing `status: "converged"` into the file does nothing: the gate recomputes everything — and every answer event is SHA-256 hash-chained, so edited, deleted, or reordered history is detected and blocks release ([`docs/question-geometry-enforcement-hardening.md`](./docs/question-geometry-enforcement-hardening.md)).
 
 ```bash
 npm run question:check       # schema + semantic validation of the example state
-npm run question:test        # the engine's 11-test regression suite
+npm run question:test        # 28-test enforcement suite + CLI lifecycle smoke
+npm run question:verify      # end-to-end gate: states, CLI lifecycle, benchmark determinism
 npm run question:benchmark   # interactive smoke-test benchmark (not superiority evidence)
 ```
 
@@ -276,7 +277,7 @@ The full run ledger, launch proofs, and ~150 timestamped status entries live in 
 
 ## What is actually in the repo
 
-The machinery is real and measured: **11** JSON Schemas · **22** scripts wired to **29** `npm run` targets with no orphans in either direction · **15** negative decision-map fixtures asserting exact diagnostic codes plus an **11**-test question-engine suite · **358** internal doc links with **0** dead · **1** runtime dependency (`ajv`).
+The machinery is real and measured: **11** JSON Schemas · **23** scripts wired to **32** `npm run` targets with no orphans in either direction · **15** negative decision-map fixtures asserting exact diagnostic codes plus a **28**-test question-engine suite plus a CLI lifecycle smoke test · **375** internal doc links with **0** dead · **1** runtime dependency (`ajv`).
 
 | Path | What lives there | Start with |
 |---|---|---|
@@ -315,7 +316,7 @@ The machinery is real and measured: **11** JSON Schemas · **22** scripts wired 
 - Current package line: **0.7.0** (per [`package.json`](./package.json) — the Question Geometry release). One naming caution from this repo's history: Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. They are not package or artifact release versions. Those historical review-round labels predate the 0.7.0 package release and do not correspond to it; the package line was `0.6.0` until `package.json` changed with Question Geometry.
 - The full development history (200+ commits, May 13–21, 2026) lives on GitHub. If your local clone is shallow it may show only the tip commit — the `research/` trail is verifiable against the public commit history, not the local log.
 - License: **MIT** — see [`LICENSE`](./LICENSE) (copyright Utlyze; also declared in `package.json`).
-- One scoping note: `npm run validate` covers the decision-map artifacts (Micro/Map/Audit). The question engine (`npm run question:check`, `question:test`), the review sidecars (`npm run review:check`), and the Deep Research pipeline (`npm run deep-research:*`) each have their own dedicated checkers.
+- One scoping note: `npm run validate` covers the decision-map artifacts (Micro/Map/Audit). The question engine (`npm run question:check`, `question:test`, `question:verify`), the review sidecars (`npm run review:check`), and the Deep Research pipeline (`npm run deep-research:*`) each have their own dedicated checkers. The question engine also has a read-only CI workflow ([`.github/workflows/question-geometry.yml`](./.github/workflows/question-geometry.yml)) that runs its gate on every pull request touching it.
 - The sections below are the repo's machine-checked operating state. They are preserved verbatim because the test suite (`npm test`) asserts these exact paths, commands, and boundary sentences exist in this README — the documentation is under the same contract discipline as the code.
 
 ---

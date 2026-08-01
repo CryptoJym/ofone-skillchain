@@ -13,8 +13,9 @@ function usage() {
   console.error(`Usage:
   node scripts/ofone-question-loop.mjs check <state.json>
   node scripts/ofone-question-loop.mjs landscape <state.json>
+  node scripts/ofone-question-loop.mjs initialize <state.json> [--write] [--output <path>]
   node scripts/ofone-question-loop.mjs step <state.json> [--write] [--output <path>]
-  node scripts/ofone-question-loop.mjs answer <state.json> <question_id> <answer> [--effects <effects.json>] [--write] [--output <path>]
+  node scripts/ofone-question-loop.mjs answer <state.json> <question_id> <answer> [--context <answer-context.json>] [--effects <effects.json>] [--write] [--output <path>]
   node scripts/ofone-question-loop.mjs attempt-stop <state.json> [--write] [--output <path>]
 
 The process exits non-zero when validation fails or when a stop attempt is rejected.
@@ -26,13 +27,14 @@ function readJson(filePath) {
 }
 
 function parseOptions(args) {
-  const options = { write: false, output: null, effects: null };
+  const options = { write: false, output: null, effects: null, context: null };
   const positional = [];
   for (let index = 0; index < args.length; index += 1) {
     const value = args[index];
     if (value === "--write") options.write = true;
     else if (value === "--output") options.output = args[++index];
     else if (value === "--effects") options.effects = args[++index];
+    else if (value === "--context") options.context = args[++index];
     else positional.push(value);
   }
   return { options, positional };
@@ -83,6 +85,20 @@ try {
     process.exit(0);
   }
 
+  if (command === "initialize") {
+    const validation = validateQuestionGeometry(state);
+    state.status = "active";
+    state.iteration = Number(state.iteration || 0);
+    state.policy = { ...(state.policy || {}), current_question_id: null };
+    for (const question of state.questions || []) {
+      if (question.status === "selected") question.status = "pending";
+    }
+    state.landscape = buildQuestionLandscape(state);
+    const written = validation.passed ? writeState(statePath, state, options) : null;
+    print({ initialized: validation.passed, validation, landscape: state.landscape, written });
+    process.exit(validation.passed ? 0 : 1);
+  }
+
   if (command === "step") {
     const result = enforceLoop(state);
     const written = writeState(statePath, result.state, options);
@@ -98,7 +114,8 @@ try {
       process.exit(64);
     }
     const effects = options.effects ? readJson(options.effects) : null;
-    const result = applyAnswer(state, questionId, answer, effects);
+    const context = options.context ? readJson(options.context) : null;
+    const result = applyAnswer(state, questionId, answer, effects, context);
     const written = writeState(statePath, result.state, options);
     print({ directive: result.directive, convergence: result.convergence, validation: result.validation, written });
     process.exit(result.validation.passed ? 0 : 1);

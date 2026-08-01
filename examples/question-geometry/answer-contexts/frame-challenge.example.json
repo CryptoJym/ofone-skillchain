@@ -1,0 +1,9 @@
+{
+  "provenance": "operator interview with the retention analyst who owns the conversion dashboard, 2026-08-01",
+  "oracle": "human domain owner",
+  "finding": "The shared assumption that conversion declined uniformly across segments does not survive: the decline concentrates in accounts created after the onboarding change, so the frame survives only with the segment boundary made explicit.",
+  "qualifies": true,
+  "evidence_refs": ["E-COHORT-EXPORT"],
+  "custody": "dashboard export attached to the inquiry workspace before the answer was recorded",
+  "notes": "Example answer context for a frame_challenge pass. An answer qualifies its challenge pass only when provenance and a concrete finding are recorded; qualifies:false preserves the answer while explicitly declining pass credit."
+}

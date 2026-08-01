@@ -65,7 +65,7 @@ function askAndReset(state, questionId, answer) {
   if (!question || !["pending", "selected"].includes(question.status)) return { state, asked: false, cost: 0, risk: 0 };
   question.status = "selected";
   state.policy.current_question_id = questionId;
-  const result = applyAnswer(state, questionId, answer);
+  const result = applyAnswer(state, questionId, answer, null, suite.oracle_context || null);
   return {
     state: resetSelection(result.state),
     asked: true,
@@ -124,7 +124,7 @@ function fullRun(initial, caseSpec, arm) {
     cost += answerCost(question);
     risk += answerRisk(question);
     transcript.push({ question_id: question.question_id, answer, generated_by_engine: question.generated_by_engine === true });
-    result = applyAnswer(result.state, question.question_id, answer);
+    result = applyAnswer(result.state, question.question_id, answer, null, suite.oracle_context || null);
   }
   return { state: result.state, cost, risk, transcript, directive: result.directive };
 }
