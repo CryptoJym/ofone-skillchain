@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const sourcePath = path.join(repoRoot, "SKILL.md");
+const questionProtocolPath = path.join(repoRoot, "skills", "question-geometry", "PROTOCOL.md");
 const defaultTarget = path.join(os.homedir(), ".codex", "skills", "ofone", "SKILL.md");
 
 const args = process.argv.slice(2);
@@ -25,7 +26,9 @@ for (let index = 0; index < args.length; index += 1) {
   }
 }
 
-const sourceText = fs.readFileSync(sourcePath, "utf8");
+const mainSkillText = fs.readFileSync(sourcePath, "utf8").trimEnd();
+const questionProtocolText = fs.readFileSync(questionProtocolPath, "utf8").trim();
+const sourceText = `${mainSkillText}\n\n${questionProtocolText}\n`;
 assertSkillSource(sourceText);
 const sourceHash = sha256(sourceText);
 
@@ -45,8 +48,9 @@ if (targetHash !== sourceHash) {
   fail(`installed skill is stale: source ${sourceHash}, target ${targetHash}`);
 }
 
-console.log(`${writeMode ? "Installed" : "Verified"} OfOne skill`);
+console.log(`${writeMode ? "Installed" : "Verified"} OfOne skill with Question Geometry runtime gate`);
 console.log(`source: ${sourcePath}`);
+console.log(`question protocol: ${questionProtocolPath}`);
 console.log(`target: ${targetPath}`);
 console.log(`sha256:${sourceHash}`);
 
@@ -81,12 +85,17 @@ function assertSkillSource(text) {
     "research/deep-research-extension-payloads.json",
     "research/deep-research-extension-report.json",
     "research/deep-research-manual-recovery.json",
-    "do not mark it launched, harvested, reviewed, complete, or aggregate-eligible"
+    "do not mark it launched, harvested, reviewed, complete, or aggregate-eligible",
+    "# Question Geometry Runtime Gate",
+    "attempt-stop <state.json> --write",
+    "Exit code `2` means the stop attempt was rejected",
+    "Implement causal-depth traversal",
+    "positive-net-value eligible question remains"
   ];
 
   const missing = required.filter((needle) => !text.includes(needle));
   if (missing.length > 0) {
-    fail(`source SKILL.md is missing required OfOne install invariant(s): ${missing.join(", ")}`);
+    fail(`source skill bundle is missing required OfOne invariant(s): ${missing.join(", ")}`);
   }
 
   const forbidden = [
@@ -95,7 +104,7 @@ function assertSkillSource(text) {
   ];
   const presentForbidden = forbidden.filter((needle) => text.includes(needle));
   if (presentForbidden.length > 0) {
-    fail(`source SKILL.md contains forbidden Chrome-fallback language: ${presentForbidden.join(", ")}`);
+    fail(`source skill bundle contains forbidden Chrome-fallback language: ${presentForbidden.join(", ")}`);
   }
 }
 

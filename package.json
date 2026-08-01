@@ -1,7 +1,7 @@
 {
   "name": "ofone-skillchain",
-  "version": "0.6.0",
-  "description": "OfOne typed causal-geometry compiler skillchain",
+  "version": "0.7.0",
+  "description": "OfOne typed inquiry, causal-geometry, and adaptive Question Geometry compiler",
   "type": "module",
   "scripts": {
     "validate": "node scripts/ofone-validate.mjs examples/*.json",
@@ -9,6 +9,12 @@
     "schema:check": "node scripts/ofone-schema-check.mjs",
     "render": "node scripts/ofone-render.mjs",
     "patch": "node scripts/ofone-patch.mjs",
+    "question:check": "node scripts/ofone-question-geometry-check.mjs examples/question-geometry/causal-depth.json",
+    "question:step": "node scripts/ofone-question-loop.mjs step examples/question-geometry/causal-depth.json",
+    "question:landscape": "node scripts/ofone-question-loop.mjs landscape examples/question-geometry/causal-depth.json",
+    "question:test": "node scripts/ofone-question-geometry-test.mjs",
+    "question:benchmark": "node scripts/ofone-question-benchmark.mjs benchmarks/question-geometry/suite.json",
+    "question:benchmark:write": "node scripts/ofone-question-benchmark.mjs benchmarks/question-geometry/suite.json --write",
     "voiceover": "node scripts/ofone-generate-voiceover.mjs",
     "benchmark": "node scripts/ofone-benchmark.mjs",
     "frontier:check": "node scripts/ofone-frontier-packet-check.mjs",
@@ -26,7 +32,7 @@
     "deep-research:manual-recovery:scan": "node scripts/ofone-deep-research-manual-recovery.mjs --check --scan-sources",
     "deep-research:manual-recovery:write": "node scripts/ofone-deep-research-manual-recovery.mjs --write",
     "review:check": "node scripts/ofone-review-check.mjs research/review-sidecars/*.json",
-    "test": "node scripts/ofone-test.mjs"
+    "test": "node scripts/ofone-test.mjs && node scripts/ofone-question-geometry-test.mjs"
   },
   "license": "MIT",
   "dependencies": {
