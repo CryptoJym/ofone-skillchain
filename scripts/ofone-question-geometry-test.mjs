@@ -176,6 +176,20 @@ test("low-yield repetition forces an escape operator instead of silent stopping"
   assert.notEqual(result.directive.question.type, "evidence");
 });
 
+test("robustness waiver requires a named human owner before it can bypass gates", () => {
+  const state = clone(fixture);
+  state.convergence.robustness_waiver = true;
+  let convergence = evaluateConvergence(state);
+  assert.ok(convergence.blockers.some((blocker) => blocker.code === "QG_WAIVER_NOT_OWNED"));
+  assert.ok(convergence.blockers.some((blocker) => blocker.code === "QG_DECISION_NOT_ROBUST"));
+  assert.ok(convergence.blockers.some((blocker) => blocker.code === "QG_RESIDUAL_DECISION_INFORMATION"));
+  state.convergence.waived_by = "named human reviewer";
+  convergence = evaluateConvergence(state);
+  assert.ok(!convergence.blockers.some((blocker) => blocker.code === "QG_WAIVER_NOT_OWNED"));
+  assert.ok(!convergence.blockers.some((blocker) => blocker.code === "QG_DECISION_NOT_ROBUST"));
+  assert.ok(!convergence.blockers.some((blocker) => blocker.code === "QG_RESIDUAL_DECISION_INFORMATION"));
+});
+
 let failures = 0;
 for (const { name, fn } of tests) {
   try {

@@ -1071,6 +1071,12 @@
         "robustness_waiver": {
           "type": "boolean"
         },
+        "waived_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "last_evaluation": {
           "type": "object"
         }

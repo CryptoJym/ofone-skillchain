@@ -128,6 +128,7 @@ The runtime blocks release while any of the following remain:
 - a material causal claim has not reached justified frame-relative bedrock;
 - a decision-sensitive contradiction remains open;
 - the current decision is not robust enough for the configured threshold;
+- a robustness or residual-information waiver lacks a named human owner (`waived_by`);
 - a positive-net-value eligible question remains;
 - a required challenge pass is missing;
 - residual risk lacks a named human owner;

@@ -376,6 +376,7 @@ Release is blocked while any of these remain:
 - unresolved decision-sensitive contradiction;
 - decision robustness below threshold;
 - residual EVPI above threshold;
+- a robustness/EVPI waiver present without a named `waived_by` owner;
 - positive-net-value eligible question;
 - residual risk without a named owner;
 - or iteration safety boundary reached.
