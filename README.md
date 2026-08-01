@@ -4,7 +4,7 @@
 > It is a reasoning method — packaged as an AI skill plus a toolkit of schemas and validators — that turns a hard question into an inspectable **decision map**, and only then renders the answer you read.
 
 [![version](https://img.shields.io/badge/version-0.6.0-blue)](./package.json)
-[![license](https://img.shields.io/badge/license-MIT-green)](./package.json)
+[![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![site](https://img.shields.io/badge/GitHub%20Pages-live-8A2BE2)](https://cryptojym.github.io/ofone-skillchain/)
 
 **Live walkthrough site:** <https://cryptojym.github.io/ofone-skillchain/> · **The skill itself:** [`SKILL.md`](./SKILL.md) · **Try it:** [five-minute tour](#try-it-in-five-minutes)
@@ -286,7 +286,7 @@ The machinery is real and measured: **10** JSON Schemas · **18** scripts wired 
 
 - Current package/artifact line: **0.6.0** (per [`package.json`](./package.json)). Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. They are not package or artifact release versions. The current public package/artifact line is `0.6.0` until `package.json` changes.
 - The full development history (200+ commits, May 13–21, 2026) lives on GitHub. If your local clone is shallow it may show only the tip commit — the `research/` trail is verifiable against the public commit history, not the local log.
-- License: **MIT** (declared in `package.json`).
+- License: **MIT** — see [`LICENSE`](./LICENSE) (copyright Utlyze; also declared in `package.json`).
 - One scoping note: `npm run validate` covers the decision-map artifacts (Micro/Map/Audit). The review sidecars and the Deep Research pipeline each have their own dedicated checkers (`npm run review:check`, `npm run deep-research:*`) — listed in the appendix.
 - The sections below are the repo's machine-checked operating state. They are preserved verbatim because the test suite (`npm test`) asserts these exact paths, commands, and boundary sentences exist in this README — the documentation is under the same contract discipline as the code.
 
