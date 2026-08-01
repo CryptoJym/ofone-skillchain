@@ -3,7 +3,7 @@
 > **OfOne makes big decisions show their work.**
 > It is a reasoning method — packaged as an AI skill plus a toolkit of schemas and validators — that turns a hard question into an inspectable **decision map**, and only then renders the answer you read.
 
-[![version](https://img.shields.io/badge/version-0.6.0-blue)](./package.json)
+[![version](https://img.shields.io/badge/version-0.7.0-blue)](./package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![site](https://img.shields.io/badge/GitHub%20Pages-live-8A2BE2)](https://cryptojym.github.io/ofone-skillchain/)
 
@@ -159,6 +159,28 @@ A patch is itself a typed operation (`supersede_evidence`, `downgrade_confidence
 npm run patch -- examples/strategy-micro.json E1
 ```
 
+## New in 0.7.0 — the question engine
+
+The decision map answers *"what do we know, and what should we do?"* Since 0.7.0 a second, linked engine — **Question Geometry** — answers the harder operational question: *"what should we ask next, and when are we allowed to stop asking?"*
+
+It treats every candidate question as an operator with measurable expected effects — on uncertainty (expected information gain), on the decision itself (expected value of new information), on movement through belief space (Fisher–Rao displacement), on causal discrimination, and on what it unlocks later — minus cost, risk, delay, and redundancy. Questions are kept on a **Pareto frontier** rather than pretending one score totally orders them, and every answer reshapes the landscape, so "the best next question" is always relative to the current state — never a fixed checklist.
+
+Its sharpest edge is the **stop gate**. An agent may not declare itself finished; it must ask:
+
+```bash
+node scripts/ofone-question-loop.mjs attempt-stop <state.json> --write
+```
+
+Exit code `2` means the stop was rejected — and the next mandatory question comes attached. Release requires, among other gates: every challenge pass completed (frame challenge, model expansion, adversarial, source independence, reversal), every material "why" chain landed on justified *frame-relative bedrock* (typed causal descent — the useful idea inside "Five Whys" without the arbitrary five), no positive-net-value question left on the table, residual decision uncertainty below threshold, and any waiver or accepted residual risk carrying a **named human owner**. Hand-editing `status: "converged"` into the file does nothing: the gate recomputes everything.
+
+```bash
+npm run question:check       # schema + semantic validation of the example state
+npm run question:test        # the engine's 11-test regression suite
+npm run question:benchmark   # interactive smoke-test benchmark (not superiority evidence)
+```
+
+Start with [`QUESTION_GEOMETRY.md`](./QUESTION_GEOMETRY.md), then [`docs/question-geometry-engine.md`](./docs/question-geometry-engine.md) for the full design. In the spirit of the rest of this repo, the included benchmark labels itself a scaffold and smoke test — **no empirical-superiority claim is made or supported** ([`benchmarks/question-geometry/suite.json`](./benchmarks/question-geometry/suite.json) says so in its own `release_guard`).
+
 ## Try it in five minutes
 
 All you need is Node.js. The toolkit has a single dependency (`ajv`, the JSON Schema validator).
@@ -206,7 +228,7 @@ The five examples span the four dialects on purpose:
 
 *Honest gap:* the contract library ([`lib/adapter-contracts.mjs`](./lib/adapter-contracts.mjs)) defines six executable adapters, but three of them — `strategic-agentic`, `normative-evaluative`, and `provisional` — appear only as axes inside hybrid maps so far, never yet as the primary adapter of a worked example.
 
-**Using Codex?** Install the skill locally with `npm run skill:install` and verify it with `npm run skill:check` — the installer writes `~/.codex/skills/ofone/SKILL.md` and hash-checks it against this repo so the live skill cannot silently drift.
+**Using Codex?** Install the skill locally with `npm run skill:install` and verify it with `npm run skill:check` — the installer writes `~/.codex/skills/ofone/SKILL.md` as a bundle of the core skill plus the Question Geometry runtime gate, hash-checked against this repo so the live skill cannot silently drift.
 
 ## Has OfOne been proven better? Honestly: not yet — and the repo refuses to pretend otherwise
 
@@ -254,14 +276,16 @@ The full run ledger, launch proofs, and ~150 timestamped status entries live in 
 
 ## What is actually in the repo
 
-The machinery is real and measured: **10** JSON Schemas · **18** scripts wired to **23** `npm run` targets with no orphans in either direction · **15** negative test fixtures that assert exact diagnostic codes · **358** internal doc links with **0** dead · **1** runtime dependency (`ajv`).
+The machinery is real and measured: **11** JSON Schemas · **22** scripts wired to **29** `npm run` targets with no orphans in either direction · **15** negative decision-map fixtures asserting exact diagnostic codes plus an **11**-test question-engine suite · **358** internal doc links with **0** dead · **1** runtime dependency (`ajv`).
 
 | Path | What lives there | Start with |
 |---|---|---|
 | [`SKILL.md`](./SKILL.md) | The complete skill: principles, object schemas, traversal, validator checklist | the whole file — it is the canonical spec |
 | [`docs/`](./docs/) | Architecture framing, research basis, object schemas, adapter contracts, validation model | [`docs/architecture-framing.md`](./docs/architecture-framing.md) |
-| [`schemas/`](./schemas/) | Executable JSON Schemas — the dispatcher routes Micro / Map / Audit profiles | [`schemas/ofone.schema.json`](./schemas/ofone.schema.json) |
-| [`scripts/`](./scripts/) | The validator, renderer, patcher, benchmark checker, and process guards | [`scripts/ofone-validate.mjs`](./scripts/ofone-validate.mjs) |
+| [`schemas/`](./schemas/) | Executable JSON Schemas — the dispatcher routes Micro / Map / Audit profiles, plus the question-engine state schema | [`schemas/ofone.schema.json`](./schemas/ofone.schema.json) |
+| [`lib/`](./lib/) | Shared engine code: the artifact graph, adapter contracts, and the Question Geometry runtime | [`lib/question-geometry/runtime.mjs`](./lib/question-geometry/runtime.mjs) |
+| [`scripts/`](./scripts/) | The validator, renderer, patcher, question loop, benchmark checkers, and process guards | [`scripts/ofone-validate.mjs`](./scripts/ofone-validate.mjs) |
+| [`skills/question-geometry/`](./skills/question-geometry/) | The question engine's operating protocol — bundled into the installed skill | [`skills/question-geometry/PROTOCOL.md`](./skills/question-geometry/PROTOCOL.md) |
 | [`examples/`](./examples/) | Five validated maps across the four dialects | [`examples/strategy-micro.json`](./examples/strategy-micro.json) |
 | [`benchmarks/`](./benchmarks/) | The predeclared three-arm benchmark: cases, frozen manifests, raw outputs, reviews, exclusions | [`benchmarks/README.md`](./benchmarks/README.md) |
 | [`research/`](./research/) | The recursive self-improvement loop: review protocol, external review runs, launch queues | [`research/recursive-improvement-loop.md`](./research/recursive-improvement-loop.md) |
@@ -281,13 +305,17 @@ The machinery is real and measured: **10** JSON Schemas · **18** scripts wired 
 | [`docs/loop-taxonomy.md`](./docs/loop-taxonomy.md) | modeling feedback dynamics | the nine loop types, detection cues, failure modes |
 | [`docs/confidence-model.md`](./docs/confidence-model.md) | wondering why confidence is words, not numbers | the eight-part ordinal confidence basis |
 | [`docs/walkthroughs/ofone-operating-walkthrough.md`](./docs/walkthroughs/ofone-operating-walkthrough.md) | a visual learner | the operating walkthrough behind the site and video storyboard |
+| [`docs/question-geometry-engine.md`](./docs/question-geometry-engine.md) | going deep on the question engine | the full navigation-geometry spec: landscape, EVPI, modes, stop surface |
+| [`docs/causal-depth-traversal.md`](./docs/causal-depth-traversal.md) | replacing "Five Whys" with something checkable | typed contrastive why-links, bedrock types, traversal rules |
+| [`docs/question-geometry-integration.md`](./docs/question-geometry-integration.md) | wiring the question sidecar to a decision map | the object mapping and recommended operating sequence |
+| [`docs/release-0.7.0-question-geometry.md`](./docs/release-0.7.0-question-geometry.md) | after the 0.7.0 changelog | what was added, and the explicit nonclaims |
 
 ## Status, versioning, license
 
-- Current package/artifact line: **0.6.0** (per [`package.json`](./package.json)). Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. They are not package or artifact release versions. The current public package/artifact line is `0.6.0` until `package.json` changes.
+- Current package line: **0.7.0** (per [`package.json`](./package.json) — the Question Geometry release). One naming caution from this repo's history: Review-round labels such as `v0.7` and `v0.8` name Deep Research review cycles. They are not package or artifact release versions. Those historical review-round labels predate the 0.7.0 package release and do not correspond to it; the package line was `0.6.0` until `package.json` changed with Question Geometry.
 - The full development history (200+ commits, May 13–21, 2026) lives on GitHub. If your local clone is shallow it may show only the tip commit — the `research/` trail is verifiable against the public commit history, not the local log.
 - License: **MIT** — see [`LICENSE`](./LICENSE) (copyright Utlyze; also declared in `package.json`).
-- One scoping note: `npm run validate` covers the decision-map artifacts (Micro/Map/Audit). The review sidecars and the Deep Research pipeline each have their own dedicated checkers (`npm run review:check`, `npm run deep-research:*`) — listed in the appendix.
+- One scoping note: `npm run validate` covers the decision-map artifacts (Micro/Map/Audit). The question engine (`npm run question:check`, `question:test`), the review sidecars (`npm run review:check`), and the Deep Research pipeline (`npm run deep-research:*`) each have their own dedicated checkers.
 - The sections below are the repo's machine-checked operating state. They are preserved verbatim because the test suite (`npm test`) asserts these exact paths, commands, and boundary sentences exist in this README — the documentation is under the same contract discipline as the code.
 
 ---
